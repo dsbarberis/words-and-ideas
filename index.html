@@ -277,6 +277,7 @@
   }
 
   .mastery-btn:active { transform: scale(0.97); }
+  .mastery-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
 
   .btn-learning {
     background: #f1e4d0;
@@ -346,14 +347,76 @@
   @media (prefers-reduced-motion: reduce) {
     .face { transition: none; }
   }
+
+  /* Name gate (new) */
+  .gate-copy {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 auto 20px;
+    max-width: 460px;
+  }
+
+  .gate-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .name-input {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 9px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    min-width: 240px;
+  }
+
+  .name-input:focus-visible {
+    outline: 2px solid var(--burgundy);
+    outline-offset: 2px;
+  }
+
+  .gate-error {
+    text-align: center;
+    color: var(--burgundy);
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 6px;
+  }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<div class="wrap" id="gateScreen">
   <header>
     <h1>Latin Roots Flashcards</h1>
     <div class="subtitle">Bases and prefixes for building English vocabulary</div>
+  </header>
+
+  <hr class="rule" />
+
+  <div class="gate-copy">
+    Enter your name to begin. Your progress is saved on this device, and a short summary is sent to your teacher once you reach the end of the full list.
+  </div>
+
+  <div class="gate-row">
+    <input type="text" id="nameInput" class="name-input" placeholder="Your full name" autocomplete="off" />
+    <button class="nav-btn" id="beginBtn">Begin &rarr;</button>
+  </div>
+  <div class="gate-error" id="nameError"></div>
+</div>
+
+<div class="wrap" id="deckScreen" style="display:none;">
+  <header>
+    <h1>Latin Roots Flashcards</h1>
+    <div class="subtitle">Bases and prefixes for building English vocabulary</div>
+    <div class="subtitle" id="studentNameLabel" style="margin-top:4px;"></div>
   </header>
 
   <hr class="rule" />
@@ -362,6 +425,7 @@
     <button class="tab active" data-filter="all" role="tab" aria-selected="true">All (79)</button>
     <button class="tab" data-filter="base" role="tab" aria-selected="false">Bases (50)</button>
     <button class="tab" data-filter="prefix" role="tab" aria-selected="false">Prefixes (29)</button>
+    <button class="tab" data-filter="learning" role="tab" aria-selected="false">Still Learning (0)</button>
   </div>
 
   <div class="toolbar">
@@ -402,6 +466,7 @@
 
   <footer>
     Click the card (or press Space) to flip &middot; Arrow keys to move &middot;
+    <button id="switchStudentBtn">Not you? Switch student</button>
     <button id="clearFilterHint" style="display:none;"></button>
   </footer>
 </div>
@@ -490,17 +555,124 @@
     ["ULTRA-", "beyond, excessively", "ultraviolet, ultrasound, ultramodern", "prefix"],
   ].map(([term, meaning, examples, cat]) => ({ term, meaning, examples, cat }));
 
-  const STORAGE_KEY = "latinFlashcards_known_v1";
+  // ---------- Student identity & per-student storage ----------
+  function slug(s) {
+    return (s || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "student";
+  }
 
+  function storageKeys(sl) {
+    return {
+      known: "latinFlashcards_known_v2__" + sl,
+      learning: "latinFlashcards_learning_v2__" + sl,
+      sheetSent: "latinFlashcards_sheetSent_v2__" + sl
+    };
+  }
+
+  let currentName = "";
+  let currentSlug = "student";
   let known = new Set();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) known = new Set(JSON.parse(raw));
-  } catch (e) { /* storage unavailable, proceed without persistence */ }
+  let learningMarked = new Set();
+  let sheetSent = false;
+
+  function loadStudent(name) {
+    currentName = name;
+    currentSlug = slug(name);
+    var keys = storageKeys(currentSlug);
+    known = new Set();
+    learningMarked = new Set();
+    sheetSent = false;
+    try {
+      var validIdx = function (i) { return Number.isInteger(i) && i >= 0 && i < DATA.length; };
+      var rawK = localStorage.getItem(keys.known);
+      if (rawK) known = new Set(JSON.parse(rawK).filter(validIdx));
+      var rawL = localStorage.getItem(keys.learning);
+      if (rawL) learningMarked = new Set(JSON.parse(rawL).filter(validIdx));
+      sheetSent = localStorage.getItem(keys.sheetSent) === "1";
+    } catch (e) { /* storage unavailable, proceed without persistence */ }
+  }
 
   function saveKnown() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...known])); }
+    try { localStorage.setItem(storageKeys(currentSlug).known, JSON.stringify([...known])); }
     catch (e) { /* ignore */ }
+  }
+
+  function saveLearning() {
+    try { localStorage.setItem(storageKeys(currentSlug).learning, JSON.stringify([...learningMarked])); }
+    catch (e) { /* ignore */ }
+  }
+
+  function saveSheetSent() {
+    try { localStorage.setItem(storageKeys(currentSlug).sheetSent, sheetSent ? "1" : ""); }
+    catch (e) { /* ignore */ }
+  }
+
+  // ---------- Google Sheet backup (fires once, when a student first reaches
+  // the end of the full "All" list — this is a plain static GitHub page with
+  // no shared backend, so this hidden-form POST is the only way stats reach
+  // the teacher) ----------
+  var GFORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScRTznZybZBwbPW09lN3yGgdhbjKjGu03gU1t92h9_DLY7kOw/formResponse";
+  var GFORM_FIELDS = {
+    deck: "entry.959320872",
+    name: "entry.776497888",
+    passMode: "entry.693423775",
+    passScore: "entry.1886216116",
+    passSize: "entry.367439227",
+    cumCorrect: "entry.1206079657",
+    cumTotal: "entry.853509881",
+    resultsJson: "entry.211011489"
+  };
+  var DECK_NAME = "Latin Roots Flashcards";
+
+  function sendToSheet(payload) {
+    try {
+      var sinkId = "gform_sink";
+      var iframe = document.getElementById(sinkId);
+      if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.name = sinkId;
+        iframe.id = sinkId;
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+      }
+      var form = document.createElement("form");
+      form.action = GFORM_ACTION;
+      form.method = "POST";
+      form.target = sinkId;
+      form.style.display = "none";
+      Object.keys(payload).forEach(function (key) {
+        var fieldName = GFORM_FIELDS[key];
+        if (!fieldName) return;
+        var input = document.createElement("input");
+        input.name = fieldName;
+        input.value = String(payload[key]);
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(function () { if (form.parentNode) form.parentNode.removeChild(form); }, 3000);
+    } catch (e) { /* best-effort only — never block the student's flow */ }
+  }
+
+  function maybeSendCompletion(list) {
+    if (filter !== "all" || sheetSent) return;
+    if (pos !== list.length - 1) return;
+    sheetSent = true;
+    saveSheetSent();
+    var sparse = [];
+    DATA.forEach(function (_, i) {
+      if (known.has(i)) sparse.push({ i: i, r: true });
+      else if (learningMarked.has(i)) sparse.push({ i: i, r: false });
+    });
+    sendToSheet({
+      deck: DECK_NAME,
+      name: currentName,
+      passMode: "review",
+      passScore: known.size + "/" + DATA.length,
+      passSize: DATA.length,
+      cumCorrect: known.size,
+      cumTotal: DATA.length,
+      resultsJson: JSON.stringify(sparse)
+    });
   }
 
   let order = DATA.map((_, i) => i);
@@ -508,6 +680,12 @@
   let pos = 0;
   let flipped = false;
 
+  const gateScreen = document.getElementById("gateScreen");
+  const deckScreen = document.getElementById("deckScreen");
+  const nameInput = document.getElementById("nameInput");
+  const beginBtn = document.getElementById("beginBtn");
+  const nameError = document.getElementById("nameError");
+  const switchStudentBtn = document.getElementById("switchStudentBtn");
   const cardEl = document.getElementById("card");
   const termFront = document.getElementById("termFront");
   const tagFront = document.getElementById("tagFront");
@@ -524,8 +702,10 @@
   const shuffleBtn = document.getElementById("shuffleBtn");
   const resetBtn = document.getElementById("resetBtn");
   const tabs = document.querySelectorAll(".tab");
+  const learningTab = document.querySelector('.tab[data-filter="learning"]');
 
   function currentList() {
+    if (filter === "learning") return order.filter(i => learningMarked.has(i));
     return order.filter(i => filter === "all" || DATA[i].cat === filter);
   }
 
@@ -533,7 +713,33 @@
 
   function render() {
     const list = currentList();
-    if (list.length === 0) { list.push(0); }
+    if (learningTab) learningTab.textContent = `Still Learning (${learningMarked.size})`;
+
+    if (list.length === 0) {
+      // Nothing matches the current filter (e.g. "Still Learning" with
+      // nothing marked yet) — show an empty state instead of faking a card,
+      // and lock out every action that assumes a real card is on screen.
+      termFront.textContent = "Nothing here yet";
+      tagFront.textContent = "";
+      cardEl.classList.remove("flipped");
+      tagBack.textContent = "";
+      meaningBack.textContent = "";
+      examplesBack.textContent = "";
+      counterEl.textContent = "0 / 0";
+      knownBtn.classList.remove("active");
+      learningBtn.classList.remove("active");
+      knownBtn.disabled = true;
+      learningBtn.disabled = true;
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      knownCountEl.textContent = `${known.size} of ${DATA.length} marked known`;
+      progressFill.style.width = `${(known.size / DATA.length) * 100}%`;
+      return;
+    }
+
+    knownBtn.disabled = false;
+    learningBtn.disabled = false;
+
     if (pos >= list.length) pos = 0;
     if (pos < 0) pos = list.length - 1;
     const idx = list[pos];
@@ -557,9 +763,9 @@
 
     prevBtn.disabled = list.length <= 1;
     nextBtn.disabled = list.length <= 1;
-  }
 
-  let learningMarked = new Set();
+    maybeSendCompletion(list);
+  }
 
   function flip() {
     flipped = !flipped;
@@ -568,6 +774,7 @@
 
   function goNext() {
     const list = currentList();
+    if (list.length === 0) return;
     pos = (pos + 1) % list.length;
     flipped = false;
     render();
@@ -575,25 +782,32 @@
 
   function goPrev() {
     const list = currentList();
+    if (list.length === 0) return;
     pos = (pos - 1 + list.length) % list.length;
     flipped = false;
     render();
   }
 
   function markKnown() {
-    const idx = currentList()[pos];
+    const list = currentList();
+    if (list.length === 0) return;
+    const idx = list[pos];
     known.add(idx);
     learningMarked.delete(idx);
     saveKnown();
+    saveLearning();
     render();
     setTimeout(goNext, 220);
   }
 
   function markLearning() {
-    const idx = currentList()[pos];
+    const list = currentList();
+    if (list.length === 0) return;
+    const idx = list[pos];
     known.delete(idx);
     learningMarked.add(idx);
     saveKnown();
+    saveLearning();
     render();
     setTimeout(goNext, 120);
   }
@@ -607,6 +821,12 @@
     // write back shuffled positions into `order` for this filter, preserving others
     if (filter === "all") {
       order = list;
+    } else if (filter === "learning") {
+      let cursor = 0;
+      order = order.map(i => {
+        if (learningMarked.has(i)) { return list[cursor++]; }
+        return i;
+      });
     } else {
       let cursor = 0;
       order = order.map(i => {
@@ -626,6 +846,7 @@
 
   document.addEventListener("keydown", (e) => {
     if (e.target === cardEl) return;
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
     if (e.code === "ArrowRight") goNext();
     if (e.code === "ArrowLeft") goPrev();
     if (e.code === "Space") { e.preventDefault(); flip(); }
@@ -640,7 +861,10 @@
   resetBtn.addEventListener("click", () => {
     known = new Set();
     learningMarked = new Set();
+    sheetSent = false;
     saveKnown();
+    saveLearning();
+    saveSheetSent();
     render();
   });
 
@@ -655,6 +879,43 @@
       render();
     });
   });
+
+  // ---------- Name gate ----------
+  function startDeck() {
+    const v = nameInput.value.trim();
+    if (!v) { nameError.textContent = "Please enter your name to begin."; nameInput.focus(); return; }
+    nameError.textContent = "";
+    try { localStorage.setItem("latinFlashcards_lastName", v); } catch (e) { /* ignore */ }
+    loadStudent(v);
+    order = DATA.map((_, i) => i);
+    filter = "all";
+    pos = 0;
+    flipped = false;
+    tabs.forEach(t => {
+      const isAll = t.dataset.filter === "all";
+      t.classList.toggle("active", isAll);
+      t.setAttribute("aria-selected", isAll ? "true" : "false");
+    });
+    const nameLabel = document.getElementById("studentNameLabel");
+    if (nameLabel) nameLabel.textContent = "Studying as " + v;
+    gateScreen.style.display = "none";
+    deckScreen.style.display = "";
+    render();
+  }
+
+  beginBtn.addEventListener("click", startDeck);
+  nameInput.addEventListener("keydown", (e) => { if (e.key === "Enter") startDeck(); });
+
+  switchStudentBtn.addEventListener("click", () => {
+    deckScreen.style.display = "none";
+    gateScreen.style.display = "";
+    nameInput.focus();
+  });
+
+  try {
+    const last = localStorage.getItem("latinFlashcards_lastName");
+    if (last) nameInput.value = last;
+  } catch (e) { /* ignore */ }
 
   render();
 </script>
