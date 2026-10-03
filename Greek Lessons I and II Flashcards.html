@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Exercise III Flashcards</title>
+<title>Greek Lessons I &amp; II Flashcards</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
   /* Layout: a single index-card stage, flip front↔back; teacher dashboard is a separate full-width view reached by #teacher (presenter mode only) */
@@ -106,114 +106,77 @@
 (function(){
   "use strict";
 
-  // ---------- Content: Ayers Lesson IX, Exercise III ----------
+  // ---------- Content: Greek Lessons I & II — vocabulary from classical
+  // mythology and history. Each card shows the term; flipping reveals the
+  // full definition plus the classical allusion it comes from. ----------
   var CARDS = [
-    { n:1, ex:1, word:"SENILE",
-      sentence:"The principal doctor was lost in the imbecilities of a <span class=\"target\">senile</span> optimism.",
-      cite:"— Lytton Strachey",
-      parts:[["SEN-","old"],["-ile","“pertaining to,” “like”"]],
-      defn:"Pertaining to old age; showing the decline of mental faculties that comes with advanced age." },
-    { n:2, ex:1, word:"UNILATERAL",
-      sentence:"Ian Smith and his proclamation of UDI (<span class=\"target\">unilateral</span> declaration of independence) for the British territory of Rhodesia in 1965 gave Prime Minister Wilson and the British government a relentless barrage of headaches.",
-      cite:"",
-      parts:[["uni-","one"],["LATER-","side"],["-al","“pertaining to”"]],
-      defn:"Affecting or arising from one side only, without the agreement of others." },
-    { n:3, ex:1, word:"GENERATE",
-      sentence:"Try as he might, he could not <span class=\"target\">generate</span> any enthusiasm among his fellow councilmen for the issuing of bonds to raise money for new street lights.",
-      cite:"",
-      parts:[["GENER-","race, kind, origin (related to GEN-, “to give birth to, produce”)"],["-ate","to make, do"]],
-      defn:"To produce; to bring into being." },
-    { n:4, ex:1, word:"LUMINARY",
-      sentence:"An intimacy with Dr. Johnson, the great literary <span class=\"target\">luminary</span> of the day, was the crowning object of his aspiring and somewhat ludicrous ambition.",
-      cite:"— Washington Irving",
-      parts:[["LUMIN-","to shine; light"],["-ary","“one connected with”"]],
-      defn:"A person who has achieved eminence in a field, or who inspires and influences others." },
-    { n:5, ex:1, word:"TURBULENT",
-      sentence:"The <span class=\"target\">turbulent</span> multitude continued roaming and shouting and howling about the city during the day and a part of the night.",
-      cite:"— Washington Irving",
-      parts:[["TURB-","disorder, commotion"],["-ulent","“full of,” “disposed to”"]],
-      defn:"Full of disorder or commotion; unruly, disorderly.",
-      caution:"TURB- is not on this course’s assigned base list — a dictionary check confirms it, same as Ayers recommends." },
-    { n:6, ex:1, word:"AQUATIC",
-      sentence:"<span class=\"target\">Aquatic</span> sports are always popular on Florida’s lakes.",
-      cite:"",
-      parts:[["AQU(A)-","water"],["-ic","“pertaining to”"]],
-      defn:"Pertaining to water; carried out in or on water." },
-    { n:7, ex:1, word:"CORPULENT",
-      sentence:"He was generally clad in a long, patched livery coat… which bagged loosely around him, having evidently belonged to some <span class=\"target\">corpulent</span> predecessor.",
-      cite:"— Dickens",
-      parts:[["CORPOR-, CORP(US)-","body"],["-ulent","“full of,” “disposed to”"]],
-      defn:"Full of body; fat, stout, obese." },
-    { n:8, ex:1, word:"PRECARIOUS",
-      sentence:"The peace we have with us today is as <span class=\"target\">precarious</span> and unsatisfactory as the form of a strip artist with peritonitis.",
-      cite:"— E.B. White",
-      parts:[["PREC-","prayer"],["-ary (→ i)","“pertaining to”"],["-ous","“full of”"]],
-      defn:"Dependent on chance or circumstance; uncertain, insecure, risky.",
-      caution:"Etymologically “pertaining to prayer” — current meaning has drifted well away from the parts. See the Lesson IX slide on etymological vs. current meaning." },
-    { n:9, ex:1, word:"INVOKE",
-      sentence:"Please don’t <span class=\"target\">invoke</span> your petty little dogmas in discussion with me; when you think them through, come back and we can have a conversation instead of a button-pushing session.",
-      cite:"",
-      parts:[["in-","in, on, upon"],["VOC-, VOK-","to call"]],
-      defn:"To call upon; to appeal to or cite in support of an argument.",
-      caution:"VOC-/VOK- is not on this course’s assigned base list — confirm with a dictionary." },
-    { n:10, ex:1, word:"QUADRILATERAL",
-      sentence:"I want you to draw me two <span class=\"target\">quadrilaterals</span>—one a rhombus and one a trapezoid.",
-      cite:"",
-      parts:[["quadri-","four"],["LATER-","side"],["-al","“pertaining to”"]],
-      defn:"A four-sided figure." },
-    { n:11, ex:1, word:"GREGARIOUS",
-      sentence:"Though this <span class=\"target\">gregarious</span> man is an inveterate joiner and belongs to “every fraternal order in Muncie….”",
-      cite:"— Harper’s Magazine",
-      parts:[["GREG-","flock, herd"],["-ary (→ i)","“pertaining to”"],["-ous","“full of”"]],
-      defn:"Fond of the company of others; sociable.",
-      caution:"GREG- is not on this course’s assigned base list — confirm with a dictionary." },
-    { n:12, ex:1, word:"DEFLATED",
-      sentence:"She <span class=\"target\">deflated</span> his ego, at least momentarily, by announcing—to everyone within a ten-mile radius—that he had the intellectual range of a baked potato.",
-      cite:"",
-      parts:[["de-","down, from"],["FLAT-","to blow"]],
-      defn:"Let the air out of; figuratively, humbled or reduced someone’s pride." },
-    { n:13, ex:1, word:"RETAINED",
-      sentence:"He <span class=\"target\">retained</span> the best lawyer in the state but still lost his case.",
-      cite:"",
-      parts:[["re-","back, again"],["TEN-, TAIN-","to hold"]],
-      defn:"Hired and kept in one’s service; held onto." },
-    { n:14, ex:1, word:"GENERIC",
-      sentence:"Religions differ so much in their accidents that in discussing the religious question we must make it very <span class=\"target\">generic</span> and broad.",
-      cite:"— William James",
-      parts:[["GENER-","race, kind"],["-ic","“pertaining to”"]],
-      defn:"Pertaining to a whole class or kind; general, not specific." },
-    { n:15, ex:1, word:"INFLAMED",
-      sentence:"She was so hooked that even the very thought of him <span class=\"target\">inflamed</span> her passions.",
-      cite:"",
-      parts:[["in-","in, on"],["FLAM(M)-","flame"]],
-      defn:"Set on fire; figuratively, aroused or excited intensely." },
-    { n:16, ex:1, word:"LUMINOUS",
-      sentence:"…the flickering brightness from the inside shining up the chimney and making a <span class=\"target\">luminous</span> mist of the emerging smoke.",
-      cite:"— Thomas Hardy",
-      parts:[["LUMIN-","to shine; light"],["-ous","“full of”"]],
-      defn:"Full of light; shining, bright." },
-    { n:17, ex:1, word:"CONTEMPORARY",
-      sentence:"They had not learned the noble dialects of Greece and Rome … and they prized instead a cheap <span class=\"target\">contemporary</span> literature.",
-      cite:"— Thoreau",
-      parts:[["con-","together"],["TEMPOR-","time"],["-ary","“pertaining to”"]],
-      defn:"Belonging to the same time period; current, modern." },
-    { n:18, ex:1, word:"SERVILE",
-      sentence:"The will of the monarch produced a false and <span class=\"target\">servile</span> unanimity, and no more than two patriots had courage to speak their own sentiments, and those of their country.",
-      cite:"— Edward Gibbon",
-      parts:[["SERV-","to serve"],["-ile","“pertaining to,” “like”"]],
-      defn:"Slavish, submissive; like a servant or slave." },
-    { n:19, ex:1, word:"ENCHANTED",
-      sentence:"It would be a gross exaggeration to suggest that I was even for a moment <span class=\"target\">enchanted</span> by our illustrious guest of honor, a pompous ass if I ever met one.",
-      cite:"",
-      parts:[["en-","in, into (causative)"],["CANT-, CHANT-","to sing"]],
-      defn:"Put under a spell, as if by a magic song; captivated, charmed. (Used ironically here — the opposite is meant.)",
-      caution:"CANT-/CHANT- is not on this course’s assigned base list — confirm with a dictionary." },
-    { n:20, ex:1, word:"INFER",
-      sentence:"You may <span class=\"target\">infer</span> by my painful facial expressions that I consider your horrid rock music to have all the acoustical properties of a major industrial accident.",
-      cite:"",
-      parts:[["in-","in, into"],["FER-","to carry, bear"]],
-      defn:"To conclude from evidence; to deduce.",
-      caution:"FER- is not on this course’s assigned base list — confirm with a dictionary." }
+    { n:1, ex:1, word:"amazon",
+      defn:"A strong, powerful woman.",
+      origin:"From the Amazons, a legendary tribe of female warriors in Greek mythology." },
+    { n:2, ex:1, word:"Procrustean",
+      defn:"Effecting conformity by violent or ruthless means.",
+      origin:"From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size." },
+    { n:3, ex:1, word:"Chimerical",
+      defn:"Extremely fanciful; wildly imaginary.",
+      origin:"From the Chimera, a fire-breathing hybrid monster — part lion, part goat, part serpent." },
+    { n:4, ex:1, word:"nemesis",
+      defn:"Retribution; an unbeatable opponent.",
+      origin:"From Nemesis, the Greek goddess of retribution and righteous vengeance." },
+    { n:5, ex:1, word:"stygian",
+      defn:"Gloomy; infernally dark.",
+      origin:"From the River Styx, the gloomy river separating the living world from the underworld." },
+    { n:6, ex:1, word:"halcyon",
+      defn:"Calm; peaceful.",
+      origin:"From the mythical halcyon bird (identified with the kingfisher), said to calm the winds and sea while nesting." },
+    { n:7, ex:1, word:"mentor",
+      defn:"A wise counselor.",
+      origin:"From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey." },
+    { n:8, ex:1, word:"labyrinth",
+      defn:"A maze.",
+      origin:"From the maze built by Daedalus on Crete to house the Minotaur." },
+    { n:9, ex:1, word:"tantalize",
+      defn:"To tease by offering something desirable while keeping it out of reach.",
+      origin:"From Tantalus, condemned in the underworld to stand in water beneath fruit, neither of which he could ever reach." },
+    { n:10, ex:1, word:"odyssey",
+      defn:"A long wandering journey.",
+      origin:"From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy." },
+    { n:11, ex:1, word:"aegis",
+      defn:"Protection; sponsorship.",
+      origin:"From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — \"under the aegis of\" means under someone's protection." },
+    { n:12, ex:1, word:"Achilles' heel",
+      defn:"A point of vulnerability.",
+      origin:"From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx." },
+
+    { n:1, ex:2, word:"laconic",
+      defn:"Concise; using few words.",
+      origin:"From Laconia, the region around Sparta, whose people were famous for terse, blunt speech." },
+    { n:2, ex:2, word:"sword of Damocles",
+      defn:"A permanently threatening danger.",
+      origin:"From the courtier Damocles, seated beneath a sword hung by a single hair, to illustrate how precarious a ruler's power really is." },
+    { n:3, ex:2, word:"philippic",
+      defn:"A stinging verbal condemnation.",
+      origin:"From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon." },
+    { n:4, ex:2, word:"Draconian",
+      defn:"Extremely harsh.",
+      origin:"From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses." },
+    { n:5, ex:2, word:"solecism",
+      defn:"A grammatical or social error.",
+      origin:"From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly." },
+    { n:6, ex:2, word:"epicure",
+      defn:"A person of discriminating taste, especially in food and wine.",
+      origin:"From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking." },
+    { n:7, ex:2, word:"cynic",
+      defn:"A person who believes all human actions are prompted by self-interest.",
+      origin:"From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives." },
+    { n:8, ex:2, word:"sybarite",
+      defn:"A person devoted to luxury and pleasure.",
+      origin:"From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens." },
+    { n:9, ex:2, word:"ostracism",
+      defn:"Exclusion from society.",
+      origin:"From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years." },
+    { n:10, ex:2, word:"Pyrrhic",
+      defn:"Pertaining to a victory won at such great cost it is nearly as bad as a defeat.",
+      origin:"From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him." }
   ];
   var TOTAL = CARDS.length;
 
@@ -238,9 +201,9 @@
 
   // ---------- State ----------
   var state = { screen:"gate", name:"", idx:0, deckOrder:null, passResults:null, passMode:"full", results:null, flipped:false, syncStatus:null, submitted:false, attemptNumber:null, attemptId:null, presenterMode:false, sheetSent:false };
-  try{ state.presenterMode = sessionStorage.getItem("ex3_pm") === "1"; }catch(e){}
+  try{ state.presenterMode = sessionStorage.getItem("greek12_pm") === "1"; }catch(e){}
   try{
-    var savedName = localStorage.getItem("ex3_name");
+    var savedName = localStorage.getItem("greek12_name");
     if (savedName) state.name = savedName;
   }catch(e){}
 
@@ -248,7 +211,7 @@
   // brand-new full deck (identity order — only a redo gets shuffled).
   function loadStateForName(name){
     var savedProg = null;
-    try{ savedProg = JSON.parse(localStorage.getItem("ex3_progress")||"null"); }catch(e){}
+    try{ savedProg = JSON.parse(localStorage.getItem("greek12_progress")||"null"); }catch(e){}
     if (savedProg && savedProg.name === name && Array.isArray(savedProg.results) && savedProg.results.length===TOTAL && Array.isArray(savedProg.deckOrder) && savedProg.deckOrder.length){
       state.results = savedProg.results;
       state.deckOrder = savedProg.deckOrder;
@@ -271,7 +234,7 @@
   loadStateForName(state.name);
 
   function saveProgress(){
-    try{ localStorage.setItem("ex3_progress", JSON.stringify({name:state.name, idx:state.idx, results:state.results, deckOrder:state.deckOrder, passResults:state.passResults, passMode:state.passMode, submitted:state.submitted, attemptNumber:state.attemptNumber, attemptId:state.attemptId, sheetSent:state.sheetSent, updatedAt:new Date().toISOString()})); }catch(e){}
+    try{ localStorage.setItem("greek12_progress", JSON.stringify({name:state.name, idx:state.idx, results:state.results, deckOrder:state.deckOrder, passResults:state.passResults, passMode:state.passMode, submitted:state.submitted, attemptNumber:state.attemptNumber, attemptId:state.attemptId, sheetSent:state.sheetSent, updatedAt:new Date().toISOString()})); }catch(e){}
   }
 
   function slug(s){
@@ -301,7 +264,7 @@
 
   function resumeOrStart(name){
     var localRaw = null;
-    try{ localRaw = JSON.parse(localStorage.getItem("ex3_progress")||"null"); }catch(e){}
+    try{ localRaw = JSON.parse(localStorage.getItem("greek12_progress")||"null"); }catch(e){}
     var localMatches = !!(localRaw && localRaw.name===name && Array.isArray(localRaw.results) && localRaw.results.length===TOTAL && Array.isArray(localRaw.deckOrder) && localRaw.deckOrder.length);
     return dbP.then(function(db){
       if (!db){ loadStateForName(name); return; }
@@ -331,7 +294,7 @@
       if (__tapCount >= 5){
         __tapCount = 0;
         state.presenterMode = !state.presenterMode;
-        try{ sessionStorage.setItem("ex3_pm", state.presenterMode ? "1" : ""); }catch(e){}
+        try{ sessionStorage.setItem("greek12_pm", state.presenterMode ? "1" : ""); }catch(e){}
         var flash = document.getElementById("titleTap");
         if (flash){ flash.style.transition="color .2s"; flash.style.color = state.presenterMode ? "var(--good)" : "var(--bad)"; setTimeout(function(){ flash.style.color=""; },500); }
         render();
@@ -353,7 +316,7 @@
     cumTotal: "entry.853509881",
     resultsJson: "entry.211011489"
   };
-  var DECK_NAME = "Exercise III Flashcards";
+  var DECK_NAME = "Greek Lessons I & II Flashcards";
 
   function sendToSheet(payload){
     try{
@@ -476,9 +439,9 @@
 
   function renderGate(){
     app.innerHTML =
-      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
-      '<h1>Analyze &amp; Define</h1>' +
-      '<p class="sub">Twenty words from this lesson, in the sentences they actually appear in. Work out the base, prefix, and suffix — then the meaning in context — before you flip each card. Your answers save automatically as you go, so it’s fine to stop partway and pick up later.</p>' +
+      '<div class="eyebrow"><b id="titleTap">Greek Lessons I &amp; II</b></div>' +
+      '<h1>Match &amp; Define</h1>' +
+      '<p class="sub">Twenty-two words from classical mythology and history, across two exercises. Think of your best definition — then flip each card to check yourself. Your answers save automatically as you go, so it’s fine to stop partway and pick up later.</p>' +
       '<div class="gate">' +
         '<div class="card-label" style="margin-bottom:10px;">Enter your name to begin</div>' +
         '<input type="text" id="nameInput" placeholder="First and last name" value="'+esc(state.name)+'" maxlength="60">' +
@@ -492,7 +455,7 @@
       var v = document.getElementById("nameInput").value.trim();
       if (!v){ document.getElementById("nameInput").focus(); return; }
       state.name = v;
-      try{ localStorage.setItem("ex3_name", v); }catch(e){}
+      try{ localStorage.setItem("greek12_name", v); }catch(e){}
       var btn = document.getElementById("beginBtn");
       btn.disabled = true; btn.textContent = "Checking for a saved session…";
       resumeOrStart(v).then(function(){
@@ -521,7 +484,7 @@
 
     var passLabel = state.passMode==="missed" ? " &nbsp;·&nbsp; missed-cards retry" : "";
     var html = '';
-    html += '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III &nbsp;·&nbsp; '+esc(state.name)+passLabel+'</div>';
+    html += '<div class="eyebrow"><b id="titleTap">Greek Lessons I &amp; II</b> &nbsp;·&nbsp; Exercise '+c.ex+' &nbsp;·&nbsp; '+esc(state.name)+passLabel+'</div>';
     html += '<div class="dots">'+dots+'</div>';
     html += '<p class="progress-label">Card '+(i+1)+' of '+state.deckOrder.length+' &nbsp;·&nbsp; '+goodCount+' marked correct so far</p>';
     html += '<div class="card-shell">';
@@ -529,25 +492,17 @@
     html += '<div class="card">';
 
     if (!state.flipped){
-      html += '<div class="card-label">Analyze &amp; define the italicized word</div>';
+      html += '<div class="card-label">Give your best definition</div>';
       html += '<div class="card-body">';
-      html += '<div class="sentence">'+c.sentence+'</div>';
-      if (c.cite) html += '<div class="cite">'+esc(c.cite)+'</div>';
+      html += '<div class="word-title" style="text-align:center;">'+esc(c.word)+'</div>';
       html += '</div>';
-      html += '<div class="row center"><button class="primary" id="revealBtn">Reveal analysis</button></div>';
+      html += '<div class="row center"><button class="primary" id="revealBtn">Reveal definition</button></div>';
     } else {
       html += '<div class="card-label">Answer</div>';
       html += '<div class="card-body">';
       html += '<div class="word-title">'+esc(c.word)+'</div>';
-      html += '<div class="parts-row">';
-      c.parts.forEach(function(p,idx2){
-        if (idx2>0) html += '<span class="plus">+</span>';
-        html += '<span class="chip"><b>'+esc(p[0])+'</b>'+(p[1] ? ' — '+esc(p[1]) : '')+'</span>';
-      });
-      html += '</div>';
-      html += '<div class="defn"><b>Definition in context</b>'+esc(c.defn)+'</div>';
-      if (c.caution) html += '<div class="caution">'+esc(c.caution)+'</div>';
-      html += '<div class="recap">"'+c.sentence.replace(/<[^>]+>/g,'')+'"'+(c.cite? ' '+esc(c.cite):'')+'</div>';
+      html += '<div class="defn"><b>Definition</b>'+esc(c.defn)+'</div>';
+      if (c.origin) html += '<div class="recap">'+esc(c.origin)+'</div>';
       html += '</div>';
       html += '<div class="row center">';
       html += '<button class="good" id="gotItBtn">&#10003; I had it</button>';
@@ -627,7 +582,7 @@
         '</div>');
 
     app.innerHTML =
-      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
+      '<div class="eyebrow"><b id="titleTap">Greek Lessons I &amp; II</b></div>' +
       '<h1>Nice work, '+esc(state.name)+'.</h1>' +
       '<div class="summary">' +
         '<div class="score-big">'+passCorrect+' / '+passTotal+'</div>' +
@@ -675,9 +630,9 @@
   function renderTeacher(){
     app.className = "wrap wide";
     app.innerHTML =
-      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
+      '<div class="eyebrow"><b id="titleTap">Greek Lessons I &amp; II</b></div>' +
       '<h1>Teacher Dashboard</h1>' +
-      '<p class="sub">Live self-reported data for the Exercise III flashcard set. Every run through the deck is recorded as its own attempt, so repeat runs show up separately. Each answer saves the moment the student marks it, so a pass that’s abandoned partway isn’t lost — it just stays out of these stats until it’s finished. Anyone with this link can see this page — it is not access-controlled.</p>' +
+      '<p class="sub">Live self-reported data for the Greek Lessons I &amp; II flashcard set. Every run through the deck is recorded as its own attempt, so repeat runs show up separately. Each answer saves the moment the student marks it, so a pass that’s abandoned partway isn’t lost — it just stays out of these stats until it’s finished. Anyone with this link can see this page — it is not access-controlled.</p>' +
       '<div class="panel" id="rosterPanel">' +
         '<h2>Class roster</h2>' +
         '<p class="hint">One name per line, matched against attempts by name (not case-sensitive). Saving requires editor access to this artifact.</p>' +

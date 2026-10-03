@@ -564,7 +564,7 @@
     return {
       known: "latinFlashcards_known_v2__" + sl,
       learning: "latinFlashcards_learning_v2__" + sl,
-      sheetSent: "latinFlashcards_sheetSent_v2__" + sl
+      visited: "latinFlashcards_passVisited_v3__" + sl
     };
   }
 
@@ -572,7 +572,7 @@
   let currentSlug = "student";
   let known = new Set();
   let learningMarked = new Set();
-  let sheetSent = false;
+  let passVisited = new Set(); // cards seen in the current pass through the "All" list
 
   function loadStudent(name) {
     currentName = name;
@@ -580,14 +580,15 @@
     var keys = storageKeys(currentSlug);
     known = new Set();
     learningMarked = new Set();
-    sheetSent = false;
+    passVisited = new Set();
     try {
       var validIdx = function (i) { return Number.isInteger(i) && i >= 0 && i < DATA.length; };
       var rawK = localStorage.getItem(keys.known);
       if (rawK) known = new Set(JSON.parse(rawK).filter(validIdx));
       var rawL = localStorage.getItem(keys.learning);
       if (rawL) learningMarked = new Set(JSON.parse(rawL).filter(validIdx));
-      sheetSent = localStorage.getItem(keys.sheetSent) === "1";
+      var rawV = localStorage.getItem(keys.visited);
+      if (rawV) passVisited = new Set(JSON.parse(rawV).filter(validIdx));
     } catch (e) { /* storage unavailable, proceed without persistence */ }
   }
 
@@ -601,13 +602,13 @@
     catch (e) { /* ignore */ }
   }
 
-  function saveSheetSent() {
-    try { localStorage.setItem(storageKeys(currentSlug).sheetSent, sheetSent ? "1" : ""); }
+  function savePassVisited() {
+    try { localStorage.setItem(storageKeys(currentSlug).visited, JSON.stringify([...passVisited])); }
     catch (e) { /* ignore */ }
   }
 
-  // ---------- Google Sheet backup (fires once, when a student first reaches
-  // the end of the full "All" list — this is a plain static GitHub page with
+  // ---------- Google Sheet backup (fires once per completed pass through the
+  // full "All" list — this is a plain static GitHub page with
   // no shared backend, so this hidden-form POST is the only way stats reach
   // the teacher) ----------
   var GFORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScRTznZybZBwbPW09lN3yGgdhbjKjGu03gU1t92h9_DLY7kOw/formResponse";
@@ -653,11 +654,21 @@
     } catch (e) { /* best-effort only — never block the student's flow */ }
   }
 
+  // A "pass" = the student has seen every card in the "All" list and then
+  // moves forward past the last card (Next, or marking the last card). Each
+  // pass writes one row to the Sheet, so repeated passes are all recorded.
+  function notePassVisit(list) {
+    if (filter !== "all" || list.length === 0) return;
+    passVisited.add(list[pos]);
+    savePassVisited();
+  }
+
   function maybeSendCompletion(list) {
-    if (filter !== "all" || sheetSent) return;
+    if (filter !== "all" || list.length === 0) return;
     if (pos !== list.length - 1) return;
-    sheetSent = true;
-    saveSheetSent();
+    if (passVisited.size < DATA.length) return;
+    passVisited = new Set();
+    savePassVisited();
     var sparse = [];
     DATA.forEach(function (_, i) {
       if (known.has(i)) sparse.push({ i: i, r: true });
@@ -764,7 +775,7 @@
     prevBtn.disabled = list.length <= 1;
     nextBtn.disabled = list.length <= 1;
 
-    maybeSendCompletion(list);
+    notePassVisit(list);
   }
 
   function flip() {
@@ -775,6 +786,7 @@
   function goNext() {
     const list = currentList();
     if (list.length === 0) return;
+    maybeSendCompletion(list);
     pos = (pos + 1) % list.length;
     flipped = false;
     render();
@@ -861,10 +873,10 @@
   resetBtn.addEventListener("click", () => {
     known = new Set();
     learningMarked = new Set();
-    sheetSent = false;
+    passVisited = new Set();
     saveKnown();
     saveLearning();
-    saveSheetSent();
+    savePassVisited();
     render();
   });
 

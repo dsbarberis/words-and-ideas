@@ -501,7 +501,7 @@
       });
     }
     dbP.then(function(db){
-      if (!db) { if (final) setSyncStatus("err","Couldn’t connect — your result is saved on this device only. Use Copy below to send it to your teacher."); return; }
+      if (!db) return; // hosted outside claude.ai: the Google Sheet backup above is the reporting path, so no message to the student
       var ref = getAttemptRef(db);
       var nameSlug = slug(state.name);
       var passCorrect = state.passResults.filter(function(r){return r===true;}).length;
