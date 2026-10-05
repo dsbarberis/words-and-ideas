@@ -9,8 +9,8 @@
 module.exports = {
   id: "greekmyth",
   output: "Greek Mythology Flashcards.html",
-  title: "Greek Mythology Words Flashcards",
-  subtitle: "Twelve words from classical mythology",
+  title: "Greek Mythology Words Flashcards", // deck name sent to the Sheet
+  heading: "Greek Mythology Words",
   cardTag: "mythology",
   backLabel: "Origin",
   legacy: { progressKey: "greekmyth_progress", nameKey: "greekmyth_name" },

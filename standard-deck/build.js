@@ -15,8 +15,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   const { output, ...data } = deck;
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
-    .split("{{TITLE}}").join(escHtml(deck.title))
-    .split("{{SUBTITLE}}").join(escHtml(deck.subtitle))
+    .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
     .replace("{{DECK_JSON}}", () => json);
   fs.writeFileSync(path.join(here, "..", output), html);
   console.log("built " + output + " (" + deck.cards.length + " cards)");

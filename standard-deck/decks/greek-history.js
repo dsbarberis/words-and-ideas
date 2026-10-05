@@ -9,8 +9,8 @@
 module.exports = {
   id: "greekhist",
   output: "Greek History Flashcards.html",
-  title: "Greek History Words Flashcards",
-  subtitle: "Ten words from classical history",
+  title: "Greek History Words Flashcards", // deck name sent to the Sheet
+  heading: "Greek History Words",
   cardTag: "history",
   backLabel: "Origin",
   legacy: { progressKey: "greekhist_progress", nameKey: "greekhist_name" },

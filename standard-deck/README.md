@@ -18,6 +18,21 @@ node standard-deck/build.js
 
 Do not edit the generated deck files (for example `Greek Mythology Flashcards.html`) by hand.
 
+Each deck file sets `heading` (the title shown on the page and in the browser tab,
+such as "Greek Mythology Words") and `title` (the deck name sent to the Google Sheet,
+such as "Greek Mythology Words Flashcards"; keep it unchanged so Sheet rows stay together).
+
+## Phones, tablets and desktop
+
+- Touchscreens (phones and tablets): swipe left for the next card and right for the
+  previous one; there are no Prev/Next buttons. A small swipe hint shows until the
+  first swipe. In a quiz, a swipe left moves on only after the answer is checked.
+- Phones (screens up to 600px wide): compact header, a card sized to the screen, and
+  "Still learning"/"Know it" (Learn) or Next (Quiz) pinned to the bottom of the screen.
+- Desktop: Prev/Next buttons, arrow keys, and a two-finger trackpad (or sideways
+  mouse) swipe. The browser's own back/forward swipe is switched off on the page.
+- Text inputs use 16px type so iPhone Safari does not zoom in on them.
+
 ## Key-word lists
 
 Each card has one or more `senses` (alternative meanings). An answer is correct when,
