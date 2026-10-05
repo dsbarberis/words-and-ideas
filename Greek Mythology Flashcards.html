@@ -628,7 +628,7 @@
      pinch zoom still works. */
   * { touch-action: manipulation; }
 
-  .card { transition: transform 0.18s ease; touch-action: pan-y; }
+  .card { touch-action: pan-y; }
   .card.dragging, .card.dragging .face { transition: none; }
 
   /* Touchscreens (phones and tablets): swipe instead of Prev/Next. */
@@ -1786,51 +1786,89 @@
     cardEl.classList.toggle("flipped", flipped);
   }
 
-  // The card slides off in the direction of travel and the next one slides
-  // in from the other side (dir +1 = next, -1 = previous).
+  // The card slides off in the direction of travel and the next one glides
+  // in from the other side (dir +1 = next, -1 = previous). A flick passes its
+  // speed in, so the card carries on at that speed and then eases out. A move
+  // asked for while a card is still sliding waits its turn rather than being
+  // dropped, so every swipe moves exactly one card.
   let sliding = false;
   let advancing = false;  // a Know it / Still learning tap is about to move on
+  const slideQueue = [];
   const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function slideCard(dir, change) {
-    if (sliding) return;
-    if (REDUCED_MOTION || stage.hidden) { change(); return; }
-    sliding = true;
-    const dist = stage.offsetWidth + 40;
+  const EASE_OUT = "cubic-bezier(0.22, 0.8, 0.32, 1)";
+  function cardX() { return new DOMMatrix(getComputedStyle(cardEl).transform).m41 || 0; }
+  function moveCard(x, ms, easing, done) {
+    cardEl.style.transition = ms ? "transform " + ms + "ms " + easing : "none";
+    cardEl.style.transform = x ? "translateX(" + x + "px)" : "";
+    if (done) setTimeout(done, ms);
+  }
+  function snapBack() {
+    moveCard(0, 320, EASE_OUT, function () { if (!sliding) cardEl.style.transition = ""; });
+  }
+  let slideToken = 0;
+  // Switching mode or card set mid-slide drops the slide and anything queued.
+  function cancelSlides() {
+    slideToken++;
+    slideQueue.length = 0;
+    sliding = false;
     cardEl.classList.remove("dragging");
-    cardEl.classList.add("sliding");
-    cardEl.style.transform = "translateX(" + (-dir * dist) + "px)";
-    setTimeout(function () {
-      cardEl.classList.add("dragging");
+    moveCard(0, 0);
+    cardEl.style.transition = "";
+  }
+  function slideCard(dir, change, speed) {
+    if (sliding) { if (slideQueue.length < 3) slideQueue.push([dir, change]); return; }
+    if (REDUCED_MOTION || stage.hidden) { change(); return; }
+    if (typeof speed !== "number") speed = 0;  // button clicks pass an event
+    sliding = true;
+    const tok = ++slideToken;
+    const hurry = slideQueue.length > 0;
+    const dist = stage.offsetWidth + 40;
+    const from = cardX();
+    const remaining = Math.abs(-dir * dist - from);
+    // Out: at the flick's speed (or a gentle start), easing as it leaves.
+    let outMs = speed ? 1.8 * remaining / Math.max(speed, 0.6) : 300;
+    outMs = Math.round(Math.max(160, Math.min(hurry ? 200 : 360, outMs)));
+    cardEl.classList.add("dragging");
+    void cardEl.offsetWidth;
+    moveCard(-dir * dist, outMs, speed ? EASE_OUT : "cubic-bezier(0.5, 0, 0.75, 0.6)", function () {
+      if (tok !== slideToken) return;
       change();
-      cardEl.style.transform = "translateX(" + (dir * dist) + "px)";
+      moveCard(dir * dist * 0.6, 0);
       void cardEl.offsetWidth;
-      cardEl.classList.remove("dragging");
-      cardEl.style.transform = "";
-      setTimeout(function () { cardEl.classList.remove("sliding"); sliding = false; }, 200);
-    }, 180);
+      // In: glide and settle.
+      const inMs = slideQueue.length ? 220 : 380;
+      moveCard(0, inMs, EASE_OUT, function () {
+        if (tok !== slideToken) return;
+        cardEl.classList.remove("dragging");
+        cardEl.style.transition = "";
+        sliding = false;
+        const next = slideQueue.shift();
+        if (next) slideCard(next[0], next[1]);
+      });
+    });
   }
 
-  function goNext() {
+  function goNext(speed) {
     const list = currentList();
-    if (list.length === 0) return;
+    if (mode !== "learn" || list.length === 0) return;
     slideCard(1, function () {
       maybeSendLearnPass(list);
       pos = (pos + 1) % list.length;
       flipped = false;
       showHint = false;
       render();
-    });
+    }, speed);
   }
 
-  function goPrev() {
+  function goPrev(speed) {
     const list = currentList();
-    if (list.length === 0) return;
+    if (mode !== "learn" || list.length === 0) return;
     slideCard(-1, function () {
       pos = (pos - 1 + list.length) % list.length;
       flipped = false;
       showHint = false;
       render();
-    });
+    }, speed);
   }
 
   function markKnown() {
@@ -2080,14 +2118,14 @@
     quizNextBtn.focus();
   }
 
-  function quizNext() {
-    if (!quiz || quiz.phase !== "card" || !quiz.answers[quiz.pos]) return;
+  function quizNext(speed) {
+    if (!quiz || quiz.phase !== "card" || !quiz.answers[quiz.pos] || sliding) return;
     if (quiz.pos < quiz.order.length - 1) {
       slideCard(1, function () {
         quiz.pos++;
         saveQuiz();
         render();
-      });
+      }, speed);
       // Focus now, inside the tap, so phones open the keyboard (the old
       // card's front is hidden, so clearing the box early is not seen).
       answerInput.disabled = false;
@@ -2123,6 +2161,7 @@
   }
 
   function setMode(m) {
+    cancelSlides();
     mode = m;
     flipped = false;
     inputFor = null;
@@ -2188,65 +2227,101 @@
 
   // dir +1 = next card, -1 = previous card. In a quiz you can only move on,
   // and only once the answer has been checked.
-  function swipe(dir) {
+  function swipe(dir, speed) {
     if (deckScreen.hidden) return false;
     if (mode === "learn") {
       if (currentList().length <= 1) return false;
-      if (dir > 0) goNext(); else goPrev();
+      if (dir > 0) goNext(speed); else goPrev(speed);
       return true;
     }
-    if (dir > 0 && quiz && quiz.phase === "card" && quiz.answers[quiz.pos]) { quizNext(); return true; }
+    // In a quiz each card must be checked first, so swipes are not queued.
+    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && quiz.answers[quiz.pos]) { quizNext(speed); return true; }
     return false;
   }
 
   let touchStart = null;
   let swipeHandledAt = 0;
   stage.addEventListener("touchstart", function (e) {
-    if (sliding || e.touches.length !== 1 || (e.target.closest && e.target.closest("input, button, textarea"))) { touchStart = null; return; }
-    touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY, dragging: false };
+    if (e.touches.length !== 1 || (e.target.closest && e.target.closest("input, button, textarea"))) { touchStart = null; return; }
+    const x = e.touches[0].clientX;
+    // During a slide the gesture still counts (it is queued) but does not drag.
+    touchStart = { x: x, y: e.touches[0].clientY, dragging: false, follow: !sliding, track: [[e.timeStamp, x]] };
   }, { passive: true });
   stage.addEventListener("touchmove", function (e) {
     if (!touchStart) return;
-    const dx = e.touches[0].clientX - touchStart.x;
+    const x = e.touches[0].clientX;
+    const dx = x - touchStart.x;
     const dy = e.touches[0].clientY - touchStart.y;
+    touchStart.track.push([e.timeStamp, x]);
+    if (touchStart.track.length > 8) touchStart.track.shift();
     if (!touchStart.dragging && Math.abs(dx) > 10 && Math.abs(dx) > 1.5 * Math.abs(dy)) {
       touchStart.dragging = true;
-      cardEl.classList.add("dragging");
+      if (touchStart.follow) cardEl.classList.add("dragging");
     }
-    if (touchStart.dragging) cardEl.style.transform = "translateX(" + (dx * 0.5) + "px)";
+    // The card follows the finger exactly.
+    if (touchStart.dragging && touchStart.follow && !sliding) moveCard(dx, 0);
   }, { passive: true });
   function endTouch(e) {
     if (!touchStart) return;
     const t = e.changedTouches && e.changedTouches[0];
-    const dx = t ? t.clientX - touchStart.x : 0;
+    const x = t ? t.clientX : touchStart.x;
+    const dx = x - touchStart.x;
     const dy = t ? t.clientY - touchStart.y : 0;
-    const wasDragging = touchStart.dragging;
+    // Finger speed over the last ~100ms, in px per ms (negative = leftwards).
+    const tr = touchStart.track;
+    const now = e.timeStamp;
+    let k = 0;
+    while (k < tr.length - 1 && now - tr[k][0] > 100) k++;
+    const v = now > tr[k][0] ? (x - tr[k][1]) / (now - tr[k][0]) : 0;
+    const st = touchStart;
     touchStart = null;
-    if (wasDragging) swipeHandledAt = Date.now();
+    if (st.dragging) swipeHandledAt = Date.now();
+    const horizontal = Math.abs(dx) > 1.5 * Math.abs(dy);
+    // A long drag, or a short fast flick, in a consistent direction.
+    const enough = Math.abs(dx) >= 50 || (Math.abs(dx) >= 15 && Math.abs(v) >= 0.35);
+    const sameWay = Math.abs(v) < 0.1 || (v < 0) === (dx < 0);
     // Swipe left (finger moves left) = next card.
-    const moved = Math.abs(dx) >= 50 && Math.abs(dx) > 1.5 * Math.abs(dy) && swipe(dx < 0 ? 1 : -1);
-    if (!moved && !sliding) {
+    const moved = horizontal && enough && sameWay && swipe(dx < 0 ? 1 : -1, Math.abs(v));
+    if (!moved && st.follow && !sliding) {
       cardEl.classList.remove("dragging");
-      cardEl.style.transform = "";
+      snapBack();
     }
   }
   stage.addEventListener("touchend", endTouch);
   stage.addEventListener("touchcancel", endTouch);
 
   // Two-finger trackpad swipe or a sideways-scrolling mouse on desktop.
-  // One gesture moves one card; the next can start after a short pause.
+  // One gesture moves one card. After a trackpad swipe the computer keeps
+  // sending fading "coasting" signals for about a second; those belong to
+  // the same swipe, but a new swipe shows up as a fresh rise in speed, so it
+  // counts even while the last one is still coasting.
   let wheelAccum = 0;
   let wheelLocked = false;
   let wheelTimer = null;
+  let wheelPeak = 0;
+  let wheelLast = 0;
+  let wheelFaded = false;
   window.addEventListener("wheel", function (e) {
     if (deckScreen.hidden || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
     e.preventDefault();
+    const a = Math.abs(e.deltaX);
     clearTimeout(wheelTimer);
-    wheelTimer = setTimeout(function () { wheelAccum = 0; wheelLocked = false; }, 200);
-    if (wheelLocked) return;
+    wheelTimer = setTimeout(function () { wheelAccum = 0; wheelLocked = false; wheelLast = 0; }, 200);
+    if (wheelLocked) {
+      wheelPeak = Math.max(wheelPeak, a);
+      if (a < wheelPeak * 0.6) wheelFaded = true;
+      const fresh = wheelFaded && a >= 4 && a > wheelLast * 1.6 + 2;
+      wheelLast = a;
+      if (!fresh) return;
+      wheelLocked = false;
+      wheelAccum = 0;
+    }
+    wheelLast = a;
     wheelAccum += e.deltaX;
     if (Math.abs(wheelAccum) >= 60) {
       wheelLocked = true;
+      wheelPeak = a;
+      wheelFaded = false;
       swipe(wheelAccum > 0 ? 1 : -1);
       wheelAccum = 0;
     }
@@ -2281,6 +2356,7 @@
       learnTabs.forEach(function (t) { t.classList.remove("active"); t.setAttribute("aria-selected", "false"); });
       tab.classList.add("active");
       tab.setAttribute("aria-selected", "true");
+      cancelSlides();
       filter = tab.dataset.filter;
       pos = 0;
       flipped = false;
