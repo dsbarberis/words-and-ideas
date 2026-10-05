@@ -14,7 +14,7 @@ module.exports = {
   "CLUD": { forms: "CLUD-, CLUS-, [CLOS-]", kind: "base", meanings: ["to close","shut"], examples: "include, exclude, conclusion, closure", source: "Latin Roots" },
   "CRUC": { forms: "CRUC-", kind: "base", meanings: ["cross"], examples: "crucial, crucifix, excruciating", source: "Latin Roots" },
   "CUR": { forms: "CUR(R)-, CURS- [COURS-], [COR(S)-]", kind: "base", meanings: ["to run"], examples: "current, cursive, excursion, course", source: "Latin Roots" },
-  "DUC": { forms: "DUC-, DUCT-", kind: "base", meanings: ["to lead"], examples: "conduct, induce, deduction", source: "Latin Roots" },
+  "DUC": { forms: "DUC, DUCT-", kind: "base", meanings: ["to lead"], examples: "conduct, induce, deduction", source: "Latin Roots" },
   "FAC": { forms: "FAC- [FIC-]", kind: "base", meanings: ["to make","do"], examples: "factory, manufacture, fiction, deficient", source: "Latin Roots" },
   "FIN": { forms: "FIN-", kind: "base", meanings: ["end","boundary"], examples: "finish, final, infinite", source: "Latin Roots" },
   "FIRM": { forms: "FIRM-", kind: "base", meanings: ["strong","firm"], examples: "confirm, affirm, infirmary", source: "Latin Roots" },
@@ -48,10 +48,10 @@ module.exports = {
   "SENT": { forms: "SENT-, SENS-", kind: "base", meanings: ["to feel","perceive"], examples: "sentiment, sensation, consent", source: "Latin Roots" },
   "SPEC": { forms: "SPEC-, (SPIC-), SPECT-", kind: "base", meanings: ["to look","see"], examples: "spectacle, inspect, conspicuous", source: "Latin Roots" },
   "SPIR": { forms: "SPIR-", kind: "base", meanings: ["to breathe"], examples: "inspire, respire, conspire", source: "Latin Roots" },
-  "TRUD": { forms: "TRUD-, TRUS-", kind: "base", meanings: ["to push","thrust"], examples: "intrude, protrude, obtrusive", source: "Latin Roots" },
+  "TRUD": { forms: "TRUD, TRUS-", kind: "base", meanings: ["to push","thrust"], examples: "intrude, protrude, obtrusive", source: "Latin Roots" },
   "TURB": { forms: "TURB-", kind: "base", meanings: ["to disturb","confuse","crowd"], examples: "turbulent, disturb, perturb", source: "Latin Roots" },
   "UND": { forms: "UND- [OUND-]", kind: "base", meanings: ["wave"], examples: "undulate, abound, redundant", source: "Latin Roots" },
-  "VEN": { forms: "VEN-, VENT-, [VENU-]", kind: "base", meanings: ["to come"], examples: "convene, prevent, venue", source: "Latin Roots" },
+  "VEN": { forms: "VEN-, VENT, [VENU-]", kind: "base", meanings: ["to come"], examples: "convene, prevent, venue", source: "Latin Roots" },
   "VERB": { forms: "VERB-", kind: "base", meanings: ["word"], examples: "verbal, verbose, proverb", source: "Latin Roots" },
   "VERT": { forms: "VERT-, VERS-", kind: "base", meanings: ["to turn"], examples: "convert, reverse, invert", source: "Latin Roots" },
   "VEST": { forms: "VEST-", kind: "base", meanings: ["clothing"], examples: "invest, divest, vestment", source: "Latin Roots" },
@@ -119,8 +119,8 @@ module.exports = {
   "-AL": { forms: "-AL", kind: "suffix", meanings: ["pertaining to"], source: "Exercise III" },
   "-ATE": { forms: "-ATE", kind: "suffix", meanings: ["to make", "do"], source: "Exercise III" },
   // Exercise III gives -ary two meanings: "one connected with" (luminary)
-  // and "pertaining to" (contemporary, precarious, gregarious). The instructor
-  // confirmed both meanings on 2026-10-05.
+  // and "pertaining to" (contemporary, precarious, gregarious). Awaiting the
+  // instructor's ruling; both are kept for now.
   "-ARY": { forms: "-ARY", kind: "suffix", meanings: ["pertaining to", "one connected with"], source: "Exercise III" },
   "-ULENT": { forms: "-ULENT", kind: "suffix", meanings: ["full of", "disposed to"], source: "Exercise III" },
   "-IC": { forms: "-IC", kind: "suffix", meanings: ["pertaining to"], source: "Exercise III" },
