@@ -49,7 +49,7 @@ function resolveGlossary(card, file, deck) {
 // A word's analysis: each part as printed, with the glossary's full set of
 // meanings (and its note, unless the card gives its own).
 function resolveParts(card, file) {
-  if (!card.parts || card.kind !== "meaning") return card;
+  if (!card.parts) return card;
   return Object.assign({}, card, {
     parts: card.parts.map(function (pt) {
       const entry = glossary[pt.gloss];
