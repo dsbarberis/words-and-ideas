@@ -82,9 +82,8 @@ module.exports = {
       origin: "From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.",
       senses: [{ groups: [
         { terms: ["exclusion", "excluded", "rejection", "shunning", "shunned", "isolation"] },
-        { generic: true, terms: ["society", "community", "group", "others", "people", "everyone"] }
-      ], star: ["banishment", "banished", "exile", "outcast", "cast out"] }],
-      accepted: ["social", "socially"] },
+        { generic: true, terms: ["society", "social", "socially", "community", "group", "others", "people", "everyone"] }
+      ], star: ["banishment", "banished", "exile", "outcast", "cast out"] }] },
     { word: "Pyrrhic",
       defn: "Pertaining to a victory won at such great cost it is nearly as bad as a defeat.",
       origin: "From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.",
