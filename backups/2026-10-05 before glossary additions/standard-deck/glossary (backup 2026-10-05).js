@@ -109,13 +109,10 @@ module.exports = {
   "REG": { forms: "REG-, (RIG-), RECT-", kind: "base", meanings: ["to rule", "straight"], source: "Lesson IX" },
   "DOM": { forms: "DOM(IN)-", kind: "base", meanings: ["house", "master"], source: "Lesson IX" },
   "PRIM": { forms: "PRIM-", kind: "base", meanings: ["first"], source: "Lesson IX" },
-  "ANIM": { forms: "ANIM-", kind: "base", meanings: ["mind", "feeling", "life"], source: "Lesson IX" },
-  "ANN": { forms: "ANN-", kind: "base", meanings: ["year"], source: "Lesson IX" },
 
-  // ---- Other Latin prefixes (Exercise III, Lesson IX) ----
+  // ---- Other Latin prefixes (Exercise III) ----
   "UNI": { forms: "UNI-", kind: "prefix", meanings: ["one"], source: "Exercise III" },
   "QUADRI": { forms: "QUADRI-", kind: "prefix", meanings: ["four"], source: "Exercise III" },
-  "BI": { forms: "BI-", kind: "prefix", meanings: ["two", "twice"], source: "Lesson IX" },
 
   // ---- Suffixes (Exercise III) ----
   "-ILE": { forms: "-ILE", kind: "suffix", meanings: ["pertaining to", "like"], source: "Exercise III" },
