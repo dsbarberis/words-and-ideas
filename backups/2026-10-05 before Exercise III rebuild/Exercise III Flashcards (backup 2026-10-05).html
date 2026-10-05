@@ -1,0 +1,890 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Exercise III Flashcards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: a single index-card stage, flip front↔back; teacher dashboard is a separate full-width view reached by #teacher (presenter mode only) */
+  :root{
+    --bg:#E9E4D7; --surface:#FFFFFF; --surface-2:#F2EEE2; --ink:#20242A; --muted:#5B6069;
+    --line:#D9D2BF; --accent:#27465F; --accent-ink:#F5F1E7; --accent-2:#93702C;
+    --good:#3C7A52; --good-ink:#F2F8F3; --bad:#A6393D; --bad-ink:#FBEFEF;
+    --radius:16px; --radius-sm:10px;
+    --font-display:'Fraunces',Georgia,serif; --font-body:'Source Serif 4',Georgia,serif; --font-ui:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15181C; --surface:#1E2227; --surface-2:#22262C; --ink:#EAE6DC; --muted:#9BA1AA;
+      --line:#343B43; --accent:#8FB4D1; --accent-ink:#14222C; --accent-2:#D8B874;
+      --good:#6FBF8C; --good-ink:#0E1F15; --bad:#E2898C; --bad-ink:#2A1415;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15181C; --surface:#1E2227; --surface-2:#22262C; --ink:#EAE6DC; --muted:#9BA1AA;
+    --line:#343B43; --accent:#8FB4D1; --accent-ink:#14222C; --accent-2:#D8B874;
+    --good:#6FBF8C; --good-ink:#0E1F15; --bad:#E2898C; --bad-ink:#2A1415;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--font-body); margin:0; padding-inline:16px;}
+  .wrap{max-width:720px; margin:0 auto; padding-block:28px 48px;}
+  .wrap.wide{max-width:980px;}
+  .eyebrow{font-family:var(--font-ui); font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .eyebrow b{color:var(--accent-2); font-weight:600;}
+  h1{font-family:var(--font-display); font-weight:600; font-size:clamp(26px,4.2vw,36px); margin:6px 0 2px; text-wrap:balance;}
+  .sub{color:var(--muted); font-size:15px; margin:0 0 22px;}
+  .card-shell{position:relative; min-height:380px;}
+  .stackback{position:absolute; inset:0; border-radius:var(--radius); background:var(--surface-2); border:1px solid var(--line); transform:rotate(-2.2deg) translateY(6px);}
+  .stackback.two{transform:rotate(2.6deg) translateY(10px); opacity:.6;}
+  .card{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:30px 28px 24px; min-height:380px; display:flex; flex-direction:column; box-shadow:0 1px 2px rgba(0,0,0,.04);}
+  .card-label{font-family:var(--font-ui); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);}
+  .card-body{flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px; padding-block:12px;}
+  .sentence{font-family:var(--font-body); font-size:clamp(19px,2.6vw,23px); line-height:1.5;}
+  .target{font-style:italic; font-weight:600; color:var(--accent); box-shadow:inset 0 -0.35em 0 color-mix(in srgb, var(--accent-2) 28%, transparent); padding-inline:1px;}
+  .cite{font-family:var(--font-ui); font-size:13.5px; color:var(--muted); text-align:right;}
+  .word-title{font-family:var(--font-display); font-weight:700; font-size:clamp(24px,3.4vw,30px); letter-spacing:.01em;}
+  .parts-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  .chip{font-family:var(--font-ui); font-size:13.5px; background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:5px 12px; white-space:nowrap;}
+  .chip b{font-family:var(--font-body); font-weight:700;}
+  .plus{color:var(--muted); font-family:var(--font-ui); font-size:13px;}
+  .defn{font-size:17px; line-height:1.55;}
+  .defn b{font-family:var(--font-ui); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; display:block; margin-bottom:4px;}
+  .caution{font-family:var(--font-ui); font-size:12.5px; color:var(--accent-2); border-top:1px dashed var(--line); padding-top:10px; margin-top:2px;}
+  .recap{font-family:var(--font-ui); font-size:13px; color:var(--muted); font-style:italic; border-top:1px solid var(--line); padding-top:12px;}
+  .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+  .row.between{justify-content:space-between;}
+  .row.center{justify-content:center;}
+  button{font-family:var(--font-ui); font-size:14.5px; font-weight:600; cursor:pointer; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:11px 20px; transition:transform .08s ease, background .15s ease;}
+  button:hover{background:var(--surface-2);}
+  button:active{transform:scale(.97);}
+  button.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
+  button.primary:hover{filter:brightness(1.06);}
+  button.good{background:var(--good); color:var(--good-ink); border-color:var(--good);}
+  button.bad{background:var(--bad); color:var(--bad-ink); border-color:var(--bad);}
+  button.ghost{background:transparent; border-color:transparent; color:var(--muted); padding:8px 10px;}
+  button:disabled{opacity:.45; cursor:default;}
+  input[type=text]{font-family:var(--font-body); font-size:17px; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); background:var(--surface); color:var(--ink); width:100%;}
+  input[type=text]:focus, textarea:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  textarea{font-family:var(--font-ui); font-size:14px; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); background:var(--surface); color:var(--ink); width:100%; min-height:160px; resize:vertical;}
+  .gate{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:32px 28px; text-align:center;}
+  .gate .row{justify-content:center; margin-top:16px;}
+  .gate input{max-width:320px; margin:0 auto;}
+  .dots{display:flex; gap:5px; flex-wrap:wrap; margin-bottom:6px;}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--line);}
+  .dot.done-good{background:var(--good);}
+  .dot.done-bad{background:var(--bad);}
+  .dot.current{outline:2px solid var(--accent); outline-offset:2px;}
+  .progress-label{font-family:var(--font-ui); font-size:13px; color:var(--muted);}
+  .summary{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:36px 30px; text-align:center;}
+  .score-big{font-family:var(--font-display); font-weight:700; font-size:52px; color:var(--accent); line-height:1;}
+  .status-msg{font-family:var(--font-ui); font-size:13.5px; color:var(--muted); margin-top:10px; min-height:18px;}
+  .status-msg.ok{color:var(--good);}
+  .status-msg.err{color:var(--bad);}
+  .copy-box{display:flex; gap:8px; margin-top:14px; align-items:center;}
+  .copy-box input{font-size:13px;}
+  .footer-link{text-align:center; margin-top:30px; font-family:var(--font-ui); font-size:12.5px;}
+  .footer-link a{color:var(--muted); text-decoration:none; border-bottom:1px dotted var(--muted);}
+  table{width:100%; border-collapse:collapse; font-family:var(--font-ui); font-size:14px;}
+  th,td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line);}
+  th{font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:600;}
+  .pill{display:inline-block; font-family:var(--font-ui); font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px;}
+  .pill.yes{background:color-mix(in srgb, var(--good) 20%, transparent); color:var(--good);}
+  .pill.no{background:color-mix(in srgb, var(--bad) 16%, transparent); color:var(--bad);}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px 24px; margin-bottom:20px;}
+  .panel h2{font-family:var(--font-display); font-size:19px; margin:0 0 4px;}
+  .panel .hint{color:var(--muted); font-size:13px; margin:0 0 12px;}
+  .stat-row{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:4px;}
+  .stat{font-family:var(--font-ui);}
+  .stat .n{font-family:var(--font-display); font-weight:700; font-size:26px; color:var(--accent);}
+  .stat .l{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;}
+  [hidden]{display:none!important;}
+  @media (max-width:480px){ .card{padding:22px 18px 18px;} .score-big{font-size:42px;} }
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Content: Ayers Lesson IX, Exercise III ----------
+  var CARDS = [
+    { n:1, ex:1, word:"SENILE",
+      sentence:"The principal doctor was lost in the imbecilities of a <span class=\"target\">senile</span> optimism.",
+      cite:"— Lytton Strachey",
+      parts:[["SEN-","old"],["-ile","“pertaining to,” “like”"]],
+      defn:"Pertaining to old age; showing the decline of mental faculties that comes with advanced age." },
+    { n:2, ex:1, word:"UNILATERAL",
+      sentence:"Ian Smith and his proclamation of UDI (<span class=\"target\">unilateral</span> declaration of independence) for the British territory of Rhodesia in 1965 gave Prime Minister Wilson and the British government a relentless barrage of headaches.",
+      cite:"",
+      parts:[["uni-","one"],["LATER-","side"],["-al","“pertaining to”"]],
+      defn:"Affecting or arising from one side only, without the agreement of others." },
+    { n:3, ex:1, word:"GENERATE",
+      sentence:"Try as he might, he could not <span class=\"target\">generate</span> any enthusiasm among his fellow councilmen for the issuing of bonds to raise money for new street lights.",
+      cite:"",
+      parts:[["GENER-","race, kind, origin (related to GEN-, “to give birth to, produce”)"],["-ate","to make, do"]],
+      defn:"To produce; to bring into being." },
+    { n:4, ex:1, word:"LUMINARY",
+      sentence:"An intimacy with Dr. Johnson, the great literary <span class=\"target\">luminary</span> of the day, was the crowning object of his aspiring and somewhat ludicrous ambition.",
+      cite:"— Washington Irving",
+      parts:[["LUMIN-","to shine; light"],["-ary","“one connected with”"]],
+      defn:"A person who has achieved eminence in a field, or who inspires and influences others." },
+    { n:5, ex:1, word:"TURBULENT",
+      sentence:"The <span class=\"target\">turbulent</span> multitude continued roaming and shouting and howling about the city during the day and a part of the night.",
+      cite:"— Washington Irving",
+      parts:[["TURB-","disorder, commotion"],["-ulent","“full of,” “disposed to”"]],
+      defn:"Full of disorder or commotion; unruly, disorderly.",
+      caution:"TURB- is not on this course’s assigned base list — a dictionary check confirms it, same as Ayers recommends." },
+    { n:6, ex:1, word:"AQUATIC",
+      sentence:"<span class=\"target\">Aquatic</span> sports are always popular on Florida’s lakes.",
+      cite:"",
+      parts:[["AQU(A)-","water"],["-ic","“pertaining to”"]],
+      defn:"Pertaining to water; carried out in or on water." },
+    { n:7, ex:1, word:"CORPULENT",
+      sentence:"He was generally clad in a long, patched livery coat… which bagged loosely around him, having evidently belonged to some <span class=\"target\">corpulent</span> predecessor.",
+      cite:"— Dickens",
+      parts:[["CORPOR-, CORP(US)-","body"],["-ulent","“full of,” “disposed to”"]],
+      defn:"Full of body; fat, stout, obese." },
+    { n:8, ex:1, word:"PRECARIOUS",
+      sentence:"The peace we have with us today is as <span class=\"target\">precarious</span> and unsatisfactory as the form of a strip artist with peritonitis.",
+      cite:"— E.B. White",
+      parts:[["PREC-","prayer"],["-ary (→ i)","“pertaining to”"],["-ous","“full of”"]],
+      defn:"Dependent on chance or circumstance; uncertain, insecure, risky.",
+      caution:"Etymologically “pertaining to prayer” — current meaning has drifted well away from the parts. See the Lesson IX slide on etymological vs. current meaning." },
+    { n:9, ex:1, word:"INVOKE",
+      sentence:"Please don’t <span class=\"target\">invoke</span> your petty little dogmas in discussion with me; when you think them through, come back and we can have a conversation instead of a button-pushing session.",
+      cite:"",
+      parts:[["in-","in, on, upon"],["VOC-, VOK-","to call"]],
+      defn:"To call upon; to appeal to or cite in support of an argument.",
+      caution:"VOC-/VOK- is not on this course’s assigned base list — confirm with a dictionary." },
+    { n:10, ex:1, word:"QUADRILATERAL",
+      sentence:"I want you to draw me two <span class=\"target\">quadrilaterals</span>—one a rhombus and one a trapezoid.",
+      cite:"",
+      parts:[["quadri-","four"],["LATER-","side"],["-al","“pertaining to”"]],
+      defn:"A four-sided figure." },
+    { n:11, ex:1, word:"GREGARIOUS",
+      sentence:"Though this <span class=\"target\">gregarious</span> man is an inveterate joiner and belongs to “every fraternal order in Muncie….”",
+      cite:"— Harper’s Magazine",
+      parts:[["GREG-","flock, herd"],["-ary (→ i)","“pertaining to”"],["-ous","“full of”"]],
+      defn:"Fond of the company of others; sociable.",
+      caution:"GREG- is not on this course’s assigned base list — confirm with a dictionary." },
+    { n:12, ex:1, word:"DEFLATED",
+      sentence:"She <span class=\"target\">deflated</span> his ego, at least momentarily, by announcing—to everyone within a ten-mile radius—that he had the intellectual range of a baked potato.",
+      cite:"",
+      parts:[["de-","down, from"],["FLAT-","to blow"]],
+      defn:"Let the air out of; figuratively, humbled or reduced someone’s pride." },
+    { n:13, ex:1, word:"RETAINED",
+      sentence:"He <span class=\"target\">retained</span> the best lawyer in the state but still lost his case.",
+      cite:"",
+      parts:[["re-","back, again"],["TEN-, TAIN-","to hold"]],
+      defn:"Hired and kept in one’s service; held onto." },
+    { n:14, ex:1, word:"GENERIC",
+      sentence:"Religions differ so much in their accidents that in discussing the religious question we must make it very <span class=\"target\">generic</span> and broad.",
+      cite:"— William James",
+      parts:[["GENER-","race, kind"],["-ic","“pertaining to”"]],
+      defn:"Pertaining to a whole class or kind; general, not specific." },
+    { n:15, ex:1, word:"INFLAMED",
+      sentence:"She was so hooked that even the very thought of him <span class=\"target\">inflamed</span> her passions.",
+      cite:"",
+      parts:[["in-","in, on"],["FLAM(M)-","flame"]],
+      defn:"Set on fire; figuratively, aroused or excited intensely." },
+    { n:16, ex:1, word:"LUMINOUS",
+      sentence:"…the flickering brightness from the inside shining up the chimney and making a <span class=\"target\">luminous</span> mist of the emerging smoke.",
+      cite:"— Thomas Hardy",
+      parts:[["LUMIN-","to shine; light"],["-ous","“full of”"]],
+      defn:"Full of light; shining, bright." },
+    { n:17, ex:1, word:"CONTEMPORARY",
+      sentence:"They had not learned the noble dialects of Greece and Rome … and they prized instead a cheap <span class=\"target\">contemporary</span> literature.",
+      cite:"— Thoreau",
+      parts:[["con-","together"],["TEMPOR-","time"],["-ary","“pertaining to”"]],
+      defn:"Belonging to the same time period; current, modern." },
+    { n:18, ex:1, word:"SERVILE",
+      sentence:"The will of the monarch produced a false and <span class=\"target\">servile</span> unanimity, and no more than two patriots had courage to speak their own sentiments, and those of their country.",
+      cite:"— Edward Gibbon",
+      parts:[["SERV-","to serve"],["-ile","“pertaining to,” “like”"]],
+      defn:"Slavish, submissive; like a servant or slave." },
+    { n:19, ex:1, word:"ENCHANTED",
+      sentence:"It would be a gross exaggeration to suggest that I was even for a moment <span class=\"target\">enchanted</span> by our illustrious guest of honor, a pompous ass if I ever met one.",
+      cite:"",
+      parts:[["en-","in, into (causative)"],["CANT-, CHANT-","to sing"]],
+      defn:"Put under a spell, as if by a magic song; captivated, charmed. (Used ironically here — the opposite is meant.)",
+      caution:"CANT-/CHANT- is not on this course’s assigned base list — confirm with a dictionary." },
+    { n:20, ex:1, word:"INFER",
+      sentence:"You may <span class=\"target\">infer</span> by my painful facial expressions that I consider your horrid rock music to have all the acoustical properties of a major industrial accident.",
+      cite:"",
+      parts:[["in-","in, into"],["FER-","to carry, bear"]],
+      defn:"To conclude from evidence; to deduce.",
+      caution:"FER- is not on this course’s assigned base list — confirm with a dictionary." }
+  ];
+  var TOTAL = CARDS.length;
+
+  function esc(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; }
+
+  // ---------- Deck ordering: identity order on a first pass, shuffled
+  // on any subsequent pass (full redo or missed-only). ----------
+  function fullIndices(){ var arr=[]; for (var k=0;k<TOTAL;k++) arr.push(k); return arr; }
+  function shuffleArray(arr){
+    for (var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+    return arr;
+  }
+  function buildDeckOrder(indices, doShuffle){
+    var out = indices.slice();
+    if (doShuffle) shuffleArray(out);
+    return out;
+  }
+  function freshDeck(doShuffle, indices, mode){
+    var order = buildDeckOrder(indices, doShuffle);
+    return { deckOrder:order, passResults:new Array(order.length).fill(null), passMode:mode, idx:0, submitted:false, attemptNumber:null };
+  }
+
+  // ---------- State ----------
+  var state = { screen:"gate", name:"", idx:0, deckOrder:null, passResults:null, passMode:"full", results:null, flipped:false, syncStatus:null, submitted:false, attemptNumber:null, attemptId:null, presenterMode:false, sheetSent:false };
+  try{ state.presenterMode = sessionStorage.getItem("ex3_pm") === "1"; }catch(e){}
+  try{
+    var savedName = localStorage.getItem("ex3_name");
+    if (savedName) state.name = savedName;
+  }catch(e){}
+
+  // Loads saved progress for this student name if it matches, else starts a
+  // brand-new full deck (identity order — only a redo gets shuffled).
+  function loadStateForName(name){
+    var savedProg = null;
+    try{ savedProg = JSON.parse(localStorage.getItem("ex3_progress")||"null"); }catch(e){}
+    if (savedProg && savedProg.name === name && Array.isArray(savedProg.results) && savedProg.results.length===TOTAL && Array.isArray(savedProg.deckOrder) && savedProg.deckOrder.length){
+      state.results = savedProg.results;
+      state.deckOrder = savedProg.deckOrder;
+      state.passMode = savedProg.passMode || "full";
+      state.passResults = (Array.isArray(savedProg.passResults) && savedProg.passResults.length===state.deckOrder.length) ? savedProg.passResults : new Array(state.deckOrder.length).fill(null);
+      state.idx = Math.min(savedProg.idx||0, state.deckOrder.length-1);
+      state.submitted = !!savedProg.submitted;
+      state.attemptNumber = savedProg.attemptNumber || null;
+      state.attemptId = savedProg.attemptId || null;
+      state.sheetSent = !!savedProg.sheetSent;
+    } else {
+      state.results = new Array(TOTAL).fill(null);
+      var d = freshDeck(false, fullIndices(), "full");
+      state.deckOrder = d.deckOrder; state.passResults = d.passResults; state.passMode = d.passMode;
+      state.idx = d.idx; state.submitted = d.submitted; state.attemptNumber = d.attemptNumber;
+      state.attemptId = null;
+      state.sheetSent = false;
+    }
+  }
+  loadStateForName(state.name);
+
+  function saveProgress(){
+    try{ localStorage.setItem("ex3_progress", JSON.stringify({name:state.name, idx:state.idx, results:state.results, deckOrder:state.deckOrder, passResults:state.passResults, passMode:state.passMode, submitted:state.submitted, attemptNumber:state.attemptNumber, attemptId:state.attemptId, sheetSent:state.sheetSent, updatedAt:new Date().toISOString()})); }catch(e){}
+  }
+
+  function slug(s){
+    return (s||"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "student";
+  }
+
+  // Cross-device resume: localStorage only covers THIS browser, so a
+  // student who switches devices mid-pass would otherwise look like a
+  // brand-new student. On "Begin," check the shared database for this
+  // name's most recent still-in-progress attempt (synced on every card —
+  // see syncAttempt below) and compare it against whatever this device has
+  // saved locally; whichever is more recently updated wins. If neither
+  // exists, start a fresh full deck.
+  function applyFromCloud(cloudDoc){
+    var order = Array.isArray(cloudDoc.deckOrder) && cloudDoc.deckOrder.length ? cloudDoc.deckOrder : null;
+    if (!order){ loadStateForName(state.name); return; }
+    state.deckOrder = order;
+    state.results = (Array.isArray(cloudDoc.cumResults) && cloudDoc.cumResults.length===TOTAL) ? cloudDoc.cumResults : new Array(TOTAL).fill(null);
+    state.passResults = (Array.isArray(cloudDoc.passResults) && cloudDoc.passResults.length===order.length) ? cloudDoc.passResults : new Array(order.length).fill(null);
+    state.passMode = cloudDoc.passMode || "full";
+    state.idx = Math.min(cloudDoc.idx||0, order.length-1);
+    state.attemptId = cloudDoc._id || null;
+    state.submitted = false;
+    state.attemptNumber = null;
+    saveProgress();
+  }
+
+  function resumeOrStart(name){
+    var localRaw = null;
+    try{ localRaw = JSON.parse(localStorage.getItem("ex3_progress")||"null"); }catch(e){}
+    var localMatches = !!(localRaw && localRaw.name===name && Array.isArray(localRaw.results) && localRaw.results.length===TOTAL && Array.isArray(localRaw.deckOrder) && localRaw.deckOrder.length);
+    return dbP.then(function(db){
+      if (!db){ loadStateForName(name); return; }
+      var nameSlug = slug(name);
+      return db.collection("attempts").where("nameSlug","==",nameSlug).where("completed","==",false).orderBy("updatedAt","desc").limit(1).get().then(function(snap){
+        var cloudDoc = (snap && snap.docs && snap.docs.length) ? snap.docs[0].data() : null;
+        if (cloudDoc) cloudDoc._id = snap.docs[0].id;
+        if (cloudDoc && (!localMatches || (cloudDoc.updatedAt||"") > (localRaw.updatedAt||""))){
+          applyFromCloud(cloudDoc);
+        } else {
+          loadStateForName(name);
+        }
+      });
+    }).catch(function(){ loadStateForName(name); });
+  }
+
+  // Five quick taps on the small title text toggle presenter mode — no
+  // visible control, so students browsing the page won't notice it.
+  var __tapCount = 0, __tapTimer = null;
+  function wireSecretToggle(){
+    var el = document.getElementById("titleTap");
+    if (!el) return;
+    el.onclick = function(){
+      __tapCount++;
+      if (__tapTimer) clearTimeout(__tapTimer);
+      __tapTimer = setTimeout(function(){ __tapCount = 0; }, 2200);
+      if (__tapCount >= 5){
+        __tapCount = 0;
+        state.presenterMode = !state.presenterMode;
+        try{ sessionStorage.setItem("ex3_pm", state.presenterMode ? "1" : ""); }catch(e){}
+        var flash = document.getElementById("titleTap");
+        if (flash){ flash.style.transition="color .2s"; flash.style.color = state.presenterMode ? "var(--good)" : "var(--bad)"; setTimeout(function(){ flash.style.color=""; },500); }
+        render();
+      }
+    };
+  }
+
+  // ---------- Google Sheet backup (fires on every completed pass, regardless
+  // of whether the Claude "db" capability is available — this is what keeps
+  // working once the deck is hosted on GitHub Pages) ----------
+  var GFORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScRTznZybZBwbPW09lN3yGgdhbjKjGu03gU1t92h9_DLY7kOw/formResponse";
+  var GFORM_FIELDS = {
+    deck: "entry.959320872",
+    name: "entry.776497888",
+    passMode: "entry.693423775",
+    passScore: "entry.1886216116",
+    passSize: "entry.367439227",
+    cumCorrect: "entry.1206079657",
+    cumTotal: "entry.853509881",
+    resultsJson: "entry.211011489"
+  };
+  var DECK_NAME = "Exercise III Flashcards";
+
+  function sendToSheet(payload){
+    try{
+      var sinkId = "gform_sink";
+      var iframe = document.getElementById(sinkId);
+      if (!iframe){
+        iframe = document.createElement("iframe");
+        iframe.name = sinkId;
+        iframe.id = sinkId;
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+      }
+      var form = document.createElement("form");
+      form.action = GFORM_ACTION;
+      form.method = "POST";
+      form.target = sinkId;
+      form.style.display = "none";
+      Object.keys(payload).forEach(function(key){
+        var fieldName = GFORM_FIELDS[key];
+        if (!fieldName) return;
+        var input = document.createElement("input");
+        input.name = fieldName;
+        input.value = String(payload[key]);
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(function(){ if (form.parentNode) form.parentNode.removeChild(form); }, 3000);
+    }catch(e){ /* best-effort only — never block the student's flow */ }
+  }
+
+  // ---------- db capability ----------
+  var dbP = (window.claude && window.claude.use) ? window.claude.use("db") : Promise.resolve(null);
+
+  // Each pass through the deck is its own document in "attempts", created
+  // lazily on the first answer and updated — not re-created — after every
+  // subsequent answer, so nothing is lost if a student abandons partway and
+  // nothing is duplicated when they come back to finish it.
+  function getAttemptRef(db){
+    if (!state.attemptId){
+      var ref = db.collection("attempts").doc();
+      state.attemptId = ref.id;
+      saveProgress();
+      return ref;
+    }
+    return db.collection("attempts").doc(state.attemptId);
+  }
+
+  function syncAttempt(final){
+    if (state.presenterMode) return;
+    if (final && !state.sheetSent){
+      state.sheetSent = true;
+      var passCorrect0 = state.passResults.filter(function(r){return r===true;}).length;
+      var sparse0 = [];
+      state.deckOrder.forEach(function(idx, pos){ if (state.passResults[pos]!==null) sparse0.push({ i: idx, r: !!state.passResults[pos] }); });
+      sendToSheet({
+        deck: DECK_NAME,
+        name: state.name.trim(),
+        passMode: state.passMode,
+        passScore: passCorrect0 + "/" + state.deckOrder.length,
+        passSize: state.deckOrder.length,
+        cumCorrect: state.results.filter(function(r){return r===true;}).length,
+        cumTotal: TOTAL,
+        resultsJson: JSON.stringify(sparse0)
+      });
+    }
+    dbP.then(function(db){
+      if (!db) return; // hosted outside claude.ai: the Google Sheet backup above is the reporting path, so no message to the student
+      var ref = getAttemptRef(db);
+      var nameSlug = slug(state.name);
+      var passCorrect = state.passResults.filter(function(r){return r===true;}).length;
+      var sparse = [];
+      state.deckOrder.forEach(function(idx, pos){ if (state.passResults[pos]!==null) sparse.push({ i: idx, r: !!state.passResults[pos] }); });
+      var payload = {
+        name: state.name.trim(), nameSlug: nameSlug,
+        passMode: state.passMode, passSize: state.deckOrder.length, passCorrect: passCorrect,
+        completed: !!final,
+        correct: state.results.filter(function(r){return r===true;}).length,
+        total: TOTAL, attempted: state.results.filter(function(r){return r!==null;}).length,
+        results: sparse,
+        deckOrder: state.deckOrder, idx: state.idx, passResults: state.passResults, cumResults: state.results,
+        updatedAt: new Date().toISOString()
+      };
+      if (final) payload.completedAt = new Date().toISOString();
+      if (final) setSyncStatus("saving","Saving…");
+      return ref.set(payload).then(function(){
+        if (!final) return;
+        state.submitted = true;
+        saveProgress();
+        return db.collection("attempts").where("nameSlug","==",nameSlug).where("completed","==",true).get().then(function(snap){
+          if (snap) { state.attemptNumber = snap.size; saveProgress(); }
+          setSyncStatus("ok","Saved — your teacher can see this on the dashboard.");
+        });
+      });
+    }).catch(function(err){
+      if (!final) return;
+      var msg = (err && err.code === "invalid_argument")
+        ? "Your link doesn’t have permission to save here. Use Copy below to send your result to your teacher."
+        : "Couldn’t sync right now. Use Copy below to send your result to your teacher.";
+      setSyncStatus("err", msg);
+    });
+  }
+
+  function setSyncStatus(kind,msg){
+    state.syncStatus = {kind:kind,msg:msg};
+    render();
+  }
+
+  // ---------- Rendering ----------
+  var app = document.getElementById("app");
+
+  function render(){
+    var hash = location.hash.replace("#","");
+    if (hash === "teacher" && state.presenterMode){ renderTeacher(); return; }
+    app.className = "wrap";
+    if (state.screen === "gate") renderGate();
+    else if (state.screen === "deck") renderDeck();
+    else renderSummary();
+  }
+
+  function renderGate(){
+    app.innerHTML =
+      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
+      '<h1>Analyze &amp; Define</h1>' +
+      '<p class="sub">Twenty words from this lesson, in the sentences they actually appear in. Work out the base, prefix, and suffix — then the meaning in context — before you flip each card. Your answers save automatically as you go, so it’s fine to stop partway and pick up later.</p>' +
+      '<div class="gate">' +
+        '<div class="card-label" style="margin-bottom:10px;">Enter your name to begin</div>' +
+        '<input type="text" id="nameInput" placeholder="First and last name" value="'+esc(state.name)+'" maxlength="60">' +
+        '<div class="row">' +
+          '<button class="primary" id="beginBtn">Begin the set →</button>' +
+        '</div>' +
+      '</div>' +
+      (state.presenterMode ? '<div class="footer-link"><a href="#teacher">Teacher dashboard</a></div>' : '');
+    wireSecretToggle();
+    document.getElementById("beginBtn").onclick = function(){
+      var v = document.getElementById("nameInput").value.trim();
+      if (!v){ document.getElementById("nameInput").focus(); return; }
+      state.name = v;
+      try{ localStorage.setItem("ex3_name", v); }catch(e){}
+      var btn = document.getElementById("beginBtn");
+      btn.disabled = true; btn.textContent = "Checking for a saved session…";
+      resumeOrStart(v).then(function(){
+        state.flipped = false;
+        var allAnswered = state.passResults.every(function(r){ return r!==null; });
+        state.screen = allAnswered ? "summary" : "deck";
+        render();
+      });
+    };
+    document.getElementById("nameInput").onkeydown = function(ev){ if (ev.key==="Enter") document.getElementById("beginBtn").click(); };
+  }
+
+  function renderDeck(){
+    var i = state.idx;
+    var cardIndex = state.deckOrder[i];
+    var c = CARDS[cardIndex];
+    var goodCount = state.passResults.filter(function(r){return r===true;}).length;
+
+    var dots = state.deckOrder.map(function(idx, pos){
+      var cls = "dot";
+      if (state.passResults[pos]===true) cls += " done-good";
+      else if (state.passResults[pos]===false) cls += " done-bad";
+      if (pos===i) cls += " current";
+      return '<span class="'+cls+'"></span>';
+    }).join("");
+
+    var passLabel = state.passMode==="missed" ? " &nbsp;·&nbsp; missed-cards retry" : "";
+    var html = '';
+    html += '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III &nbsp;·&nbsp; '+esc(state.name)+passLabel+'</div>';
+    html += '<div class="dots">'+dots+'</div>';
+    html += '<p class="progress-label">Card '+(i+1)+' of '+state.deckOrder.length+' &nbsp;·&nbsp; '+goodCount+' marked correct so far</p>';
+    html += '<div class="card-shell">';
+    html += '<div class="stackback two"></div><div class="stackback"></div>';
+    html += '<div class="card">';
+
+    if (!state.flipped){
+      html += '<div class="card-label">Analyze &amp; define the italicized word</div>';
+      html += '<div class="card-body">';
+      html += '<div class="sentence">'+c.sentence+'</div>';
+      if (c.cite) html += '<div class="cite">'+esc(c.cite)+'</div>';
+      html += '</div>';
+      html += '<div class="row center"><button class="primary" id="revealBtn">Reveal analysis</button></div>';
+    } else {
+      html += '<div class="card-label">Answer</div>';
+      html += '<div class="card-body">';
+      html += '<div class="word-title">'+esc(c.word)+'</div>';
+      html += '<div class="parts-row">';
+      c.parts.forEach(function(p,idx2){
+        if (idx2>0) html += '<span class="plus">+</span>';
+        html += '<span class="chip"><b>'+esc(p[0])+'</b>'+(p[1] ? ' — '+esc(p[1]) : '')+'</span>';
+      });
+      html += '</div>';
+      html += '<div class="defn"><b>Definition in context</b>'+esc(c.defn)+'</div>';
+      if (c.caution) html += '<div class="caution">'+esc(c.caution)+'</div>';
+      html += '<div class="recap">"'+c.sentence.replace(/<[^>]+>/g,'')+'"'+(c.cite? ' '+esc(c.cite):'')+'</div>';
+      html += '</div>';
+      html += '<div class="row center">';
+      html += '<button class="good" id="gotItBtn">&#10003; I had it</button>';
+      html += '<button class="bad" id="missedBtn">&#10007; I missed it</button>';
+      html += '</div>';
+      html += '<div class="row center" style="margin-top:4px;"><button class="ghost" id="backToQBtn">&larr; Back to question</button></div>';
+    }
+    html += '</div></div>';
+
+    var nextDisabled = state.presenterMode ? false : (state.passResults[i]===null);
+    var isLast = i===state.deckOrder.length-1;
+    html += '<div class="row between" style="margin-top:18px;">';
+    html += '<button class="ghost" id="prevBtn" '+(i===0?"disabled":"")+'>&larr; Previous</button>';
+    html += '<button class="ghost" id="nextBtn" '+(nextDisabled?"disabled":"")+'>'+(isLast?"Finish →":"Next →")+'</button>';
+    html += '</div>';
+    if (!state.presenterMode) html += '<p class="progress-label" style="opacity:.65; margin-top:10px;">Answers save automatically as you go.</p>';
+    html += (state.presenterMode ? '<div class="footer-link"><a href="#teacher">Teacher dashboard</a></div>' : '');
+
+    app.innerHTML = html;
+    wireSecretToggle();
+
+    var revealBtn = document.getElementById("revealBtn");
+    if (revealBtn) revealBtn.onclick = function(){ state.flipped = true; render(); };
+    var gotItBtn = document.getElementById("gotItBtn");
+    if (gotItBtn) gotItBtn.onclick = function(){ mark(true); };
+    var missedBtn = document.getElementById("missedBtn");
+    if (missedBtn) missedBtn.onclick = function(){ mark(false); };
+    var backToQBtn = document.getElementById("backToQBtn");
+    if (backToQBtn) backToQBtn.onclick = function(){ state.flipped = false; render(); };
+    document.getElementById("prevBtn").onclick = function(){ if (i>0){ state.idx=i-1; state.flipped=false; saveProgress(); render(); } };
+    document.getElementById("nextBtn").onclick = function(){
+      if (isLast){ syncAttempt(true); state.screen="summary"; render(); return; }
+      state.idx = i+1; state.flipped=false; saveProgress(); syncAttempt(false); render();
+    };
+
+    function mark(val){
+      state.passResults[i] = val;
+      state.results[cardIndex] = val;
+      saveProgress();
+      syncAttempt(false);
+      render();
+    }
+  }
+
+  function renderSummary(){
+    var passTotal = state.deckOrder.length;
+    var passCorrect = state.passResults.filter(function(r){return r===true;}).length;
+    var cumCorrect = state.results.filter(function(r){return r===true;}).length;
+    var missedIdx = fullIndices().filter(function(idx){ return state.results[idx]===false; });
+    var missedCount = missedIdx.length;
+    var passModeLabel = state.passMode==="missed" ? "Missed-cards retry" : "Full set";
+
+    var summaryText = state.name+" — "+passModeLabel+" — "+passCorrect+"/"+passTotal+" self-scored — "+new Date().toLocaleString();
+
+    var statusHtml = "";
+    if (state.syncStatus){
+      var cls = state.syncStatus.kind==="ok" ? "ok" : (state.syncStatus.kind==="err" ? "err" : "");
+      statusHtml = '<div class="status-msg '+cls+'">'+esc(state.syncStatus.msg)+'</div>';
+    } else {
+      statusHtml = '<div class="status-msg">&nbsp;</div>';
+    }
+
+    var attemptBadge = state.attemptNumber ? '<p class="progress-label">attempt #'+state.attemptNumber+' recorded for you</p>' : '';
+    var cumBadge = '<p class="progress-label">cumulative: '+cumCorrect+' / '+TOTAL+' correct across everything answered so far'+(missedCount ? " &nbsp;·&nbsp; "+missedCount+" still missed" : "")+'</p>';
+    var retryBtnHtml = '<button class="ghost" id="retryMissedBtn" '+(missedCount===0?"disabled":"")+'>'+(missedCount===0?"No missed cards 🎉":"Retry "+missedCount+" missed card"+(missedCount===1?"":"s"))+'</button>';
+
+    var actionsHtml = state.presenterMode
+      ? ('<div class="row center" style="margin-top:18px;"><button class="ghost" id="restartBtn">Review the set again</button>'+retryBtnHtml+'</div>' +
+         '<p class="status-msg">Presenter mode — nothing here is saved to the dashboard.</p>')
+      : ('<div class="row center" style="margin-top:18px;">' +
+          '<button class="ghost" id="restartBtn">Review the set again</button>' +
+          retryBtnHtml +
+        '</div>' + statusHtml +
+        '<div class="copy-box">' +
+          '<input type="text" readonly id="copyField" value="'+esc(summaryText)+'">' +
+          '<button id="copyBtn">Copy</button>' +
+        '</div>');
+
+    app.innerHTML =
+      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
+      '<h1>Nice work, '+esc(state.name)+'.</h1>' +
+      '<div class="summary">' +
+        '<div class="score-big">'+passCorrect+' / '+passTotal+'</div>' +
+        '<p class="progress-label">self-scored correct — '+passModeLabel+'</p>' +
+        attemptBadge +
+        cumBadge +
+        actionsHtml +
+      '</div>' +
+      (state.presenterMode ? '<div class="footer-link"><a href="#teacher">Teacher dashboard</a></div>' : '');
+
+    wireSecretToggle();
+    document.getElementById("restartBtn").onclick = function(){
+      state.results = new Array(TOTAL).fill(null);
+      var d = freshDeck(true, fullIndices(), "full");
+      state.deckOrder=d.deckOrder; state.passResults=d.passResults; state.passMode=d.passMode;
+      state.idx=d.idx; state.submitted=d.submitted; state.attemptNumber=d.attemptNumber;
+      state.attemptId=null; state.sheetSent=false;
+      state.flipped=false; state.syncStatus=null;
+      saveProgress(); state.screen="deck"; render();
+    };
+    var retryMissedBtn = document.getElementById("retryMissedBtn");
+    if (retryMissedBtn) retryMissedBtn.onclick = function(){
+      if (!missedCount) return;
+      var d = freshDeck(true, missedIdx, "missed");
+      state.deckOrder=d.deckOrder; state.passResults=d.passResults; state.passMode=d.passMode;
+      state.idx=d.idx; state.submitted=d.submitted; state.attemptNumber=d.attemptNumber;
+      state.attemptId=null; state.sheetSent=false;
+      state.flipped=false; state.syncStatus=null;
+      saveProgress(); state.screen="deck"; render();
+    };
+    var copyBtn = document.getElementById("copyBtn");
+    if (copyBtn) copyBtn.onclick = function(){
+      var field = document.getElementById("copyField");
+      field.select();
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(field.value).then(function(){
+          document.getElementById("copyBtn").textContent = "Copied ✓";
+          setTimeout(function(){ document.getElementById("copyBtn").textContent = "Copy"; },1600);
+        }).catch(function(){ /* selection stands as fallback */ });
+      }
+    };
+  }
+
+  // ---------- Teacher dashboard ----------
+  function renderTeacher(){
+    app.className = "wrap wide";
+    app.innerHTML =
+      '<div class="eyebrow"><b id="titleTap">Ayers, Lesson IX</b> · Exercise III</div>' +
+      '<h1>Teacher Dashboard</h1>' +
+      '<p class="sub">Live self-reported data for the Exercise III flashcard set. Every run through the deck is recorded as its own attempt, so repeat runs show up separately. Each answer saves the moment the student marks it, so a pass that’s abandoned partway isn’t lost — it just stays out of these stats until it’s finished. Anyone with this link can see this page — it is not access-controlled.</p>' +
+      '<div class="panel" id="rosterPanel">' +
+        '<h2>Class roster</h2>' +
+        '<p class="hint">One name per line, matched against attempts by name (not case-sensitive). Saving requires editor access to this artifact.</p>' +
+        '<textarea id="rosterBox" placeholder="Paste student names, one per line…"></textarea>' +
+        '<div class="row" style="margin-top:10px;">' +
+          '<button class="primary" id="saveRosterBtn">Save roster</button>' +
+          '<span class="status-msg" id="rosterStatus"></span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="panel">' +
+        '<div class="stat-row" id="statRow"></div>' +
+      '</div>' +
+      '<div class="panel">' +
+        '<h2>Students</h2>' +
+        '<p class="hint">Attempt count and most recent score, one row per student. "Remove" permanently deletes all of that student\'s attempt records — click once to arm it, click "Confirm" to actually delete.</p>' +
+        '<div id="completedTable"><p class="hint">Loading…</p></div>' +
+        '<p class="hint" id="removeStatus"></p>' +
+      '</div>' +
+      '<div class="panel">' +
+        '<h2>Not yet attempted</h2>' +
+        '<p class="hint">Roster names with no attempt on record.</p>' +
+        '<div id="missingList"><p class="hint">Add a roster above to see this list.</p></div>' +
+      '</div>' +
+      '<div class="panel">' +
+        '<h2>Word-level results</h2>' +
+        '<p class="hint">Right vs. wrong across every submitted attempt, worst-missed first. Use this to see which words the class as a whole is struggling with.</p>' +
+        '<div id="wordTable"><p class="hint">Loading…</p></div>' +
+      '</div>' +
+      '<div class="footer-link"><a href="#">&larr; Back to flashcards</a></div>';
+    wireSecretToggle();
+
+    var rosterNames = [];
+    var attempts = [];
+    var allAttempts = []; // unfiltered, with doc ids — used so Remove also clears any
+                           // in-progress (completed:false) records the stats tables hide
+    var pendingDelete = null; // normalized student name currently armed for deletion
+    var dbRef = null;
+
+    function normalize(s){ return (s||"").trim().toLowerCase(); }
+
+    function studentRows(){
+      var byName = {};
+      attempts.forEach(function(a){
+        var key = normalize(a.name);
+        if (!byName[key]) byName[key] = { name:a.name, count:0, best:null, latest:null };
+        byName[key].count++;
+        if (byName[key].best===null || (a.correct!=null && a.correct>byName[key].best)) byName[key].best = a.correct;
+        if (!byName[key].latest || (a.completedAt||"") > (byName[key].latest.completedAt||"")) byName[key].latest = a;
+      });
+      return Object.keys(byName).map(function(k){ return byName[k]; });
+    }
+
+    function renderStats(){
+      var rows = studentRows();
+      var doneNames = rows.map(function(r){ return normalize(r.name); });
+      document.getElementById("statRow").innerHTML =
+        '<div class="stat"><div class="n">'+attempts.length+'</div><div class="l">Attempts total</div></div>' +
+        '<div class="stat"><div class="n">'+rows.length+'</div><div class="l">Students with ≥1 attempt</div></div>' +
+        '<div class="stat"><div class="n">'+rosterNames.length+'</div><div class="l">On roster</div></div>' +
+        '<div class="stat"><div class="n">'+Math.max(0,rosterNames.length-rosterNames.filter(function(n){return doneNames.indexOf(normalize(n))>-1;}).length)+'</div><div class="l">Not yet attempted</div></div>';
+    }
+
+    function renderCompleted(){
+      var rows = studentRows();
+      if (!rows.length){ document.getElementById("completedTable").innerHTML = '<p class="hint">No submissions yet.</p>'; return; }
+      rows.sort(function(a,b){ return (b.latest.completedAt||"").localeCompare(a.latest.completedAt||""); });
+      var html = rows.map(function(r){
+        var when = r.latest.completedAt ? new Date(r.latest.completedAt).toLocaleString() : "—";
+        var passLabel = r.latest.passMode==="missed" ? "Missed retry" : "Full set";
+        var passScore = (r.latest.passCorrect!=null && r.latest.passSize!=null) ? (r.latest.passCorrect+" / "+r.latest.passSize) : "—";
+        var key = normalize(r.name);
+        var actionCell = pendingDelete===key
+          ? '<button class="bad confirm-remove-btn" data-name="'+esc(r.name||"")+'" style="padding:4px 10px; font-size:12.5px;">Confirm</button> <button class="ghost cancel-remove-btn" style="padding:4px 8px; font-size:12.5px;">Cancel</button>'
+          : '<button class="ghost remove-student-btn" data-name="'+esc(r.name||"")+'" style="padding:4px 10px; font-size:12.5px;">Remove</button>';
+        return '<tr><td>'+esc(r.name||"—")+'</td><td>'+r.count+'</td><td>'+esc(passLabel)+': '+passScore+'</td><td>'+(r.latest.correct!=null?r.latest.correct+" / "+(r.latest.total||TOTAL):"—")+'</td><td>'+(r.best!=null?r.best+" / "+TOTAL:"—")+'</td><td>'+when+'</td><td>'+actionCell+'</td></tr>';
+      }).join("");
+      document.getElementById("completedTable").innerHTML =
+        '<table><thead><tr><th>Name</th><th>Attempts</th><th>Latest pass</th><th>Cumulative mastery</th><th>Best cumulative</th><th>Latest attempt</th><th></th></tr></thead><tbody>'+html+'</tbody></table>';
+      document.getElementById("completedTable").onclick = function(ev){
+        var t = ev.target;
+        if (!t || !t.classList) return;
+        if (t.classList.contains("remove-student-btn")){
+          pendingDelete = normalize(t.getAttribute("data-name"));
+          renderCompleted();
+        } else if (t.classList.contains("cancel-remove-btn")){
+          pendingDelete = null;
+          renderCompleted();
+        } else if (t.classList.contains("confirm-remove-btn")){
+          var nm = t.getAttribute("data-name");
+          pendingDelete = null;
+          deleteStudent(nm);
+        }
+      };
+    }
+
+    function setRemoveStatus(msg){
+      var el = document.getElementById("removeStatus");
+      if (el) el.textContent = msg || "";
+    }
+
+    // Removes EVERY attempt record for this student (by normalized name),
+    // including any in-progress (completed:false) pass that the stats
+    // tables hide — not just the "latest" one shown in the row.
+    function deleteStudent(name){
+      if (!dbRef) { setRemoveStatus("Not connected — try again in a moment."); return; }
+      var key = normalize(name);
+      var matching = allAttempts.filter(function(a){ return normalize(a.name)===key; });
+      if (!matching.length) return;
+      setRemoveStatus("Removing "+matching.length+" record"+(matching.length===1?"":"s")+" for "+name+"…");
+      Promise.all(matching.map(function(a){ return dbRef.collection("attempts").doc(a._id).delete(); })).then(function(){
+        setRemoveStatus("Removed "+name+" from the database.");
+      }).catch(function(){
+        setRemoveStatus("Couldn’t remove all records for "+name+" — try again.");
+      });
+    }
+
+    function renderMissing(){
+      if (!rosterNames.length){ document.getElementById("missingList").innerHTML = '<p class="hint">Add a roster above to see this list.</p>'; return; }
+      var doneSet = studentRows().map(function(r){ return normalize(r.name); });
+      var missing = rosterNames.filter(function(n){ return doneSet.indexOf(normalize(n))===-1; });
+      if (!missing.length){ document.getElementById("missingList").innerHTML = '<p class="hint">Everyone on the roster has at least one attempt.</p>'; return; }
+      document.getElementById("missingList").innerHTML = '<table><tbody>'+missing.map(function(n){ return '<tr><td>'+esc(n)+'</td><td><span class="pill no">not attempted</span></td></tr>'; }).join("")+'</tbody></table>';
+    }
+
+    function renderWordTable(){
+      var stats = CARDS.map(function(c){ return { label:c.word, right:0, wrong:0 }; });
+      attempts.forEach(function(a){
+        if (!Array.isArray(a.results) || !a.results.length) return;
+        // New format: sparse [{i, r}, ...] for only the cards tested in that pass.
+        // Legacy format (from before per-pass tracking): dense [true|false|null, ...] of length TOTAL.
+        var isSparse = typeof a.results[0]==="object" && a.results[0]!==null && "i" in a.results[0];
+        if (isSparse){
+          a.results.forEach(function(entry){
+            var idx = entry.i;
+            if (!stats[idx]) return;
+            if (entry.r===true) stats[idx].right++; else if (entry.r===false) stats[idx].wrong++;
+          });
+        } else {
+          a.results.forEach(function(r, idx){
+            if (!stats[idx]) return;
+            if (r===true) stats[idx].right++; else if (r===false) stats[idx].wrong++;
+          });
+        }
+      });
+      var withData = stats.filter(function(s){ return s.right+s.wrong>0; });
+      if (!withData.length){ document.getElementById("wordTable").innerHTML = '<p class="hint">No scored attempts yet.</p>'; return; }
+      withData.sort(function(a,b){
+        var pa = a.right+a.wrong ? a.wrong/(a.right+a.wrong) : 0;
+        var pb = b.right+b.wrong ? b.wrong/(b.right+b.wrong) : 0;
+        return pb - pa || (b.wrong - a.wrong);
+      });
+      var rows = withData.map(function(s){
+        var total = s.right+s.wrong;
+        var pct = total ? Math.round(100*s.right/total) : 0;
+        return '<tr><td>'+esc(s.label)+'</td><td><span class="pill yes">'+s.right+' right</span></td><td><span class="pill no">'+s.wrong+' wrong</span></td><td>'+pct+'%</td></tr>';
+      }).join("");
+      document.getElementById("wordTable").innerHTML =
+        '<table><thead><tr><th>Word</th><th></th><th></th><th>% correct</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    }
+
+    dbP.then(function(db){
+      if (!db){
+        document.getElementById("completedTable").innerHTML = '<p class="hint">This view can’t connect to the shared tracking data in this session.</p>';
+        document.getElementById("wordTable").innerHTML = '<p class="hint">This view can’t connect to the shared tracking data in this session.</p>';
+        return;
+      }
+      dbRef = db;
+      db.doc("roster/list").get().then(function(snap){
+        if (snap.exists){
+          var data = snap.data();
+          rosterNames = Array.isArray(data.names) ? data.names : [];
+          document.getElementById("rosterBox").value = rosterNames.join("\n");
+          renderStats(); renderMissing();
+        }
+      }).catch(function(){});
+
+      db.collection("attempts").onSnapshot(function(snap){
+        allAttempts = snap.docs.map(function(d){ var o=d.data(); o._id=d.id; return o; });
+        attempts = allAttempts.filter(function(a){ return a.completed !== false; });
+        renderStats(); renderCompleted(); renderMissing(); renderWordTable();
+      }, function(){
+        document.getElementById("completedTable").innerHTML = '<p class="hint">Couldn’t load attempts.</p>';
+        document.getElementById("wordTable").innerHTML = '<p class="hint">Couldn’t load attempts.</p>';
+      });
+
+      document.getElementById("saveRosterBtn").onclick = function(){
+        var names = document.getElementById("rosterBox").value.split("\n").map(function(s){return s.trim();}).filter(Boolean);
+        document.getElementById("rosterStatus").textContent = "Saving…";
+        document.getElementById("rosterStatus").className = "status-msg";
+        db.doc("roster/list").set({ names:names, updatedAt:new Date().toISOString() }).then(function(){
+          rosterNames = names;
+          document.getElementById("rosterStatus").textContent = "Saved ✓";
+          document.getElementById("rosterStatus").className = "status-msg ok";
+          renderStats(); renderMissing();
+        }).catch(function(err){
+          var msg = (err && err.code==="invalid_argument") ? "You need editor access to save the roster." : "Couldn’t save — try again.";
+          document.getElementById("rosterStatus").textContent = msg;
+          document.getElementById("rosterStatus").className = "status-msg err";
+        });
+      };
+    });
+  }
+
+  window.addEventListener("hashchange", render);
+
+  render();
+})();
+</script>
+
+</body></html>
