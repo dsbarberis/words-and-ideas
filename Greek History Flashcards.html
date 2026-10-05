@@ -710,6 +710,19 @@
     color: var(--gold);
   }
   .prompt .ask { font-size: 14px; font-style: italic; color: var(--ink-soft); margin-top: 6px; }
+  .prompt .sentence .target, .back-sentence .target { font-weight: 700; font-style: normal; }
+  .prompt .sentence .target { color: var(--burgundy); }
+  .prompt .cite, .back-sentence .cite { display: block; font-size: 13px; font-style: italic; color: var(--ink-soft); margin-top: 4px; }
+  /* Meaning-in-context questions (Exercise III): the analysis on the back */
+  .analysis { font-style: normal; font-size: 15px; line-height: 1.45; margin: 2px 0 12px; }
+  .analysis .part { display: block; }
+  .analysis .part b { color: var(--paper); margin-right: 6px; }
+  .analysis .part-note { color: #d9dee8; font-size: 13px; }
+  .back-defn { font-size: clamp(18px, 4vw, 22px); line-height: 1.3; margin-bottom: 8px; }
+  .meaning .back-defn + .back-note { margin-top: 0; font-size: 13px; line-height: 1.4; }
+  .back-sentence { font-size: 14px; line-height: 1.5; color: #d9dee8; text-align: left; }
+  .back-sentence .target { color: var(--paper); }
+  .back-sentence .cite { color: #b9c0cc; }
   .choices {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -1620,6 +1633,8 @@
   function judgeExercise(cardIdx, response) {
     const card = CARDS[cardIdx];
     if (card.kind === "choice") return { ok: response === card.answer };
+    // The meaning in context, judged with the card's key-word lists.
+    if (card.kind === "meaning") return judge(cardIdx, response);
     const got = answerPieces(response);
     if (!got.length) return { empty: true };
     const accept = [];
@@ -2468,7 +2483,7 @@
 
   function setTitle(key) {
     if (!EXERCISE) return "Quiz" + (key === "all" ? "" : ": " + setLabel(key));
-    if (key === "all") return "All exercises";
+    if (key === "all") return DECK.allTitle || "All exercises";
     if (key === "learning") return "Missed questions";
     return (CATS[key] && (CATS[key].title || CATS[key].label)) || key;
   }
@@ -2497,7 +2512,8 @@
     root.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = tag; });
     const instr = root.querySelector(".ex-instr");
     instr.innerHTML = "";
-    if (cat.instruction) instr.appendChild(document.createTextNode(cat.instruction));
+    const instruction = cat.instruction || DECK.instruction;
+    if (instruction) instr.appendChild(document.createTextNode(instruction));
     if (cat.baseLine) instr.appendChild(el("span", "base-line", "Bases: " + cat.baseLine));
     if (cat.bank) instr.appendChild(el("span", "bank", "Word bank: " + cat.bank.join(", ") + "."));
     instr.hidden = !instr.childNodes.length;
@@ -2513,6 +2529,13 @@
       prompt.appendChild(d);
     });
     if (item.text) prompt.appendChild(el("div", "line", item.text));
+    // A sentence from the deck file, with the word to define in a span.target.
+    if (item.sentence) {
+      const d = el("div", "line sentence");
+      d.innerHTML = item.sentence;
+      if (item.cite) d.appendChild(el("span", "cite", item.cite));
+      prompt.appendChild(d);
+    }
     if (item.ask) prompt.appendChild(el("div", "ask", item.ask));
     prompt.hidden = !prompt.childNodes.length;
     root.querySelector(".hint").hidden = true;
@@ -2550,6 +2573,7 @@
   // The answer side: the right answer, a note (a base's meanings, one per
   // line), and the student's answer with the verdict.
   function fillExerciseBack(item, ans) {
+    if (item.kind === "meaning") { fillMeaningBack(item, ans); return; }
     meaningBack.innerHTML = "";
     if (item.word) meaningBack.appendChild(el("div", "back-word", item.word));
     else if (item.kind === "choice" && item.text) meaningBack.appendChild(el("div", "back-text", item.text));
@@ -2576,6 +2600,40 @@
       verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
       verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
       verdictReason.hidden = true;
+    }
+  }
+
+  // A meaning-in-context question: the word, every part with its full set
+  // of meanings, the definition in context, and the sentence.
+  function fillMeaningBack(item, ans) {
+    meaningBack.innerHTML = "";
+    meaningBack.appendChild(el("div", "back-word", item.word));
+    const an = el("div", "analysis");
+    (item.parts || []).forEach(function (pt) {
+      const d = el("span", "part");
+      d.appendChild(el("b", "", pt.label));
+      d.appendChild(document.createTextNode(pt.meanings.join(", ")));
+      if (pt.note) d.appendChild(el("span", "part-note", " (" + pt.note + ")"));
+      an.appendChild(d);
+    });
+    meaningBack.appendChild(an);
+    meaningBack.appendChild(el("div", "back-defn", item.defn));
+    if (item.caution) meaningBack.appendChild(el("div", "back-note", item.caution));
+    originLabel.textContent = "In context";
+    originLabel.hidden = false;
+    originBack.innerHTML = "";
+    const sen = el("div", "back-sentence");
+    sen.innerHTML = item.sentence;
+    if (item.cite) sen.appendChild(el("span", "cite", item.cite));
+    originBack.appendChild(sen);
+    originBox.hidden = false;
+    feedbackBox.hidden = !ans;
+    if (ans) {
+      yourAnswer.textContent = ans.a;
+      verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
+      verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
+      verdictReason.hidden = !ans.mixed;
+      verdictReason.textContent = ans.mixed ? "That answer mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     }
   }
 
@@ -2689,7 +2747,7 @@
         quizPanel.appendChild(copy);
         return;
       }
-      copy.textContent = (cat.instruction ? cat.instruction + " " : "") +
+      copy.textContent = ((cat.instruction || DECK.instruction) ? (cat.instruction || DECK.instruction) + " " : "") +
         "Round 1 covers all " + size + " question" + (size === 1 ? "" : "s") + (DECK.round1 === "book" ? ", in the workbook\u2019s order" : "") +
         ". Any you miss come back in the next round, until you have answered every one correctly.";
       quizPanel.appendChild(copy);
@@ -2851,7 +2909,7 @@
       footerHelp.textContent = "Click the card (or press Space) to flip · Arrow keys or a two-finger swipe to move";
       renderLearn();
     } else {
-      footerHelp.textContent = EXERCISE ? "Tap an answer, or type it and press Enter to check" :
+      footerHelp.textContent = EXERCISE ? (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
         MEANINGS ? "One meaning per line \u00b7 Enter starts a new line \u00b7 Enter on an empty line, or Check, checks the answer" :
         "Type the meaning and press Enter to check";
       renderQuiz();

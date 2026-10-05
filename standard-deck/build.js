@@ -46,10 +46,25 @@ function resolveGlossary(card, file, deck) {
   return out;
 }
 
+// A word's analysis: each part as printed, with the glossary's full set of
+// meanings (and its note, unless the card gives its own).
+function resolveParts(card, file) {
+  if (!card.parts) return card;
+  return Object.assign({}, card, {
+    parts: card.parts.map(function (pt) {
+      const entry = glossary[pt.gloss];
+      if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
+      const out = { label: pt.label, meanings: entry.meanings };
+      if (pt.note || entry.note) out.note = pt.note || entry.note;
+      return out;
+    })
+  });
+}
+
 for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWith(".js")).sort()) {
   const deck = require(path.join(here, "decks", file));
   const { output, ...data } = deck;
-  data.cards = deck.cards.map(function (c) { return resolveGlossary(c, file, deck); });
+  data.cards = deck.cards.map(function (c) { return resolveParts(resolveGlossary(c, file, deck), file); });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))

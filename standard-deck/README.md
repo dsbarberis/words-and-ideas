@@ -27,7 +27,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
     "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
-- **Exercise Deck** (`type: "exercise"`; Lesson IX so far): Quiz mode only. The name
+- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
   `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled).
@@ -36,6 +36,11 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   lists the answers that count, compared without case, accents, hyphens or brackets;
   a card with `gloss` accepts any form of that glossary entry). Sheet rows use pass
   mode "quiz round N", with the tab added for a single exercise ("quiz round 1 (Ex 3)").
+  A `meaning` card (Exercise III) shows a `sentence` (the word to define in a
+  `span.target`) and is judged with key-word `senses`, as in the Greek decks; its
+  `parts` name glossary entries (`{ gloss, label, note? }`), and the back shows each
+  part as printed with the glossary's full set of meanings. A deck with no exercise
+  tabs can set `allTitle` and a deck-wide `instruction`.
 
 To change a deck's words or key-word lists, edit its file in `decks/`. To change
 how every deck looks or behaves, edit `template.html`. Then rebuild from the
