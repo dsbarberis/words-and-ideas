@@ -680,6 +680,80 @@
   .phone #deckScreen footer { margin-top: 0; }
   .phone.typing #quizControls { display: none; }
 
+  /* Exercise Decks (Quiz only): the exercise's instruction, the question,
+     tappable answer options, and the answer on the back. */
+  .ex-instr {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: 460px;
+    margin: 6px 0 12px;
+  }
+  .ex-instr .base-line { display: block; font-style: normal; color: var(--navy); margin-top: 3px; }
+  .ex-instr .bank { display: block; font-style: normal; margin-top: 6px; }
+  .exercise .term { font-size: clamp(24px, 5.5vw, 34px); }
+  .prompt {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 460px;
+  }
+  .prompt .line { margin: 4px 0 10px; }
+  .prompt .line-label {
+    display: block;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+  }
+  .prompt .ask { font-size: 14px; font-style: italic; color: var(--ink-soft); margin-top: 6px; }
+  .choices {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    width: 100%;
+    max-width: 460px;
+    margin-top: 14px;
+  }
+  .choices.long { max-width: 620px; }
+  @media (min-width: 601px) { .choices.long { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .choice {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.35;
+    padding: 9px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .choices.long .choice { font-size: 14px; padding: 7px 10px; }
+  .choice:hover { border-color: var(--navy); }
+  .choice .opt-key { font-weight: 700; color: var(--navy); flex: none; }
+  .choice:disabled { cursor: default; opacity: 0.6; }
+  .choice.picked { border-color: var(--burgundy); opacity: 1; }
+  .answer-key { font-style: normal; font-weight: 700; margin-right: 6px; }
+  .back-word { font-style: normal; font-weight: 700; font-size: clamp(24px, 5.5vw, 32px); margin-bottom: 10px; }
+  .back-text { font-style: normal; font-size: 15px; line-height: 1.45; color: #d9dee8; margin-bottom: 10px; }
+  .back-note { font-size: 14px; color: #d9dee8; margin-top: -4px; }
+  /* Phones: the exercise tabs sit in one row that scrolls sideways, and a
+     long list of options scrolls inside the card. */
+  .phone.exercise .sub-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 2px; scrollbar-width: none; }
+  .phone.exercise .sub-tabs::-webkit-scrollbar { display: none; }
+  .phone.exercise .sub-tabs .tab { flex: none; }
+  .phone.exercise .ex-instr { margin: 2px 0 8px; }
+  .phone.exercise .face { padding-top: 34px; }
+  .phone .choices.long { max-height: 40vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-right: 2px; }
+
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -692,7 +766,7 @@
 
   <hr class="rule" />
 
-  <div class="gate-copy">
+  <div class="gate-copy" id="gateCopy">
     Enter your name to begin. Your progress is saved on this device, and a short summary is sent to your teacher each time you finish the full list or a quiz round.
   </div>
 
@@ -735,7 +809,10 @@
     <div class="card" id="card" tabindex="0" role="button" aria-label="Flashcard, tap or press Enter to flip">
       <div class="face face-front">
         <div class="category-tag" id="tagFront"></div>
+        <div class="ex-instr" id="exInstr" hidden></div>
         <div class="term" id="termFront"></div>
+        <div class="prompt" id="promptFront" hidden></div>
+        <div class="choices" id="choiceList" hidden></div>
         <div class="hint" id="hintFront">Tap card to reveal meaning</div>
         <div class="quiz-form" id="quizForm" hidden>
           <div class="quiz-row">
@@ -1227,6 +1304,14 @@
   const ID = DECK.id;
   // Touchscreens (phones and tablets) swipe between cards.
   const TOUCH = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  // Exercise Decks have Quiz mode only. Each card is a question: "choice"
+  // (tap one option) or "typed" (type the word or base). The quiz covers the
+  // selected tab (All, one exercise, or Missed), and each tab's unfinished
+  // quiz resumes where it stopped.
+  const EXERCISE = DECK.type === "exercise";
+  const QUIZ_BY_SET = EXERCISE;
+  const CATS = {};
+  (DECK.categories || []).forEach(function (c) { CATS[c.key] = c; });
 
   // ---------- Answer judging ----------
   // A typed answer is correct when, for at least one of the word's senses,
@@ -1359,6 +1444,7 @@
   function prepTerm(s) { return { text: s, toks: toTokens(s) }; }
 
   CARDS.forEach(function (c) {
+    if (!c.senses) { c.accepted = []; c.ownTerms = []; c.penaltyTerms = []; return; }
     c.senses.forEach(function (sense) {
       sense.groups.forEach(function (g) { g.terms = g.terms.map(prepTerm); });
       sense.star = (sense.star || []).map(prepTerm);
@@ -1419,6 +1505,54 @@
     return { ok: ok && !mixed, mixed: mixed };
   }
 
+  // Exercise Decks: a tapped option is right when it is the answer; a typed
+  // answer is right when it is one of the accepted answers, ignoring case,
+  // accents, hyphens and brackets ("dom-", "DOM(IN)-" and "domin" all name
+  // DOM(IN)-). Several forms of the same base may be typed together.
+  function answerPieces(s) {
+    return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      .replace(/[()\[\]\-\u2010-\u2014.'\u2019"\u201c\u201d]/g, "")
+      .split(/[\s,;\/]+/).filter(function (w) { return w && w !== "or" && w !== "and"; });
+  }
+
+  function judgeExercise(cardIdx, response) {
+    const card = CARDS[cardIdx];
+    if (card.kind === "choice") return { ok: response === card.answer };
+    const got = answerPieces(response);
+    if (!got.length) return { empty: true };
+    const accept = [];
+    (card.accept || []).forEach(function (a) { answerPieces(a).forEach(function (w) { accept.push(w); }); });
+    // A one-word answer must match exactly; a list of base forms must all be
+    // forms of the right base.
+    const whole = answerPieces(response).join(" ");
+    const ok = (card.accept || []).some(function (a) { return answerPieces(a).join(" ") === whole; }) ||
+      (card.gloss && got.every(function (w) { return accept.indexOf(w) >= 0; }));
+    return { ok: !!ok };
+  }
+
+  function cardOptions(item) {
+    return item.options || (CATS[item.cat] && CATS[item.cat].options) || [];
+  }
+
+  // "(A)", "A." or nothing, by the exercise's style.
+  function optionKey(item, k) {
+    const style = item.optionStyle || (CATS[item.cat] && CATS[item.cat].optionStyle) || "paren";
+    const L = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[k];
+    if (style === "letters") return L + ".";
+    if (style === "paren") return "(" + L + ")";
+    return "";
+  }
+
+  // The student's answer (or the right one) as text, for the card and the Sheet.
+  function answerText(item, a) {
+    if (item.kind !== "choice") return String(a);
+    const opt = cardOptions(item)[a];
+    const key = optionKey(item, a);
+    return (key ? key + " " : "") + (opt == null ? "" : opt);
+  }
+
+  function cardLabel(item) { return item.word || item.label || ""; }
+
   // ---------- Student identity & per-student storage ----------
   // Learn and Quiz share one Know it / Still learning record per student.
   function slug(s) {
@@ -1430,7 +1564,8 @@
       known: ID + "_known_v1__" + sl,
       learning: ID + "_learning_v1__" + sl,
       visited: ID + "_passVisited_v1__" + sl,
-      quiz: ID + "_quiz_v1__" + sl
+      quiz: ID + "_quiz_v1__" + sl,
+      quizzes: ID + "_quizzes_v1__" + sl
     };
   }
 
@@ -1442,6 +1577,7 @@
   let learningMarked = new Set();
   let passVisited = new Set(); // cards seen in the current pass through the "All" list
   let quiz = null;             // the quiz in progress, or null
+  let quizzes = {};            // Exercise Decks: the quiz for each tab
 
   function validIdx(i) { return Number.isInteger(i) && i >= 0 && i < N; }
 
@@ -1453,6 +1589,7 @@
     learningMarked = new Set();
     passVisited = new Set();
     quiz = null;
+    quizzes = {};
     let hadRecord = false;
     try {
       const rawK = localStorage.getItem(keys.known);
@@ -1461,8 +1598,17 @@
       if (rawL) { learningMarked = new Set(JSON.parse(rawL).filter(validIdx)); hadRecord = true; }
       const rawV = localStorage.getItem(keys.visited);
       if (rawV) passVisited = new Set(JSON.parse(rawV).filter(validIdx));
-      const rawQ = localStorage.getItem(keys.quiz);
-      if (rawQ) quiz = validQuiz(JSON.parse(rawQ));
+      if (QUIZ_BY_SET) {
+        quizzes = {};
+        const rawM = JSON.parse(localStorage.getItem(keys.quizzes) || "null") || {};
+        Object.keys(rawM).forEach(function (k) {
+          const q = validQuiz(rawM[k]);
+          if (q && q.set === k) quizzes[k] = q;
+        });
+      } else {
+        const rawQ = localStorage.getItem(keys.quiz);
+        if (rawQ) quiz = validQuiz(JSON.parse(rawQ));
+      }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
   }
@@ -1507,6 +1653,12 @@
   }
 
   function saveQuiz() {
+    if (QUIZ_BY_SET) {
+      if (quiz) quizzes[quiz.set] = quiz;
+      try { localStorage.setItem(storageKeys(currentSlug).quizzes, JSON.stringify(quizzes)); }
+      catch (e) { /* ignore */ }
+      return;
+    }
     try {
       const k = storageKeys(currentSlug).quiz;
       if (quiz) localStorage.setItem(k, JSON.stringify(quiz));
@@ -1658,13 +1810,22 @@
   const resetBtn = document.getElementById("resetBtn");
   const footerHelp = document.getElementById("footerHelp");
   const studentNameEl = document.getElementById("studentName");
+  const exInstr = document.getElementById("exInstr");
+  const promptFront = document.getElementById("promptFront");
+  const choiceList = document.getElementById("choiceList");
+
+  if (EXERCISE) {
+    document.documentElement.classList.add("exercise");
+    document.querySelector(".mode-tabs").hidden = true;
+    document.getElementById("gateCopy").textContent = "Enter your name to begin. Your progress is saved on this device, and a short summary is sent to your teacher each time you finish a quiz round.";
+  }
 
   originLabel.textContent = DECK.backLabel || "Origin";
 
   // Learn sub-tabs: All, the deck's own categories (if any), Still Learning.
   const CATEGORIES = DECK.categories || [];
   learnTabsEl.innerHTML = "";
-  [{ key: "all", label: "All" }].concat(CATEGORIES, [{ key: "learning", label: "Still Learning" }]).forEach(function (t, k) {
+  [{ key: "all", label: "All" }].concat(CATEGORIES, [{ key: "learning", label: EXERCISE ? "Missed" : "Still Learning" }]).forEach(function (t, k) {
     const b = document.createElement("button");
     b.className = "tab" + (k === 0 ? " active" : "");
     b.dataset.filter = t.key;
@@ -1838,6 +1999,11 @@
     el.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
     el.classList.remove("flipped");
     el.classList.add("peek", "dragging");
+    if (EXERCISE) {
+      fillExerciseFront(el, info.item, null);
+      stage.appendChild(el);
+      return el;
+    }
     el.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = info.tag; });
     el.querySelector(".term").textContent = info.item.word;
     el.querySelector(".hint").hidden = true;
@@ -2008,9 +2174,12 @@
   // Round 1 = every card, shuffled. Each later round = the cards missed in
   // the round before, until every card has been answered correctly.
   function newRound(round, indices) {
+    const inBook = DECK.round1 === "book" && round === 1;
     return {
       round: round,
-      order: shuffleArray(indices.slice()),
+      set: filter,
+      size: quiz && round > 1 ? quiz.size : indices.length,
+      order: inBook ? indices.slice().sort(function (a, b) { return a - b; }) : shuffleArray(indices.slice()),
       pos: 0,
       answers: indices.map(function () { return null; }),
       phase: "card",
@@ -2031,12 +2200,13 @@
     quiz.sent = true;
     const answers = quiz.order.map(function (i, k) {
       const a = quiz.answers[k] || {};
-      const row = { i: i, w: CARDS[i].word, a: a.a || "", r: !!a.ok };
+      const shown = a.a == null ? "" : (EXERCISE ? answerText(CARDS[i], a.a) : a.a);
+      const row = { i: i, w: cardLabel(CARDS[i]), a: shown, r: !!a.ok };
       if (a.mixed) row.mixed = a.mixed;
       return row;
     });
     reportPass({
-      passMode: "quiz round " + quiz.round,
+      passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
       passSize: quiz.order.length,
       results: answers.map(function (x) { return { i: x.i, r: x.r }; }),
@@ -2046,6 +2216,131 @@
   }
 
   let inputFor = null; // which quiz card the answer box currently belongs to
+
+  // ---------- Exercise Decks: the question side of a card ----------
+  function setLabel(key) {
+    if (key === "all") return "All";
+    if (key === "learning") return "Missed";
+    return (CATS[key] && CATS[key].label) || key;
+  }
+
+  function setTitle(key) {
+    if (key === "all") return "All exercises";
+    if (key === "learning") return "Missed questions";
+    return (CATS[key] && (CATS[key].title || CATS[key].label)) || key;
+  }
+
+  // The cards a quiz on this tab covers.
+  function setIndices(key) {
+    return CARDS.map(function (_, i) { return i; }).filter(function (i) {
+      if (key === "all") return true;
+      if (key === "learning") return learningMarked.has(i);
+      return CARDS[i].cat === key;
+    });
+  }
+
+  function el(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  // Fills a card's front (the real card or the copy that slides in) with
+  // the question. ans = the checked answer, or null.
+  function fillExerciseFront(root, item, ans) {
+    const cat = CATS[item.cat] || {};
+    const tag = (cat.label ? cat.label + " · " : "") + (quiz ? "Round " + quiz.round : "");
+    root.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = tag; });
+    const instr = root.querySelector(".ex-instr");
+    instr.innerHTML = "";
+    if (cat.instruction) instr.appendChild(document.createTextNode(cat.instruction));
+    if (cat.baseLine) instr.appendChild(el("span", "base-line", "Bases: " + cat.baseLine));
+    if (cat.bank) instr.appendChild(el("span", "bank", "Word bank: " + cat.bank.join(", ") + "."));
+    instr.hidden = !instr.childNodes.length;
+    const term = root.querySelector(".term");
+    term.textContent = item.word || "";
+    term.hidden = !item.word;
+    const prompt = root.querySelector(".prompt");
+    prompt.innerHTML = "";
+    (item.lines || []).forEach(function (ln) {
+      const d = el("div", "line");
+      d.appendChild(el("span", "line-label", ln[0]));
+      d.appendChild(document.createTextNode(ln[1]));
+      prompt.appendChild(d);
+    });
+    if (item.text) prompt.appendChild(el("div", "line", item.text));
+    if (item.ask) prompt.appendChild(el("div", "ask", item.ask));
+    prompt.hidden = !prompt.childNodes.length;
+    root.querySelector(".hint").hidden = true;
+    const list = root.querySelector(".choices");
+    list.innerHTML = "";
+    if (item.kind === "choice") {
+      const opts = cardOptions(item);
+      list.classList.toggle("long", opts.length > 6);
+      opts.forEach(function (o, k) {
+        const b = el("button", "choice");
+        b.type = "button";
+        b.dataset.k = k;
+        const key = optionKey(item, k);
+        if (key) b.appendChild(el("span", "opt-key", key));
+        b.appendChild(el("span", "", o));
+        b.disabled = !!ans;
+        if (ans && ans.a === k) b.classList.add("picked");
+        list.appendChild(b);
+      });
+    }
+    list.hidden = item.kind !== "choice";
+    list.scrollTop = 0;
+    const form = root.querySelector(".quiz-form");
+    form.hidden = item.kind === "choice";
+    const inp = form.querySelector("input");
+    inp.placeholder = item.placeholder || "Type your answer";
+    if (root !== cardEl) {
+      inp.value = "";
+      inp.disabled = false;
+      form.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
+      form.querySelector(".quiz-note").textContent = "";
+    }
+  }
+
+  // The answer side: the right answer, a note (a base's meanings, one per
+  // line), and the student's answer with the verdict.
+  function fillExerciseBack(item, ans) {
+    meaningBack.innerHTML = "";
+    if (item.word) meaningBack.appendChild(el("div", "back-word", item.word));
+    else if (item.kind === "choice" && item.text) meaningBack.appendChild(el("div", "back-text", item.text));
+    if (item.kind === "choice") {
+      const key = optionKey(item, item.answer);
+      if (key) meaningBack.appendChild(el("span", "answer-key", key));
+      meaningBack.appendChild(document.createTextNode(cardOptions(item)[item.answer]));
+    } else {
+      meaningBack.textContent = item.answerText || (item.accept || [])[0] || "";
+    }
+    originBack.innerHTML = "";
+    if (item.glossMeanings) {
+      originLabel.textContent = item.glossMeanings.length > 1 ? "Meanings" : "Meaning";
+      item.glossMeanings.forEach(function (m) { originBack.appendChild(el("div", "", m)); });
+    } else {
+      originLabel.textContent = "";
+      if (item.answerNote) originBack.textContent = item.answerNote;
+    }
+    originLabel.hidden = !originLabel.textContent;
+    originBox.hidden = !originBack.childNodes.length;
+    feedbackBox.hidden = !ans;
+    if (ans) {
+      yourAnswer.textContent = answerText(item, ans.a);
+      verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
+      verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
+      verdictReason.hidden = true;
+    }
+  }
+
+  // Phones open the keyboard only for a question that is typed.
+  function needsTyping() {
+    if (!quiz || quiz.phase !== "card") return false;
+    return !EXERCISE || CARDS[quiz.order[quiz.pos]].kind !== "choice";
+  }
 
   function renderQuiz() {
     learnTabs.forEach(function (t) { t.textContent = t.dataset.label + " (" + tabCount(t.dataset.filter) + ")"; });
@@ -2071,6 +2366,20 @@
 
     cardEl.classList.add("no-flip");
     cardEl.setAttribute("aria-label", "Quiz card");
+    if (EXERCISE) {
+      fillExerciseFront(cardEl, item, ans);
+      answerInput.disabled = !!ans;
+      checkBtn.disabled = !!ans;
+      fillExerciseBack(item, ans);
+      cardEl.classList.toggle("flipped", !!ans);
+      const done = quiz.answers.filter(Boolean).length;
+      statusText.textContent = "Round " + quiz.round + " · " + done + " of " + quiz.order.length + " answered";
+      progressFill.style.width = (done / quiz.order.length) * 100 + "%";
+      quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
+      quizNextBtn.disabled = !ans;
+      quizNextBtn.innerHTML = quiz.pos === quiz.order.length - 1 ? "Finish round &rarr;" : "Next &rarr;";
+      return;
+    }
     tagFront.textContent = "Round " + quiz.round;
     tagBack.textContent = "Round " + quiz.round;
     termFront.textContent = item.word;
@@ -2120,6 +2429,27 @@
     const actions = document.createElement("div");
     actions.className = "panel-actions";
 
+    if (!quiz && EXERCISE) {
+      const size = setIndices(filter).length;
+      const cat = CATS[filter] || {};
+      statusText.textContent = known.size + " of " + N + " correct";
+      progressFill.style.width = "0%";
+      title.textContent = setTitle(filter);
+      quizPanel.appendChild(title);
+      if (!size) {
+        copy.textContent = "Nothing here yet. Questions you miss will be listed here.";
+        quizPanel.appendChild(copy);
+        return;
+      }
+      copy.textContent = (cat.instruction ? cat.instruction + " " : "") +
+        "Round 1 covers all " + size + " question" + (size === 1 ? "" : "s") + (DECK.round1 === "book" ? ", in the workbook\u2019s order" : "") +
+        ". Any you miss come back in the next round, until you have answered every one correctly.";
+      quizPanel.appendChild(copy);
+      actions.appendChild(panelButton("nav-btn", "Start the quiz &rarr;", startQuiz));
+      quizPanel.appendChild(actions);
+      return;
+    }
+
     if (!quiz) {
       statusText.textContent = known.size + " of " + N + " known";
       progressFill.style.width = "0%";
@@ -2144,7 +2474,8 @@
       const missed = size - score;
       statusText.textContent = "Round " + quiz.round + " complete";
       title.textContent = "Round " + quiz.round + " complete";
-      copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " word" + (missed === 1 ? "" : "s") +
+      const noun = EXERCISE ? "question" : "word";
+      copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") +
         " you missed, in a new order.";
       quizPanel.appendChild(title);
       quizPanel.appendChild(scoreEl);
@@ -2153,12 +2484,13 @@
     } else {
       statusText.textContent = "Quiz complete";
       title.textContent = "Quiz complete";
-      copy.textContent = "You have answered all " + N + " words correctly" +
+      const total = EXERCISE ? quiz.size : N;
+      copy.textContent = "You have answered all " + total + " " + (EXERCISE ? "question" : "word") + (total === 1 ? "" : "s") + " correctly" +
         (quiz.round > 1 ? ", in " + quiz.round + " rounds." : " in a single round.");
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
       actions.appendChild(panelButton("nav-btn", "Take the quiz again", startQuiz));
-      actions.appendChild(panelButton("secondary-btn", "Back to Learn", function () { quiz = null; saveQuiz(); setMode("learn"); }));
+      if (!EXERCISE) actions.appendChild(panelButton("secondary-btn", "Back to Learn", function () { quiz = null; saveQuiz(); setMode("learn"); }));
     }
     quizPanel.appendChild(actions);
     const firstBtn = actions.querySelector("button");
@@ -2166,11 +2498,14 @@
   }
 
   function startQuiz() {
-    quiz = newRound(1, CARDS.map(function (_, i) { return i; }));
+    const indices = QUIZ_BY_SET ? setIndices(filter) : CARDS.map(function (_, i) { return i; });
+    if (!indices.length) return;
+    quiz = null;
+    quiz = newRound(1, indices);
     inputFor = null;
     saveQuiz();
     render();
-    answerInput.focus();
+    if (needsTyping()) answerInput.focus();
   }
 
   function startNextRound() {
@@ -2178,14 +2513,17 @@
     inputFor = null;
     saveQuiz();
     render();
-    answerInput.focus();
+    if (needsTyping()) answerInput.focus();
   }
 
-  function checkAnswer() {
+  // choice = the option tapped, on an Exercise Deck's choice question.
+  function checkAnswer(choice) {
     if (!quiz || quiz.phase !== "card" || quiz.answers[quiz.pos] || sliding) return;
-    const text = answerInput.value.trim();
     const idx = quiz.order[quiz.pos];
-    const result = judge(idx, text);
+    const isChoice = EXERCISE && CARDS[idx].kind === "choice";
+    if (isChoice && typeof choice !== "number") return;
+    const text = isChoice ? choice : answerInput.value.trim();
+    const result = EXERCISE ? judgeExercise(idx, text) : judge(idx, text);
     if (result.empty) { quizNote.textContent = "Type your answer first."; answerInput.focus(); return; }
     if (result.tooLong) { quizNote.textContent = "Please keep your answer to " + MAX_ANSWER_WORDS + " words or fewer."; answerInput.focus(); return; }
     quizNote.textContent = "";
@@ -2212,7 +2550,7 @@
       // card's front is hidden, so clearing the box early is not seen).
       answerInput.disabled = false;
       answerInput.value = "";
-      answerInput.focus();
+      if (!EXERCISE || CARDS[quiz.order[quiz.pos + 1]].kind !== "choice") answerInput.focus();
       return;
     }
     if (!quiz.sent) sendQuizRound();
@@ -2228,7 +2566,7 @@
       t.classList.toggle("active", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
-    learnTabsEl.hidden = mode !== "learn";
+    learnTabsEl.hidden = mode !== "learn" && !QUIZ_BY_SET;
     learnTools.hidden = mode !== "learn";
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
@@ -2236,7 +2574,7 @@
       footerHelp.textContent = "Click the card (or press Space) to flip · Arrow keys or a two-finger swipe to move";
       renderLearn();
     } else {
-      footerHelp.textContent = "Type the meaning and press Enter to check";
+      footerHelp.textContent = EXERCISE ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check";
       renderQuiz();
     }
     if (typeof fitPhone === "function") fitPhone();
@@ -2248,7 +2586,7 @@
     flipped = false;
     inputFor = null;
     render();
-    if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos]) answerInput.focus();
+    if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping()) answerInput.focus();
   }
 
   cardEl.addEventListener("click", function (e) {
@@ -2276,6 +2614,11 @@
   learningBtn.addEventListener("click", function (e) { e.stopPropagation(); markLearning(); });
   shuffleBtn.addEventListener("click", shuffle);
   checkBtn.addEventListener("click", function (e) { e.stopPropagation(); checkAnswer(); });
+  choiceList.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const b = e.target.closest && e.target.closest(".choice");
+    if (b && !b.disabled) checkAnswer(Number(b.dataset.k));
+  });
   answerInput.addEventListener("click", function (e) { e.stopPropagation(); });
   answerInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") { e.preventDefault(); checkAnswer(); }
@@ -2304,6 +2647,19 @@
     const bottom = deckScreen.getBoundingClientRect().bottom + window.scrollY + (parseFloat(getComputedStyle(document.body).paddingBottom) || 0);
     const h = Math.max(200, Math.min(460, Math.floor(cur + window.innerHeight - bottom - 2)));
     root.style.setProperty("--fit-h", h + "px");
+    // A long list of options gets shorter until the card fits above the
+    // pinned Next bar; the list scrolls inside the card.
+    if (EXERCISE && !stage.hidden && !choiceList.hidden && choiceList.classList.contains("long")) {
+      choiceList.style.maxHeight = "";
+      const limit = quizControls.hidden ? window.innerHeight : quizControls.getBoundingClientRect().top;
+      const over = cardEl.getBoundingClientRect().bottom - (limit - 8);
+      if (over > 0) choiceList.style.maxHeight = Math.max(120, choiceList.clientHeight - over) + "px";
+    }
+    // Keep the selected exercise tab in view in its sideways-scrolling row.
+    if (EXERCISE) {
+      const on = learnTabsEl.querySelector(".tab.active");
+      if (on) learnTabsEl.scrollLeft = Math.max(0, on.offsetLeft - learnTabsEl.offsetLeft - (learnTabsEl.clientWidth - on.offsetWidth) / 2);
+    }
   }
   applyDeviceClasses();
 
@@ -2448,7 +2804,9 @@
       filter = tab.dataset.filter;
       pos = 0;
       flipped = false;
+      if (QUIZ_BY_SET) { quiz = quizzes[filter] || null; inputFor = null; }
       render();
+      if (QUIZ_BY_SET && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping()) answerInput.focus();
     });
   });
 
@@ -2472,8 +2830,9 @@
     gateScreen.hidden = true;
     deckScreen.hidden = false;
     // Always open in Learn; an unfinished quiz resumes where it stopped
-    // when the Quiz tab is tapped.
+    // when the Quiz tab is tapped. Exercise Decks open the quiz on All.
     showHint = true;
+    if (EXERCISE) { quiz = quizzes.all || null; setMode("quiz"); return; }
     setMode("learn");
   }
 
@@ -2498,7 +2857,7 @@
     if (m === "full") return "Full set";
     if (m === "missed") return "Missed retry";
     if (m === "learn") return "Learn pass";
-    if (/^quiz round \d+$/.test(m || "")) return "Quiz r" + m.slice(6);
+    if (/^quiz round \d+/.test(m || "")) return "Quiz r" + m.slice(6);
     return m || "—";
   }
 
@@ -2634,7 +2993,7 @@
     }
 
     function renderWordTable() {
-      const stats = CARDS.map(function (c) { return { label: c.word, right: 0, wrong: 0 }; });
+      const stats = CARDS.map(function (c) { return { label: cardLabel(c), right: 0, wrong: 0 }; });
       attempts.forEach(function (a) {
         if (!Array.isArray(a.results) || !a.results.length) return;
         // Sparse [{i, r}, ...] for the cards in that pass; older records may be dense [true|false|null, ...].

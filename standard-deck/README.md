@@ -6,7 +6,26 @@ one template, so the decks stay identical apart from their content.
 
 - `template.html`: the shared page (look, Learn and Quiz modes, answer judging, reporting).
 - `decks/*.js`: one file per deck with its cards and the approved quiz key-word lists.
+- `glossary.js`: every base, prefix and suffix used in the decks, once, with its forms
+  and its full set of meanings. Decks point to entries (`gloss: "PED"`) instead of
+  repeating the meanings, so all decks agree. Change a meaning here and rebuild.
 - `build.js`: writes each deck's HTML file to the repository root.
+
+Before changing any file, keep a renamed copy of it in `backups/` (see `backups/README.md`).
+
+## Two deck types
+
+- **Flashcard Deck** (Greek Mythology, Greek History; Latin Roots to follow): Learn and
+  Quiz modes, for content to be memorized.
+- **Exercise Deck** (`type: "exercise"`; Lesson IX so far): Quiz mode only. The name
+  screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
+  quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
+  `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled).
+  Each card is a `choice` question (tap one option; `answer` is its index; an
+  exercise's shared `options` can sit on its category) or a `typed` one (`accept`
+  lists the answers that count, compared without case, accents, hyphens or brackets;
+  a card with `gloss` accepts any form of that glossary entry). Sheet rows use pass
+  mode "quiz round N", with the tab added for a single exercise ("quiz round 1 (Ex 3)").
 
 To change a deck's words or key-word lists, edit its file in `decks/`. To change
 how every deck looks or behaves, edit `template.html`. Then rebuild from the
