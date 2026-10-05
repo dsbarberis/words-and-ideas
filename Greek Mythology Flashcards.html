@@ -789,6 +789,14 @@
             }
           ]
         }
+      ],
+      "accepted": [
+        "punish",
+        "punishment"
+      ],
+      "everyday": [
+        "same",
+        "fit"
       ]
     },
     {
@@ -851,7 +859,10 @@
                 "unconquerable",
                 "undefeatable",
                 "ultimate",
-                "greatest"
+                "greatest",
+                "powerful",
+                "mighty",
+                "formidable"
               ]
             }
           ],
@@ -860,6 +871,11 @@
             "archrival"
           ]
         }
+      ],
+      "accepted": [
+        "fierce",
+        "strong",
+        "tough"
       ]
     },
     {
@@ -958,6 +974,10 @@
             "sage"
           ]
         }
+      ],
+      "accepted": [
+        "support",
+        "protect"
       ]
     },
     {
@@ -978,6 +998,11 @@
             }
           ]
         }
+      ],
+      "accepted": [
+        "wander",
+        "wandering",
+        "dark"
       ]
     },
     {
@@ -1011,6 +1036,17 @@
             }
           ]
         }
+      ],
+      "accepted": [
+        "cruel",
+        "punishment",
+        "desire",
+        "want",
+        "long for"
+      ],
+      "everyday": [
+        "offer",
+        "show"
       ]
     },
     {
@@ -1044,6 +1080,10 @@
             }
           ]
         }
+      ],
+      "everyday": [
+        "long",
+        "years"
       ]
     },
     {
@@ -1070,6 +1110,14 @@
             }
           ]
         }
+      ],
+      "accepted": [
+        "powerful",
+        "mighty",
+        "strong"
+      ],
+      "everyday": [
+        "support"
       ]
     },
     {
@@ -1091,6 +1139,13 @@
             }
           ]
         }
+      ],
+      "accepted": [
+        "invincible",
+        "unbeatable",
+        "strong",
+        "powerful",
+        "mighty"
       ]
     }
   ]
@@ -1103,8 +1158,12 @@
   // ---------- Answer judging ----------
   // A typed answer is correct when, for at least one of the word's senses,
   // it contains a key term from every required group (or a ★ term, which
-  // covers all groups of its sense) and no key term that belongs to another
-  // word in this deck. Generic groups never trigger that penalty.
+  // covers all groups of its sense) and no key term that belongs ONLY to
+  // other words in this deck. A term that also belongs to this word (in any
+  // group, ★ or its accepted list) never triggers that penalty, so lists
+  // may overlap. Accepted terms fit the meaning without being required;
+  // generic groups and a card's everyday terms never trigger the penalty
+  // on other cards.
   const MAX_ANSWER_WORDS = 12;
 
   function norm(s) {
@@ -1231,7 +1290,28 @@
       sense.groups.forEach(function (g) { g.terms = g.terms.map(prepTerm); });
       sense.star = (sense.star || []).map(prepTerm);
     });
+    c.accepted = (c.accepted || []).map(prepTerm);
+    const everyday = (c.everyday || []).map(norm);
+    // Every term of this card, for the "does it also belong here?" check.
+    c.ownTerms = c.accepted.slice();
+    // The terms that count against an answer to a different card.
+    c.penaltyTerms = [];
+    c.senses.forEach(function (sense) {
+      sense.star.forEach(function (t) { c.ownTerms.push(t); c.penaltyTerms.push(t); });
+      sense.groups.forEach(function (g) {
+        g.terms.forEach(function (t) {
+          c.ownTerms.push(t);
+          if (!g.generic && everyday.indexOf(norm(t.text)) < 0) c.penaltyTerms.push(t);
+        });
+      });
+    });
   });
+
+  // Same term, allowing other forms of each word (protect / protection).
+  function sameTerm(a, b) {
+    if (a.toks.length !== b.toks.length) return false;
+    return a.toks.every(function (w, k) { return wordMatches(w, b.toks[k], false); });
+  }
 
   function judge(cardIdx, text) {
     const ans = toTokens(text);
@@ -1239,6 +1319,7 @@
     if (ans.length > MAX_ANSWER_WORDS) return { tooLong: true };
     const card = CARDS[cardIdx];
     const ownSpans = [];
+    card.accepted.forEach(function (t) { findTerm(ans, t, true).forEach(function (sp) { ownSpans.push(sp); }); });
     let ok = false;
     card.senses.forEach(function (sense) {
       const all = sense.star.slice();
@@ -1256,14 +1337,10 @@
     let mixed = null;
     for (let j = 0; j < N && !mixed; j++) {
       if (j === cardIdx) continue;
-      CARDS[j].senses.forEach(function (sense) {
+      CARDS[j].penaltyTerms.forEach(function (t) {
         if (mixed) return;
-        const terms = sense.star.slice();
-        sense.groups.forEach(function (g) { if (!g.generic) g.terms.forEach(function (t) { terms.push(t); }); });
-        terms.forEach(function (t) {
-          if (mixed) return;
-          if (findTerm(ans, t, false).some(function (sp) { return !covered(sp); })) mixed = CARDS[j].word;
-        });
+        if (card.ownTerms.some(function (o) { return sameTerm(o, t); })) return;
+        if (findTerm(ans, t, false).some(function (sp) { return !covered(sp); })) mixed = CARDS[j].word;
       });
     }
     return { ok: ok && !mixed, mixed: mixed };
