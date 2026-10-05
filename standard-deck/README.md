@@ -27,7 +27,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
     "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
-- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III): Quiz mode only. The name
+- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
   `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled).
@@ -41,6 +41,15 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   `parts` name glossary entries (`{ gloss, label, note? }`), and the back shows each
   part as printed with the glossary's full set of meanings. A deck with no exercise
   tabs can set `allTitle` and a deck-wide `instruction`.
+  A `boxes` card (Greek Introduction) has one box per part of the answer
+  (`boxes: [{ label, check }]`; Enter moves to the next box). A box with
+  `check: "greek"` accepts any of `greekForms` (ignoring accents, and treating k/c,
+  kh/ch and y/u alike, with one slip allowed in longer words); `check: "deriv"`
+  accepts any of `derivs`; any other box is judged with the card's `senses`. The card
+  is right when every box is. An `order` card is answered by tapping its `steps`
+  (`[language, form, meaning]`) in order, from Greek to English. A category's
+  `example` appears on that exercise's start screen, and `help` replaces the
+  desktop footer hint.
 
 To change a deck's words or key-word lists, edit its file in `decks/`. To change
 how every deck looks or behaves, edit `template.html`. Then rebuild from the

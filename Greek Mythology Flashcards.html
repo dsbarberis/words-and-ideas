@@ -713,6 +713,26 @@
   .prompt .sentence .target, .back-sentence .target { font-weight: 700; font-style: normal; }
   .prompt .sentence .target { color: var(--burgundy); }
   .prompt .cite, .back-sentence .cite { display: block; font-size: 13px; font-style: italic; color: var(--ink-soft); margin-top: 4px; }
+  /* Several boxes on one card (Greek Introduction Ex 1 and 3) */
+  .box-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold); margin: 0 0 4px 2px; text-align: left; }
+  .more-boxes .box-label { margin-top: 10px; }
+  .more-boxes .quiz-input { width: 100%; }
+  /* Tap the stages into order (Greek Introduction Ex 2) */
+  .order-area { width: 100%; max-width: 460px; margin-top: 6px; }
+  .order-picked { min-height: 44px; border: 1px dashed var(--rule); border-radius: 8px; padding: 6px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .order-picked:empty::before { content: "Tap the stages below, starting with Greek"; font-size: 13px; font-style: italic; color: var(--ink-soft); padding: 6px; }
+  .order-pool { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .order-chip { font: inherit; font-size: 14px; padding: 7px 10px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; text-align: left; }
+  .order-chip .lang { font-weight: 600; margin-right: 5px; }
+  .order-chip .num { font-weight: 700; color: var(--navy); margin-right: 6px; }
+  .order-chip:disabled { cursor: default; opacity: 0.75; }
+  .order-quiz .quiz-row .quiz-input { display: none; }
+  .order-quiz .quiz-row { justify-content: center; }
+  .route { text-align: left; font-size: 14px; line-height: 1.5; }
+  .route .stage { display: block; }
+  .route .stage .lang { color: var(--gold); margin-right: 6px; }
+  .your-answer .ya-line .mark-ok { color: #cfe3c4; }
+  .your-answer .ya-line .mark-no { color: #f1d3d0; }
   /* Meaning-in-context questions (Exercise III): the analysis on the back */
   .analysis { font-style: normal; font-size: 15px; line-height: 1.45; margin: 2px 0 12px; }
   .analysis .part { display: block; }
@@ -843,11 +863,14 @@
         <div class="prompt" id="promptFront" hidden></div>
         <div class="choices" id="choiceList" hidden></div>
         <div class="hint" id="hintFront">Tap card to reveal meaning</div>
+        <div class="order-area" hidden><div class="order-picked"></div><div class="order-pool"></div></div>
         <div class="quiz-form" id="quizForm" hidden>
+          <div class="box-label box-label0" hidden></div>
           <div class="quiz-row">
             <input type="text" id="answerInput" class="quiz-input" placeholder="Type the meaning" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" />
             <button class="nav-btn" id="checkBtn">Check</button>
           </div>
+          <div class="more-boxes"></div>
           <div class="more-lines" id="moreLines"></div>
           <button type="button" class="add-line" id="addLineBtn" hidden>+ Add another meaning</button>
           <div class="quiz-note" id="quizNote"></div>
@@ -1667,6 +1690,12 @@
     if (card.kind === "choice") return { ok: response === card.answer };
     // The meaning in context, judged with the card's key-word lists.
     if (card.kind === "meaning") return judge(cardIdx, response);
+    if (card.kind === "boxes") return judgeBoxes(cardIdx, response);
+    if (card.kind === "order") {
+      const n = card.steps.length;
+      if (!Array.isArray(response) || response.length < n) return { empty: true, order: true };
+      return { ok: response.every(function (v, k) { return v === k; }) };
+    }
     const got = answerPieces(response);
     if (!got.length) return { empty: true };
     const accept = [];
@@ -1677,6 +1706,41 @@
     const ok = (card.accept || []).some(function (a) { return answerPieces(a).join(" ") === whole; }) ||
       (card.gloss && got.every(function (w) { return accept.indexOf(w) >= 0; }));
     return { ok: !!ok };
+  }
+
+  // Greek words in English letters: case, accents, macrons, spaces and
+  // hyphens are ignored, and k/c, kh/ch and y/u count as the same letter.
+  function greekKey(s) {
+    return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      .replace(/[^a-z]/g, "").replace(/kh/g, "ch").replace(/k/g, "c").replace(/y/g, "u");
+  }
+
+  function oneOf(answer, forms, key) {
+    const a = key(answer);
+    if (!a) return false;
+    return forms.some(function (f) {
+      const k = key(f);
+      return a === k || (k.length >= 6 && withinOneEdit(a, k));
+    });
+  }
+
+  function plainKey(s) { return String(s || "").toLowerCase().replace(/[^a-z]/g, ""); }
+
+  // Several boxes on one card: each box is judged on its own, and the card
+  // is right when every box is.
+  function judgeBoxes(cardIdx, vals) {
+    const card = CARDS[cardIdx];
+    vals = vals || [];
+    if (!vals.some(function (v) { return String(v || "").trim(); })) return { empty: true };
+    const parts = card.boxes.map(function (b, k) {
+      const v = String(vals[k] || "").trim();
+      if (!v) return false;
+      if (b.check === "greek") return oneOf(v, card.greekForms, greekKey);
+      if (b.check === "deriv") return oneOf(v, card.derivs, plainKey);
+      const r = judge(cardIdx, v);
+      return !!r.ok;
+    });
+    return { ok: parts.every(Boolean), parts: parts };
   }
 
   function cardOptions(item) {
@@ -1694,6 +1758,8 @@
 
   // The student's answer (or the right one) as text, for the card and the Sheet.
   function answerText(item, a) {
+    if (item.kind === "boxes") return (a || []).map(function (v) { return v || "\u2013"; }).join(" | ");
+    if (item.kind === "order") return (a || []).map(function (k) { return stageText(item.steps[k]); }).join(" \u2192 ");
     if (item.kind !== "choice") return String(a);
     const opt = cardOptions(item)[a];
     const key = optionKey(item, a);
@@ -2594,6 +2660,9 @@
     form.hidden = item.kind === "choice";
     const inp = form.querySelector("input");
     inp.placeholder = item.placeholder || "Type your answer";
+    root.classList.toggle("order-quiz", item.kind === "order");
+    fillBoxes(root, item, ans);
+    fillOrder(root, item, ans);
     if (root !== cardEl) {
       inp.value = "";
       inp.disabled = false;
@@ -2602,10 +2671,186 @@
     }
   }
 
+  // ---------- Greek Introduction: several boxes, and stages in order ----------
+  let orderPick = [];          // stages tapped so far on the current card
+  function stageText(st) { return st[0] + " " + st[1]; }
+
+  // The pool shows a card's stages in a fixed scrambled order.
+  function poolOrder(item) {
+    const n = item.steps.length;
+    const idx = [];
+    for (let k = 0; k < n; k++) idx.push(k);
+    let seed = 0;
+    for (const ch of item.word) seed = (seed * 31 + ch.charCodeAt(0)) % 9973;
+    for (let k = n - 1; k > 0; k--) {
+      seed = (seed * 7919 + 17) % 9973;
+      const j = seed % (k + 1);
+      const t = idx[k]; idx[k] = idx[j]; idx[j] = t;
+    }
+    if (idx.every(function (v, k) { return v === k; })) idx.reverse();
+    return idx;
+  }
+
+  function fillBoxes(root, item, ans) {
+    const lab0 = root.querySelector(".box-label0");
+    const more = root.querySelector(".more-boxes");
+    const first = root.querySelector(".quiz-form input");
+    if (item.kind !== "boxes") {
+      lab0.hidden = true;
+      more.innerHTML = "";
+      delete more.dataset.for;
+      return;
+    }
+    const key = root === cardEl && quiz ? quiz.round + ":" + quiz.pos : "peek";
+    lab0.hidden = false;
+    lab0.textContent = item.boxes[0].label;
+    first.placeholder = item.boxes[0].placeholder || "";
+    if (more.dataset.for !== key || root !== cardEl) {
+      more.dataset.for = key;
+      more.innerHTML = "";
+      item.boxes.slice(1).forEach(function (b) {
+        more.appendChild(el("div", "box-label", b.label));
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.className = "quiz-input box-input";
+        inp.setAttribute("autocomplete", "off");
+        inp.setAttribute("autocapitalize", "off");
+        inp.setAttribute("spellcheck", "false");
+        inp.setAttribute("aria-label", b.label);
+        inp.placeholder = b.placeholder || "";
+        if (root === cardEl) wireBox(inp);
+        more.appendChild(inp);
+      });
+      if (root !== cardEl) first.value = "";
+    }
+    const inputs = [first].concat(Array.prototype.slice.call(more.querySelectorAll("input")));
+    if (ans) inputs.forEach(function (i, k) { i.value = ans.a[k] || ""; });
+    inputs.forEach(function (i) { i.disabled = !!ans; });
+  }
+
+  function boxValues() {
+    return [answerInput].concat(Array.prototype.slice.call(cardEl.querySelectorAll(".more-boxes input")))
+      .map(function (i) { return i.value.trim(); });
+  }
+
+  // Enter moves to the next box; Enter in the last box checks the answer.
+  function boxEnter(inp) {
+    const all = [answerInput].concat(Array.prototype.slice.call(cardEl.querySelectorAll(".more-boxes input")));
+    const k = all.indexOf(inp);
+    if (k < all.length - 1) all[k + 1].focus();
+    else checkAnswer();
+  }
+
+  function wireBox(inp) {
+    inp.addEventListener("click", function (e) { e.stopPropagation(); });
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); boxEnter(inp); }
+    });
+    inp.addEventListener("input", function () { quizNote.textContent = ""; });
+    inp.addEventListener("focus", function () { document.documentElement.classList.add("typing"); });
+    inp.addEventListener("blur", function () { document.documentElement.classList.remove("typing"); });
+  }
+
+  function fillOrder(root, item, ans) {
+    const area = root.querySelector(".order-area");
+    if (item.kind !== "order") { area.hidden = true; return; }
+    area.hidden = false;
+    const picked = root.querySelector(".order-picked");
+    const pool = root.querySelector(".order-pool");
+    const pick = root === cardEl ? (ans ? ans.a : orderPick) : [];
+    picked.innerHTML = "";
+    pool.innerHTML = "";
+    pick.forEach(function (k, n) {
+      const b = el("button", "order-chip");
+      b.type = "button";
+      b.dataset.k = k;
+      b.dataset.where = "picked";
+      b.appendChild(el("span", "num", (n + 1) + "."));
+      b.appendChild(el("span", "lang", item.steps[k][0]));
+      b.appendChild(document.createTextNode(item.steps[k][1]));
+      b.disabled = !!ans;
+      picked.appendChild(b);
+    });
+    poolOrder(item).forEach(function (k) {
+      if (pick.indexOf(k) >= 0) return;
+      const b = el("button", "order-chip");
+      b.type = "button";
+      b.dataset.k = k;
+      b.dataset.where = "pool";
+      b.appendChild(el("span", "lang", item.steps[k][0]));
+      b.appendChild(document.createTextNode(item.steps[k][1]));
+      b.disabled = !!ans;
+      pool.appendChild(b);
+    });
+  }
+
+  // The answer side of a Greek Introduction card: the Greek word, its parts
+  // and meaning, the closer derivative, the note, and the route into English.
+  function fillGreekBack(item, ans) {
+    meaningBack.innerHTML = "";
+    meaningBack.appendChild(el("div", "back-word", item.word));
+    const an = el("div", "analysis");
+    const g = el("span", "part");
+    g.appendChild(el("b", "", "Greek " + item.greek));
+    g.appendChild(document.createTextNode("\u201c" + item.gmean + "\u201d"));
+    an.appendChild(g);
+    (item.parts || []).forEach(function (pt) {
+      const d = el("span", "part");
+      d.appendChild(el("b", "", pt[0]));
+      d.appendChild(document.createTextNode(pt[1]));
+      an.appendChild(d);
+    });
+    if (item.deriv) {
+      const d = el("span", "part");
+      d.appendChild(el("b", "", "Closer derivative"));
+      d.appendChild(document.createTextNode(item.deriv));
+      an.appendChild(d);
+    }
+    meaningBack.appendChild(an);
+    if (item.note) meaningBack.appendChild(el("div", "back-note", item.note));
+    originLabel.textContent = "Route into English";
+    originLabel.hidden = false;
+    originBack.innerHTML = "";
+    const route = el("div", "route");
+    item.steps.forEach(function (st) {
+      const d = el("span", "stage");
+      d.appendChild(el("span", "lang", st[0]));
+      d.appendChild(document.createTextNode(st[1] + (st[2] ? " \u2018" + st[2] + "\u2019" : "")));
+      route.appendChild(d);
+    });
+    originBack.appendChild(route);
+    originBox.hidden = false;
+    feedbackBox.hidden = !ans;
+    if (!ans) return;
+    yourAnswer.innerHTML = "";
+    yourAnswer.className = "ya-list";
+    if (item.kind === "boxes") {
+      const res = judgeBoxes(CARDS.indexOf(item), ans.a);
+      item.boxes.forEach(function (b, k) {
+        const d = el("span", "ya-line");
+        d.appendChild(el("span", res.parts[k] ? "mark-ok" : "mark-no", res.parts[k] ? "\u2713 " : "\u2717 "));
+        d.appendChild(document.createTextNode(b.label + ": "));
+        d.appendChild(el("b", "", ans.a[k] || "\u2013"));
+        yourAnswer.appendChild(d);
+      });
+    } else {
+      ans.a.forEach(function (k, n) {
+        const d = el("span", "ya-line");
+        d.appendChild(el("span", k === n ? "mark-ok" : "mark-no", k === n ? "\u2713 " : "\u2717 "));
+        d.appendChild(el("b", "", stageText(item.steps[k])));
+        yourAnswer.appendChild(d);
+      });
+    }
+    verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
+    verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
+    verdictReason.hidden = true;
+  }
+
   // The answer side: the right answer, a note (a base's meanings, one per
   // line), and the student's answer with the verdict.
   function fillExerciseBack(item, ans) {
     if (item.kind === "meaning") { fillMeaningBack(item, ans); return; }
+    if (item.kind === "boxes" || item.kind === "order") { fillGreekBack(item, ans); return; }
     meaningBack.innerHTML = "";
     if (item.word) meaningBack.appendChild(el("div", "back-word", item.word));
     else if (item.kind === "choice" && item.text) meaningBack.appendChild(el("div", "back-text", item.text));
@@ -2672,7 +2917,8 @@
   // Phones open the keyboard only for a question that is typed.
   function needsTyping() {
     if (!quiz || quiz.phase !== "card") return false;
-    return !EXERCISE || CARDS[quiz.order[quiz.pos]].kind !== "choice";
+    const kind = CARDS[quiz.order[quiz.pos]].kind;
+    return !EXERCISE || (kind !== "choice" && kind !== "order");
   }
 
   function renderQuiz() {
@@ -2694,7 +2940,9 @@
     if (inputFor !== key) {
       inputFor = key;
       if (MEANINGS) resetLines(ans ? ans.a : null);
+      else if (EXERCISE && (item.kind === "boxes" || item.kind === "order")) answerInput.value = ans && item.kind === "boxes" ? ans.a[0] : "";
       else answerInput.value = ans ? ans.a : "";
+      orderPick = [];
       quizNote.textContent = "";
     }
 
@@ -2783,6 +3031,11 @@
         "Round 1 covers all " + size + " question" + (size === 1 ? "" : "s") + (DECK.round1 === "book" ? ", in the workbook\u2019s order" : "") +
         ". Any you miss come back in the next round, until you have answered every one correctly.";
       quizPanel.appendChild(copy);
+      if (cat.example) {
+        const ex = copy.cloneNode(false);
+        ex.textContent = cat.example;
+        quizPanel.appendChild(ex);
+      }
       actions.appendChild(panelButton("nav-btn", "Start the quiz &rarr;", startQuiz));
       quizPanel.appendChild(actions);
       return;
@@ -2884,9 +3137,14 @@
     const idx = quiz.order[quiz.pos];
     const isChoice = EXERCISE && CARDS[idx].kind === "choice";
     if (isChoice && typeof choice !== "number") return;
-    const text = isChoice ? choice : MEANINGS ? lineValues() : answerInput.value.trim();
+    const kind = EXERCISE ? CARDS[idx].kind : "";
+    const text = isChoice ? choice : MEANINGS ? lineValues() : kind === "boxes" ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     const result = EXERCISE ? judgeExercise(idx, text) : MEANINGS ? judgeMeanings(idx, text) : judge(idx, text);
-    if (result.empty) { quizNote.textContent = "Type your answer first."; answerInput.focus(); return; }
+    if (result.empty) {
+      quizNote.textContent = result.order ? "Tap every stage first." : "Type your answer first.";
+      if (!result.order) answerInput.focus();
+      return;
+    }
     if (result.tooLong) {
       quizNote.textContent = MEANINGS ? "Please keep each meaning to " + MAX_LINE_WORDS + " words or fewer." : "Please keep your answer to " + MAX_ANSWER_WORDS + " words or fewer.";
       answerInput.focus();
@@ -2917,7 +3175,8 @@
       answerInput.disabled = false;
       answerInput.value = "";
       if (MEANINGS) { moreLines.innerHTML = ""; setLinesDisabled(false); }
-      if (!EXERCISE || CARDS[quiz.order[quiz.pos + 1]].kind !== "choice") answerInput.focus();
+      const nextKind = CARDS[quiz.order[quiz.pos + 1]].kind;
+      if (!EXERCISE || (nextKind !== "choice" && nextKind !== "order")) answerInput.focus();
       return;
     }
     if (!quiz.sent) sendQuizRound();
@@ -2941,7 +3200,7 @@
       footerHelp.textContent = "Click the card (or press Space) to flip · Arrow keys or a two-finger swipe to move";
       renderLearn();
     } else {
-      footerHelp.textContent = EXERCISE ? (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
+      footerHelp.textContent = EXERCISE ? DECK.help || (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
         MEANINGS ? "One meaning per line \u00b7 Enter starts a new line \u00b7 Enter on an empty line, or Check, checks the answer" :
         "Type the meaning and press Enter to check";
       renderQuiz();
@@ -2984,6 +3243,17 @@
   learningBtn.addEventListener("click", function (e) { e.stopPropagation(); markLearning(); });
   shuffleBtn.addEventListener("click", shuffle);
   checkBtn.addEventListener("click", function (e) { e.stopPropagation(); checkAnswer(); });
+  cardEl.querySelector(".order-area").addEventListener("click", function (e) {
+    e.stopPropagation();
+    const b = e.target.closest && e.target.closest(".order-chip");
+    if (!b || b.disabled || !quiz || quiz.phase !== "card" || quiz.answers[quiz.pos]) return;
+    const k = Number(b.dataset.k);
+    if (b.dataset.where === "pool") orderPick.push(k);
+    else orderPick = orderPick.filter(function (x) { return x !== k; });
+    quizNote.textContent = "";
+    fillOrder(cardEl, CARDS[quiz.order[quiz.pos]], null);
+    if (typeof fitPhone === "function") fitPhone();
+  });
   choiceList.addEventListener("click", function (e) {
     e.stopPropagation();
     const b = e.target.closest && e.target.closest(".choice");
@@ -2991,7 +3261,12 @@
   });
   answerInput.addEventListener("click", function (e) { e.stopPropagation(); });
   answerInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") { e.preventDefault(); if (MEANINGS) lineEnter(answerInput); else checkAnswer(); }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (MEANINGS) lineEnter(answerInput);
+      else if (EXERCISE && quiz && CARDS[quiz.order[quiz.pos]].kind === "boxes") boxEnter(answerInput);
+      else checkAnswer();
+    }
   });
   answerInput.addEventListener("input", function () { quizNote.textContent = ""; });
   quizNextBtn.addEventListener("click", quizNext);
