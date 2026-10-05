@@ -15,18 +15,8 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
 
 ## Two deck types
 
-- **Flashcard Deck** (Greek Mythology, Greek History, Latin Roots): Learn and
+- **Flashcard Deck** (Greek Mythology, Greek History; Latin Roots to follow): Learn and
   Quiz modes, for content to be memorized.
-  - Latin Roots (`decks/latin-roots.js`, built as `index.html`) is a meanings deck
-    (`answer: "meanings"`): each card is a glossary entry, with its forms on the front
-    and its meanings (one per line) and examples on the back. In the quiz the student
-    types the meanings one per line ("+ Add another meaning", or Enter), and every
-    meaning is required. `keys` holds one key-word list per meaning, in the glossary's
-    order. A line that matches only another card's wording makes the answer wrong;
-    a line that matches nothing is ignored. `quizBySet: true` makes the quiz cover
-    the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
-    "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
-    once (`legacy.knownPrefix` / `learningPrefix`).
 - **Exercise Deck** (`type: "exercise"`; Lesson IX so far): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.

@@ -23,9 +23,7 @@ function formsOf(forms) {
 }
 
 // A card that points to a glossary entry takes its forms and meanings from it.
-// On a meanings deck (Latin Roots) the card IS the entry: its forms on the
-// front, its meanings and examples on the back.
-function resolveGlossary(card, file, deck) {
+function resolveGlossary(card, file) {
   if (!card.gloss) return card;
   const entry = glossary[card.gloss];
   if (!entry) throw new Error(file + ": no glossary entry \"" + card.gloss + "\"");
@@ -34,22 +32,13 @@ function resolveGlossary(card, file, deck) {
   out.glossMeanings = entry.meanings;
   if (card.kind === "typed" && !card.accept) out.accept = formsOf(entry.forms);
   if (!card.answerText) out.answerText = entry.forms;
-  if (deck.answer === "meanings") {
-    out.word = entry.forms;
-    out.meanings = entry.meanings;
-    out.origin = entry.examples || "";
-    if (!card.keys || card.keys.length !== entry.meanings.length) {
-      throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
-    }
-    delete out.glossForms; delete out.glossMeanings; delete out.answerText;
-  }
   return out;
 }
 
 for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWith(".js")).sort()) {
   const deck = require(path.join(here, "decks", file));
   const { output, ...data } = deck;
-  data.cards = deck.cards.map(function (c) { return resolveGlossary(c, file, deck); });
+  data.cards = deck.cards.map(function (c) { return resolveGlossary(c, file); });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
