@@ -629,6 +629,11 @@
   * { touch-action: manipulation; }
 
   .card { touch-action: pan-y; }
+  /* Cards move as a filmstrip: the incoming card is a copy that travels
+     beside the current one with a fixed gap, then the real card takes over. */
+  .stage { position: relative; }
+  .card.peek { position: absolute; top: 0; left: 0; width: 100%; pointer-events: none; }
+  html, body { overflow-x: clip; }
   .card.dragging, .card.dragging .face { transition: none; }
 
   /* Touchscreens (phones and tablets): swipe instead of Prev/Next. */
@@ -1754,66 +1759,143 @@
     cardEl.classList.toggle("flipped", flipped);
   }
 
-  // The card slides off in the direction of travel and the next one glides
-  // in from the other side (dir +1 = next, -1 = previous). A flick passes its
-  // speed in, so the card carries on at that speed and then eases out. A move
-  // asked for while a card is still sliding waits its turn rather than being
-  // dropped, so every swipe moves exactly one card.
+  // Cards move as a filmstrip (dir +1 = next, -1 = previous): the incoming
+  // card travels in beside the current one with a fixed gap between them,
+  // and both move together. A flick passes its speed in, so the strip
+  // carries on at that speed and eases to a stop. One move asked for while
+  // the strip is still moving waits its turn; any more are ignored.
   let sliding = false;
   let advancing = false;  // a Know it / Still learning tap is about to move on
   const slideQueue = [];
   const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const EASE_OUT = "cubic-bezier(0.22, 0.8, 0.32, 1)";
+  const EASE_IN_OUT = "cubic-bezier(0.45, 0, 0.2, 1)";
+  const GAP = 16;
+  let dragPeek = null;  // { dir, el } while a finger drag shows the next card
   function cardX() { return new DOMMatrix(getComputedStyle(cardEl).transform).m41 || 0; }
+  function stepWidth() { return cardEl.offsetWidth + GAP; }
+  function place(el, x, ms, easing) {
+    el.style.transition = ms ? "transform " + ms + "ms " + easing : "none";
+    el.style.transform = x ? "translateX(" + x + "px)" : "";
+  }
   function moveCard(x, ms, easing, done) {
-    cardEl.style.transition = ms ? "transform " + ms + "ms " + easing : "none";
-    cardEl.style.transform = x ? "translateX(" + x + "px)" : "";
+    place(cardEl, x, ms, easing);
     if (done) setTimeout(done, ms);
   }
-  function snapBack() {
-    moveCard(0, 320, EASE_OUT, function () { if (!sliding) cardEl.style.transition = ""; });
+
+  // What the neighbouring card will show once the deck moves there.
+  function neighbourInfo(dir) {
+    if (mode === "learn") {
+      const list = currentList();
+      if (list.length <= 1) return null;
+      const item = CARDS[list[(pos + dir + list.length) % list.length]];
+      return { tag: cardTag(item), item: item, quiz: false };
+    }
+    if (dir > 0 && quiz && quiz.phase === "card" && quiz.answers[quiz.pos] && quiz.pos < quiz.order.length - 1) {
+      return { tag: "Round " + quiz.round, item: CARDS[quiz.order[quiz.pos + 1]], quiz: true };
+    }
+    return null;
   }
+
+  // A copy of the card showing the neighbour's front, as render() will draw it.
+  function makePeek(info) {
+    const el = cardEl.cloneNode(true);
+    el.removeAttribute("id");
+    el.removeAttribute("tabindex");
+    el.setAttribute("aria-hidden", "true");
+    el.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+    el.classList.remove("flipped");
+    el.classList.add("peek", "dragging");
+    el.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = info.tag; });
+    el.querySelector(".term").textContent = info.item.word;
+    el.querySelector(".hint").hidden = true;
+    el.querySelector(".meaning").textContent = info.item.defn;
+    const origin = el.querySelector(".examples span:last-child");
+    if (origin) origin.textContent = info.item.origin;
+    el.querySelector(".feedback").hidden = true;
+    el.querySelector(".quiz-form").hidden = !info.quiz;
+    if (info.quiz) {
+      const inp = el.querySelector("input");
+      inp.value = "";
+      inp.disabled = false;
+      el.querySelectorAll(".quiz-form button").forEach(function (b) { b.disabled = false; });
+      el.querySelector(".quiz-note").textContent = "";
+    }
+    stage.appendChild(el);
+    return el;
+  }
+  function dropPeek() {
+    if (dragPeek) { dragPeek.el.remove(); dragPeek = null; }
+  }
+  // During a finger drag: show the neighbour in the direction of the drag.
+  function dragTo(dx) {
+    const dir = dx < 0 ? 1 : -1;
+    if (dragPeek && dragPeek.dir !== dir) dropPeek();
+    if (!dragPeek) {
+      const info = neighbourInfo(dir);
+      dragPeek = { dir: dir, el: info ? makePeek(info) : null };
+    }
+    if (!dragPeek.el) { place(cardEl, dx * 0.3, 0); return; }  // nothing there: resist
+    place(cardEl, dx, 0);
+    place(dragPeek.el, dx + dir * stepWidth(), 0);
+  }
+  function snapBack() {
+    const peek = dragPeek;
+    dragPeek = null;
+    moveCard(0, 340, EASE_OUT, function () { if (!sliding) cardEl.style.transition = ""; });
+    if (peek && peek.el) {
+      place(peek.el, peek.dir * stepWidth(), 340, EASE_OUT);
+      setTimeout(function () { peek.el.remove(); }, 340);
+    }
+  }
+
   let slideToken = 0;
   // Switching mode or card set mid-slide drops the slide and anything queued.
   function cancelSlides() {
     slideToken++;
     slideQueue.length = 0;
     sliding = false;
+    dropPeek();
+    stage.querySelectorAll(".card.peek").forEach(function (n) { n.remove(); });
     cardEl.classList.remove("dragging");
     moveCard(0, 0);
     cardEl.style.transition = "";
   }
+
   function slideCard(dir, change, speed) {
-    if (sliding) { if (slideQueue.length < 3) slideQueue.push([dir, change]); return; }
-    if (REDUCED_MOTION || stage.hidden) { change(); return; }
+    if (sliding) { if (slideQueue.length < 1) slideQueue.push([dir, change]); return; }
+    const info = neighbourInfo(dir);
+    if (REDUCED_MOTION || stage.hidden || !info) { dropPeek(); change(); return; }
     if (typeof speed !== "number") speed = 0;  // button clicks pass an event
     sliding = true;
     const tok = ++slideToken;
-    const hurry = slideQueue.length > 0;
-    const dist = stage.offsetWidth + 40;
-    const from = cardX();
-    const remaining = Math.abs(-dir * dist - from);
-    // Out: at the flick's speed (or a gentle start), easing as it leaves.
-    let outMs = speed ? 1.8 * remaining / Math.max(speed, 0.6) : 300;
-    outMs = Math.round(Math.max(160, Math.min(hurry ? 200 : 360, outMs)));
+    const step = stepWidth();
+    const x0 = cardX();
+    let peek;
+    if (dragPeek && dragPeek.dir === dir && dragPeek.el) { peek = dragPeek.el; dragPeek = null; }
+    else { dropPeek(); peek = makePeek(info); place(peek, x0 + dir * step, 0); }
+    void peek.offsetWidth;
+    const remaining = Math.abs(dir * step + x0);
+    let ms = speed ? 1.6 * remaining / Math.max(speed, 0.5) : 420;
+    ms = Math.round(Math.max(200, Math.min(slideQueue.length ? 260 : 460, ms)));
+    const easing = speed ? EASE_OUT : EASE_IN_OUT;
     cardEl.classList.add("dragging");
-    void cardEl.offsetWidth;
-    moveCard(-dir * dist, outMs, speed ? EASE_OUT : "cubic-bezier(0.5, 0, 0.75, 0.6)", function () {
-      if (tok !== slideToken) return;
+    place(cardEl, -dir * step, ms, easing);
+    place(peek, 0, ms, easing);
+    setTimeout(function () {
+      if (tok !== slideToken) { peek.remove(); return; }
+      // The real card takes over in the peek's place, already showing the
+      // new content, so the swap is invisible.
       change();
-      moveCard(dir * dist * 0.6, 0);
+      place(cardEl, 0, 0);
+      peek.remove();
       void cardEl.offsetWidth;
-      // In: glide and settle.
-      const inMs = slideQueue.length ? 220 : 380;
-      moveCard(0, inMs, EASE_OUT, function () {
-        if (tok !== slideToken) return;
-        cardEl.classList.remove("dragging");
-        cardEl.style.transition = "";
-        sliding = false;
-        const next = slideQueue.shift();
-        if (next) slideCard(next[0], next[1]);
-      });
-    });
+      cardEl.classList.remove("dragging");
+      cardEl.style.transition = "";
+      sliding = false;
+      const next = slideQueue.shift();
+      if (next) slideCard(next[0], next[1]);
+    }, ms);
   }
 
   function goNext(speed) {
@@ -2226,8 +2308,8 @@
       touchStart.dragging = true;
       if (touchStart.follow) cardEl.classList.add("dragging");
     }
-    // The card follows the finger exactly.
-    if (touchStart.dragging && touchStart.follow && !sliding) moveCard(dx, 0);
+    // The card follows the finger exactly, with the next card beside it.
+    if (touchStart.dragging && touchStart.follow && !sliding) dragTo(dx);
   }, { passive: true });
   function endTouch(e) {
     if (!touchStart) return;
@@ -2253,20 +2335,23 @@
     if (!moved && st.follow && !sliding) {
       cardEl.classList.remove("dragging");
       snapBack();
-    }
+    } else if (!moved) dropPeek();
   }
   stage.addEventListener("touchend", endTouch);
   stage.addEventListener("touchcancel", endTouch);
 
   // Two-finger trackpad swipe or a sideways-scrolling mouse on desktop.
   // One gesture moves one card. After a trackpad swipe the computer keeps
-  // sending fading "coasting" signals for about a second; those belong to
-  // the same swipe, but a new swipe shows up as a fresh rise in speed, so it
-  // counts even while the last one is still coasting.
+  // sending fading, slightly wobbly "coasting" signals for about a second;
+  // those belong to the same swipe. A new swipe counts only when it comes at
+  // least 350ms after the last one and its speed climbs well above the
+  // coasting level (three times the slowest coasting signal seen).
   let wheelAccum = 0;
   let wheelLocked = false;
   let wheelTimer = null;
+  let wheelAt = 0;
   let wheelPeak = 0;
+  let wheelMin = Infinity;
   let wheelLast = 0;
   let wheelFaded = false;
   window.addEventListener("wheel", function (e) {
@@ -2277,8 +2362,9 @@
     wheelTimer = setTimeout(function () { wheelAccum = 0; wheelLocked = false; wheelLast = 0; }, 200);
     if (wheelLocked) {
       wheelPeak = Math.max(wheelPeak, a);
-      if (a < wheelPeak * 0.6) wheelFaded = true;
-      const fresh = wheelFaded && a >= 4 && a > wheelLast * 1.6 + 2;
+      if (a < wheelPeak * 0.5) wheelFaded = true;
+      if (wheelFaded) wheelMin = Math.min(wheelMin, a);
+      const fresh = wheelFaded && e.timeStamp - wheelAt >= 350 && a > wheelLast && a >= Math.max(10, 3 * wheelMin);
       wheelLast = a;
       if (!fresh) return;
       wheelLocked = false;
@@ -2288,7 +2374,9 @@
     wheelAccum += e.deltaX;
     if (Math.abs(wheelAccum) >= 60) {
       wheelLocked = true;
+      wheelAt = e.timeStamp;
       wheelPeak = a;
+      wheelMin = Infinity;
       wheelFaded = false;
       swipe(wheelAccum > 0 ? 1 : -1);
       wheelAccum = 0;
