@@ -22,6 +22,16 @@ Do not edit the generated deck files (for example `Greek Mythology Flashcards.ht
 
 Each card has one or more `senses` (alternative meanings). An answer is correct when,
 for at least one sense, it contains a term from every group, or one of that sense's
-`star` terms (which cover all of its groups). A group marked `generic: true` never
-triggers the penalty for mixing in another word's meaning. Within a deck, the
-non-generic lists should not overlap.
+`star` terms (which cover all of its groups), and it contains no term that belongs
+only to other cards in the deck.
+
+- A word that fits two cards goes on both: a term that also belongs to the card being
+  answered never counts against the answer, so lists may overlap.
+- `accepted`: terms that fit the card's meaning without being required. They never
+  count toward a correct answer and never count against it.
+- `everyday`: common words (long, show, thinks) that still count for their own card
+  but never count against an answer to another card. A group marked `generic: true`
+  behaves the same way for all its terms.
+
+When drafting a deck's lists, put every appropriate word on each card it fits, mark
+common words as everyday, and test a set of natural answers for each card before building.
