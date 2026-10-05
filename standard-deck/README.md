@@ -26,9 +26,9 @@ such as "Greek Mythology Words Flashcards"; keep it unchanged so Sheet rows stay
 
 - All devices: the name screen always opens Learn; an unfinished quiz resumes where it
   stopped when the Quiz tab is tapped. A hint shows on the first card only. Each card
-  change slides the old card off and the new one in (instant with "reduce motion").
-  A move asked for while a card is still sliding is queued, so each swipe or tap moves
-  exactly one card.
+  change moves the cards as a filmstrip: the next card travels in beside the current
+  one with a fixed 16px gap (instant with "reduce motion"). One move asked for while
+  the strip is moving waits its turn; any more are ignored.
 - Touchscreens (phones and tablets): swipe left for the next card and right for the
   previous one; there are no Prev/Next buttons. The card follows the finger, a short
   fast flick counts, and the card carries the flick's speed as it leaves. Double-tap zoom is off (pinch zoom
@@ -37,8 +37,8 @@ such as "Greek Mythology Words Flashcards"; keep it unchanged so Sheet rows stay
   screen without scrolling, and
   "Still learning"/"Know it" (Learn) or Next (Quiz) pinned to the bottom of the screen.
 - Desktop: Prev/Next buttons, arrow keys, and a two-finger trackpad (or sideways
-  mouse) swipe; a new swipe counts even while the last one's coasting signals are
-  still arriving. The browser's own back/forward swipe is switched off on the page.
+  mouse) swipe. A new swipe counts if it comes at least 350ms after the last one and
+  its speed climbs well above the last swipe's fading "coasting" signals. The browser's own back/forward swipe is switched off on the page.
 - Text inputs use 16px type so iPhone Safari does not zoom in on them.
 
 ## Key-word lists
