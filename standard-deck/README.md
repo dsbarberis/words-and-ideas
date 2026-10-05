@@ -24,10 +24,14 @@ such as "Greek Mythology Words Flashcards"; keep it unchanged so Sheet rows stay
 
 ## Phones, tablets and desktop
 
+- All devices: the name screen always opens Learn; an unfinished quiz resumes where it
+  stopped when the Quiz tab is tapped. A hint shows on the first card only. Each card
+  change slides the old card off and the new one in (instant with "reduce motion").
 - Touchscreens (phones and tablets): swipe left for the next card and right for the
-  previous one; there are no Prev/Next buttons. A small swipe hint shows until the
-  first swipe. In a quiz, a swipe left moves on only after the answer is checked.
-- Phones (screens up to 600px wide): compact header, a card sized to the screen, and
+  previous one; there are no Prev/Next buttons. Double-tap zoom is off (pinch zoom
+  still works). In a quiz, a swipe left moves on only after the answer is checked.
+- Phones (screens up to 600px wide): compact header, a card sized so the page fits the
+  screen without scrolling, and
   "Still learning"/"Know it" (Learn) or Next (Quiz) pinned to the bottom of the screen.
 - Desktop: Prev/Next buttons, arrow keys, and a two-finger trackpad (or sideways
   mouse) swipe. The browser's own back/forward swipe is switched off on the page.
