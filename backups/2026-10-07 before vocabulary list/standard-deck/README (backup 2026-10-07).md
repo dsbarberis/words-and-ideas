@@ -9,19 +9,7 @@ one template, so the decks stay identical apart from their content.
 - `glossary.js`: every base, prefix and suffix used in the decks, once, with its forms
   and its full set of meanings. Decks point to entries (`gloss: "PED"`) instead of
   repeating the meanings, so all decks agree. Change a meaning here and rebuild.
-- `vocabulary.js`: every whole word the decks teach, once each (approved Oct 7, 2026):
-  its numbered senses (definition, wording source, quiz key-word lists), its parts
-  (glossary keys), its origin note or etymology, and every place the course introduces
-  it. A Flashcard Deck card is just `{ word: "nemesis" }`; an Exercise Deck card names
-  its word with `vocab` and keeps what belongs to the exercise. A card may name one
-  sense (`sense: 2`); anything a card sets itself overrides the list.
-- **Wording sources:** every definition, origin note, etymology and glossary meaning
-  records where its wording comes from (`wording`: book, workbook, answer key,
-  instructor, dictionary, or "Claude, unchecked"; `ref` says where).
-- `build.js`: writes each deck's HTML file to the repository root, and
-  `build-report.md`: words two decks use with different senses, cards that override
-  the shared definition, possible duplicates or homographs, every wording still
-  marked "Claude, unchecked" (by deck), and which decks use each word.
+- `build.js`: writes each deck's HTML file to the repository root.
 
 Before changing any file, keep a renamed copy of it in `backups/` (see `backups/README.md`).
 
@@ -63,7 +51,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   `example` appears on that exercise's start screen, and `help` replaces the
   desktop footer hint.
 
-To change a word's definition, origin or key-word lists, edit its entry in `vocabulary.js`; to change which words a deck has, or its exercises, edit its file in `decks/`. To change
+To change a deck's words or key-word lists, edit its file in `decks/`. To change
 how every deck looks or behaves, edit `template.html`. Then rebuild from the
 repository root:
 
