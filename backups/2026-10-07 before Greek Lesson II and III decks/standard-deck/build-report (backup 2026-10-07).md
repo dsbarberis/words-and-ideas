@@ -55,27 +55,25 @@ Written by build.js on every rebuild (2026-10-07). Do not edit by hand.
 - **enchanted**, definition in context on the card
 - **infer**, definition in context on the card
 
-### Greek History Words Flashcards (9)
+### Greek History Words Flashcards (14)
 
+- **laconic**, sense 1: Concise; using few words. (source's words: “concise”, Lessons I & II worksheet, p. 167)
 - **laconic**, origin note: From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.
+- **sword of Damocles**, origin note: From the courtier Damocles, seated beneath a sword hung by a single hair, to illustrate how precarious a ruler's power really is.
+- **philippic**, sense 1: A stinging verbal condemnation. (source's words: “stinging condemnation”, Lessons I & II worksheet, p. 167)
 - **philippic**, origin note: From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon.
 - **Draconian**, origin note: From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses.
 - **solecism**, origin note: From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.
-- **epicure, epicurean**, origin note: From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.
+- **epicure**, origin note: From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.
 - **cynic**, origin note: From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives.
+- **sybarite**, sense 1: A person devoted to luxury and pleasure. (source's words: “person devoted to luxury”, Lessons I & II worksheet, p. 167)
 - **sybarite**, origin note: From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.
 - **ostracism**, origin note: From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.
-- **Pyrrhic victory**, origin note: From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.
-
-### Greek Lesson III Exercise (2)
-
-- **labyrinth**, origin note: From the maze built by Daedalus on Crete to house the Minotaur.
-- **aegis**, origin note: From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — "under the aegis of" means under someone's protection.
+- **Pyrrhic**, sense 1: Pertaining to a victory won at such great cost it is nearly as bad as a defeat. (source's words: “pertaining to a victory won at great cost”, Lessons I & II worksheet, p. 167)
+- **Pyrrhic**, origin note: From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.
 
 ### Greek Mythology Words Flashcards (17)
 
-- **labyrinth**, origin note: From the maze built by Daedalus on Crete to house the Minotaur.
-- **aegis**, origin note: From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — "under the aegis of" means under someone's protection.
 - **amazon**, origin note: From the Amazons, a legendary tribe of female warriors in Greek mythology.
 - **Procrustean**, sense 1: Effecting conformity by violent or ruthless means. (source's words: “effecting conformity by violent means”, Lessons I & II worksheet, p. 167)
 - **Procrustean**, origin note: From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size.
@@ -86,10 +84,12 @@ Written by build.js on every rebuild (2026-10-07). Do not edit by hand.
 - **stygian**, origin note: From the River Styx, the gloomy river separating the living world from the underworld.
 - **halcyon**, origin note: From the mythical halcyon bird (identified with the kingfisher), said to calm the winds and sea while nesting.
 - **mentor**, origin note: From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey.
+- **labyrinth**, origin note: From the maze built by Daedalus on Crete to house the Minotaur.
 - **tantalize**, sense 1: To tease by offering something desirable while keeping it out of reach. (source's words: “to tease”, Lessons I & II worksheet, p. 167)
 - **tantalize**, origin note: From Tantalus, condemned in the underworld to stand in water beneath fruit, neither of which he could ever reach.
 - **odyssey**, sense 1: A long wandering journey. (source's words: “a long wandering”, Lessons I & II worksheet, p. 167)
 - **odyssey**, origin note: From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy.
+- **aegis**, origin note: From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — "under the aegis of" means under someone's protection.
 - **Achilles' heel**, origin note: From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx.
 
 ### Glossary meanings (104)
@@ -105,21 +105,21 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - stygian: Greek Mythology Words Flashcards
 - halcyon: Greek Mythology Words Flashcards
 - mentor: Greek Mythology Words Flashcards
-- labyrinth: Greek Lesson III Exercise, Greek Mythology Words Flashcards
+- labyrinth: Greek Mythology Words Flashcards
 - tantalize: Greek Mythology Words Flashcards
 - odyssey: Greek Mythology Words Flashcards
-- aegis: Greek Lesson III Exercise, Greek Mythology Words Flashcards
+- aegis: Greek Mythology Words Flashcards
 - Achilles' heel: Greek Mythology Words Flashcards
 - laconic: Greek History Words Flashcards
 - sword of Damocles: Greek History Words Flashcards
 - philippic: Greek History Words Flashcards
 - Draconian: Greek History Words Flashcards
 - solecism: Greek History Words Flashcards
-- epicure, epicurean: Greek History Words Flashcards
+- epicure: Greek History Words Flashcards
 - cynic: Greek History Words Flashcards
 - sybarite: Greek History Words Flashcards
 - ostracism: Greek History Words Flashcards
-- Pyrrhic victory: Greek History Words Flashcards
+- Pyrrhic: Greek History Words Flashcards
 - senile: Exercise III Flashcards
 - unilateral: Exercise III Flashcards
 - generate: Exercise III Flashcards
@@ -240,66 +240,3 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - pansy: Lesson IX Workbook Flashcards
 - abound: Lesson IX Workbook Flashcards
 - premiere: Lesson IX Workbook Flashcards
-- marathon: Greek History Words Flashcards
-- Solon: Greek History Words Flashcards
-- academy: Greek History Words Flashcards
-- Arcadian: Greek History Words Flashcards
-- Croesus: Greek History Words Flashcards
-- hedonism, hedonistic: Greek History Words Flashcards
-- to cut the Gordian knot: Greek History Words Flashcards
-- mausoleum: Greek History Words Flashcards
-- meander: Greek History Words Flashcards
-- sophistry, sophism: Greek History Words Flashcards
-- Spartan: Greek History Words Flashcards
-- stoic: Greek History Words Flashcards
-- sandwich: Greek History Words Flashcards
-- bedlam: Greek Lesson II Exercise
-- boycott: Greek Lesson II Exercise
-- dunce: Greek Lesson II Exercise
-- Frankenstein: Greek Lesson II Exercise
-- jeremiad: Greek Lesson II Exercise
-- maudlin: Greek Lesson II Exercise
-- quixotic: Greek Lesson II Exercise
-- simony: Greek Lesson II Exercise
-- tawdry: Greek Lesson II Exercise
-- utopia: Greek Lesson II Exercise
-- epode: Greek Lesson III Exercise
-- tragedy: Greek Lesson III Exercise
-- monody: Greek Lesson III Exercise
-- odeum: Greek Lesson III Exercise
-- comedy: Greek Lesson III Exercise
-- rhapsody: Greek Lesson III Exercise
-- parody: Greek Lesson III Exercise
-- palinode: Greek Lesson III Exercise
-- melody: Greek Lesson III Exercise
-- ode: Greek Lesson III Exercise
-- bibliomania: Greek Lesson III Exercise
-- bibliotheca: Greek Lesson III Exercise
-- Bible: Greek Lesson III Exercise
-- bibliography: Greek Lesson III Exercise
-- bibliophile: Greek Lesson III Exercise
-- cryptic: Greek Lesson III Exercise
-- grotesque: Greek Lesson III Exercise
-- apocryphal: Greek Lesson III Exercise
-- cryptonymous: Greek Lesson III Exercise
-- dichotomy: Greek Lesson III Exercise
-- epitome: Greek Lesson III Exercise
-- tome: Greek Lesson III Exercise
-- mastectomy: Greek Lesson III Exercise
-- atom: Greek Lesson III Exercise
-- entomology: Greek Lesson III Exercise
-- canonical: Greek Lesson III Exercise
-- bicycle: Greek Lesson III Exercise
-- cyclone: Greek Lesson III Exercise
-- encyclopedia: Greek Lesson III Exercise
-- glossal: Greek Lesson III Exercise
-- gloss: Greek Lesson III Exercise
-- polyglot: Greek Lesson III Exercise
-- iconoclast: Greek Lesson III Exercise
-- iconology: Greek Lesson III Exercise
-- mimic: Greek Lesson III Exercise
-- pantomime: Greek Lesson III Exercise
-- pyromaniac: Greek Lesson III Exercise
-- pyrosis: Greek Lesson III Exercise
-- empyrean: Greek Lesson III Exercise
-- pyroclastic: Greek Lesson III Exercise

@@ -20,19 +20,6 @@ module.exports = {
     { word: "cynic" },
     { word: "sybarite" },
     { word: "ostracism" },
-    { word: "Pyrrhic" },
-    { word: "marathon" },
-    { word: "Solon" },
-    { word: "academy" },
-    { word: "Arcadian" },
-    { word: "Croesus" },
-    { word: "hedonism" },
-    { word: "to cut the Gordian knot" },
-    { word: "mausoleum" },
-    { word: "meander" },
-    { word: "sophistry" },
-    { word: "Spartan" },
-    { word: "stoic" },
-    { word: "sandwich" }
+    { word: "Pyrrhic" }
   ]
 };

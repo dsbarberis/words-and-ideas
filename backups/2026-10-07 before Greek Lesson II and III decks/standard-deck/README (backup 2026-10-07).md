@@ -39,11 +39,10 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
     "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
-- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction, Greek Lesson II Exercise, Greek Lesson III Exercise): Quiz mode only. The name
+- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
-  `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled);
-  `orderNote: false` leaves "in the workbook's order" off the start screen.
+  `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled).
   Each card is a `choice` question (tap one option; `answer` is its index; an
   exercise's shared `options` can sit on its category) or a `typed` one (`accept`
   lists the answers that count, compared without case, accents, hyphens or brackets;
@@ -57,9 +56,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   A `boxes` card (Greek Introduction) has one box per part of the answer
   (`boxes: [{ label, check }]`; Enter moves to the next box). A box with
   `check: "greek"` accepts any of `greekForms` (ignoring accents, and treating k/c,
-  kh/ch and y/u alike, with one slip allowed in longer words); `check: "names"` passes when the answer contains one of the card's `names` as whole words
-  (for Greek Lesson II Exercise, from the word's `origin.names`, with the back showing each box's answer from
-  the vocabulary list); `check: "deriv"`
+  kh/ch and y/u alike, with one slip allowed in longer words); `check: "deriv"`
   accepts any of `derivs`; any other box is judged with the card's `senses`. The card
   is right when every box is. An `order` card is answered by tapping its `steps`
   (`[language, form, meaning]`) in order, from Greek to English. A category's
