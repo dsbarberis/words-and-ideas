@@ -40,7 +40,7 @@ function resolveVocab(card, file, deck) {
   if (card.sense && !senses[0]) throw new Error(file + ": \"" + key + "\" has no sense " + card.sense);
   function fill(k, v) { if (out[k] === undefined && v !== undefined) out[k] = v; }
   if (deck.type !== "exercise") {
-    fill("word", e.word);
+    out.word = e.word; // the card names its word by key; students see the entry's form
     fill("defn", senses.map(s => s.defn).join(" "));
     if (e.origin) fill("origin", e.origin.text);
     fill("senses", [].concat.apply([], senses.map(s => s.keys || [])));
@@ -50,6 +50,16 @@ function resolveVocab(card, file, deck) {
     if (evd.length) fill("everyday", evd);
   } else if (card.kind === "meaning") {
     if (e.parts.length) fill("parts", e.parts);
+  } else if (card.kind === "boxes" && !e.etymology) {
+    // Person or place, and meaning (Greek Lesson II Exercise): a "names" box
+    // checks the origin's names; any other box, the word's key-word lists.
+    fill("senses", [].concat.apply([], senses.map(s => s.keys || [])));
+    const acc = [].concat.apply([], senses.map(s => s.accepted || []));
+    if (acc.length) fill("accepted", acc);
+    if (e.origin && e.origin.names) fill("names", e.origin.names);
+    fill("answerLines", card.boxes.map(function (b) {
+      return [b.label, b.check === "names" ? e.origin.text : senses.map(s => s.defn).join(" ")];
+    }));
   } else if ((card.kind === "boxes" || card.kind === "order") && e.etymology) {
     const y = e.etymology;
     ["greek", "gmean", "note", "steps", "greekForms", "accepted"].forEach(k => fill(k, y[k]));

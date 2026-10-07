@@ -90,7 +90,7 @@ module.exports = {
     ],
     parts: [],
     origin: {"text":"From the maze built by Daedalus on Crete to house the Minotaur.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"workbook","lesson":"Part II, Lesson III, Exercise 4","page":"170"}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "tantalize": {
     word: "tantalize",
@@ -117,7 +117,7 @@ module.exports = {
     ],
     parts: [],
     origin: {"text":"From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — \"under the aegis of\" means under someone's protection.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"workbook","lesson":"Part II, Lesson III, Exercise 4","page":"171"}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "Achilles' heel": {
     word: "Achilles' heel",
@@ -131,92 +131,92 @@ module.exports = {
   "laconic": {
     word: "laconic",
     senses: [
-      {"defn":"Concise, brief, pithy, using few words.","wording":"instructor","printed":{"text":"brief, pithy, concise","wording":"book","ref":"Greek Lesson II, p. 172"},"note":"Replaces the earlier definition “Concise; using few words.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["concise","terse","brief","succinct","pithy","curt","few words","short"]}]}],"accepted":["speech","spoken","words"],"everyday":["short"],"ref":"instructor's wording, Oct 7, 2026"}
+      {"defn":"Concise; using few words.","wording":"Claude, unchecked","printed":{"text":"concise","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["concise","terse","brief","succinct","pithy","curt","few words","short"]}]}],"accepted":["speech","spoken","words"],"everyday":["short"]}
     ],
     parts: [],
     origin: {"text":"From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"172","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "sword of Damocles": {
     word: "sword of Damocles",
     senses: [
-      {"defn":"A constantly threatening danger.","wording":"book","ref":"Greek Lesson II, p. 175-176","note":"Replaces the earlier definition “A permanently threatening danger.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["danger","threat","threatening","peril","doom","disaster","hazard"]},{"terms":["constant","permanent","always","ever-present","persistent","looming","impending","imminent","hanging over"]}]}],"accepted":["attack"]}
+      {"defn":"A permanently threatening danger.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["danger","threat","threatening","peril","doom","disaster","hazard"]},{"terms":["constant","permanent","always","ever-present","persistent","looming","impending","imminent","hanging over"]}]}],"accepted":["attack"]}
     ],
     parts: [],
-    origin: {"text":"From the courtier Damocles, seated beneath a sword hung by a single thread, to illustrate how precarious a ruler's power really is.","wording":"instructor","ref":"corrected to the book, p. 176 (instructor's ruling, Oct 7, 2026)"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"175-176","sense":1}]
+    origin: {"text":"From the courtier Damocles, seated beneath a sword hung by a single hair, to illustrate how precarious a ruler's power really is.","wording":"Claude, unchecked"},
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "philippic": {
     word: "philippic",
     senses: [
-      {"defn":"A fiery, damning speech, or tirade.","wording":"instructor","printed":{"text":"a bitter denunciation","wording":"book","ref":"Greek Lesson II, p. 173"},"note":"Replaces the earlier definition “A stinging verbal condemnation.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["condemnation","condemn","denunciation","denounce","attack","criticism","scolding","rebuke","damning","fiery"]}],"star":["tirade","diatribe","harangue","rant","invective"]}],"accepted":["harsh","severe","bitter","scathing","verbal","speech","spoken","words","oration","lecture"],"ref":"instructor's wording, Oct 7, 2026"}
+      {"defn":"A stinging verbal condemnation.","wording":"Claude, unchecked","printed":{"text":"stinging condemnation","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["condemnation","condemn","denunciation","denounce","attack","criticism","scolding","rebuke"]},{"terms":["verbal","speech","spoken","words","oration","lecture"]}],"star":["tirade","diatribe","harangue","rant","invective"]}],"accepted":["harsh","severe","bitter","scathing"]}
     ],
     parts: [],
     origin: {"text":"From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "Draconian": {
     word: "Draconian",
     senses: [
-      {"defn":"Extremely severe.","wording":"book","ref":"Greek Lesson II, p. 171","note":"Replaces the earlier definition “Extremely harsh.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["harsh","severe","strict","cruel","oppressive","punitive","brutal","merciless"]}]}],"accepted":["extreme","extremely"]}
+      {"defn":"Extremely harsh.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["harsh","severe","strict","cruel","oppressive","punitive","brutal","merciless"]}]}]}
     ],
     parts: [],
     origin: {"text":"From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "solecism": {
     word: "solecism",
     senses: [
-      {"defn":"A substandard usage of language; a social blunder.","wording":"book","ref":"Greek Lesson II, p. 174","note":"Replaces the earlier definition “A grammatical or social error.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["error","mistake","blunder","slip","impropriety","substandard","incorrect","nonstandard","improper","wrong"]},{"terms":["grammatical","grammar","language","usage","speech","social","etiquette","manners","words","word"]}],"star":["faux pas","gaffe"]}]}
+      {"defn":"A grammatical or social error.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["error","mistake","blunder","slip","impropriety"]},{"terms":["grammatical","grammar","language","usage","speech","social","etiquette","manners","words","word"]}],"star":["faux pas","gaffe"]}]}
     ],
     parts: [],
     origin: {"text":"From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"174","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "epicure": {
-    word: "epicure, epicurean",
+    word: "epicure",
     senses: [
-      {"defn":"A person of refined taste in matters of food and drink.","wording":"book","ref":"Greek Lesson II, p. 171-172","note":"Replaces the earlier definition “A person of discriminating taste, especially in food and wine.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["discerning","discriminating","refined","fine","connoisseur","picky","particular"]},{"generic":true,"terms":["taste","palate","food","wine","cuisine","dining","eating","drink"]}],"star":["gourmet","foodie","gastronome","connoisseur","good taste"]}],"accepted":["loves","enjoys","seeks","pleasure","luxury","indulges"]}
+      {"defn":"A person of discriminating taste, especially in food and wine.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["discerning","discriminating","refined","fine","connoisseur","picky","particular"]},{"generic":true,"terms":["taste","palate","food","wine","cuisine","dining","eating","drink"]}],"star":["gourmet","foodie","gastronome","connoisseur","good taste"]}],"accepted":["loves","enjoys","seeks","pleasure","luxury","indulges"]}
     ],
     parts: [],
     origin: {"text":"From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171-172","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "cynic": {
     word: "cynic",
     senses: [
-      {"defn":"One who sarcastically doubts human motives.","wording":"book","ref":"Greek Lesson II, p. 171","note":"Replaces the earlier definition “A person who believes all human actions are prompted by self-interest.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["believes","thinks","assumes","suspects","distrusts","doubts","expects","sees"]},{"terms":["self-interest","selfish","self-serving","self-centered","ulterior","motives"]}]}],"everyday":["believes","thinks","assumes","expects","sees"],"accepted":["sarcastic","sarcastically"]}
+      {"defn":"A person who believes all human actions are prompted by self-interest.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["believes","thinks","assumes","suspects","distrusts","doubts","expects","sees"]},{"terms":["self-interest","selfish","self-serving","self-centered","ulterior","motives"]}]}],"everyday":["believes","thinks","assumes","expects","sees"]}
     ],
     parts: [],
     origin: {"text":"From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "sybarite": {
     word: "sybarite",
     senses: [
-      {"defn":"One devoted to luxury and pleasure.","wording":"book","note":"Replaces the earlier definition “A person devoted to luxury and pleasure.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["devoted","loves","lives for","seeks","pursues","obsessed","indulges"]},{"terms":["luxury","luxurious","pleasure","comfort","decadence"]}],"star":["hedonist","pleasure-seeker","self-indulgent"]}],"accepted":["selfish","self-centered"],"everyday":["loves","seeks","lives for"],"ref":"Greek Lesson II, p. 176"}
+      {"defn":"A person devoted to luxury and pleasure.","wording":"Claude, unchecked","printed":{"text":"person devoted to luxury","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["devoted","loves","lives for","seeks","pursues","obsessed","indulges"]},{"terms":["luxury","luxurious","pleasure","comfort","decadence"]}],"star":["hedonist","pleasure-seeker","self-indulgent"]}],"accepted":["selfish","self-centered"],"everyday":["loves","seeks","lives for"]}
     ],
     parts: [],
     origin: {"text":"From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"176","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "ostracism": {
     word: "ostracism",
     senses: [
-      {"defn":"Exclusion from society.","wording":"book","ref":"Greek Lesson II, p. 173","note":"The book's wording (Greek Lesson II, p. 173); confirmed by the instructor, Oct 7, 2026.","keys":[{"groups":[{"terms":["exclusion","excluded","rejection","shunning","shunned","isolation"]},{"generic":true,"terms":["society","social","socially","community","group","others","people","everyone"]}],"star":["banishment","banished","exile","outcast","cast out"]}]}
+      {"defn":"Exclusion from society.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["exclusion","excluded","rejection","shunning","shunned","isolation"]},{"generic":true,"terms":["society","social","socially","community","group","others","people","everyone"]}],"star":["banishment","banished","exile","outcast","cast out"]}]}
     ],
     parts: [],
     origin: {"text":"From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "Pyrrhic": {
-    word: "Pyrrhic victory",
+    word: "Pyrrhic",
     senses: [
-      {"defn":"A victory won at too great a cost.","wording":"book","note":"Replaces the earlier definition “Pertaining to a victory won at such great cost it is nearly as bad as a defeat.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"generic":true,"terms":["victory","win","won","success","triumph"]},{"terms":["cost","costly","losses","sacrifice","expensive","damage","price","not worth it"]}]}],"accepted":["disaster","ruin","ruinous"],"ref":"Greek Lesson II, p. 174"}
+      {"defn":"Pertaining to a victory won at such great cost it is nearly as bad as a defeat.","wording":"Claude, unchecked","printed":{"text":"pertaining to a victory won at great cost","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"generic":true,"terms":["victory","win","won","success","triumph"]},{"terms":["cost","costly","losses","sacrifice","expensive","damage","price","not worth it"]}]}],"accepted":["disaster","ruin","ruinous"]}
     ],
     parts: [],
     origin: {"text":"From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.","wording":"Claude, unchecked"},
-    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"174","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "senile": {
     word: "senile",
@@ -1070,532 +1070,5 @@ module.exports = {
     senses: [],
     parts: [{"gloss":"PRIM","label":"PRIM-"}],
     sources: [{"source":"workbook","lesson":"Lesson IX, Exercise 6","page":"51-56"}]
-  },
-  "marathon": {
-    word: "marathon",
-    senses: [
-      {"defn":"A long race (about 26 miles).","wording":"book","ref":"Greek Lesson II, p. 170","keys":[{"groups":[{"terms":["race","run","running","footrace","foot race"]},{"terms":["long","26","distance","endurance"]}],"star":["26 miles","26.2 miles"]}],"accepted":["miles"]}
-    ],
-    parts: [],
-    origin: {"text":"From the Plain of Marathon, site of an Athenian victory over the Persians, whose messenger ran the news to Athens.","wording":"instructor","ref":"Claude's summary of the book, p. 170, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"170","sense":1}]
-  },
-  "Solon": {
-    word: "Solon",
-    senses: [
-      {"defn":"A legislator (often used ironically).","wording":"instructor","ref":"instructor's wording, Oct 7, 2026","note":"The book: “a senator” (as the word is used in newspapers, p. 170); reworded by the instructor.","keys":[{"groups":[{"terms":["senator","legislator","lawmaker","congressman","congresswoman","politician","statesman","representative","lawgiver"]}]}],"accepted":["wise"]}
-    ],
-    parts: [],
-    origin: {"text":"From Solon, the statesman commissioned to reform the laws of Athens.","wording":"instructor","ref":"Claude's summary of the book, p. 170, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"170","sense":1}]
-  },
-  "academy": {
-    word: "academy",
-    senses: [
-      {"defn":"A school or learned society.","wording":"book","ref":"Greek Lesson II, p. 170","keys":[{"groups":[{"terms":["school","college","institute","university","education","educational","training"]}]},{"groups":[{"terms":["learned","scholarly","scholars","academic","intellectual"]},{"terms":["society","group","association","body","institution","organization"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"From the grove of the hero Academus near Athens, where Plato taught.","wording":"instructor","ref":"Claude's summary of the book, p. 170, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"170","sense":1}]
-  },
-  "Arcadian": {
-    word: "Arcadian",
-    senses: [
-      {"defn":"Simple, peaceful, rustic.","wording":"book","ref":"Greek Lesson II, p. 170-171","keys":[{"groups":[{"terms":["simple","peaceful","rustic","rural","pastoral","country","countryside","idyllic","tranquil","quiet","serene","unspoiled","bucolic"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"From Arcadia, a remote, mountainous region of Greece known for its rustic life.","wording":"instructor","ref":"Claude's summary of the book, p. 170-171, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"170-171","sense":1}]
-  },
-  "Croesus": {
-    word: "Croesus",
-    senses: [
-      {"defn":"A very rich man.","wording":"book","ref":"Greek Lesson II, p. 171","keys":[{"groups":[{"terms":["rich","wealthy","wealth","affluent","fortune","millionaire","billionaire","money"]}]}],"accepted":["man","person","king"]}
-    ],
-    parts: [],
-    origin: {"text":"From Croesus, a historical king in Asia Minor famed for his wealth.","wording":"instructor","ref":"Claude's summary of the book, p. 171, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"171","sense":1}]
-  },
-  "hedonism": {
-    word: "hedonism, hedonistic",
-    senses: [
-      {"defn":"The doctrine that pleasure or happiness is the highest good; self-indulgence.","wording":"dictionary","ref":"Online Etymology Dictionary (hedonism); the book, p. 172, only calls it “a blanket term for all such indulgent attitudes”","keys":[{"groups":[{"terms":["pleasure","happiness","enjoyment","indulgence","self-indulgence","self-indulgent","gratification"]}],"star":["pleasure-seeking","pursuit of pleasure"]}],"accepted":["doctrine","belief","philosophy","highest","goal","good"]}
-    ],
-    parts: [],
-    origin: {"text":"From Greek hēdonē, “pleasure”; first taught by Aristippus and the Cyrenaic school.","wording":"instructor","ref":"Claude's summary of the book, p. 172, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"172","sense":1}]
-  },
-  "to cut the Gordian knot": {
-    word: "to cut the Gordian knot",
-    senses: [
-      {"defn":"To solve a difficult problem by direct and drastic means.","wording":"book","ref":"Greek Lesson II, p. 172","keys":[{"groups":[{"terms":["solve","resolve","fix","settle","overcome","cut through","deal with"]},{"terms":["direct","drastic","bold","decisive","forceful","radical","extreme","quick","simple","straightforward","shortcut"]}]}],"accepted":["difficult","hard","complex","complicated","problem"]}
-    ],
-    parts: [],
-    origin: {"text":"From the knot tied by King Gordius, which Alexander the Great cut with his sword.","wording":"instructor","ref":"Claude's summary of the book, p. 172, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"172","sense":1}]
-  },
-  "mausoleum": {
-    word: "mausoleum",
-    senses: [
-      {"defn":"A large tomb.","wording":"book","ref":"Greek Lesson II, p. 173","keys":[{"groups":[{"terms":["tomb","grave","burial","sepulchre","sepulcher","crypt","vault","monument","memorial"]}]}],"accepted":["large","grand","magnificent","building"]}
-    ],
-    parts: [],
-    origin: {"text":"From the tomb of King Mausolus of Caria, one of the Seven Wonders of the World.","wording":"instructor","ref":"Claude's summary of the book, p. 173, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
-  },
-  "meander": {
-    word: "meander",
-    senses: [
-      {"defn":"To follow a winding course.","wording":"book","ref":"Greek Lesson II, p. 173","note":"The book's first definition; its second, the Greek-key design, was left out by the instructor's ruling (Oct 7, 2026).","keys":[{"groups":[{"terms":["wind","winding","wander","wandering","twist","twisting","zigzag","curve","curving","roam","ramble"]}]}],"accepted":["course","path","aimlessly","river"]}
-    ],
-    parts: [],
-    origin: {"text":"From the Meander, a river in Ionia (modern Turkey) known for its winding course.","wording":"instructor","ref":"instructor's wording, Oct 7, 2026"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
-  },
-  "sophistry": {
-    word: "sophistry, sophism",
-    senses: [
-      {"defn":"Clever but deceptive argumentation meant to mislead.","wording":"book","ref":"Greek Lesson II, p. 174-175","keys":[{"groups":[{"terms":["deceptive","misleading","mislead","deceive","deceit","false","fallacious","specious","dishonest","tricky","trick"]},{"terms":["argument","argumentation","arguing","reasoning","rhetoric","logic","debate"]}],"star":["fallacy","fallacies"]}],"accepted":["clever","plausible","persuasive"]}
-    ],
-    parts: [],
-    origin: {"text":"From the sophists, traveling Greek teachers of rhetoric (sophia, “skill”).","wording":"instructor","ref":"Claude's summary of the book, p. 174-175, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"174-175","sense":1}]
-  },
-  "Spartan": {
-    word: "Spartan",
-    senses: [
-      {"defn":"Rigorous, austere, disciplined.","wording":"book","ref":"Greek Lesson II, p. 175","keys":[{"groups":[{"terms":["rigorous","austere","disciplined","discipline","strict","simple","plain","frugal","stern","hardy","bare","minimal","no frills","self-denying"]}]}],"accepted":["harsh","severe","tough"]}
-    ],
-    parts: [],
-    origin: {"text":"From Sparta, whose citizens were trained from childhood in hardship and discipline.","wording":"instructor","ref":"Claude's summary of the book, p. 175, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"175","sense":1}]
-  },
-  "stoic": {
-    word: "stoic",
-    senses: [
-      {"defn":"Impassive.","wording":"book","ref":"Greek Lesson II, p. 175","keys":[{"groups":[{"terms":["impassive","unemotional","emotionless","without emotion","no emotion","no emotions","unmoved","calm","composed","unflappable","indifferent","enduring","uncomplaining","patient","unfeeling","detached","stolid","expressionless","accepting"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"From Stoicism, a Greek school teaching calm acceptance of whatever happens.","wording":"instructor","ref":"Claude's summary of the book, p. 175, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"175","sense":1}]
-  },
-  "sandwich": {
-    word: "sandwich",
-    senses: [
-      {"defn":"Meat or other filling between two slices of bread.","wording":"instructor","ref":"instructor's wording, Oct 7, 2026","note":"Claude's wording from the book's “putting meat between two slices of bread”, approved by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["bread","slice","slices","bun","roll"]}]}],"accepted":["meat","filling","food","between"]}
-    ],
-    parts: [],
-    origin: {"text":"From the 18th-century Earl of Sandwich, who ate meat between slices of bread so he wouldn't have to leave the gaming table.","wording":"instructor","ref":"Claude's summary of the book, p. 176, approved by the instructor (Oct 7, 2026)"},
-    sources: [{"source":"book","lesson":"Greek Lesson II","page":"176","sense":1}]
-  },
-  "bedlam": {
-    word: "bedlam",
-    senses: [
-      {"defn":"A scene of uproar and confusion.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["uproar","confusion","chaos","chaotic","pandemonium","mayhem","turmoil","tumult","commotion","madness","disorder","frenzy","noise","noisy","havoc","riot"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"Bethlehem Hospital (St. Mary of Bethlehem), a London asylum","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Bethlehem","Bethlem","Bedlam"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"176","sense":1}]
-  },
-  "boycott": {
-    word: "boycott",
-    senses: [
-      {"defn":"To refuse to deal with a person or business.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["refuse","refusal","avoid","shun","stop","ban","abstain"]},{"terms":["deal","dealing","buy","buying","business","trade","purchase","support","use"]}],"star":["ostracize","blacklist","embargo"]}],"accepted":["protest"]}
-    ],
-    parts: [],
-    origin: {"text":"Capt. Charles Boycott, an Irish land agent whom tenants ostracized (1880)","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Boycott"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"176","sense":1}]
-  },
-  "dunce": {
-    word: "dunce",
-    senses: [
-      {"defn":"A dull or stupid person.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["dull","stupid","slow","dim","dimwit","fool","foolish","idiot","ignorant","dumb","unintelligent","blockhead","dolt","ignoramus","simpleton"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"John Duns Scotus, a medieval philosopher whose followers were later mocked","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Duns Scotus"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"176","sense":1}]
-  },
-  "Frankenstein": {
-    word: "Frankenstein",
-    senses: [
-      {"defn":"A creation that turns on or destroys its maker.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["creation","creature","invention","monster","creator","made","creates"]},{"terms":["destroys","destroy","turns on","turns against","ruin","threatens","harm","backfires","out of control"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"Victor Frankenstein, the scientist in Mary Shelley's novel","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Frankenstein","Shelley"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "jeremiad": {
-    word: "jeremiad",
-    senses: [
-      {"defn":"A long, mournful complaint or denunciation.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","keys":[{"groups":[{"terms":["complaint","lament","lamentation","denunciation","tirade","rant","diatribe","harangue","criticism","warning"]}]}],"accepted":["long","mournful","bitter","gloomy","prophecy","doom"]}
-    ],
-    parts: [],
-    origin: {"text":"The prophet Jeremiah of the Hebrew Bible, traditionally credited with the Book of Lamentations","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","names":["Jeremiah"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "maudlin": {
-    word: "maudlin",
-    senses: [
-      {"defn":"Tearfully or foolishly sentimental.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","keys":[{"groups":[{"terms":["sentimental","tearful","weepy","mawkish","sappy","soppy","overemotional","emotional","self-pitying","teary","crying"]}]}],"accepted":["foolish","foolishly","tearfully"]}
-    ],
-    parts: [],
-    origin: {"text":"Mary Magdalene, a follower of Jesus in the New Testament, often painted weeping","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","names":["Magdalene","Magdalen"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "quixotic": {
-    word: "quixotic",
-    senses: [
-      {"defn":"Idealistic to an impractical degree.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["idealistic","impractical","unrealistic","romantic","visionary","foolish","naive","chivalrous"]}]}],"accepted":["dreamer","noble"]}
-    ],
-    parts: [],
-    origin: {"text":"Don Quixote, the hero of Cervantes' novel","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Quixote","Quijote","Cervantes"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "simony": {
-    word: "simony",
-    senses: [
-      {"defn":"The buying or selling of church offices.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","keys":[{"groups":[{"terms":["buying","selling","buy","sell","purchase","paying","sale","trade","trading","bribery","bribe"]},{"terms":["church","religious","ecclesiastical","clergy","holy","sacred","spiritual","office","offices","positions"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"Simon Magus, who tried to buy spiritual power from the apostles (Acts 8, in the New Testament)","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, reworded at the instructor's request and approved (Oct 7, 2026).","names":["Simon Magus"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "tawdry": {
-    word: "tawdry",
-    senses: [
-      {"defn":"Cheap and gaudy.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["cheap","gaudy","tacky","showy","flashy","tasteless","vulgar","shoddy","trashy","garish","sleazy","cheesy","low quality"]}]}]}
-    ],
-    parts: [],
-    origin: {"text":"St. Audrey, whose fair sold cheap lace (“St. Audrey's lace”)","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Audrey","Etheldreda"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "utopia": {
-    word: "utopia",
-    senses: [
-      {"defn":"An ideal society.","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","keys":[{"groups":[{"terms":["ideal","perfect","paradise","dream","flawless"]}]}],"accepted":["society","place","state","world","community"]}
-    ],
-    parts: [],
-    origin: {"text":"Thomas More's Utopia (Greek ou “not” + topos “place”)","wording":"instructor","ref":"assignment-i-answers-checked.md","note":"Claude's draft, checked by the instructor (Oct 7, 2026).","names":["Thomas More","More's","Utopia"]},
-    sources: [{"source":"book","lesson":"Greek Lesson II, Assignment I","page":"177","sense":1}]
-  },
-  "epode": {
-    word: "epode",
-    senses: [
-      {"defn":"song sung after another song: third part of a Greek ode","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter J)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "tragedy": {
-    word: "tragedy",
-    senses: [
-      {"defn":"goat song: tale of disaster","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter F)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "monody": {
-    word: "monody",
-    senses: [
-      {"defn":"song sung by one voice","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter I)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "odeum": {
-    word: "odeum",
-    senses: [
-      {"defn":"concert hall","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter C)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "comedy": {
-    word: "comedy",
-    senses: [
-      {"defn":"mirth song: drama with a happy ending","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter H)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "rhapsody": {
-    word: "rhapsody",
-    senses: [
-      {"defn":"exaggerated expression of feeling","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter A)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "parody": {
-    word: "parody",
-    senses: [
-      {"defn":"burlesque imitation","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter G)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "palinode": {
-    word: "palinode",
-    senses: [
-      {"defn":"a singing back: recantation","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter B)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "melody": {
-    word: "melody",
-    senses: [
-      {"defn":"tune; song","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter E)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "ode": {
-    word: "ode",
-    senses: [
-      {"defn":"short lyric poem","wording":"workbook","ref":"Part II, Lesson III, Exercise 1, p. 169 (answer key letter D)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 1","page":"169","sense":1}]
-  },
-  "bibliomania": {
-    word: "bibliomania",
-    senses: [
-      {"defn":"obsession with collecting books","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter F)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "bibliotheca": {
-    word: "bibliotheca",
-    senses: [
-      {"defn":"collection of books","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter K)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "Bible": {
-    word: "Bible",
-    senses: [
-      {"defn":"the Good Book","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter O)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "bibliography": {
-    word: "bibliography",
-    senses: [
-      {"defn":"list of references","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter I)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "bibliophile": {
-    word: "bibliophile",
-    senses: [
-      {"defn":"booklover: collector of books","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter G)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "cryptic": {
-    word: "cryptic",
-    senses: [
-      {"defn":"secret; obscure","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter C)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "grotesque": {
-    word: "grotesque",
-    senses: [
-      {"defn":"distorted in appearance","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter M)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "apocryphal": {
-    word: "apocryphal",
-    senses: [
-      {"defn":"of doubtful authorship","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter E)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "cryptonymous": {
-    word: "cryptonymous",
-    senses: [
-      {"defn":"having a secret name","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter H)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "dichotomy": {
-    word: "dichotomy",
-    senses: [
-      {"defn":"division, especially of two mutually exclusive groups","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter L)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "epitome": {
-    word: "epitome",
-    senses: [
-      {"defn":"typical or ideal example","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter A)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "tome": {
-    word: "tome",
-    senses: [
-      {"defn":"any large, scholarly book","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter D)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "mastectomy": {
-    word: "mastectomy",
-    senses: [
-      {"defn":"excision of a breast","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter J)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "atom": {
-    word: "atom",
-    senses: [
-      {"defn":"smallest part of an element","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter B)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "entomology": {
-    word: "entomology",
-    senses: [
-      {"defn":"study of insects","wording":"workbook","ref":"Part II, Lesson III, Exercise 2, p. 169 (answer key letter N)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 2","page":"169","sense":1}]
-  },
-  "canonical": {
-    word: "canonical",
-    senses: [
-      {"defn":"conforming to a general rule","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter C)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "bicycle": {
-    word: "bicycle",
-    senses: [
-      {"defn":"two-wheeler","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter O)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "cyclone": {
-    word: "cyclone",
-    senses: [
-      {"defn":"violent storm characterized by circular wind motion","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter L)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "encyclopedia": {
-    word: "encyclopedia",
-    senses: [
-      {"defn":"a work that contains information on all branches of knowledge","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter F)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "glossal": {
-    word: "glossal",
-    senses: [
-      {"defn":"pertaining to the tongue","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter A)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "gloss": {
-    word: "gloss",
-    senses: [
-      {"defn":"note of explanation","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter J)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "polyglot": {
-    word: "polyglot",
-    senses: [
-      {"defn":"multilingual","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter E)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "iconoclast": {
-    word: "iconoclast",
-    senses: [
-      {"defn":"attacker of established beliefs","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter H)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "iconology": {
-    word: "iconology",
-    senses: [
-      {"defn":"study of artistic symbolism","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter B)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "mimic": {
-    word: "mimic",
-    senses: [
-      {"defn":"to imitate","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter N)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "pantomime": {
-    word: "pantomime",
-    senses: [
-      {"defn":"the telling of a story without words","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter K)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "pyromaniac": {
-    word: "pyromaniac",
-    senses: [
-      {"defn":"person with a passion for setting fires","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter Q)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "pyrosis": {
-    word: "pyrosis",
-    senses: [
-      {"defn":"heartburn","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter D)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "empyrean": {
-    word: "empyrean",
-    senses: [
-      {"defn":"heavens","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter I)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
-  },
-  "pyroclastic": {
-    word: "pyroclastic",
-    senses: [
-      {"defn":"involving volcanic action","wording":"workbook","ref":"Part II, Lesson III, Exercise 3, p. 170 (answer key letter M)"}
-    ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
   }
 };
