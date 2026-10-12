@@ -71,6 +71,11 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   `parts` name glossary entries (`{ gloss, label, note? }`), and the back shows each
   part as printed with the glossary's full set of meanings. A deck with no exercise
   tabs can set `allTitle` and a deck-wide `instruction`.
+  `analysis: true` (both Exercise III decks; instructor, Oct 12, 2026) gives each meaning card an
+  Analysis box above the meaning: the student types the word's elements in order ("dif- fid -ent";
+  spacing, hyphens, "+" and the book's brackets do not matter, and an English ending such as -ed may
+  be added). Each element counts in the form printed on the card or any form of its glossary entry
+  (the build lists them as `accept`); the card is right when both boxes are.
   A `boxes` card (Greek Introduction) has one box per part of the answer
   (`boxes: [{ label, check }]`; Enter moves to the next box). A box with
   `check: "greek"` accepts any of `greekForms` (ignoring accents, and treating k/c,

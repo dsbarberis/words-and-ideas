@@ -13,6 +13,8 @@ module.exports = {
   heading: "Lesson X Exercise III",
   allTitle: "Lesson X Exercise III",
   instruction: "Analyze the highlighted word, then give its meaning in context.",
+  analysis: true,
+  help: "Type the elements, press Enter, then type the meaning and press Enter to check",
   round1: "book",
   orderNote: false,
   cards: [
