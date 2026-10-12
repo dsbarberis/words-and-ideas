@@ -99,18 +99,31 @@ function resolveGlossary(card, file, deck) {
 }
 
 // A word's analysis: each part as printed, with the glossary's full set of
-// meanings (and its note, unless the card gives its own).
-function resolveParts(card, file) {
+// meanings (and its note, unless the card gives its own). "accept" lists the
+// forms an Analysis box takes for the part: the form printed on the card and
+// every form of its glossary entry. A deck with "analysis: true" asks for the
+// analysis in a box above the meaning (instructor, Oct 12, 2026).
+function resolveParts(card, file, deck) {
   if (!card.parts || card.kind !== "meaning") return card;
-  return Object.assign({}, card, {
+  const out = Object.assign({}, card, {
     parts: card.parts.map(function (pt) {
       const entry = glossary[pt.gloss];
       if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
-      const out = { label: pt.label, meanings: entry.meanings };
-      if (pt.note || entry.note) out.note = pt.note || entry.note;
-      return out;
+      const o = { label: pt.label, meanings: entry.meanings };
+      if (pt.note || entry.note) o.note = pt.note || entry.note;
+      const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
+      // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
+      const shifted = /\(\u2192 i\)/.test(pt.label) ? printed.map(function (f) { return f.replace(/y$/, "i"); }) : [];
+      o.accept = printed.concat(shifted, formsOf(entry.forms)).filter(function (f, i, a) { return a.indexOf(f) === i; });
+      return o;
     })
   });
+  if (deck.analysis && !card.boxes) {
+    out.boxes = [{ label: "Analysis", placeholder: "The elements, in order" },
+                 { label: "Meaning in context", placeholder: card.placeholder || "Your answer" }];
+    out.boxes[0].check = "parts";
+  }
+  return out;
 }
 
 const uses = {}; // vocabulary key -> [{ deck, sense, override }]
@@ -122,7 +135,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     if (!key) return;
     (uses[key] = uses[key] || []).push({ deck: deck.title, sense: c.sense || 0, override: c.defn ? (c.defnWording || UNCHECKED) : null });
   });
-  data.cards = deck.cards.map(function (c) { return resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file); });
+  data.cards = deck.cards.map(function (c) { return resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck); });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))

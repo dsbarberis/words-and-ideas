@@ -16,6 +16,8 @@ module.exports = {
   heading: "Exercise III: Analyze & Define",
   allTitle: "Exercise III",
   instruction: "Analyze the highlighted word, then give its meaning in context.",
+  analysis: true, // an Analysis box above the meaning (instructor, Oct 12, 2026)
+  help: "Type the elements, press Enter, then type the meaning and press Enter to check",
   round1: "book",
   legacy: { progressKey: "ex3_progress", nameKey: "ex3_name" },
   cards: [
