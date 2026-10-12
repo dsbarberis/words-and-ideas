@@ -2623,7 +2623,9 @@
     return {
       known: ID + "_known_v1__" + sl,
       learning: ID + "_learning_v1__" + sl,
-      visited: ID + "_passVisited_v1__" + sl,
+      visited: ID + "_passVisited_v1__" + sl,  // before Oct 12, 2026: cards seen in the All pass
+      pass: ID + "_learnPass_v1__" + sl,
+      marks: ID + "_markSrc_v1__" + sl,
       quiz: ID + "_quiz_v1__" + sl,
       quizzes: ID + "_quizzes_v1__" + sl
     };
@@ -2635,7 +2637,13 @@
   let currentSlug = "student";
   let known = new Set();
   let learningMarked = new Set();
-  let passVisited = new Set(); // cards seen in the current pass through the "All" list
+  // The Learn pass under way: { tab, start, last (times in ms), list: the cards on the tab
+  // when it began, seen, marked: cards tapped Know it / Still learning in this pass }.
+  let learnPass = null;
+  // Where each card's Know it / Still learning mark came from: { s: "learn" | "quiz", d: "YYYY-MM-DD" }.
+  // Marks made before Oct 12, 2026 have none and are reported as "earlier".
+  let markSrc = {};
+  const PASS_IDLE_MS = 60 * 60000; // a pass left this long counts as unfinished when the deck next opens
   let quiz = null;             // the quiz in progress, or null
   let quizzes = {};            // Exercise Decks: the quiz for each tab
 
@@ -2647,7 +2655,8 @@
     const keys = storageKeys(currentSlug);
     known = new Set();
     learningMarked = new Set();
-    passVisited = new Set();
+    learnPass = null;
+    markSrc = {};
     quiz = null;
     quizzes = {};
     let hadRecord = false;
@@ -2656,8 +2665,21 @@
       if (rawK) { known = new Set(JSON.parse(rawK).filter(validIdx)); hadRecord = true; }
       const rawL = localStorage.getItem(keys.learning);
       if (rawL) { learningMarked = new Set(JSON.parse(rawL).filter(validIdx)); hadRecord = true; }
+      learnPass = validPass(JSON.parse(localStorage.getItem(keys.pass) || "null"));
       const rawV = localStorage.getItem(keys.visited);
-      if (rawV) passVisited = new Set(JSON.parse(rawV).filter(validIdx));
+      if (rawV) {
+        // A pass through All begun before the change carries on as the open pass.
+        if (!learnPass) {
+          const seen = JSON.parse(rawV).filter(validIdx);
+          if (seen.length) learnPass = { tab: "all", start: null, last: Date.now(), list: CARDS.map(function (_, i) { return i; }), seen: seen, marked: [] };
+        }
+        localStorage.removeItem(keys.visited);
+      }
+      const rawS = JSON.parse(localStorage.getItem(keys.marks) || "null");
+      if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
+        const m = rawS[k];
+        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) markSrc[+k] = { s: m.s, d: String(m.d || "") };
+      });
       if (QUIZ_BY_SET) {
         quizzes = {};
         const rawM = JSON.parse(localStorage.getItem(keys.quizzes) || "null") || {};
@@ -2671,6 +2693,18 @@
       }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
+    // A pass left unfinished on an earlier visit is reported now.
+    if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
+  }
+
+  function validPass(p) {
+    if (!p || typeof p.tab !== "string" || !Array.isArray(p.list) || !Array.isArray(p.seen)) return null;
+    p.list = p.list.filter(validIdx);
+    p.seen = p.seen.filter(validIdx);
+    p.marked = Array.isArray(p.marked) ? p.marked.filter(validIdx) : [];
+    p.last = +p.last || 0;
+    p.start = p.start ? +p.start : null;
+    return p.list.length ? p : null;
   }
 
   // The earlier self-graded version of this deck kept "I had it" / "I missed
@@ -2719,9 +2753,29 @@
     catch (e) { /* ignore */ }
   }
 
-  function savePassVisited() {
-    try { localStorage.setItem(storageKeys(currentSlug).visited, JSON.stringify([...passVisited])); }
+  function saveLearnPass() {
+    try {
+      const k = storageKeys(currentSlug).pass;
+      if (learnPass) localStorage.setItem(k, JSON.stringify(learnPass));
+      else localStorage.removeItem(k);
+    } catch (e) { /* ignore */ }
+  }
+
+  function saveMarkSrc() {
+    try { localStorage.setItem(storageKeys(currentSlug).marks, JSON.stringify(markSrc)); }
     catch (e) { /* ignore */ }
+  }
+
+  function localDay() {
+    const d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  // Note where a card's mark came from; a Learn tap also counts toward the pass under way.
+  function noteMark(idx, src) {
+    markSrc[idx] = { s: src, d: localDay() };
+    saveMarkSrc();
+    if (src === "learn" && learnPass && learnPass.marked.indexOf(idx) < 0) { learnPass.marked.push(idx); saveLearnPass(); }
   }
 
   function saveQuiz() {
@@ -2815,7 +2869,7 @@
       return db.collection("attempts").doc().set({
         name: currentName.trim(), nameSlug: currentSlug,
         passMode: row.passMode, passSize: row.passSize, passCorrect: row.passCorrect,
-        completed: true, correct: known.size, total: N,
+        completed: !row.unfinished, correct: known.size, total: N,
         results: row.results, answers: row.answers || null,
         updatedAt: now, completedAt: now
       });
@@ -3055,24 +3109,62 @@
   // A "pass" = the student has seen every card in the "All" list and then
   // moves forward past the last card (Next, or marking the last card). Each
   // pass writes one row to the Sheet, so repeated passes are all recorded.
+  // A Learn pass covers the tab the student is on (All, a category, or Still Learning).
+  // It is sent once every card that was on the tab when it began has been seen and the
+  // student moves on. Switching tab or mode, or leaving it for an hour, ends it unfinished.
   function notePassVisit(list) {
-    if (filter !== "all" || list.length === 0) return;
-    passVisited.add(list[pos]);
-    savePassVisited();
+    // While a Know it / Still learning tap moves on, the card briefly in view is not "seen".
+    if (EXERCISE || list.length === 0 || advancing) return;
+    const now = Date.now();
+    if (learnPass && learnPass.tab !== filter) endPassUnfinished();
+    if (!learnPass) learnPass = { tab: filter, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    const idx = list[pos];
+    if (learnPass.list.indexOf(idx) >= 0 && learnPass.seen.indexOf(idx) < 0) learnPass.seen.push(idx);
+    learnPass.last = now;
+    saveLearnPass();
   }
 
-  function maybeSendLearnPass(list) {
-    if (filter !== "all" || list.length === 0) return;
-    if (pos !== list.length - 1) return;
-    if (passVisited.size < N) return;
-    passVisited = new Set();
-    savePassVisited();
+  function markItem(i, r, inPass) {
+    const m = markSrc[i];
+    const o = { i: i, r: r, src: m ? m.s : "earlier" };
+    if (m && m.d) o.d = m.d;
+    if (inPass.has(i)) o.p = 1;
+    return o;
+  }
+
+  function passComplete(p) { return p.list.every(function (i) { return p.seen.indexOf(i) >= 0; }); }
+
+  function maybeSendLearnPass() {
+    const p = learnPass;
+    if (!p || p.tab !== filter || !passComplete(p)) return;
+    learnPass = null;
+    saveLearnPass();
+    sendPass(p);
+  }
+
+  function sendPass(p) {
+    const cards = p.tab === "all" ? CARDS.map(function (_, i) { return i; }) : p.list;
+    const inPass = new Set(p.marked);
     const sparse = [];
-    CARDS.forEach(function (_, i) {
-      if (known.has(i)) sparse.push({ i: i, r: true });
-      else if (learningMarked.has(i)) sparse.push({ i: i, r: false });
+    let right = 0;
+    cards.forEach(function (i) {
+      if (known.has(i)) { sparse.push(markItem(i, true, inPass)); right++; }
+      else if (learningMarked.has(i)) sparse.push(markItem(i, false, inPass));
     });
-    reportPass({ passMode: "learn", passCorrect: known.size, passSize: N, results: sparse, json: sparse });
+    reportPass({ passMode: "learn" + (p.tab === "all" ? "" : " (" + setLabel(p.tab) + ")"), passCorrect: right, passSize: cards.length, results: sparse, json: sparse });
+  }
+
+  // An unfinished pass is reported once, as a fact: its marks are not sent. A pass of
+  // one card (often just the card shown after the last pass ended) is not reported.
+  // A pass whose every card was seen counts as finished when the student moves away.
+  function endPassUnfinished() {
+    const p = learnPass;
+    learnPass = null;
+    saveLearnPass();
+    if (p && passComplete(p)) { sendPass(p); return; }
+    if (!p || !p.start || p.seen.length < 2) return;
+    const info = { tab: setLabel(p.tab), start: new Date(p.start).toISOString(), last: new Date(p.last).toISOString(), seen: p.seen.length, of: p.list.length };
+    reportPass({ passMode: "learn (" + (p.tab === "all" ? "" : setLabel(p.tab) + ", ") + "unfinished)", passCorrect: p.seen.length, passSize: p.list.length, results: [], json: info, unfinished: true });
   }
 
   function cardTag(item) { return item.cat ? item.cat : (DECK.cardTag || ""); }
@@ -3298,9 +3390,10 @@
 
   function goNext(speed) {
     const list = currentList();
-    if (mode !== "learn" || list.length === 0) return;
+    if (mode !== "learn") return;
+    if (list.length === 0) { maybeSendLearnPass(); return; }  // the last card left Still Learning
     slideCard(1, function () {
-      maybeSendLearnPass(list);
+      maybeSendLearnPass();
       pos = (pos + 1) % list.length;
       flipped = false;
       showHint = false;
@@ -3326,6 +3419,7 @@
     const idx = list[pos];
     known.add(idx);
     learningMarked.delete(idx);
+    noteMark(idx, "learn");
     saveKnown();
     saveLearning();
     render();
@@ -3339,6 +3433,7 @@
     const idx = list[pos];
     known.delete(idx);
     learningMarked.add(idx);
+    noteMark(idx, "learn");
     saveKnown();
     saveLearning();
     render();
@@ -4024,6 +4119,7 @@
     quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
     if (result.ok) { known.add(idx); learningMarked.delete(idx); }
     else { known.delete(idx); learningMarked.add(idx); }
+    noteMark(idx, "quiz");
     saveKnown();
     saveLearning();
     if (quiz.answers.every(Boolean)) sendQuizRound();
@@ -4080,6 +4176,7 @@
 
   function setMode(m) {
     cancelSlides();
+    if (mode === "learn" && m !== "learn" && learnPass) endPassUnfinished();
     mode = m;
     flipped = false;
     inputFor = null;
@@ -4299,10 +4396,12 @@
   resetBtn.addEventListener("click", function () {
     known = new Set();
     learningMarked = new Set();
-    passVisited = new Set();
+    learnPass = null;
+    markSrc = {};
     saveKnown();
     saveLearning();
-    savePassVisited();
+    saveLearnPass();
+    saveMarkSrc();
     render();
   });
 
@@ -4372,6 +4471,7 @@
     if (m === "full") return "Full set";
     if (m === "missed") return "Missed retry";
     if (m === "learn") return "Learn pass";
+    if (/^learn \(/.test(m || "")) return "Learn " + m.slice(6, -1);
     if (/^quiz round \d+/.test(m || "")) return "Quiz r" + m.slice(6);
     return m || "—";
   }
