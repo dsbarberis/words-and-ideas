@@ -19,10 +19,10 @@ module.exports = {
   title: "Latin Roots Flashcards", // deck name sent to the Sheet
   heading: "Latin Roots",
   answer: "meanings",
-  quizBySet: true,
+  shufflePasses: true, // every Learn pass starts in a new random order (instructor, Oct 12, 2026)
   noun: "card",
   backLabel: "Examples",
-  quizIntro: "Type every meaning of each base or prefix, one per line. Tap “+ Add another meaning” (or press Enter) for each new line.",
+  quizIntro: "Type every meaning of each base, prefix or suffix, one per line. Tap “+ Add another meaning” (or press Enter) for each new line.",
   categories: [
     { key: "base", label: "Bases" },
     { key: "prefix", label: "Prefixes" },

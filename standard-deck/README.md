@@ -35,9 +35,11 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     types the meanings one per line ("+ Add another meaning", or Enter), and every
     meaning is required. `keys` holds one key-word list per meaning, in the glossary's
     order. A line that matches only another card's wording makes the answer wrong;
-    a line that matches nothing is ignored. `quizBySet: true` makes the quiz cover
-    the selected tab (All, Bases, Prefixes, Suffixes or Still Learning), with Sheet rows such as
-    "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
+    a line that matches nothing is ignored. The quiz always covers every card (the
+    instructor dropped quizzing by tab on Oct 12, 2026; `quizBySet: true` would make a
+    deck's quiz cover the selected tab, with Sheet rows such as "quiz round 1 (Bases)").
+    `shufflePasses: true` starts every Learn pass in a new random order: on opening the
+    deck, after each finished pass, and on changing tab. The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
 - **Learn passes in the Sheet** (Flashcard Decks; approved Oct 12, 2026). Learn and Quiz
   share one Know it / Still learning record per student, and the deck notes where each
@@ -75,7 +77,9 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   kh/ch and y/u alike, with one slip allowed in longer words); `check: "names"` passes when the answer contains one of the card's `names` as whole words
   (for Greek Lesson II Exercise, from the word's `origin.names`, with the back showing each box's answer from
   the vocabulary list); `check: "deriv"`
-  accepts any of `derivs`; any other box is judged with the card's `senses`. The card
+  accepts any of `derivs`; a box with its own `senses` (Lesson X Exercise IV's Connection box, Oct 12, 2026) is
+  judged against those, may allow up to `maxWords` words, and with `noPenalty: true` is not checked against
+  other cards' terms; any other box is judged with the card's `senses`. The card
   is right when every box is. An `order` card is answered by tapping its `steps`
   (`[language, form, meaning]`) in order, from Greek to English. A category's
   `example` appears on that exercise's start screen, and `help` replaces the
