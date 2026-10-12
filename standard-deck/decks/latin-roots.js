@@ -25,7 +25,8 @@ module.exports = {
   quizIntro: "Type every meaning of each base or prefix, one per line. Tap “+ Add another meaning” (or press Enter) for each new line.",
   categories: [
     { key: "base", label: "Bases" },
-    { key: "prefix", label: "Prefixes" }
+    { key: "prefix", label: "Prefixes" },
+    { key: "suffix", label: "Suffixes" } // added Oct 12, 2026 (Latin Lesson X)
   ],
   legacy: { knownPrefix: "latinFlashcards_known_v2__", learningPrefix: "latinFlashcards_learning_v2__", nameKey: "latinFlashcards_lastName" },
   cards: [
@@ -107,6 +108,23 @@ module.exports = {
     { gloss: "SUB", cat: "prefix", keys: [["under"],BELOW] },
     { gloss: "SUPER", cat: "prefix", keys: [["above","higher","superior","on top"],["over"]] },
     { gloss: "TRANS", cat: "prefix", keys: [["across","cross","crossing","to the other side"],THROUGH,BEYOND] },
-    { gloss: "ULTRA", cat: "prefix", keys: [BEYOND,["excessively","excessive","too","too much","extreme","extremely"]] }
+    { gloss: "ULTRA", cat: "prefix", keys: [BEYOND,["excessively","excessive","too","too much","extreme","extremely"]] },
+    // Latin Lesson X bases (Ayers book, p. 73), added Oct 12, 2026 after the
+    // existing cards, because saved marks are stored by card position. Key-word
+    // lists drafted by Claude (unchecked), for the instructor's review.
+    { gloss: "CUMB", cat: "base", keys: [["lie down","lie","lying","lying down","recline","reclining","lay down","rest","be prone"]] },
+    { gloss: "FEDER", cat: "base", keys: [["league","alliance","union","federation","confederation","confederacy","coalition","association"],["treaty","pact","compact","agreement","covenant","accord"]] },
+    { gloss: "FID", cat: "base", keys: [["faith","trust","belief","believe","confidence","faithful","faithfulness","loyalty","fidelity"]] },
+    { gloss: "FIDEL", cat: "base", keys: [["faithful","faithfulness","loyal","loyalty","true","devoted","fidelity","faith","trustworthy","trusty"]] },
+    { gloss: "HER", cat: "base", keys: [["stick","sticking","stuck","cling","clinging","adhere","attach","cleave","glue","hold fast"]] },
+    { gloss: "ORD", cat: "base", keys: [["put in order","order","orderly","in order","sequence","ordain"],["arrange","arrangement","organize","organise","sort","set up","align"]] },
+    { gloss: "POT", cat: "base", keys: [["be able","able","can","capable","ability","possible"],["have power","power","powerful","potent","strength","might","mighty"]] },
+    { gloss: "SAL", cat: "base", keys: [["leap","leaping","jump","jumping","spring","springing","bound","hop","vault"]] },
+    { gloss: "TERR", cat: "base", keys: [["land","ground","soil","territory","terrain"],["earth","world","globe","dirt","planet"]] },
+    // Latin Lesson X adjective-forming suffixes (Ayers book, p. 72), in a new
+    // Suffixes tab (instructor's answer on the intake form, Oct 12, 2026).
+    { gloss: "-INE", cat: "suffix", keys: [["pertaining to","pertaining","relating to","related to","concerning","about","having to do with"],["like","similar to","resembling","-like","characteristic of"],["of","belonging to"]] },
+    { gloss: "-ATE-adj", cat: "suffix", keys: [["possessing","possess","having","has","have","with","full of","made","-ed"],["being","be","is","state","condition"]] },
+    { gloss: "-ANT", cat: "suffix", keys: [["-ing","ing","doing","present participle","in the act of"],["person who","person","one who","someone who","agent","doer"],["that which","thing that","thing which","something that","which","what"]] }
   ]
 };
