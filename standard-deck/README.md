@@ -39,6 +39,21 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
     "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
+- **Learn passes in the Sheet** (Flashcard Decks; approved Oct 12, 2026). Learn and Quiz
+  share one Know it / Still learning record per student, and the deck notes where each
+  mark came from (a Learn tap or a quiz answer) and the day. A pass covers the Learn tab
+  the student is on (All, a category such as Bases, or Still Learning): it is sent once
+  every card that was on the tab when it began has been seen and the student moves on
+  (or switches tab or mode with every card seen). Pass Mode is "learn" for All and names
+  the tab otherwise ("learn (Still Learning)", "learn (Bases)"). Results JSON lists each
+  marked card on the tab: `{"i":4,"r":true,"src":"learn","d":"2026-10-14","p":1}`, where
+  `src` is learn, quiz or earlier (marked before Oct 12, 2026), `d` the day it was set,
+  and `p:1` a card tapped in this pass.
+  A pass left unfinished (the student switches tab or mode, or comes back after more than
+  an hour) is sent once, when that happens, as "learn (unfinished)" or "learn (Still
+  Learning, unfinished)". Its Pass Score is cards seen / cards on the tab, and its Results
+  JSON is `{"tab","start","last","seen","of"}`; its marks are not sent. A pass of one card
+  is not sent.
 - **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction, Greek Lesson II Exercise, Greek Lesson III Exercise): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
