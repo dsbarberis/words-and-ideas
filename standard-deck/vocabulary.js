@@ -701,9 +701,9 @@ module.exports = {
     senses: [
       {"defn":"shocking; notorious","wording":"workbook","ref":"Lesson IX, Exercise 2"}
     ],
-    parts: [],
+    parts: [{"gloss": "FLAM", "label": "FLAGR-"}, {"gloss": "-ANT", "label": "-ant"}],
     origin: {"text":"Etymological meaning: blazing","wording":"workbook"},
-    sources: [{"source":"workbook","lesson":"Lesson IX, Exercise 2","page":"51-56","sense":1}]
+    sources: [{"source":"workbook","lesson":"Lesson IX, Exercise 2","page":"51-56","sense":1},{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
   },
   "limn": {
     word: "limn",
@@ -866,8 +866,8 @@ module.exports = {
     senses: [
       {"defn":"existing at birth","wording":"workbook","ref":"Lesson IX, Exercise 5"}
     ],
-    parts: [],
-    sources: [{"source":"workbook","lesson":"Lesson IX, Exercise 5","page":"51-56","sense":1}]
+    parts: [{"gloss": "CON", "label": "con-"}, {"gloss": "GENER", "label": "GEN-"}, {"gloss": "-AL", "label": "-ital"}],
+    sources: [{"source":"workbook","lesson":"Lesson IX, Exercise 5","page":"51-56","sense":1},{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
   },
   "genre": {
     word: "genre",
@@ -1597,5 +1597,509 @@ module.exports = {
     ],
     parts: [],
     sources: [{"source":"workbook","lesson":"Part II, Lesson III, Exercise 3","page":"170","sense":1}]
+  },
+  // ---- Latin Lesson X (workbook pp. 57-59; book Exercise III, pp. 73-74), added Oct 12, 2026 ----
+  "insult": {
+    word: "insult",
+    senses: [
+      {"defn": "to jump on someone: to offend", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option H)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "assail": {
+    word: "assail",
+    senses: [
+      {"defn": "to leap at: attack", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option F)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "resilient": {
+    word: "resilient",
+    senses: [
+      {"defn": "capable of leaping back after a mishap", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option I)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "RE", "label": "re-"}, {"gloss": "SAL", "label": "SIL-"}, {"gloss": "-ANT", "label": "-ient"}],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "salacious": {
+    word: "salacious",
+    senses: [
+      {"defn": "fond of jumping: lecherous", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option C)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "salmon": {
+    word: "salmon",
+    senses: [
+      {"defn": "a fish that leaps", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option A)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "salient": {
+    word: "salient",
+    senses: [
+      {"defn": "striking: [a point] leaping at you", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option J)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "SAL", "label": "SAL-"}, {"gloss": "-ANT", "label": "-ient"}],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "sally": {
+    word: "sally",
+    senses: [
+      {"defn": "a sudden rush of troops: a rushing [forward]", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option D)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "exultation": {
+    word: "exultation",
+    senses: [
+      {"defn": "the act of jumping for joy: rejoicing", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option G)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "desultory": {
+    word: "desultory",
+    senses: [
+      {"defn": "leaping from one topic to the next: random", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option B)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "result": {
+    word: "result",
+    senses: [
+      {"defn": "the consequence of leaping back", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 1, p. 57 (option E)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 1", "page": "57", "sense": 1}]
+  },
+  "posse": {
+    word: "posse",
+    senses: [
+      {"defn": "a small force with legal authority", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: power", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "diffident": {
+    word: "diffident",
+    senses: [
+      {"defn": "timid; shy", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "DIS", "label": "dif-"}, {"gloss": "FID", "label": "FID-"}, {"gloss": "-ANT", "label": "-ent"}],
+    origin: {"text": "Etymological meaning: lacking faith", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "incubate": {
+    word: "incubate",
+    senses: [
+      {"defn": "to sit on eggs in order to hatch them", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "IN-into", "label": "in-"}, {"gloss": "CUMB", "label": "CUB-"}, {"gloss": "-ATE", "label": "-ate"}],
+    origin: {"text": "Etymological meaning: to lie on", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "siege": {
+    word: "siege",
+    senses: [
+      {"defn": "blockade", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: a sitting (by the enemy)", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "somersault": {
+    word: "somersault",
+    senses: [
+      {"defn": "acrobatic movement in which the body makes a full revolution", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: a leaping over", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "séance": {
+    word: "séance",
+    senses: [
+      {"defn": "a meeting of spiritualists", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: a sitting", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "cubicle": {
+    word: "cubicle",
+    senses: [
+      {"defn": "carrel", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: sleeping compartment", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "terra incognita": {
+    word: "terra incognita",
+    senses: [
+      {"defn": "exploration of a new field of knowledge", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: unknown land", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "possess": {
+    word: "possess",
+    senses: [
+      {"defn": "to own; to control", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: to sit in power", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "Fido": {
+    word: "Fido",
+    senses: [
+      {"defn": "canine appellation", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: faithful", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "terra cotta": {
+    word: "terra cotta",
+    senses: [
+      {"defn": "fired clay used for roofing tiles, pottery, etc.", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: baked earth", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "sauté": {
+    word: "sauté",
+    senses: [
+      {"defn": "to cook in a small amount of fat", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: to leap", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "fiancé": {
+    word: "fiancé",
+    senses: [
+      {"defn": "man engaged to be married", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: one promised", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "inter": {
+    word: "inter",
+    senses: [
+      {"defn": "to bury a dead body", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: to put in the earth", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "exordium": {
+    word: "exordium",
+    senses: [
+      {"defn": "introduction to a discourse", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 3, p. 58", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    origin: {"text": "Etymological meaning: a beginning", "wording": "workbook"},
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 3", "page": "58", "sense": 1}]
+  },
+  "succumb": {
+    word: "succumb",
+    senses: [
+      {"defn": "to yield to a superior force", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option D)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "covey": {
+    word: "covey",
+    senses: [
+      {"defn": "small group of game birds", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option C)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "concubine": {
+    word: "concubine",
+    senses: [
+      {"defn": "in some polygamous societies, a second wife", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option M)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "CON", "label": "con-"}, {"gloss": "CUMB", "label": "CUB-"}, {"gloss": "-INE", "label": "-ine"}],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "defiant": {
+    word: "defiant",
+    senses: [
+      {"defn": "rebellious", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option F)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "fiduciary": {
+    word: "fiduciary",
+    senses: [
+      {"defn": "person to whom property is entrusted for another’s benefit", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option H)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "affiance": {
+    word: "affiance",
+    senses: [
+      {"defn": "to pledge in marriage", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option G)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "adhesive": {
+    word: "adhesive",
+    senses: [
+      {"defn": "glue, for example", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option N)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "hesitant": {
+    word: "hesitant",
+    senses: [
+      {"defn": "slow to act", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option J)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "coordinate": {
+    word: "coordinate",
+    senses: [
+      {"defn": "to place in harmonious relation", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option Q)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "extraordinary": {
+    word: "extraordinary",
+    senses: [
+      {"defn": "remarkable", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option I)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "impotent": {
+    word: "impotent",
+    senses: [
+      {"defn": "powerless", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option L)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "session": {
+    word: "session",
+    senses: [
+      {"defn": "meeting during which a particular activity takes place", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option E)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "subsidy": {
+    word: "subsidy",
+    senses: [
+      {"defn": "a grant of money", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option K)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "supersede": {
+    word: "supersede",
+    senses: [
+      {"defn": "to supplant", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option O)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [{"gloss": "SUPER", "label": "super-"}, {"gloss": "SED", "label": "SED-"}],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}, {"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "Terre Haute": {
+    word: "Terre Haute",
+    senses: [
+      {"defn": "city in Indiana located on high ground", "wording": "workbook", "ref": "Part I, Lesson X, Exercise 4, p. 59 (option A)", "note": "Matched to the word by Claude; no answer key was supplied (unchecked)."}
+    ],
+    parts: [],
+    sources: [{"source": "workbook", "lesson": "Part I, Lesson X, Exercise 4", "page": "59", "sense": 1}]
+  },
+  "insubordinate": {
+    word: "insubordinate",
+    senses: [],
+    parts: [{"gloss": "IN-not", "label": "in-"}, {"gloss": "SUB", "label": "sub-"}, {"gloss": "ORD", "label": "ORDIN-"}, {"gloss": "-ATE-adj", "label": "-ate"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "inherent": {
+    word: "inherent",
+    senses: [],
+    parts: [{"gloss": "IN-into", "label": "in-"}, {"gloss": "HER", "label": "HER-"}, {"gloss": "-ANT", "label": "-ent"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "plenipotentiary": {
+    word: "plenipotentiary",
+    senses: [],
+    parts: [{"gloss": "PLE", "label": "PLEN-"}, {"gloss": "POT", "label": "POT-"}, {"gloss": "-ANT", "label": "-ent"}, {"gloss": "-ARY", "label": "-iary"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73"}]
+  },
+  "sedentary": {
+    word: "sedentary",
+    senses: [],
+    parts: [{"gloss": "SED", "label": "SED-"}, {"gloss": "-ANT", "label": "-ent"}, {"gloss": "-ARY", "label": "-ary"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "73-74"}]
+  },
+  "subsidiary": {
+    word: "subsidiary",
+    senses: [],
+    parts: [{"gloss": "SUB", "label": "sub-"}, {"gloss": "SED", "label": "SID-"}, {"gloss": "-ARY", "label": "-iary"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "aggregate": {
+    word: "aggregate",
+    senses: [],
+    parts: [{"gloss": "AD", "label": "ag-"}, {"gloss": "GREG", "label": "GREG-"}, {"gloss": "-ATE-adj", "label": "-ate"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "terrain": {
+    word: "terrain",
+    senses: [],
+    parts: [{"gloss": "TERR", "label": "TERR-"}, {"gloss": "-AIN", "label": "-ain"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "pungent": {
+    word: "pungent",
+    senses: [],
+    parts: [{"gloss": "PUNG", "label": "PUNG-"}, {"gloss": "-ANT", "label": "-ent"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "universe": {
+    word: "universe",
+    senses: [],
+    parts: [{"gloss": "UNI", "label": "uni-"}, {"gloss": "VERT", "label": "VERS-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "inordinate": {
+    word: "inordinate",
+    senses: [],
+    parts: [{"gloss": "IN-not", "label": "in-"}, {"gloss": "ORD", "label": "ORDIN-"}, {"gloss": "-ATE-adj", "label": "-ate"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "omnipotent": {
+    word: "omnipotent",
+    senses: [],
+    parts: [{"gloss": "OMNI", "label": "omni-"}, {"gloss": "POT", "label": "POT-"}, {"gloss": "-ANT", "label": "-ent"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "expedient": {
+    word: "expedient",
+    senses: [],
+    parts: [{"gloss": "EX", "label": "ex-"}, {"gloss": "PED", "label": "PED-"}, {"gloss": "-ANT", "label": "-ient"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "incumbent": {
+    word: "incumbent",
+    senses: [],
+    parts: [{"gloss": "IN-into", "label": "in-"}, {"gloss": "CUMB", "label": "CUMB-"}, {"gloss": "-ANT", "label": "-ent"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise III", "page": "74"}]
+  },
+  "annals": {
+    word: "annals",
+    senses: [],
+    parts: [{"gloss": "ANN", "label": "ANN-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "ordinance": {
+    word: "ordinance",
+    senses: [],
+    parts: [{"gloss": "ORD", "label": "ORD(IN)-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "confinement": {
+    word: "confinement",
+    senses: [],
+    parts: [{"gloss": "FIN", "label": "FIN-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "impediment": {
+    word: "impediment",
+    senses: [],
+    parts: [{"gloss": "PED", "label": "PED-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "impend": {
+    word: "impend",
+    senses: [],
+    parts: [{"gloss": "PEND", "label": "PEND-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "incorporate": {
+    word: "incorporate",
+    senses: [],
+    parts: [{"gloss": "CORPOR", "label": "CORPOR-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "invent": {
+    word: "invent",
+    senses: [],
+    parts: [{"gloss": "VEN", "label": "VEN-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "jury": {
+    word: "jury",
+    senses: [],
+    parts: [{"gloss": "JUR", "label": "JUR-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "magnate": {
+    word: "magnate",
+    senses: [],
+    parts: [{"gloss": "MAGN", "label": "MAGN-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "obvious": {
+    word: "obvious",
+    senses: [],
+    parts: [{"gloss": "VI", "label": "VI-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "prejudice": {
+    word: "prejudice",
+    senses: [],
+    parts: [{"gloss": "JUDIC", "label": "JUDIC-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "punctuate": {
+    word: "punctuate",
+    senses: [],
+    parts: [{"gloss": "PUNG", "label": "PUNCT-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "segregate": {
+    word: "segregate",
+    senses: [],
+    parts: [{"gloss": "GREG", "label": "GREG-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "senate": {
+    word: "senate",
+    senses: [],
+    parts: [{"gloss": "SEN", "label": "SEN-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
+  },
+  "travesty": {
+    word: "travesty",
+    senses: [],
+    parts: [{"gloss": "VEST", "label": "VEST-"}],
+    sources: [{"source": "book", "lesson": "Latin Lesson X, Exercise IV", "page": "75"}]
   }
 };

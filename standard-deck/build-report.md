@@ -6,7 +6,7 @@ Written by build.js on every rebuild (2026-10-12). Do not edit by hand.
 
 **A word two decks use with different senses:** none.
 
-**A deck card that overrides the shared definition:** 20.
+**A deck card that overrides the shared definition:** 40.
 - **senile** in Exercise III Flashcards (wording: Claude, unchecked)
 - **unilateral** in Exercise III Flashcards (wording: Claude, unchecked)
 - **generate** in Exercise III Flashcards (wording: Claude, unchecked)
@@ -27,6 +27,26 @@ Written by build.js on every rebuild (2026-10-12). Do not edit by hand.
 - **servile** in Exercise III Flashcards (wording: Claude, unchecked)
 - **enchanted** in Exercise III Flashcards (wording: Claude, unchecked)
 - **infer** in Exercise III Flashcards (wording: Claude, unchecked)
+- **flagrant** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **congenital** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **diffident** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **insubordinate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **concubine** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **supersede** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **inherent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **salient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **plenipotentiary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **sedentary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **subsidiary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **aggregate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **terrain** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **pungent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **universe** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **resilient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **inordinate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **omnipotent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **expedient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **incumbent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
 
 **Possible duplicates or homographs:** none.
 
@@ -92,9 +112,32 @@ Written by build.js on every rebuild (2026-10-12). Do not edit by hand.
 - **odyssey**, origin note: From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy.
 - **Achilles' heel**, origin note: From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx.
 
-### Glossary meanings (104)
+### Lesson X Exercise III Flashcards (20)
 
-ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, yield, withdraw · CLUD-, CLUS-, [CLOS-] to close, shut · CRUC- cross · CUR(R)-, CURS- [COURS-], [COR(S)-] to run · DUC-, DUCT- to lead · FAC- [FIC-] to make, do · FIN- end, boundary · FIRM- strong, firm · FORT- strong, brave · GRAD-, GRESS- to step, go, walk · GRAND- great, large · GRAV- [GRIEV-] heavy · GREG- flock, group · HAB-, AB- [HIB-] to have, hold · JUDIC- to judge · JUR-, JUST- law, right, to swear · LEV- light (weight), to lift · LINE- [LIGN-] line, thread · LIMIN- threshold · LOC- place · LOQU-, LOCUT- to speak, talk · LUD-, LUS- to play · NIHIL- nothing · NOMIN- name · NUL(L)- none, not any · PART- part, share · PED- foot · PEND-, PENS- to hang, weigh, pay · PLE-, PLET-, PLEN- to fill, full · PREC- to pray, ask, beg · PULS- to drive, push, beat · PUNG-, PUNCT- to prick, pierce, point · SACR- [SECR-] sacred, holy · SANCT- holy, inviolable · SED- to sit, settle · SENT-, SENS- to feel, perceive · SPEC-, (SPIC-), SPECT- to look, see · SPIR- to breathe · TRUD-, TRUS- to push, thrust · TURB- to disturb, confuse, crowd · UND- [OUND-] wave · VEN-, VENT-, [VENU-] to come · VERB- word · VERT-, VERS- to turn · VEST- clothing · VI(A)- way, road · VID-, VIS- [VIEW-] to see · VOC-, VOK- to call, voice · AB-, A-, ABS- away from, from · AD-, AC- to, toward · AMBI- both, around · ANTE- before · CIRCUM- around · CON-, COM-, CO- with, together · CONTRA-, CONTRO-, COUNTER- against · DE- down, away, reversal · DIS-, DI-, DIF- apart, not, away · EX-, E-, EF- out, out of · EXTRA-, EXTRO- outside, beyond · IN-, IM- [IG- before n] (negative) not, without · IN-, IM-, [EN-], [EM-] (directional) into, in, on, upon · INFRA- below, beneath · INTER- between, among · INTRA-, INTRO- within, inside · NON- not · OB- against, toward, in the way · PER- through, thoroughly · POST- after · PRE- before · PRO- forward, for, in favor of · RE-, RED- (before vowels) back, again · RETRO- backward · SE-, SED- (before vowels) apart, aside, without · SUB-, SUS-, SUC- under, below · SUPER- [SUR-] above, over · TRANS-, TRAN-, TRA- across, through, beyond · ULTRA- beyond, excessively · SEN- old · LATER- side · LUMIN- to shine, light · AQU(A)- water · CORPOR-, CORP(US)- body · FLAT- to blow · TEN-, TAIN- to hold · FLAM(M)- flame · TEMPOR- time · SERV- to serve · CANT-, CHANT- to sing · FER- to carry, bear · BENE-, BON- good, well · EQU-, (IQU-) equal · REG-, (RIG-), RECT- to rule, straight · DOM(IN)- house, master · PRIM- first · UNI- one · QUADRI- four · -ILE pertaining to, like · -AL pertaining to · -ATE to make, do · -ULENT full of, disposed to · -IC pertaining to · -OUS full of
+- **flagrant**, definition in context on the card
+- **congenital**, definition in context on the card
+- **diffident**, definition in context on the card
+- **insubordinate**, definition in context on the card
+- **concubine**, definition in context on the card
+- **supersede**, definition in context on the card
+- **inherent**, definition in context on the card
+- **salient**, definition in context on the card
+- **plenipotentiary**, definition in context on the card
+- **sedentary**, definition in context on the card
+- **subsidiary**, definition in context on the card
+- **aggregate**, definition in context on the card
+- **terrain**, definition in context on the card
+- **pungent**, definition in context on the card
+- **universe**, definition in context on the card
+- **resilient**, definition in context on the card
+- **inordinate**, definition in context on the card
+- **omnipotent**, definition in context on the card
+- **expedient**, definition in context on the card
+- **incumbent**, definition in context on the card
+
+### Glossary meanings (106)
+
+ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, yield, withdraw · CLUD-, CLUS-, [CLOS-] to close, shut · CRUC- cross · CUR(R)-, CURS- [COURS-], [COR(S)-] to run · DUC-, DUCT- to lead · FAC- [FIC-] to make, do · FIN- end, boundary · FIRM- strong, firm · FORT- strong, brave · GRAD-, GRESS- to step, go, walk · GRAND- great, large · GRAV- [GRIEV-] heavy · GREG- flock, group · HAB-, AB- [HIB-] to have, hold · JUDIC- to judge · JUR-, JUST- law, right, to swear · LEV- light (weight), to lift · LINE- [LIGN-] line, thread · LIMIN- threshold · LOC- place · LOQU-, LOCUT- to speak, talk · LUD-, LUS- to play · NIHIL- nothing · NOMIN- name · NUL(L)- none, not any · PART- part, share · PED- foot · PEND-, PENS- to hang, weigh, pay · PLE-, PLET-, PLEN- to fill, full · PREC- to pray, ask, beg · PULS- to drive, push, beat · PUNG-, PUNCT- to prick, pierce, point · SACR- [SECR-] sacred, holy · SANCT- holy, inviolable · SENT-, SENS- to feel, perceive · SPEC-, (SPIC-), SPECT- to look, see · SPIR- to breathe · TRUD-, TRUS- to push, thrust · TURB- to disturb, confuse, crowd · UND- [OUND-] wave · VEN-, VENT-, [VENU-] to come · VERB- word · VERT-, VERS- to turn · VEST- clothing · VI(A)- way, road · VID-, VIS- [VIEW-] to see · VOC-, VOK- to call, voice · AB-, A-, ABS- away from, from · AD-, AC- to, toward · AMBI- both, around · ANTE- before · CIRCUM- around · CON-, COM-, CO- with, together · CONTRA-, CONTRO-, COUNTER- against · DE- down, away, reversal · DIS-, DI-, DIF- apart, not, away · EX-, E-, EF- out, out of · EXTRA-, EXTRO- outside, beyond · IN-, IM- [IG- before n] (negative) not, without · IN-, IM-, [EN-], [EM-] (directional) into, in, on, upon · INFRA- below, beneath · INTER- between, among · INTRA-, INTRO- within, inside · NON- not · OB- against, toward, in the way · PER- through, thoroughly · POST- after · PRE- before · PRO- forward, for, in favor of · RE-, RED- (before vowels) back, again · RETRO- backward · SE-, SED- (before vowels) apart, aside, without · SUB-, SUS-, SUC- under, below · SUPER- [SUR-] above, over · TRANS-, TRAN-, TRA- across, through, beyond · ULTRA- beyond, excessively · SEN- old · LATER- side · LUMIN- to shine, light · AQU(A)- water · CORPOR-, CORP(US)- body · FLAT- to blow · TEN-, TAIN- to hold · FLAG(R)-, FLAM(M)- flame · TEMPOR- time · SERV- to serve · CANT-, CHANT- to sing · FER- to carry, bear · BENE-, BON- good, well · EQU-, (IQU-) equal · REG-, (RIG-), RECT- to rule, straight · DOM(IN)- house, master · PRIM- first · UNI- one · QUADRI- four · -ILE pertaining to, like · -AL pertaining to · -ATE to make, do · -ULENT full of, disposed to · -IC pertaining to · -OUS full of · MAGN- great · OMNI- all · -AIN pertaining to
 
 ## 3. Which decks use each word
 
@@ -190,7 +233,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - dungeon: Lesson IX Workbook Flashcards
 - soufflé: Lesson IX Workbook Flashcards
 - dome: Lesson IX Workbook Flashcards
-- flagrant: Lesson IX Workbook Flashcards
+- flagrant: Lesson IX Workbook Flashcards, Lesson X Exercise III Flashcards
 - limn: Lesson IX Workbook Flashcards
 - flamboyant: Lesson IX Workbook Flashcards
 - collateral: Lesson IX Workbook Flashcards
@@ -210,7 +253,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - subserve: Lesson IX Workbook Flashcards
 - reserved: Lesson IX Workbook Flashcards
 - servitude: Lesson IX Workbook Flashcards
-- congenital: Lesson IX Workbook Flashcards
+- congenital: Lesson IX Workbook Flashcards, Lesson X Exercise III Flashcards
 - genre: Lesson IX Workbook Flashcards
 - disingenuous: Lesson IX Workbook Flashcards
 - gender: Lesson IX Workbook Flashcards
@@ -303,3 +346,71 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - pyrosis: Greek Lesson III Exercise
 - empyrean: Greek Lesson III Exercise
 - pyroclastic: Greek Lesson III Exercise
+- insult: Lesson X Workbook Flashcards
+- assail: Lesson X Workbook Flashcards
+- resilient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- salacious: Lesson X Workbook Flashcards
+- salmon: Lesson X Workbook Flashcards
+- salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- sally: Lesson X Workbook Flashcards
+- exultation: Lesson X Workbook Flashcards
+- desultory: Lesson X Workbook Flashcards
+- result: Lesson X Workbook Flashcards
+- posse: Lesson X Workbook Flashcards
+- diffident: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- incubate: Lesson X Exercise IV Flashcards, Lesson X Workbook Flashcards
+- siege: Lesson X Workbook Flashcards
+- somersault: Lesson X Workbook Flashcards
+- séance: Lesson X Workbook Flashcards
+- cubicle: Lesson X Workbook Flashcards
+- terra incognita: Lesson X Workbook Flashcards
+- possess: Lesson X Workbook Flashcards
+- Fido: Lesson X Workbook Flashcards
+- terra cotta: Lesson X Workbook Flashcards
+- sauté: Lesson X Workbook Flashcards
+- fiancé: Lesson X Workbook Flashcards
+- inter: Lesson X Workbook Flashcards
+- exordium: Lesson X Workbook Flashcards
+- succumb: Lesson X Workbook Flashcards
+- covey: Lesson X Workbook Flashcards
+- concubine: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- defiant: Lesson X Workbook Flashcards
+- fiduciary: Lesson X Workbook Flashcards
+- affiance: Lesson X Workbook Flashcards
+- adhesive: Lesson X Workbook Flashcards
+- hesitant: Lesson X Workbook Flashcards
+- coordinate: Lesson X Workbook Flashcards
+- extraordinary: Lesson X Workbook Flashcards
+- impotent: Lesson X Workbook Flashcards
+- session: Lesson X Workbook Flashcards
+- subsidy: Lesson X Workbook Flashcards
+- supersede: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- Terre Haute: Lesson X Workbook Flashcards
+- insubordinate: Lesson X Exercise III Flashcards
+- inherent: Lesson X Exercise III Flashcards
+- plenipotentiary: Lesson X Exercise III Flashcards
+- sedentary: Lesson X Exercise III Flashcards
+- subsidiary: Lesson X Exercise III Flashcards
+- aggregate: Lesson X Exercise III Flashcards
+- terrain: Lesson X Exercise III Flashcards
+- pungent: Lesson X Exercise III Flashcards
+- universe: Lesson X Exercise III Flashcards
+- inordinate: Lesson X Exercise III Flashcards
+- omnipotent: Lesson X Exercise III Flashcards
+- expedient: Lesson X Exercise III Flashcards
+- incumbent: Lesson X Exercise III Flashcards
+- annals: Lesson X Exercise IV Flashcards
+- ordinance: Lesson X Exercise IV Flashcards
+- confinement: Lesson X Exercise IV Flashcards
+- impediment: Lesson X Exercise IV Flashcards
+- impend: Lesson X Exercise IV Flashcards
+- incorporate: Lesson X Exercise IV Flashcards
+- invent: Lesson X Exercise IV Flashcards
+- jury: Lesson X Exercise IV Flashcards
+- magnate: Lesson X Exercise IV Flashcards
+- obvious: Lesson X Exercise IV Flashcards
+- prejudice: Lesson X Exercise IV Flashcards
+- punctuate: Lesson X Exercise IV Flashcards
+- segregate: Lesson X Exercise IV Flashcards
+- senate: Lesson X Exercise IV Flashcards
+- travesty: Lesson X Exercise IV Flashcards

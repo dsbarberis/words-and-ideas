@@ -50,7 +50,8 @@ module.exports = {
   "PUNG": { forms: "PUNG-, PUNCT-", kind: "base", meanings: ["to prick","pierce","point"], examples: "pungent, punctual, puncture", source: "Latin Roots", wording: "Claude, unchecked" },
   "SACR": { forms: "SACR- [SECR-]", kind: "base", meanings: ["sacred","holy"], examples: "sacred, sacrifice, consecrate, sacrilege", source: "Latin Roots", wording: "Claude, unchecked" },
   "SANCT": { forms: "SANCT-", kind: "base", meanings: ["holy","inviolable"], examples: "sanctuary, sanction, sanctify", source: "Latin Roots", wording: "Claude, unchecked" },
-  "SED": { forms: "SED-", kind: "base", meanings: ["to sit","settle"], examples: "sedentary, sediment, reside", source: "Latin Roots", wording: "Claude, unchecked" },
+  // SED-: forms and meanings checked against Ayers, Latin Lesson X, p. 73 (Oct 12, 2026); the meanings match the book.
+  "SED": { forms: "SED-, (SID-), SESS-", kind: "base", meanings: ["to sit","settle"], examples: "sedentary, sediment, reside", source: "Latin Roots", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
   "SENT": { forms: "SENT-, SENS-", kind: "base", meanings: ["to feel","perceive"], examples: "sentiment, sensation, consent", source: "Latin Roots", wording: "Claude, unchecked" },
   "SPEC": { forms: "SPEC-, (SPIC-), SPECT-", kind: "base", meanings: ["to look","see"], examples: "spectacle, inspect, conspicuous", source: "Latin Roots", wording: "Claude, unchecked" },
   "SPIR": { forms: "SPIR-", kind: "base", meanings: ["to breathe"], examples: "inspire, respire, conspire", source: "Latin Roots", wording: "Claude, unchecked" },
@@ -105,7 +106,7 @@ module.exports = {
   "CORPOR": { forms: "CORPOR-, CORP(US)-", kind: "base", meanings: ["body"], source: "Exercise III", wording: "Claude, unchecked" },
   "FLAT": { forms: "FLAT-", kind: "base", meanings: ["to blow"], source: "Exercise III", wording: "Claude, unchecked" },
   "TEN": { forms: "TEN-, TAIN-", kind: "base", meanings: ["to hold"], source: "Exercise III", wording: "Claude, unchecked" },
-  "FLAM": { forms: "FLAM(M)-", kind: "base", meanings: ["flame"], source: "Exercise III", wording: "Claude, unchecked" },
+  "FLAM": { forms: "FLAG(R)-, FLAM(M)-", kind: "base", meanings: ["flame"], source: "Exercise III", wording: "Claude, unchecked" },
   "TEMPOR": { forms: "TEMPOR-", kind: "base", meanings: ["time"], source: "Exercise III", wording: "Claude, unchecked" },
   "SERV": { forms: "SERV-", kind: "base", meanings: ["to serve"], source: "Exercise III", wording: "Claude, unchecked" },
   "CANT": { forms: "CANT-, CHANT-", kind: "base", meanings: ["to sing"], source: "Exercise III", wording: "Claude, unchecked" },
@@ -134,6 +135,27 @@ module.exports = {
   "-ULENT": { forms: "-ULENT", kind: "suffix", meanings: ["full of", "disposed to"], source: "Exercise III", wording: "Claude, unchecked" },
   "-IC": { forms: "-IC", kind: "suffix", meanings: ["pertaining to"], source: "Exercise III", wording: "Claude, unchecked" },
   "-OUS": { forms: "-OUS", kind: "suffix", meanings: ["full of"], source: "Exercise III", wording: "Claude, unchecked" },
+
+  // ---- Latin Lesson X (Ayers book, Assignment I and II, pp. 72-73), added Oct 12, 2026 ----
+  // Bases and suffixes with the book's wording. -ATE-adj is the book's
+  // adjective-forming -ate ("possessing, being"); -ATE above is the
+  // verb-forming suffix. OMNI- and -AIN appear in Lesson X Exercise III
+  // words but are not taught in the pages supplied.
+  "CUMB": { forms: "CUMB-, CUB-", kind: "base", meanings: ["to lie down"], examples: "succumb, incubator", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "FEDER": { forms: "FEDER-", kind: "base", meanings: ["league","treaty"], examples: "confederate", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "FID": { forms: "FID-", kind: "base", meanings: ["faith"], examples: "confident", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "FIDEL": { forms: "FIDEL-", kind: "base", meanings: ["faithful"], examples: "infidelity", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "HER": { forms: "HER-, HES-", kind: "base", meanings: ["to stick"], examples: "adhere, adhesive", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "ORD": { forms: "ORD(IN)-", kind: "base", meanings: ["to put in order","arrange"], examples: "order, ordinary", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "POT": { forms: "POT-, POSS-", kind: "base", meanings: ["to be able","have power"], examples: "potent, possible", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "SAL": { forms: "SAL-, (SIL-), SALT-, SULT-", kind: "base", meanings: ["to leap"], examples: "salient, resilient, saltatorial, insult", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "TERR": { forms: "TERR-", kind: "base", meanings: ["land","earth"], examples: "terrestrial, territory", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment II, p. 73" },
+  "MAGN": { forms: "MAGN-", kind: "base", meanings: ["great"], source: "Latin Lesson X Exercise IV", wording: "Claude, unchecked" },
+  "OMNI": { forms: "OMNI-", kind: "prefix", meanings: ["all"], source: "Latin Lesson X Exercise III", wording: "Claude, unchecked" },
+  "-INE": { forms: "-INE", kind: "suffix", meanings: ["pertaining to","like","of"], examples: "feminine, canine, feline, asinine, bovine, aquiline", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment I, p. 72" },
+  "-ATE-adj": { forms: "-ATE, -IT(E) (adjective-forming)", kind: "suffix", meanings: ["possessing","being"], examples: "accurate, adequate, favorite, explicit", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment I, p. 72" },
+  "-ANT": { forms: "-ANT, -ENT (-IENT)", kind: "suffix", meanings: ["-ing","person who","that which"], examples: "urgent, apparent, vigilant, agent, inhabitant, adherent, servant", note: "equivalent to the English present participle ending -ing", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment I, p. 72" },
+  "-AIN": { forms: "-AIN", kind: "suffix", meanings: ["pertaining to"], note: "French form of Latin -anus", source: "Latin Lesson X Exercise III", wording: "Claude, unchecked" },
 
   // ---- Greek (Greek Introduction Exercise) ----
   "g:epi": { forms: "epi-", kind: "greek", meanings: ["over"], source: "Greek Introduction Exercise", wording: "book" },

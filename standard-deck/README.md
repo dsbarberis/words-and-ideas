@@ -36,7 +36,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     meaning is required. `keys` holds one key-word list per meaning, in the glossary's
     order. A line that matches only another card's wording makes the answer wrong;
     a line that matches nothing is ignored. `quizBySet: true` makes the quiz cover
-    the selected tab (All, Bases, Prefixes or Still Learning), with Sheet rows such as
+    the selected tab (All, Bases, Prefixes, Suffixes or Still Learning), with Sheet rows such as
     "quiz round 1 (Bases)". The old page's Know it / Still learning marks carry over
     once (`legacy.knownPrefix` / `learningPrefix`).
 - **Learn passes in the Sheet** (Flashcard Decks; approved Oct 12, 2026). Learn and Quiz
@@ -54,7 +54,7 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   Learning, unfinished)". Its Pass Score is cards seen / cards on the tab, and its Results
   JSON is `{"tab","start","last","seen","of"}`; its marks are not sent. A pass of one card
   is not sent.
-- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction, Greek Lesson II Exercise, Greek Lesson III Exercise): Quiz mode only. The name
+- **Exercise Deck** (`type: "exercise"`; Lesson IX, Exercise III, Greek Introduction, Greek Lesson II Exercise, Greek Lesson III Exercise, Lesson X Workbook, Lesson X Exercise III, Lesson X Exercise IV): Quiz mode only. The name
   screen opens the quiz. Tabs: All, one per exercise (`categories`), and Missed; the
   quiz covers the selected tab, and each tab's unfinished quiz resumes separately.
   `round1: "book"` keeps Round 1 in the workbook's order (later rounds are shuffled);
