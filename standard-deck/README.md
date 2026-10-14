@@ -76,15 +76,27 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   spacing, hyphens, "+" and the book's brackets do not matter, and an English ending such as -ed may
   be added). Each element counts in the form printed on the card or any form of its glossary entry
   (the build lists them as `accept`); the card is right when both boxes are.
+  Since Oct 14, 2026 (after students' answers in the class Sheet were reviewed): other words in the box
+  are skipped, so meanings copied from the back do no harm; a connecting -i- may be left out, typed on
+  its own or joined to the element before it; two elements may be typed as one piece ("potent"); a form
+  of any element typed after the last one counts as an extra element. The box is labelled "Analysis
+  (forms only)" with the example "e.g. pre- DIC- -tion", and the back shows a forms-only line
+  ("dif- + FID- + -ent") above the elements and their meanings. The card is not checked until the box
+  holds a piece for every element, one of them taken from the word (the student is not told how many).
+  A deck whose boxes show "e.g." explains it on the entry card, and a pop-up repeats the explanation if
+  a student types "e.g." in an answer. Answers saved in the round under way are marked again with the
+  current rules when the deck opens.
   A `boxes` card (Greek Introduction) has one box per part of the answer
   (`boxes: [{ label, check }]`; Enter moves to the next box). A box with
   `check: "greek"` accepts any of `greekForms` (ignoring accents, and treating k/c,
   kh/ch and y/u alike, with one slip allowed in longer words); `check: "names"` passes when the answer contains one of the card's `names` as whole words
   (for Greek Lesson II Exercise, from the word's `origin.names`, with the back showing each box's answer from
   the vocabulary list); `check: "deriv"`
-  accepts any of `derivs`; a box with its own `senses` (Lesson X Exercise IV's Connection box, Oct 12, 2026) is
+  accepts any of `derivs`, or several of them typed together (Oct 14), and the card is not checked until it holds
+  letters found in the word; a box with its own `senses` (Lesson X Exercise IV's Connection box, Oct 12, 2026) is
   judged against those, may allow up to `maxWords` words, and with `noPenalty: true` is not checked against
-  other cards' terms; any other box is judged with the card's `senses`. The card
+  other cards' terms (since Oct 14 such a box is right when it matches any one of its groups in two words
+  or more, "to", "a", "an" and "the" not counted); any other box is judged with the card's `senses`. The card
   is right when every box is. An `order` card is answered by tapping its `steps`
   (`[language, form, meaning]`) in order, from Greek to English. A category's
   `example` appears on that exercise's start screen, and `help` replaces the
