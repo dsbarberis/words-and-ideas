@@ -119,7 +119,7 @@ function resolveParts(card, file, deck) {
     })
   });
   if (deck.analysis && !card.boxes) {
-    out.boxes = [{ label: "Analysis", placeholder: "The elements, in order" },
+    out.boxes = [{ label: "Analysis (forms only)", placeholder: "e.g. pre- DIC- -tion" },
                  { label: "Meaning in context", placeholder: card.placeholder || "Your answer" }];
     out.boxes[0].check = "parts";
   }
