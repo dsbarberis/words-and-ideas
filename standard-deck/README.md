@@ -22,6 +22,8 @@ one template, so the decks stay identical apart from their content.
   `build-report.md`: words two decks use with different senses, cards that override
   the shared definition, possible duplicates or homographs, every wording still
   marked "Claude, unchecked" (by deck), and which decks use each word.
+- `tests/run.js`: the deck tests, run before every publish
+  (`NODE_PATH=$(npm root -g) node standard-deck/tests/run.js`; see `tests/README.md`).
 
 Before changing any file, keep a renamed copy of it in `backups/` (see `backups/README.md`).
 
