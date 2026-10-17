@@ -1905,8 +1905,13 @@
   // English ending (inflam-ed) do no harm. A connecting -i- may be left out,
   // typed on its own or joined to the element before it (OMN-, omni-, PLENI-),
   // and two elements may be typed as one piece ("potent"). A form of any
-  // element typed after the last one counts as an extra element.
+  // element typed after the last one counts as an extra element. Elements
+  // listed with their meanings and split by semicolons ("in - not; sub -
+  // under; ORDIN - arrange; -ate - being in a state") are read without each
+  // " - meaning" (up to the next comma or semicolon), so a word in a meaning
+  // ("in") is not taken for an element (instructor, Oct 17, 2026).
   function partsMatch(v, parts) {
+    if (String(v).indexOf(";") >= 0) v = String(v).replace(/\s[-\u2013\u2014=]\s[^,;]*/g, " ");
     // "AQU(A)-", as the book prints it, reads as AQUA-.
     const toks = String(v).toLowerCase().replace(/([a-z])\(([a-z]+)\)/g, "$1$2").split(/[^a-z]+/).filter(Boolean);
     if (!parts) return false;
