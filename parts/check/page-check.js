@@ -46,7 +46,7 @@ async function measure(page) {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const sizes = {};
     while (walker.nextNode()) {
-      const n = walker.currentNode; if (!glyph.test(n.nodeValue)) continue;
+      const n = walker.currentNode; if (!glyph.test(n.nodeValue) || /^(SCRIPT|STYLE|TEMPLATE)$/.test(n.parentElement.tagName)) continue;
       const el = n.parentElement, own = el.textContent.trim();
       const g = own.match(glyph)[0];
       if (own.length > 2) issues.push(`glyph ${g} inherits its text's size ("${own.slice(0, 30)}"): draw it in its own fixed-size element`);

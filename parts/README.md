@@ -17,6 +17,9 @@ time (plan, rule 7). A saved test will fail the build if one appears (part 1.8).
 |---|---|---|
 | 1.1 Page check and test harness | `check/page-check.js`, `check/stand-in.js` | `tests/test-page-check.js` |
 | 1.2 Colours and type | `tokens/tokens.json` (edit this), `tokens/build.js`, `tokens/dist/` (built; never edit) | `tests/test-tokens.js` |
+| 1.3 Page shell: base type, focus, status line, glyphs, dialog, tabs, Next Unanswered, escaping, title case | `shell/shell.css`, `shell/shell.js` | `tests/test-shell.js` |
+| 1.4 Table: sorting both ways, ties in default order, "—" last, pinned headings and first column, Show all | `table/table.css`, `table/table.js` | `tests/test-table.js` |
+| 1.5 Filter chips and saved views | `chips/chips.css`, `chips/chips.js` | `tests/test-chips.js` |
 
 ## Running the tests
 
@@ -58,4 +61,9 @@ states such as a dialog open or a column sorted. The stand-in records every data
 write in `report.json`, which the data contract tests (part 1.9) will compare.
 
 Not yet in the page check: an automated accessibility scan (axe-core), which needs a copy saved
-here because the test browser has no web access; it comes with the page shell (part 1.3).
+here because the test browser has no web access.
+
+## Status line wording (1.3)
+
+`shell.js` holds the fixed wording (`STATUS`): loading, saving, saved, couldn't read, couldn't save,
+and "can't save in this view". It is a draft and goes to the architect before the first page uses it.
