@@ -125,6 +125,22 @@ module.exports = {
     // Suffixes tab (instructor's answer on the intake form, Oct 12, 2026).
     { gloss: "-INE", cat: "suffix", keys: [["pertaining to","pertaining","relating to","related to","concerning","about","having to do with"],["like","similar to","resembling","-like","characteristic of"],["of","belonging to"]] },
     { gloss: "-ATE-adj", cat: "suffix", keys: [["possessing","possess","having","has","have","with","full of","made","-ed"],["being","be","is","state","condition"]] },
-    { gloss: "-ANT", cat: "suffix", keys: [["-ing","ing","doing","present participle","in the act of"],["person who","person","one who","someone who","agent","doer"],["that which","thing that","thing which","something that","which","what"]] }
+    { gloss: "-ANT", cat: "suffix", keys: [["-ing","ing","doing","present participle","in the act of"],["person who","person","one who","someone who","agent","doer"],["that which","thing that","thing which","something that","which","what"]] },
+    // Latin Lesson XI bases (Ayers book, p. 80) and adjective-forming suffixes
+    // (pp. 79-80), added Oct 18, 2026 after the existing cards, because saved
+    // marks are stored by card position (instructor's answer on the dashboard,
+    // "III, IV and Latin Roots"). Key-word lists drafted by Claude (unchecked),
+    // for the instructor's approval on the import form.
+    { gloss: "CRED", cat: "base", keys: [["believe","belief","believing","credit","credence","credible"],["trust","trusting","faith","rely","rely on","confidence"]] },
+    { gloss: "DOC", cat: "base", keys: [["teach","teaching","taught","teacher","instruct","instruction","educate","education","doctrine","lesson"]] },
+    { gloss: "FA", cat: "base", keys: [["speak","speaking","spoken","speech","say","saying","said","talk","tell","utter","utterance"],["reveal","revealing","revealed","disclose","make known","declare","show"]] },
+    { gloss: "FALL", cat: "base", keys: [["deceive","deceiving","deceit","deception","deceptive","trick","mislead","misleading","fool","false","falsehood","lie","cheat","fail","fault"]] },
+    { gloss: "MOD", cat: "base", keys: [["measure","measurement","measured","limit","boundary","manner","mode","moderate","moderation","standard"]] },
+    { gloss: "MUT", cat: "base", keys: [["change","changing","changed","alter","alteration","shift","transform","mutate","mutation","exchange","switch","vary"]] },
+    { gloss: "TANG", cat: "base", keys: [["touch","touching","touched","contact","feel","handle","tangible","tactile"]] },
+    { gloss: "TRACT", cat: "base", keys: [["drag","dragging","dragged","draw","drawing","drawn","pull","pulling","pulled","haul","tow","attract"]] },
+    { gloss: "-ABLE", cat: "suffix", keys: [["able to be","capable of being","can be","may be"],["able to","capable of","can","capable","ability"],["tending to","tend to","tendency","inclined to","given to","liable to","prone to","apt to"]] },
+    { gloss: "-ILE-able", cat: "suffix", keys: [["able to be","capable of being","can be","may be"],["able to","capable of","can","capable","ability"],["tending to","tend to","tendency","inclined to","given to","liable to","prone to","apt to"]] },
+    { gloss: "-ACIOUS", cat: "suffix", keys: [["tending to","tend to","tendency","apt to","likely to","prone to"],["inclined to","inclined","inclination","given to","disposed to","full of","abounding in"]] }
   ]
 };

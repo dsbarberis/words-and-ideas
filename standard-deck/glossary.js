@@ -157,6 +157,25 @@ module.exports = {
   "-ANT": { forms: "-ANT, -ENT (-IENT)", kind: "suffix", meanings: ["-ing","person who","that which"], examples: "urgent, apparent, vigilant, agent, inhabitant, adherent, servant", note: "equivalent to the English present participle ending -ing", source: "Latin Lesson X", wording: "book", ref: "Latin Lesson X, Assignment I, p. 72" },
   "-AIN": { forms: "-AIN", kind: "suffix", meanings: ["pertaining to"], note: "French form of Latin -anus", source: "Latin Lesson X Exercise III", wording: "Claude, unchecked" },
 
+  // ---- Latin Lesson XI (Ayers book, Assignment I-II, pp. 79-80), added Oct 18, 2026 ----
+  "CRED": { forms: "CRED-", kind: "base", meanings: ["to believe","trust"], examples: "credential, creditor, discredit", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "DOC": { forms: "DOC-, DOCT-", kind: "base", meanings: ["to teach"], examples: "document, doctor, indoctrinate", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "FA": { forms: "FA(B)-, FAT-, FESS-, FAM-", kind: "base", meanings: ["to speak","reveal"], examples: "affable, infant, preface, confess, fame, fabulous", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "FALL": { forms: "FALL-, FALS-, [FAIL-], [FAULT-]", kind: "base", meanings: ["to deceive"], examples: "fallacy, false, failure, default", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "MOD": { forms: "MOD-", kind: "base", meanings: ["measure"], examples: "modicum, modest, modern, modify", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "MUT": { forms: "MUT-", kind: "base", meanings: ["to change"], examples: "mutant, mutation", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "TANG": { forms: "TANG-, (TING-), TACT-", kind: "base", meanings: ["to touch"], examples: "tangent, contingent, contact, intact", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "TRACT": { forms: "TRACT-", kind: "base", meanings: ["to drag"], examples: "tractor, traction, detract", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment II, p. 80" },
+  "-ABLE": { forms: "-ABLE, -IBLE (-ABIL-, -IBIL-)", kind: "suffix", meanings: ["able to be","able to","tending to"], examples: "portable, adaptable, flexible", note: "becomes -abil-, -ibil- when another element follows (adaptability, flexibility)", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment I, p. 79" },
+  "-ILE-able": { forms: "-ILE", kind: "suffix", meanings: ["able to be","able to","tending to"], examples: "agile, volatile, reptile", note: "normally attached to verbal bases; not the -ile, -il \u201cpertaining to\u201d of Lesson IX", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment I, p. 80" },
+  "-ACIOUS": { forms: "-ACIOUS", kind: "suffix", meanings: ["tending to","inclined to"], examples: "audacious, tenacious", source: "Latin Lesson XI", wording: "book", ref: "Latin Lesson XI, Assignment I, p. 80" },
+  // Elements the Lesson XI Exercise III answer key uses that no deck had yet (instructor's manual, pp. 67-68).
+  "GEN": { forms: "GEN-", kind: "base", meanings: ["to produce"], note: "related to GENER-", source: "Lesson XI Exercise III", wording: "answer key", ref: "Instructor's manual, Latin Lesson XI, Assignment III, p. 68" },
+  "SIMIL": { forms: "SIMIL-", kind: "base", meanings: ["like"], source: "Lesson XI Exercise III", wording: "answer key", ref: "Instructor's manual, Latin Lesson XI, Assignment III, p. 68" },
+  "-IT-verbal": { forms: "-IT-", kind: "suffix", meanings: ["verbal suffix"], source: "Lesson XI Exercise III", wording: "answer key", ref: "Instructor's manual, Latin Lesson XI, Assignment III, pp. 67-68" },
+  "-ED": { forms: "-ED", kind: "suffix", meanings: ["past participial suffix"], note: "English", source: "Lesson XI Exercise III", wording: "answer key", ref: "Instructor's manual, Latin Lesson XI, Assignment III, pp. 67-68" },
+  "-LY": { forms: "-LY", kind: "suffix", meanings: ["adverb suffix"], note: "English", source: "Lesson XI Exercise III", wording: "answer key", ref: "Instructor's manual, Latin Lesson XI, Assignment III, p. 68" },
+
   // ---- Greek (Greek Introduction Exercise) ----
   "g:epi": { forms: "epi-", kind: "greek", meanings: ["over"], source: "Greek Introduction Exercise", wording: "book" },
   "g:skopos": { forms: "skopos", kind: "greek", meanings: ["watcher"], source: "Greek Introduction Exercise", wording: "book" },
