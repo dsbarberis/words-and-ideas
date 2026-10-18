@@ -1,12 +1,12 @@
 # Build report
 
-Written by build.js on every rebuild (2026-10-17). Do not edit by hand.
+Written by build.js on every rebuild (2026-10-18). Do not edit by hand.
 
 ## 1. Conflicts
 
 **A word two decks use with different senses:** none.
 
-**A deck card that overrides the shared definition:** 40.
+**A deck card that overrides the shared definition:** 60.
 - **senile** in Exercise III Flashcards (wording: Claude, unchecked)
 - **unilateral** in Exercise III Flashcards (wording: Claude, unchecked)
 - **generate** in Exercise III Flashcards (wording: Claude, unchecked)
@@ -47,6 +47,26 @@ Written by build.js on every rebuild (2026-10-17). Do not edit by hand.
 - **omnipotent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
 - **expedient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
 - **incumbent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+- **ineffable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credit** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **transmuted** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **Fates** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intractable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **contingent** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **genitally** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intangible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **despicable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **assimilable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incontrovertible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **defame** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **equable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallacious** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **immutable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **docile** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **tenable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **obsessed** in Lesson XI Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -225,7 +245,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - superannuated: Lesson IX Workbook Flashcards
 - engine: Lesson IX Workbook Flashcards
 - domino: Lesson IX Workbook Flashcards
-- dessert: Lesson IX Workbook Flashcards
+- dessert: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - parade: Lesson IX Workbook Flashcards
 - afflatus: Lesson IX Workbook Flashcards
 - Lucifer: Lesson IX Workbook Flashcards
@@ -248,7 +268,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - parry: Lesson IX Workbook Flashcards
 - pare: Lesson IX Workbook Flashcards
 - apparel: Lesson IX Workbook Flashcards
-- seniority: Lesson IX Workbook Flashcards
+- seniority: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - senectitude: Lesson IX Workbook Flashcards
 - subserve: Lesson IX Workbook Flashcards
 - reserved: Lesson IX Workbook Flashcards
@@ -346,11 +366,11 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - pyrosis: Greek Lesson III Exercise
 - empyrean: Greek Lesson III Exercise
 - pyroclastic: Greek Lesson III Exercise
-- insult: Lesson X Workbook Flashcards
+- insult: Lesson X Workbook Flashcards, Lesson XI Exercise IV Flashcards
 - assail: Lesson X Workbook Flashcards
 - resilient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - salacious: Lesson X Workbook Flashcards
-- salmon: Lesson X Workbook Flashcards
+- salmon: Lesson X Workbook Flashcards, Lesson XI Workbook Flashcards
 - salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - sally: Lesson X Workbook Flashcards
 - exultation: Lesson X Workbook Flashcards
@@ -414,3 +434,34 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - segregate: Lesson X Exercise IV Flashcards
 - senate: Lesson X Exercise IV Flashcards
 - travesty: Lesson X Exercise IV Flashcards
+- ineffable: Lesson XI Exercise III Flashcards
+- credit: Lesson XI Exercise III Flashcards
+- transmuted: Lesson XI Exercise III Flashcards
+- Fates: Lesson XI Exercise III Flashcards
+- fallible: Lesson XI Exercise III Flashcards
+- credible: Lesson XI Exercise III Flashcards
+- intractable: Lesson XI Exercise III Flashcards
+- contingent: Lesson XI Exercise III Flashcards
+- genitally: Lesson XI Exercise III Flashcards
+- intangible: Lesson XI Exercise III Flashcards
+- despicable: Lesson XI Exercise III Flashcards
+- assimilable: Lesson XI Exercise III Flashcards
+- incontrovertible: Lesson XI Exercise III Flashcards
+- defame: Lesson XI Exercise III Flashcards, Lesson XI Workbook Flashcards
+- equable: Lesson XI Exercise III Flashcards
+- fallacious: Lesson XI Exercise III Flashcards
+- immutable: Lesson XI Exercise III Flashcards
+- docile: Lesson XI Exercise III Flashcards
+- tenable: Lesson XI Exercise III Flashcards
+- obsessed: Lesson XI Exercise III Flashcards
+- cancer: Lesson XI Exercise IV Flashcards
+- eradicate: Lesson XI Exercise IV Flashcards
+- flourish: Lesson XI Exercise IV Flashcards
+- focus: Lesson XI Exercise IV Flashcards
+- gladiolus: Lesson XI Exercise IV Flashcards
+- gland: Lesson XI Exercise IV Flashcards
+- muscle: Lesson XI Exercise IV Flashcards
+- pastor: Lesson XI Exercise IV Flashcards
+- remorse: Lesson XI Exercise IV Flashcards
+- scruple: Lesson XI Exercise IV Flashcards
+- seminary: Lesson XI Exercise IV Flashcards
