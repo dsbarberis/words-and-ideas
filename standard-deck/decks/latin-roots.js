@@ -131,7 +131,7 @@ module.exports = {
     // marks are stored by card position (instructor's answer on the dashboard,
     // "III, IV and Latin Roots"). Key-word lists drafted by Claude (unchecked),
     // for the instructor's approval on the import form.
-    { gloss: "CRED", cat: "base", keys: [["believe","belief","believing","credit","credence","credible"],["trust","trusting","faith","rely","rely on","confidence"]] },
+    { gloss: "CRED", cat: "base", keys: [["believe","belief","believing","credit","credence"],["trust","trusting","faith","rely","rely on","confidence"]] },
     { gloss: "DOC", cat: "base", keys: [["teach","teaching","taught","teacher","instruct","instruction","educate","education","doctrine","lesson"]] },
     { gloss: "FA", cat: "base", keys: [["speak","speaking","spoken","speech","say","saying","said","talk","tell","utter","utterance"],["reveal","revealing","revealed","disclose","make known","declare","show"]] },
     { gloss: "FALL", cat: "base", keys: [["deceive","deceiving","deceit","deception","deceptive","trick","mislead","misleading","fool","false","falsehood","lie","cheat","fail","fault"]] },
