@@ -25,7 +25,7 @@
       where(f, op, v) { return query(coll, steps.concat([["where", f, op, v]])); },
       orderBy(f, dir) { return query(coll, steps.concat([["orderBy", f, dir || "asc"]])); },
       limit(n) { return query(coll, steps.concat([["limit", n]])); },
-      doc(id) { return docRef(coll + "/" + id); },
+      doc(id) { return docRef(coll + "/" + (id || "auto" + Object.keys(docs).length + "_" + log.length)); }, // doc() with no id gets a new one, as the decks use
       async add(v) { const id = "auto" + Object.keys(docs).length; await docRef(coll + "/" + id).set(v); return docRef(coll + "/" + id); },
       async get() {
         log.push(["query", coll, steps]);

@@ -20,6 +20,7 @@ time (plan, rule 7). A saved test will fail the build if one appears (part 1.8).
 | 1.3 Page shell: base type, focus, status line, glyphs, dialog, tabs, Next Unanswered, escaping, title case | `shell/shell.css`, `shell/shell.js` | `tests/test-shell.js` |
 | 1.4 Table: sorting both ways, ties in default order, "—" last, pinned headings and first column, Show all | `table/table.css`, `table/table.js` | `tests/test-table.js` |
 | 1.5 Filter chips and saved views | `chips/chips.css`, `chips/chips.js` | `tests/test-chips.js` |
+| 1.6 Data layer: connect (never throws), one saver with the status line, reading the class Sheet with plain failure messages, CSV, browser storage for conveniences only, the decks' Sheet row (never sent from a test) | `data/data.js` | `tests/test-data.js` |
 
 ## Running the tests
 
