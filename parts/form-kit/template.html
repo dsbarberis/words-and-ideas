@@ -1,0 +1,523 @@
+<!-- Approval form kit on the shared parts (part 1.7). Built by parts/form-kit/build-form.py; looks and saves exactly as forms/approval-form-template.html. -->
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column of question blocks; a sticky footer bar carries progress and Submit. */
+/* shared-part: tokens/dist/working.css */ /* /shared-part: tokens/dist/working.css */
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body); padding-inline: 16px; padding-block: 0 96px; }
+.wrap { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; padding-block: 28px 0; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: 1.75rem; font-weight: 650; }
+h2 { font-size: 1.2rem; font-weight: 650; margin-top: 12px; }
+.sub { color: var(--muted); margin: 6px 0 0; }
+.intro { display: flex; flex-direction: column; gap: 10px; }
+.intro p { margin: 0; max-width: 68ch; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.status { padding: 10px 14px; border-radius: 6px; background: var(--accent-soft); }
+.status.ok { background: var(--ok-soft); color: var(--ok); }
+.status.warn { background: var(--warn-soft); color: var(--warn); }
+button { font: 600 14px var(--font-body); border-radius: 6px; padding: 9px 16px; cursor: pointer; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); }
+button.primary { background: var(--accent); color: var(--surface); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.q { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.q.done { border-color: var(--ok); }
+/* Unanswered questions and items are marked red so they can be found again on long forms (architect's request, Oct 14, 2026). */
+.q.todo { border-color: var(--bad); border-left-width: 6px; }
+.todo-tag { font: 600 11px var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--bad); background: var(--bad-soft); border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+.q.done .todo-tag { display: none; }
+.item.todo > .item-label::before { content: "● "; color: var(--bad); }
+.item.todo > .item-label { color: var(--bad); }
+#nextTodo { padding: 6px 12px; font-size: 13px; border-color: var(--bad); color: var(--bad); }
+.qhead { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+.qnum { font: 600 13px var(--font-body); color: var(--muted); letter-spacing: .04em; white-space: nowrap; }
+.q h3 { font-size: 1.05rem; font-weight: 650; }
+.prompt { margin: 0; max-width: 70ch; }
+.details { border-left: 3px solid var(--rule); padding-left: 12px; color: var(--ink); min-width: 0; }
+.details p { margin: 0 0 8px; }
+.details ul { margin: 0 0 8px; padding-left: 20px; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 13.5px; width: 100%; }
+th, td { border-bottom: 1px solid var(--rule); text-align: left; padding: 6px 8px; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+.item { border-top: 1px dashed var(--rule); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.item-label { font-weight: 600; }
+.opts { display: flex; flex-direction: column; gap: 6px; border: 0; margin: 0; padding: 0; }
+.opt { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 6px; cursor: pointer; }
+.opt:hover { border-color: var(--accent); }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.opt input { margin-top: 4px; accent-color: var(--accent); }
+.opt .lab { font-weight: 600; }
+.opt .note { display: block; color: var(--muted); font-size: 13.5px; }
+.rec { font: 600 11px var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--ok); background: var(--ok-soft); border-radius: 4px; padding: 1px 6px; margin-left: 6px; }
+textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; min-height: 64px; resize: vertical; }
+.need { border-color: var(--warn); }
+.small { font-size: 13px; color: var(--muted); }
+.bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--rule); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); }
+.bar-in { max-width: 860px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.count { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) { .opt { transition: border-color .15s, background .15s; } }
+
+/* Row tables: one block per row; candidate wordings side by side, stacked on phones. */
+.bulk { display: flex; flex-wrap: wrap; gap: 8px; }
+.bulk button { padding: 6px 12px; font-size: 13px; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row { border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.row.done { border-color: var(--ok); }
+.row-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.row-label { font-weight: 600; }
+.row-sub { font-size: 13px; color: var(--muted); }
+.cells { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+.cell { border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cell.sel { border-color: var(--accent); background: var(--accent-soft); }
+.cell-top { display: flex; gap: 8px; align-items: center; cursor: pointer; font-size: 13px; color: var(--muted); font-weight: 600; min-height: 24px; }
+.cell-top input { accent-color: var(--accent); margin: 0; }
+.edit { display: block; padding: 4px 6px; margin: -4px -6px; border-radius: 4px; border: 1px dashed transparent; cursor: text; white-space: pre-wrap; overflow-wrap: anywhere; }
+.edit:hover { border-color: var(--rule); }
+.edit:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+.edited { font-size: 12px; color: var(--warn); display: flex; gap: 8px; align-items: center; }
+.clearbtn { display: inline-block; min-height: 24px; min-width: 44px; padding: 4px 0; margin-top: 6px; font-size: 13px; }
+.linkbtn { border: 0; background: none; padding: 0; color: var(--accent); font-size: 12px; text-decoration: underline; }
+.hint { font-size: 13px; color: var(--muted); }
+
+/* Clarify pop-up */
+.clar { padding: 2px 10px; font-size: 12px; font-weight: 600; margin-left: auto; min-height: 24px; } /* 24 px target: WCAG 2.2 AA floor (general design checklist, section 2) */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 10; }
+.pop { background: var(--surface); color: var(--ink); border-radius: 10px; max-width: 560px; width: 100%; max-height: 85vh; overflow: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 40px rgba(0,0,0,.3); }
+.pop h3 { font-size: 1.05rem; }
+.pop p { margin: 0; }
+.pop .row-btns { display: flex; justify-content: flex-end; }
+.overlay[hidden], .edited[hidden] { display: none; }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div id="intro"></div>
+    <div class="status" id="status">Loading saved answers…</div>
+    <div class="toolbar">
+      <button type="button" id="acceptAll">Accept All Recommendations</button>
+      <span class="small">Fills in only the questions you haven't answered. You can change any answer afterwards.</span>
+    </div>
+  </header>
+  <form id="form" novalidate></form>
+  <section class="q">
+    <h3>Anything else?</h3>
+    <label class="small" for="general">General comments for Claude (optional)</label>
+    <textarea id="general" placeholder="Anything not covered by the questions above"></textarea>
+  </section>
+</div>
+<div class="bar"><div class="bar-in">
+  <span><span class="count" id="count"></span> <button type="button" id="nextTodo">Next Unanswered</button> <span class="small" id="saved"></span></span>
+  <button type="button" class="primary" id="submit">Submit Answers</button>
+</div></div>
+
+<div class="overlay" id="overlay" hidden><div class="pop" role="dialog" aria-modal="true" aria-labelledby="popTitle"><h3 id="popTitle"></h3><div id="popBody"></div><p class="small">Still unclear? Ask in the thread, naming this item, and Claude will answer there and improve this explanation.</p><div class="row-btns"><button type="button" class="primary" id="popClose">Close</button></div></div></div>
+<script type="application/json" id="form-data">__DATA__</script>
+<script>
+/* shared-part: shell/shell.js */ /* /shared-part: shell/shell.js */
+</script>
+<script>
+/* shared-part: data/data.js */ /* /shared-part: data/data.js */
+</script>
+<script>
+(function () {
+  const F = JSON.parse(document.getElementById("form-data").textContent);
+  const $ = (id) => document.getElementById(id);
+  const DRAFT = "approval-draft-v2-" + F.formId;
+  let answers = {};     // unit key -> { choice, text, comment, edits }
+  let db = null, me = null;
+
+  // Answerable units: a plain question, one item in it, or one row of a table question.
+  const units = [];
+  F.questions.forEach(function (q) {
+    if (q.type === "table") q.rows.forEach(function (r) { units.push({ key: q.id + "." + r.id, q: q, row: r }); });
+    else if (q.items) q.items.forEach(function (it) { units.push({ key: q.id + "." + it.id, q: q, it: it, options: it.options || q.options }); });
+    else units.push({ key: q.id, q: q, options: q.options });
+  });
+  const unitByKey = {}; units.forEach(function (u) { unitByKey[u.key] = u; });
+
+  $("title").textContent = F.title;
+  $("subtitle").textContent = F.subtitle || "";
+  $("intro").innerHTML = F.introHtml || "";
+  document.title = F.title;
+
+  function openClarify(title, text) {
+    $("popTitle").textContent = title;
+    const b = $("popBody"); b.innerHTML = "";
+    String(text).split(/(?=What it changes:)|(?=Already settled:)/).forEach(function (part) {
+      const p = el("p"); const m = part.match(/^(Where it came from:|What it changes:|Already settled:)\s*/);
+      if (m) { p.appendChild(el("b", "", m[1] + " ")); p.appendChild(document.createTextNode(part.slice(m[0].length))); }
+      else p.textContent = part;
+      b.appendChild(p);
+    });
+    $("overlay").hidden = false; $("popClose").focus();
+  }
+  function clarifyBtn(title, text) {
+    const b = el("button", "clar", "Clarify"); b.type = "button";
+    b.addEventListener("click", function () { lastClar = b; openClarify(title, text); });
+    return b;
+  }
+  let lastClar = null;
+  function closeClarify() { $("overlay").hidden = true; if (lastClar) lastClar.focus(); }
+  $("popClose").addEventListener("click", closeClarify);
+  $("overlay").addEventListener("click", function (e) { if (e.target === $("overlay")) closeClarify(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("overlay").hidden) closeClarify(); });
+  function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function safe(k) { return k.replace(/\W/g, "_"); }
+  function A(key) { return answers[key] || (answers[key] = {}); }
+
+  // ---------- table rows ----------
+  function cellText(u, col) {
+    const a = answers[u.key] || {};
+    return (a.edits && a.edits[col] != null) ? a.edits[col] : (u.row.cells[col] || "");
+  }
+  function combinedDefault(u) {
+    return u.q.columns.map(function (c) { return cellText(u, c.key); }).filter(Boolean).join(" / ");
+  }
+  function renderRow(u, host) {
+    const q = u.q, r = u.row, a = answers[u.key] || {};
+    const box = el("div", "row"); box.id = "r_" + safe(u.key);
+    const head = el("div", "row-head");
+    head.appendChild(el("span", "row-label", r.label));
+    if (r.sub) head.appendChild(el("span", "row-sub", r.sub));
+    if (r.clarify) head.appendChild(clarifyBtn(r.label + ": " + (r.cells[q.columns[0].key] || ""), r.clarify));
+    box.appendChild(head);
+    const cells = el("div", "cells");
+    const name = "r_" + safe(u.key);
+    q.columns.forEach(function (c) {
+      const cell = el("div", "cell" + (a.choice === c.key ? " sel" : ""));
+      const top = el("label", "cell-top");
+      const rb = el("input"); rb.type = "radio"; rb.name = name; rb.id = name + "_" + c.key; rb.checked = a.choice === c.key;
+      rb.addEventListener("change", function () { A(u.key).choice = c.key; saveDraft(); render(); });
+      clearable(rb, u.key, c.key);
+      top.htmlFor = rb.id; top.appendChild(rb); top.appendChild(document.createTextNode(c.label));
+      if (r.rec === c.key || (!r.rec && q.columns.length === 1 && !q.noRec)) top.appendChild(el("span", "rec", "Recommended"));
+      cell.appendChild(top);
+      const ed = el("span", "edit", cellText(u, c.key));
+      try { ed.contentEditable = "plaintext-only"; } catch (e) { ed.contentEditable = "true"; }
+      if (ed.contentEditable !== "plaintext-only") ed.contentEditable = "true";
+      ed.spellcheck = true; ed.title = "Click to edit";
+      ed.addEventListener("focus", function () {
+        if (A(u.key).choice !== c.key) { A(u.key).choice = c.key; rb.checked = true; refreshRow(u); }
+      });
+      ed.addEventListener("input", function () {
+        const a2 = A(u.key); a2.edits = a2.edits || {}; a2.edits[c.key] = ed.textContent; a2.choice = c.key;
+        rb.checked = true; saveDraft(); refreshRow(u);
+        m.hidden = ed.textContent === orig;
+      });
+      cell.appendChild(ed);
+      const orig = r.cells[c.key] || "";
+      const m = el("div", "edited"); m.appendChild(document.createTextNode("Edited"));
+      const undo = el("button", "linkbtn", "Undo Edit"); undo.type = "button";
+      undo.addEventListener("click", function () { delete A(u.key).edits[c.key]; saveDraft(); render(); });
+      m.appendChild(undo); cell.appendChild(m);
+      m.hidden = !(a.edits && a.edits[c.key] != null && a.edits[c.key] !== orig);
+      cells.appendChild(cell);
+    });
+    if (q.combine) {
+      const cell = el("div", "cell" + (a.choice === "combine" ? " sel" : ""));
+      const top = el("label", "cell-top");
+      const rb = el("input"); rb.type = "radio"; rb.name = name; rb.id = name + "_combine"; rb.checked = a.choice === "combine";
+      rb.addEventListener("change", function () {
+        const a2 = A(u.key); a2.choice = "combine"; if (!a2.text) a2.text = combinedDefault(u); saveDraft(); render();
+        const t = document.getElementById("t_" + safe(u.key)); if (t) t.focus();
+      });
+      clearable(rb, u.key, "combine");
+      top.htmlFor = rb.id; top.appendChild(rb); top.appendChild(document.createTextNode(q.combineLabel || "Combine, or write your own"));
+      cell.appendChild(top);
+      if (a.choice === "combine") {
+        const ta = el("textarea", a.text && a.text.trim() ? "" : "need"); ta.id = "t_" + safe(u.key);
+        ta.value = a.text || ""; ta.placeholder = "Your wording";
+        ta.addEventListener("input", function () { A(u.key).text = ta.value; ta.className = ta.value.trim() ? "" : "need"; saveDraft(); refreshRow(u); });
+        cell.appendChild(ta);
+      } else cell.appendChild(el("span", "hint", "Starts from both wordings for you to edit."));
+      cells.appendChild(cell);
+    }
+    if (q.extra) {
+      const cell = el("div", "cell" + (a.choice === q.extra.value ? " sel" : ""));
+      const top = el("label", "cell-top");
+      const rb = el("input"); rb.type = "radio"; rb.name = name; rb.id = name + "_x"; rb.checked = a.choice === q.extra.value;
+      rb.addEventListener("change", function () { A(u.key).choice = q.extra.value; saveDraft(); render(); });
+      clearable(rb, u.key, q.extra.value);
+      top.htmlFor = rb.id; top.appendChild(rb); top.appendChild(document.createTextNode(q.extra.label));
+      cell.appendChild(top);
+      if (q.extra.note) cell.appendChild(el("span", "hint", q.extra.note));
+      cells.appendChild(cell);
+    }
+    box.appendChild(cells);
+    clearLink(box, u.key);
+    if (complete(u.key)) box.classList.add("done");
+    host.appendChild(box);
+  }
+  function refreshRow(u) {
+    const box = document.getElementById("r_" + safe(u.key)); if (!box) return;
+    const a = answers[u.key] || {};
+    const keys = u.q.columns.map(function (c) { return c.key; }).concat(u.q.combine ? ["combine"] : [], u.q.extra ? [u.q.extra.value] : []);
+    box.querySelectorAll(".cell").forEach(function (cell, i) { cell.classList.toggle("sel", a.choice === keys[i]); });
+    box.classList.toggle("done", complete(u.key));
+    updateBox(u.q.id); updateCount();
+  }
+
+  // ---------- shared rules (general design items, Oct 18, 2026) ----------
+  // A second click (or Space) on the picked choice clears it; the question goes back to "Not answered".
+  function clearable(rb, key, value) {
+    rb.addEventListener("click", function () {
+      const cur = answers[key];
+      if (!cur || cur.choice !== value) return;   // a new pick: the change handler records it
+      rb.checked = false; delete cur.choice; saveDraft(); render();
+    });
+    rb.addEventListener("keydown", function (e) {
+      const cur = answers[key];
+      if (e.key !== " " || !cur || cur.choice !== value) return;
+      e.preventDefault(); delete cur.choice; saveDraft(); render();
+      const again = document.getElementById(rb.id); if (again) again.focus();
+    });
+  }
+  // A visible Clear link on an answered choice (Design Principles Review, Oct 18, question 4).
+  function clearLink(host, key) {
+    const cur = answers[key]; if (!cur || cur.choice == null) return;
+    const b = el("button", "linkbtn clearbtn", "Clear"); b.type = "button";
+    b.setAttribute("aria-label", "Clear this answer");
+    b.addEventListener("click", function () { delete cur.choice; saveDraft(); render(); });
+    host.appendChild(b);
+  }
+  const titleCase = SP.titleCase;   // shared part 1.3
+
+  // ---------- plain questions ----------
+  function renderOptions(key, options, host) {
+    const fs = el("fieldset", "opts");
+    const a = answers[key] || {};
+    options.forEach(function (o, oi) {
+      const id = "o_" + safe(key) + "_" + oi;
+      const lab = el("label", "opt" + (a.choice === o.value ? " sel" : ""));
+      lab.htmlFor = id;
+      const r = el("input"); r.type = "radio"; r.name = "r_" + key; r.id = id; r.checked = a.choice === o.value;
+      r.addEventListener("change", function () { A(key).choice = o.value; saveDraft(); render(); });
+      clearable(r, key, o.value);
+      const txt = el("span");
+      txt.appendChild(el("span", "lab", o.label));
+      if (o.rec) txt.appendChild(el("span", "rec", "Recommended"));
+      if (o.note) txt.appendChild(el("span", "note", o.note));
+      lab.appendChild(r); lab.appendChild(txt);
+      fs.appendChild(lab);
+      if (a.choice === o.value && o.text) {
+        const ta = el("textarea", a.text && a.text.trim() ? "" : "need");
+        ta.id = "t_" + safe(key); ta.placeholder = o.text; ta.value = a.text != null ? a.text : (o.prefill || "");
+        if (a.text == null && o.prefill) { A(key).text = o.prefill; }
+        ta.addEventListener("input", function () { A(key).text = ta.value; ta.className = ta.value.trim() ? "" : "need"; saveDraft(); updateBox(key.split(".")[0]); updateCount(); });
+        fs.appendChild(ta);
+      }
+    });
+    clearLink(fs, key);
+    host.appendChild(fs);
+  }
+  function commentBox(key, host) {
+    const c = el("textarea"); c.id = "c_" + safe(key);
+    c.placeholder = "Comment (optional)"; c.value = (answers[key] || {}).comment || ""; c.style.minHeight = "40px";
+    c.addEventListener("input", function () { A(key).comment = c.value; saveDraft(); });
+    host.appendChild(c);
+  }
+
+  function gotoNextTodo() {
+    const boxes = Array.prototype.slice.call(document.querySelectorAll(".q.todo"));
+    if (!boxes.length) return;
+    const y = window.scrollY + 80;
+    const next = boxes.find(function (b) { return b.getBoundingClientRect().top + window.scrollY > y; }) || boxes[0];
+    next.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  document.addEventListener("click", function (e) { if (e.target && e.target.id === "nextTodo") gotoNextTodo(); });
+  function render() {
+    const keepY = window.scrollY;
+    const active = document.activeElement && document.activeElement.id;
+    const form = $("form"); form.innerHTML = "";
+    form.style.display = "flex"; form.style.flexDirection = "column"; form.style.gap = "16px";
+    let lastSection = null;
+    F.questions.forEach(function (q, qi) {
+      if (q.section && q.section !== lastSection) { form.appendChild(el("h2", "", q.section)); lastSection = q.section; }
+      const box = el("section", "q"); box.id = "q_" + q.id;
+      const head = el("div", "qhead");
+      head.appendChild(el("span", "qnum", "Q" + (qi + 1)));
+      head.appendChild(el("h3", "", q.title));
+      head.appendChild(el("span", "todo-tag", "Not answered"));
+      if (q.clarify) head.appendChild(clarifyBtn(q.title, q.clarify));
+      box.appendChild(head);
+      if (q.prompt) box.appendChild(el("p", "prompt", q.prompt));
+      if (q.detailsHtml) { const d = el("div", "details"); d.innerHTML = q.detailsHtml; box.appendChild(d); }
+      if (q.type === "table") {
+        const bulk = el("div", "bulk");
+        q.columns.forEach(function (c) {
+          const b = el("button", "", titleCase(q.columns.length === 1 ? (c.bulkLabel || "Approve every row") : "Choose “" + c.label + "” for every row"));
+          b.type = "button";
+          b.addEventListener("click", function () { q.rows.forEach(function (r) { A(q.id + "." + r.id).choice = c.key; }); saveDraft(); render(); });
+          bulk.appendChild(b);
+        });
+        box.appendChild(bulk);
+        box.appendChild(el("p", "hint", q.columns.length > 1
+          ? "Pick a wording for each row. Click any wording to edit it; " + (q.combine ? "or choose “" + (q.combineLabel || "Combine, or write your own") + "” to join them." : "your edit is what gets used.")
+          : "Click any wording to edit it; your edit is what gets used."));
+        const rows = el("div", "rows");
+        q.rows.forEach(function (r) { renderRow(unitByKey[q.id + "." + r.id], rows); });
+        box.appendChild(rows);
+        commentBox(q.id + ".comment", box);
+      } else if (q.items) {
+        q.items.forEach(function (it) {
+          const ib = el("div", "item"); ib.dataset.key = q.id + "." + it.id;
+          ib.appendChild(el("div", "item-label", it.label));
+          if (it.detailsHtml) { const d = el("div", "details"); d.innerHTML = it.detailsHtml; ib.appendChild(d); }
+          renderOptions(q.id + "." + it.id, it.options || q.options, ib);
+          box.appendChild(ib);
+        });
+        commentBox(q.id + ".comment", box);
+      } else { renderOptions(q.id, q.options, box); commentBox(q.id + ".comment", box); }
+      form.appendChild(box);
+      updateBox(q.id, box);
+    });
+    window.scrollTo(0, keepY);
+    if (active) { const e = document.getElementById(active); if (e) e.focus(); }
+    updateCount();
+  }
+
+  function complete(key) {
+    const u = unitByKey[key], a = answers[key];
+    if (!u || !a || !a.choice) return false;
+    if (u.row) {
+      if (a.choice === "combine") return !!(a.text && a.text.trim());
+      if (u.q.extra && a.choice === u.q.extra.value) return true;
+      return !!cellText(u, a.choice).trim();
+    }
+    const o = u.options.find(function (x) { return x.value === a.choice; });
+    return !(o && o.text) || !!(a.text && a.text.trim());
+  }
+  function keysOf(q) {
+    if (q.type === "table") return q.rows.map(function (r) { return q.id + "." + r.id; });
+    if (q.items) return q.items.map(function (it) { return q.id + "." + it.id; });
+    return [q.id];
+  }
+  function updateBox(qid, box) {
+    box = box || document.getElementById("q_" + qid); if (!box) return;
+    const q = F.questions.find(function (x) { return x.id === qid; });
+    const allDone = keysOf(q).every(complete);
+    box.classList.toggle("done", allDone);
+    box.classList.toggle("todo", !allDone);
+    box.querySelectorAll(".item[data-key]").forEach(function (ib) { ib.classList.toggle("todo", !complete(ib.dataset.key)); });
+  }
+  function updateCount() {
+    const n = units.filter(function (u) { return complete(u.key); }).length;
+    $("count").textContent = n + " of " + units.length + " answered";
+    $("submit").disabled = n !== units.length || !db;
+    const nt = $("nextTodo"); if (nt) nt.style.display = n === units.length ? "none" : "";
+  }
+  // Unsubmitted answers are saved to the form's own storage as they are entered
+  // (drafts/current), so a reload, a closed tab or a new version of the page
+  // never loses them. Browser storage is only a fallback.
+  let remoteTimer = null, dirty = false, saveState = "";
+  function showSave(t) { saveState = t; const e = $("saved"); if (e) e.textContent = t; }
+  function saveDraft() {
+    dirty = true;
+    try { localStorage.setItem(DRAFT, JSON.stringify({ answers: answers, general: $("general").value })); } catch (e) {}
+    if (!db) return;
+    showSave("Saving…");
+    clearTimeout(remoteTimer);
+    remoteTimer = setTimeout(saveRemote, 700);
+  }
+  let saving = false, again = false;
+  async function saveRemote() {
+    if (!db) return;
+    if (saving) { again = true; return; }
+    saving = true;
+    try {
+      await db.doc("drafts/current").set({ formId: F.formId, updatedAt: new Date().toISOString(), answers: JSON.parse(JSON.stringify(answers)), general: $("general").value });
+      showSave("All answers saved");
+    } catch (e) { showSave("Not saved yet (" + (e && e.code || "error") + "); retrying"); clearTimeout(remoteTimer); remoteTimer = setTimeout(saveRemote, 3000); }
+    saving = false;
+    if (again) { again = false; saveRemote(); }
+  }
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden" && db && remoteTimer) { clearTimeout(remoteTimer); remoteTimer = null; saveRemote(); } });
+  if (window.claude && window.claude.hot && window.claude.hot.snapshot) {
+    try { window.claude.hot.snapshot(function () { return { answers: answers, general: $("general").value }; }); } catch (e) {}
+  }
+  function loadDraft() {
+    try { const d = JSON.parse(localStorage.getItem(DRAFT) || "null"); if (d) { answers = d.answers || {}; $("general").value = d.general || ""; return true; } } catch (e) {}
+    return false;
+  }
+
+  $("general").addEventListener("input", saveDraft);
+  $("acceptAll").addEventListener("click", function () {
+    units.forEach(function (u) {
+      const a = answers[u.key];
+      if (a && a.choice) return;
+      if (u.row) { const c = u.row.rec || (u.q.columns.length === 1 ? u.q.columns[0].key : null); if (c) A(u.key).choice = c; return; }
+      const o = u.options.find(function (x) { return x.rec; });
+      if (o) A(u.key).choice = o.value;
+    });
+    saveDraft(); render();
+  });
+
+  function setStatus(text, kind) { const s = $("status"); s.textContent = text; s.className = "status" + (kind ? " " + kind : ""); }
+
+  function summary(u) {
+    const a = answers[u.key] || {};
+    if (u.row) {
+      const q = u.q; let label = "", text = "", edited = false;
+      if (a.choice === "combine") { label = q.combineLabel || "Combined / own wording"; text = (a.text || "").trim(); edited = true; }
+      else if (q.extra && a.choice === q.extra.value) { label = q.extra.label; }
+      else { const c = q.columns.find(function (x) { return x.key === a.choice; }) || {}; label = c.label || ""; text = cellText(u, a.choice).trim(); edited = text !== (u.row.cells[a.choice] || "").trim(); }
+      return { key: u.key, question: q.title + " · " + u.row.label, choice: a.choice, choiceLabel: label, text: text, edited: edited, recommended: a.choice === (u.row.rec || (q.columns.length === 1 ? q.columns[0].key : "")) && !edited };
+    }
+    const o = u.options.find(function (x) { return x.value === a.choice; }) || {};
+    return { key: u.key, question: u.q.title + (u.it ? " · " + u.it.label : ""), choice: a.choice, choiceLabel: o.label || "", text: (a.text || "").trim(), recommended: !!o.rec };
+  }
+
+  $("submit").addEventListener("click", async function () {
+    if (!db) return;
+    const btn = $("submit"); btn.disabled = true; btn.textContent = "Submitting…";
+    const comments = {};
+    F.questions.forEach(function (q) { const c = ((answers[q.id + ".comment"] || {}).comment || "").trim(); if (c) comments[q.id] = c; });
+    const now = new Date().toISOString();
+    try {
+      await db.doc("submissions/" + now.replace(/[^0-9]/g, "")).set({ formId: F.formId, submittedAt: now, submittedBy: me, general: $("general").value.trim(), comments: comments, answers: units.map(summary), raw: answers });
+      setStatus("Submitted " + new Date(now).toLocaleString() + ". Tell Claude in the thread that you've submitted, and your answers will be recorded. You can change answers and submit again; the latest submission counts.", "ok");
+    } catch (e) {
+      setStatus("Your answers couldn't be saved (" + (e && e.code || "error") + "). They are kept on this device; try Submit again.", "warn");
+    }
+    btn.textContent = "Submit Answers"; updateCount();
+  });
+
+  let hadDraft = loadDraft();
+  const hot = window.claude && window.claude.hot && window.claude.hot.data;
+  if (hot && hot.answers) { answers = hot.answers; $("general").value = hot.general || ""; hadDraft = true; dirty = true; }
+  render();
+
+  // Hold input until saved answers have loaded, so a quick click can't replace them.
+  $("form").inert = true; $("acceptAll").disabled = true; $("general").disabled = true;
+  function unlock() { $("form").inert = false; $("acceptAll").disabled = false; $("general").disabled = false; }
+  (async function connect() {
+    try { await loadAll(); } finally { unlock(); }
+  })();
+  async function loadAll() {
+    const c = await SP.connect(["user", "db"]);   // shared part 1.6: never throws
+    me = c.userId; db = c.db;
+    if (!db) { setStatus("This page can't save answers in this view. Open it from the project while signed in.", "warn"); showSave(""); updateCount(); return; }
+    let last = null, draft = null;
+    try {
+      const snap = await db.collection("submissions").orderBy("submittedAt", "desc").limit(1).get();
+      last = snap.docs && snap.docs.length ? snap.docs[0].data() : null;
+    } catch (e) {}
+    try { const d = await db.doc("drafts/current").get(); draft = d && d.exists !== false && d.data ? d.data() : null; } catch (e) {}
+    if (!dirty) {
+      // Nothing typed in this visit yet: pick up where the saved answers left off.
+      const useDraft = draft && draft.answers && (!last || !last.submittedAt || draft.updatedAt > last.submittedAt);
+      const src = useDraft ? { answers: draft.answers, general: draft.general } : (last && last.raw ? { answers: last.raw, general: last.general } : null);
+      if (src) { answers = JSON.parse(JSON.stringify(src.answers)); $("general").value = src.general || ""; render(); }
+      showSave(src ? "All answers saved" : "Answers are saved as you go");
+    } else saveRemote();
+    if (last && last.submittedAt) setStatus("Last submitted " + new Date(last.submittedAt).toLocaleString() + ". You can change answers and submit again; the latest submission counts. Answers are saved as you go.", "ok");
+    else setStatus("Not submitted yet. Your answers are saved as you go, so you can stop and come back at any time. When every question is answered, press Submit answers at the bottom.");
+    updateCount();
+  }
+})();
+</script>

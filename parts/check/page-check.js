@@ -3,6 +3,7 @@
 //
 //   NODE_PATH=$(npm root -g) node parts/check/page-check.js PAGE.html --out DIR
 //        [--baseline DIR]      compare each shot with the same shot in DIR (rule 3)
+//        [--strict]            with --baseline: any pixel changed by more than 4 levels fails (a move meant to be identical)
 //        [--widths 390,820,1280] [--no-dark]  (decks: --no-dark)
 //        [--standin CONFIG.json] [--states STATES.js]
 //
@@ -19,7 +20,7 @@ const { chromium } = require("playwright");
 const argv = process.argv.slice(2);
 const opt = (k, d) => { const i = argv.indexOf(k); return i < 0 ? d : argv[i + 1]; };
 const page0 = argv[0];
-if (!page0 || page0.startsWith("--")) { console.log("usage: page-check.js PAGE.html --out DIR [--baseline DIR] [--widths 390,820,1280] [--no-dark] [--standin CFG.json] [--states STATES.js]"); process.exit(2); }
+if (!page0 || page0.startsWith("--")) { console.log("usage: page-check.js PAGE.html --out DIR [--baseline DIR] [--widths 390,820,1280] [--no-dark] [--standin CFG.json] [--states STATES.js] [--strict]"); process.exit(2); }
 const out = path.resolve(opt("--out", "page-check-out"));
 const baseline = opt("--baseline", null);
 const widths = opt("--widths", "390,820,1280").split(",").map(Number);
@@ -27,6 +28,7 @@ const themes = argv.includes("--no-dark") ? ["light"] : ["light", "dark"];
 const standin = opt("--standin", null) ? JSON.parse(fs.readFileSync(opt("--standin"), "utf8")) : {};
 const states = opt("--states", null) ? require(path.resolve(opt("--states"))) : [];
 const DIFF_SHARE = 0.001, DIFF_LEVEL = 32;
+const strict = process.argv.includes("--strict");   // any changed pixel fails: for moves meant to be identical
 
 async function measure(page) {
   return page.evaluate(() => {
@@ -66,8 +68,12 @@ async function compare(browser, a, b) {
     const c = document.createElement("canvas"); c.width = x.width; c.height = x.height;
     const g = c.getContext("2d"); g.drawImage(x, 0, 0); const dx = g.getImageData(0, 0, c.width, c.height).data;
     g.clearRect(0, 0, c.width, c.height); g.drawImage(y, 0, 0); const dy = g.getImageData(0, 0, c.width, c.height).data;
-    let n = 0; for (let i = 0; i < dx.length; i += 4) if (Math.abs(dx[i] - dy[i]) > 32 || Math.abs(dx[i + 1] - dy[i + 1]) > 32 || Math.abs(dx[i + 2] - dy[i + 2]) > 32) n++;
-    return { share: n / (dx.length / 4) };
+    let n = 0, any = 0;
+    for (let i = 0; i < dx.length; i += 4) {
+      const d = Math.max(Math.abs(dx[i] - dy[i]), Math.abs(dx[i + 1] - dy[i + 1]), Math.abs(dx[i + 2] - dy[i + 2]));
+      if (d > 32) n++; if (d > 4) any++;   // up to 4 levels is drawing noise (a resize grip, anti-aliasing)
+    }
+    return { share: n / (dx.length / 4), changed: any / (dx.length / 4) };
   }, [a.toString("base64"), b.toString("base64")]);
   await p.close();
   return res;
@@ -110,6 +116,7 @@ async function compare(browser, a, b) {
           rec.compare = c;
           if (c.sizeChanged) fail(shot, "page size changed: " + c.sizeChanged);
           else if (c.share > DIFF_SHARE) fail(shot, `looks different from the baseline (${(c.share * 100).toFixed(2)}% of pixels)`);
+          else if (strict && c.changed > 0) fail(shot, `differs from the baseline in ${(c.changed * 100).toFixed(3)}% of pixels (--strict: any change of more than 4 levels fails)`);
         }
       }
       report.shots.push(rec);

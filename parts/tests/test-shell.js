@@ -26,8 +26,8 @@ ok("a sample page built on the shell passes the page check", pc.status === 0, pc
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 800, height: 700 } });
   await p.goto("file://" + page);
   ok("esc escapes all five characters", await p.evaluate(() => SP.esc(`<a href="x">'&'</a>`)) === "&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;", null);
-  const tc = await p.evaluate(() => ["accept all recommendations", "know it", "take the quiz again", "next to decide"].map(SP.titleCase));
-  ok("title case follows Apple's style", JSON.stringify(tc) === JSON.stringify(["Accept All Recommendations", "Know It", "Take the Quiz Again", "Next to Decide"]), tc);
+  const tc = await p.evaluate(() => ["accept all recommendations", "know it", "take the quiz again", "next to decide", "choose “proposed” for every row"].map(SP.titleCase));
+  ok("title case follows Apple's style, past an opening quotation mark", JSON.stringify(tc) === JSON.stringify(["Accept All Recommendations", "Know It", "Take the Quiz Again", "Next to Decide", "Choose “Proposed” for Every Row"]), tc);
   ok("status line uses the fixed wording", await p.evaluate(() => { const e = document.getElementById("st"); SP.status(e, "cantSave"); return e.textContent.startsWith("Couldn't save") && e.dataset.kind === "bad" && e.getAttribute("aria-live") === "polite"; }), null);
   let threw = await p.evaluate(() => { try { SP.status(document.getElementById("st"), "made up"); return false; } catch (e) { return true; } });
   ok("an unknown status is refused, so wording cannot drift", threw, null);

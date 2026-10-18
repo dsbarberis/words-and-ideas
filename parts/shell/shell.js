@@ -91,9 +91,14 @@
   // Title case in Apple's style, for buttons, tabs and menu titles (checklist section 3).
   const SMALL = /^(a|an|the|and|but|or|nor|for|so|yet|as|at|by|in|of|off|on|out|per|to|up|via)$/i;
   function titleCase(s) {
+    // A word may start with punctuation, such as an opening quotation mark (the form kit's rule).
     const w = String(s).split(" ");
-    return w.map((x, i) => (i > 0 && i < w.length - 1 && SMALL.test(x)) ? x.toLowerCase() : x.charAt(0).toUpperCase() + x.slice(1)).join(" ");
+    return w.map((x, i) => {
+      const m = x.match(/^([^A-Za-z]*)([A-Za-z][\w'’-]*)(.*)$/); if (!m) return x;
+      if (i > 0 && i < w.length - 1 && SMALL.test(m[2])) return m[1] + m[2].toLowerCase() + m[3];
+      return m[1] + m[2].charAt(0).toUpperCase() + m[2].slice(1) + m[3];
+    }).join(" ");
   }
 
-  window.SP = { esc, theme, status, STATUS, dialog, tabs, nextUnanswered, titleCase };
+  window.SP = Object.assign(window.SP || {}, { esc, theme, status, STATUS, dialog, tabs, nextUnanswered, titleCase });
 })();

@@ -8,16 +8,18 @@ const fs = require("fs"), path = require("path");
 const here = __dirname, dist = path.join(here, "dist");
 const T = JSON.parse(fs.readFileSync(path.join(here, "tokens.json"), "utf8"));
 
-function block(sel, vals) {
+// Dark blocks also set color-scheme, so scroll bars and form controls draw dark too, as every
+// page with a dark theme does today.
+function block(sel, vals, scheme) {
   return sel + " {\n" + Object.keys(T.names).filter(k => k in vals)
-    .map(k => "  --" + k + ": " + vals[k] + ";").join("\n") + "\n}\n";
+    .map(k => "  --" + k + ": " + vals[k] + ";").join("\n") + (scheme ? "\n  color-scheme: " + scheme + ";" : "") + "\n}\n";
 }
 function sheet(light, dark) {
   const head = "/* Built by parts/tokens/build.js from tokens.json. Do not edit by hand. */\n";
   let s = head + block(":root", T.themes[light]);
   if (dark) {
-    const inner = block(":root:not([data-theme=\"light\"])", T.themes[dark]).replace(/^/gm, "  ").trimEnd();
-    s += "@media (prefers-color-scheme: dark) {\n" + inner + "\n}\n" + block(":root[data-theme=\"dark\"]", T.themes[dark]);
+    const inner = block(":root:not([data-theme=\"light\"])", T.themes[dark], "dark").replace(/^/gm, "  ").trimEnd();
+    s += "@media (prefers-color-scheme: dark) {\n" + inner + "\n}\n" + block(":root[data-theme=\"dark\"]", T.themes[dark], "dark");
   }
   return s;
 }

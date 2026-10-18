@@ -34,6 +34,13 @@ for (const [theme, own] of Object.entries(T.themes)) {
 }
 try { execFileSync("node", [path.join(__dirname, "..", "tokens", "build.js"), "--check"], { stdio: "pipe" }); }
 catch (e) { fails.push(String(e.stdout || e.message).trim()); }
+// Every dark block sets color-scheme, so scroll bars and form controls draw dark (found by the form kit's comparison).
+for (const f of ["course.css", "working.css"]) {
+  const css = fs.readFileSync(path.join(__dirname, "..", "tokens", "dist", f), "utf8");
+  const dark = css.split(/(?=:root)/).filter(b => /data-theme="(?:light|dark)"/.test(b));
+  if (dark.length !== 2 || !dark.every(b => /color-scheme: dark;/.test(b))) fails.push(`${f}: a dark block does not set color-scheme: dark`);
+}
+if (/color-scheme/.test(fs.readFileSync(path.join(__dirname, "..", "tokens", "dist", "course-nodark.css"), "utf8"))) fails.push("course-nodark.css sets a color-scheme; the decks have no dark theme");
 fails.forEach(f => console.log("FAIL " + f));
 console.log(`${checked} pairs checked in ${Object.keys(T.themes).length} themes; ${excepted} listed exceptions, waiting on the architect's look decision`);
 console.log(fails.length ? fails.length + " failure(s)" : "all token tests passed");

@@ -38,6 +38,7 @@
     --warn-soft: #3a2f17;
     --bad: #f2a39b;
     --bad-soft: #3a1d1b;
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
@@ -57,4 +58,5 @@
   --warn-soft: #3a2f17;
   --bad: #f2a39b;
   --bad-soft: #3a1d1b;
+  color-scheme: dark;
 }

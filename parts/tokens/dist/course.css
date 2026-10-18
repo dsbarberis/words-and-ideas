@@ -44,6 +44,7 @@
     --burgundy: #e3958c;
     --sage: #a9c194;
     --gold: #d6b67a;
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
@@ -66,4 +67,5 @@
   --burgundy: #e3958c;
   --sage: #a9c194;
   --gold: #d6b67a;
+  color-scheme: dark;
 }
