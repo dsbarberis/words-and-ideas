@@ -245,7 +245,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - superannuated: Lesson IX Workbook Flashcards
 - engine: Lesson IX Workbook Flashcards
 - domino: Lesson IX Workbook Flashcards
-- dessert: Lesson IX Workbook Flashcards
+- dessert: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - parade: Lesson IX Workbook Flashcards
 - afflatus: Lesson IX Workbook Flashcards
 - Lucifer: Lesson IX Workbook Flashcards
@@ -268,7 +268,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - parry: Lesson IX Workbook Flashcards
 - pare: Lesson IX Workbook Flashcards
 - apparel: Lesson IX Workbook Flashcards
-- seniority: Lesson IX Workbook Flashcards
+- seniority: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - senectitude: Lesson IX Workbook Flashcards
 - subserve: Lesson IX Workbook Flashcards
 - reserved: Lesson IX Workbook Flashcards
@@ -370,7 +370,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - assail: Lesson X Workbook Flashcards
 - resilient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - salacious: Lesson X Workbook Flashcards
-- salmon: Lesson X Workbook Flashcards
+- salmon: Lesson X Workbook Flashcards, Lesson XI Workbook Flashcards
 - salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - sally: Lesson X Workbook Flashcards
 - exultation: Lesson X Workbook Flashcards
@@ -447,7 +447,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - despicable: Lesson XI Exercise III Flashcards
 - assimilable: Lesson XI Exercise III Flashcards
 - incontrovertible: Lesson XI Exercise III Flashcards
-- defame: Lesson XI Exercise III Flashcards
+- defame: Lesson XI Exercise III Flashcards, Lesson XI Workbook Flashcards
 - equable: Lesson XI Exercise III Flashcards
 - fallacious: Lesson XI Exercise III Flashcards
 - immutable: Lesson XI Exercise III Flashcards
