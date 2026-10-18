@@ -20,6 +20,6 @@
   --sage: #5c6e4f;
   --gold: #b08d57;
   --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
-  --font-body: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
