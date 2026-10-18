@@ -56,12 +56,15 @@ async function run() {
   await page.goto(url, { waitUntil: "load" }); await page.waitForTimeout(500);
   const reload = async () => {
     const st = await page.evaluate(() => { sessionStorage.setItem("__contract_docs", JSON.stringify(window.__standin.docs)); return window.__standin.log; });
+    // Read browser storage and pause before reloading: a reload straight after a write can lose it in the
+    // test browser (seen on the dashboard, about one run in six), which is not the page's doing.
+    await page.evaluate(() => Object.keys(localStorage)); await page.waitForTimeout(300);
     logs.push(st); await page.reload({ waitUntil: "load" }); await page.waitForTimeout(500);
   };
   if (S.steps) await S.steps(page, reload);
   await page.waitForTimeout(S.settle || 1500);
   const end = await page.evaluate(() => {
-    const dump = s => { const o = {}; try { for (let i = 0; i < s.length; i++) { const k = s.key(i); if (!k.startsWith("__contract")) o[k] = s.getItem(k); } } catch (e) {} return o; };
+    const dump = s => { const o = {}; try { for (let i = 0; i < s.length; i++) { const k = s.key(i); if (!k.startsWith("__contract")) o[k] = s.getItem(k); } } catch (e) { o["<unreadable>"] = String(e); } return o; };
     return { log: window.__standin ? window.__standin.log : null, docs: window.__standin ? window.__standin.docs : null, local: dump(localStorage), session: dump(sessionStorage) };
   });
   await browser.close();

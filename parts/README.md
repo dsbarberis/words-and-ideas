@@ -24,6 +24,7 @@ time (plan, rule 7). A saved test will fail the build if one appears (`check/pri
 | 1.7 Form kit on the parts: the approval form template, its build, a question helper and a field check. Looks and saves exactly as the kit it replaces (copy kept in `form-kit/reference/`) | `form-kit/template.html`, `form-kit/build-form.py`, `form-kit/formkit.py`, `form-kit/check_form.py` | `tests/test-form-kit.js` |
 | 1.8 Build step (puts parts into a page where it marks them, and private settings from a file in the shared folder) and the private-settings check | `build/build_page.py`, `check/private-check.js` | `tests/test-private.js` |
 | 1.9 Data contract runner: records what a page reads and writes (database, browser storage, web requests), with times as placeholders, and checks a moved page does the same. The steps and records live in the shared folder beside the pages (tools/shared-parts/contracts/) | `check/contract.js` | `tests/test-contract.js` |
+| 1.10 Deck simulation: a Learn pass, an unfinished pass and two quiz rounds on each built deck, at a fixed time with seeded randomness; the Sheet rows (as blocked posts, byte for byte), saved attempts and browser storage are recorded before a move and compared after. Stops if it cannot find the code that sends to the Sheet. Records hold the form's address, so they live in the shared folder (tools/shared-parts/contracts/decks/) | `check/deck-sim.js` | `tests/test-deck-sim.js` |
 
 ## Building a page from the parts (1.8)
 
