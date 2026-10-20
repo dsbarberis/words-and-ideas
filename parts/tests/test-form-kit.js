@@ -58,7 +58,10 @@ r = py([path.join(K, "build-form.py"), "bad.json", "bad.html"]);
 ok("build-form refuses a form the field check stops", r.status === 1 && !fs.existsSync(path.join(tmp, "bad.html")) && /build refused/.test(r.stdout), r.stdout);
 
 // 3. Build both ways.
-r = py([path.join(K, "build-form.py"), "sample.json", "new.html"]);
+fs.writeFileSync(path.join(tmp, "zones.json"), JSON.stringify({ architect: "America/Chicago", course: "America/Chicago" }));
+r = py([path.join(K, "build-form.py"), "sample.json", "nozone.html"]);
+ok("build-form refuses to guess the time zone", r.status === 1 && /TIME_ZONE/.test(r.stdout), r.stdout);
+r = py([path.join(K, "build-form.py"), "sample.json", "new.html", "--zones", "zones.json"]);
 ok("build-form builds the sample on the parts", r.status === 0, r.stdout + r.stderr);
 r = py([path.join(K, "reference", "build-form.py"), "sample.json", "old.html"]);
 ok("the kit as it was builds the sample too", r.status === 0, r.stdout + r.stderr);
@@ -109,7 +112,10 @@ ok("the new page looks the same as the old in every state, width and theme", r.s
     return { loaded, submitOn, log: norm(out.log), docs: norm(out.docs), local, errs };
   }
   const a = await run("old.html", seed), n = await run("new.html", seed);
-  ok("both pages pick up the saved draft the same way", JSON.stringify(a.loaded) === JSON.stringify(n.loaded) && n.loaded.general === "draft note" && n.loaded.checked, [a.loaded, n.loaded]);
+  // The one intended difference (D, Oct 19): times are shown in the Setup zone with zone letters.
+  ok("the new page shows the last submission in the Setup zone, with zone letters", /^Last submitted Sep 30, 7:00 p\.m\. CDT\. /.test(n.loaded.status), n.loaded.status);
+  const sameExceptTime = x => Object.assign({}, x, { status: x.status.replace(/^Last submitted .*?(?:CDT|CST|[AP]M)\. /, "Last submitted <time>. ") });
+  ok("both pages pick up the saved draft the same way", JSON.stringify(sameExceptTime(a.loaded)) === JSON.stringify(sameExceptTime(n.loaded)) && n.loaded.general === "draft note" && n.loaded.checked, [a.loaded, n.loaded]);
   ok("the sample reaches Submit on both pages", a.submitOn && n.submitOn, [a.submitOn, n.submitOn]);
   ok("every database read and write is the same, in the same order", JSON.stringify(a.log) === JSON.stringify(n.log) && a.log.length > 5, { old: a.log.length, new: n.log.length });
   ok("the stored data ends up the same", JSON.stringify(a.docs) === JSON.stringify(n.docs) && Object.keys(n.docs).some(k => k.startsWith("submissions/N")), Object.keys(n.docs));

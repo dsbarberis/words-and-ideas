@@ -126,6 +126,14 @@ textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); bac
 <script>
 (function () {
   const F = JSON.parse(document.getElementById("form-data").textContent);
+  // Times people read: the architect's zone from Setup (settings/time-zones.json), with zone letters (D, Oct 19, 2026).
+  const ZONE = "__TIME_ZONE__";
+  function localTime(iso) {
+    const p = {}; new Intl.DateTimeFormat("en-US", { timeZone: ZONE, month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short" })
+      .formatToParts(new Date(iso)).forEach(function (x) { p[x.type] = x.value; });
+    const t = p.hour === "12" && p.minute === "00" && p.dayPeriod === "PM" ? "noon" : p.hour + ":" + p.minute + " " + (p.dayPeriod === "AM" ? "a.m." : "p.m.");
+    return p.month + " " + p.day + ", " + t + " " + p.timeZoneName;
+  }
   const $ = (id) => document.getElementById(id);
   const DRAFT = "approval-draft-v2-" + F.formId;
   let answers = {};     // unit key -> { choice, text, comment, edits }
@@ -480,7 +488,7 @@ textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); bac
     const now = new Date().toISOString();
     try {
       await db.doc("submissions/" + now.replace(/[^0-9]/g, "")).set({ formId: F.formId, submittedAt: now, submittedBy: me, general: $("general").value.trim(), comments: comments, answers: units.map(summary), raw: answers });
-      setStatus("Submitted " + new Date(now).toLocaleString() + ". Tell Claude in the thread that you've submitted, and your answers will be recorded. You can change answers and submit again; the latest submission counts.", "ok");
+      setStatus("Submitted " + localTime(now) + ". Tell Claude in the thread that you've submitted, and your answers will be recorded. You can change answers and submit again; the latest submission counts.", "ok");
     } catch (e) {
       setStatus("Your answers couldn't be saved (" + (e && e.code || "error") + "). They are kept on this device; try Submit again.", "warn");
     }
@@ -515,7 +523,7 @@ textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); bac
       if (src) { answers = JSON.parse(JSON.stringify(src.answers)); $("general").value = src.general || ""; render(); }
       showSave(src ? "All answers saved" : "Answers are saved as you go");
     } else saveRemote();
-    if (last && last.submittedAt) setStatus("Last submitted " + new Date(last.submittedAt).toLocaleString() + ". You can change answers and submit again; the latest submission counts. Answers are saved as you go.", "ok");
+    if (last && last.submittedAt) setStatus("Last submitted " + localTime(last.submittedAt) + ". You can change answers and submit again; the latest submission counts. Answers are saved as you go.", "ok");
     else setStatus("Not submitted yet. Your answers are saved as you go, so you can stop and come back at any time. When every question is answered, press Submit answers at the bottom.");
     updateCount();
   }

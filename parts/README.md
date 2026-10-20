@@ -45,7 +45,7 @@ paths, email addresses); with `SP_PRIVATE_SETTINGS=FILE` it also looks for that 
 ## Approval forms (1.7)
 
     python3 -I parts/form-kit/check_form.py FORM.json        # the field check
-    python3 -I parts/form-kit/build-form.py FORM.json OUT.html
+    python3 -I parts/form-kit/build-form.py FORM.json OUT.html --zones settings/time-zones.json   # Setup's zone file, from the shared folder
 
 A maker script can build its questions with `formkit.py` (`question`, `opt`, `other`, `clar`,
 `items_question`, `item`, `table`, `column`, `row`, `form`, `save`); `form()` runs the field
