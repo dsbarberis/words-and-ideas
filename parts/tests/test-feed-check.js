@@ -32,36 +32,40 @@ function suite(F, label) {
   const s2 = r.state;
 
   r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { deck: "Lesson XII Sample Flashcards" })])), F, s2, at("2026-10-22T08:00Z"));
-  ok(label + "a new row from a deck not in the agreement is reported", r.faults.length === 1 && r.faults[0].includes("Lesson XII Sample Flashcards"), r.faults);
+  ok(label + "a new row from a deck not in the agreement is reported", r.faults.length === 1 && r.faults[0].includes("Lesson XII Sample Flashcards") && r.kinds[0] === "deck", r);
   ok(label + "the report never names the student", !r.faults.join().includes("Alex"), r.faults);
   for (const m of ["full", "learn (All", "quiz round 0", "quiz", "Learn"]) {
     r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { mode: m })])), F, s2, at("2026-10-22T08:00Z"));
-    ok(label + "a new row with pass mode " + JSON.stringify(m) + " is reported", r.faults.length === 1 && r.faults[0].includes("pass mode"), r.faults);
+    ok(label + "a new row with pass mode " + JSON.stringify(m) + " is reported", r.faults.length === 1 && r.faults[0].includes("pass mode") && r.kinds[0] === "mode", r);
   }
   for (const n of ["Sample Student", "  sample", "TEST user", "test"]) {
     r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { name: n })])), F, s2, at("2026-10-22T08:00Z"));
-    ok(label + "a new row with the test name " + JSON.stringify(n) + " is reported", r.faults.length === 1 && r.faults[0].includes("test name"), r.faults);
+    ok(label + "a new row with the test name " + JSON.stringify(n) + " is reported, without quoting it", r.faults.length === 1 && r.faults[0] === "1 new row(s) carry a test name (one containing \"sample\" or beginning with \"test\"). Test rows must never reach the class Google Sheet." && r.kinds[0] === "test", r);
   }
   r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { name: "Celeste Vasquez" })])), F, s2, at("2026-10-22T08:00Z"));
   ok(label + "an ordinary name is not taken for a test name", r.faults.length === 0, r.faults);
 
   r = SP.feedCheck(sheet(good, F.header.slice(0, 8).concat(["Results"])), F, s2, at("2026-10-22T08:00Z"));
-  ok(label + "a changed header row is reported", r.faults.some(f => f.includes("header row has changed")), r.faults);
+  ok(label + "a changed header row is reported", r.faults.some(f => f.includes("header row has changed")) && r.kinds.includes("header"), r);
 
   const ranYesterday = Object.assign({}, s2, { lastRun: "2026-10-24T08:00:00.000Z" });
   r = SP.feedCheck(sheet(good), F, ranYesterday, at("2026-10-25T08:00Z"));
-  ok(label + "no new row for more than three days is reported, in local time", r.faults.length === 1 && r.faults[0] === "No new row since Oct 20, 10:00 a.m. CDT: more than 3 days.", r.faults);
+  ok(label + "no new row for more than three days is reported, in local time", r.faults.length === 1 && r.faults[0] === "No new row since Oct 20, 10:00 a.m. CDT: more than 3 days." && r.kinds[0] === "gap", r);
   r = SP.feedCheck(sheet(good), F, ranYesterday, { now: new Date("2026-10-25T08:00Z"), term: { first: "2026-08-24", last: "2026-10-23" } });
   ok(label + "after the term's last day, a quiet Google Sheet is not reported", r.faults.length === 0, r.faults);
   r = SP.feedCheck(sheet(good), F, ranYesterday, { now: new Date("2026-10-25T08:00Z"), term: { first: "2026-10-24", last: "2026-12-12" } });
   ok(label + "in a term's first days, a quiet Google Sheet is not reported yet", r.faults.length === 0, r.faults);
 
   r = SP.feedCheck(sheet(good), F, s2, at("2026-10-24T09:00Z"));
-  ok(label + "a check that had not run for more than two days says so", r.faults.some(f => f.startsWith("The feed check had not run since Oct 21")), r.faults);
+  ok(label + "a check that had not run for more than two days says so", r.faults.some(f => f.startsWith("The feed check had not run since Oct 21")) && r.kinds.includes("stale"), r);
   r = SP.feedCheck(sheet([["not a time"].concat(row("").slice(1))]), F, s2, at("2026-10-22T08:00Z"));
-  ok(label + "an unreadable Timestamp is reported", r.faults.some(f => f.includes("cannot read")), r.faults);
+  ok(label + "an unreadable Timestamp is reported", r.faults.some(f => f.includes("cannot read")) && r.kinds.includes("unread"), r);
   r = SP.feedCheck([], F, s2, at("2026-10-22T08:00Z"));
-  ok(label + "an empty Google Sheet is reported", r.faults.length === 1 && r.faults[0].includes("empty"), r.faults);
+  ok(label + "an empty Google Sheet is reported", r.faults.length === 1 && r.faults[0].includes("empty") && r.kinds[0] === "empty", r);
+  r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { name: "Sample A" }), row("10/21/2026 9:05:00", { name: "test B" })])), F, s2, at("2026-10-22T08:00Z"));
+  ok(label + "several test names give one fault with their count", r.faults.length === 1 && r.faults[0].startsWith("2 new row(s) carry a test name"), r.faults);
+  r = SP.feedCheck(sheet(good), F, s2, at("2026-10-22T08:00Z"));
+  ok(label + "every fault has a kind, in the same order", r.kinds.length === r.faults.length, r);
 }
 
 suite(SAMPLE, "");

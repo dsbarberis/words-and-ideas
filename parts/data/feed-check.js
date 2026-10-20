@@ -6,10 +6,12 @@
 //   FEED: the agreement's checkable parts, filled at build time from the data feed settings
 //         (header, decks, passModes, testNames, gapDays, sheetTimeZone). No address or ID.
 //   saved: what the last call returned as r.state (null the first time).
-// r.faults: plain sentences, empty when all is well. r.state: counts and times only, to save for next time.
+// r.faults: plain sentences, empty when all is well. r.kinds: one code per fault, in the same order: header,
+// empty, unread, stale (the check had not run), deck, mode, test, norows, gap. r.state: counts and times only.
 // Faults: the header row changed; a row added since the last check names a deck or pass mode outside the
 // agreement, or carries a test name; no row for gapDays days during term (all year without term dates);
-// the check had not run for more than two days. It names decks, pass modes and test names, never a student.
+// the check had not run for more than two days. It names decks and pass modes, never a student, and does not
+// quote a test name either (a name is a cell a student typed); the row can be found in the Google Sheet.
 // Rows are "added since the last check" when their Timestamp is newer than the newest one seen last time.
 // The first call only records where things stand.
 (function (SP) {
@@ -50,43 +52,45 @@
   SP.feedCheck = function (rows, feed, saved, opts) {
     opts = opts || {};
     const now = +(opts.now || new Date()), zone = feed.sheetTimeZone || "America/Chicago", shown = opts.zone || zone;
-    const faults = [], prev = saved || {};
-    if (!rows || !rows.length) return { faults: ["The Google Sheet came back empty: no header row and no rows."], state: prev };
+    const faults = [], kinds = [], prev = saved || {};
+    const add = (k, t) => { kinds.push(k); faults.push(t); };
+    if (!rows || !rows.length) return { faults: ["The Google Sheet came back empty: no header row and no rows."], kinds: ["empty"], state: prev };
     const want = feed.header, header = rows[0].map(h => String(h).trim()), body = rows.slice(1);
     const headerOk = want.every((h, i) => header[i] === h) && header.slice(want.length).every(h => !h);
-    if (!headerOk) faults.push("The Google Sheet's header row has changed: expected " + want.join(" | ") + "; found " + header.join(" | ") + ".");
+    if (!headerOk) add("header", "The Google Sheet's header row has changed: expected " + want.join(" | ") + "; found " + header.join(" | ") + ".");
 
     const stamps = body.map(r => parseStamp(r[0], zone));
     const unread = stamps.filter(t => t == null).length;
-    if (unread) faults.push(unread + " row(s) have a Timestamp the check cannot read.");
+    if (unread) add("unread", unread + " row(s) have a Timestamp the check cannot read.");
     const newest = stamps.reduce((a, t) => (t != null && (a == null || t > a) ? t : a), null);
 
-    if (prev.lastRun && now - Date.parse(prev.lastRun) > 2 * DAY) faults.push("The feed check had not run since " + localTime(Date.parse(prev.lastRun), shown) + ".");
+    if (prev.lastRun && now - Date.parse(prev.lastRun) > 2 * DAY) add("stale", "The feed check had not run since " + localTime(Date.parse(prev.lastRun), shown) + ".");
 
     const last = prev.newestRow ? Date.parse(prev.newestRow) : null;
     if (headerOk && last != null) {
       const decks = new Set(feed.decks), modes = feed.passModes.map(p => new RegExp(p));
-      const odd = { deck: {}, mode: {}, test: {} }, bump = (o, k) => { o[k] = (o[k] || 0) + 1; };
+      let tests = 0;
+      const odd = { deck: {}, mode: {} }, bump = (o, k) => { o[k] = (o[k] || 0) + 1; };
       body.forEach((r, i) => {
         if (stamps[i] == null || stamps[i] <= last || r.length < want.length) return;
         const d = String(r[1]).trim(), n = r[2], m = String(r[3]).trim();
         if (!decks.has(d)) bump(odd.deck, d);
         if (!modes.some(re => re.test(m))) bump(odd.mode, m);
-        if (isTestName(n, feed.testNames || {})) bump(odd.test, String(n).trim());
+        if (isTestName(n, feed.testNames || {})) tests++;
       });
-      Object.keys(odd.deck).sort().forEach(d => faults.push(odd.deck[d] + " new row(s) name a deck not in the row agreement: \"" + d + "\"."));
-      Object.keys(odd.mode).sort().forEach(m => faults.push(odd.mode[m] + " new row(s) have a pass mode not in the row agreement: \"" + m + "\"."));
-      Object.keys(odd.test).sort().forEach(n => faults.push(odd.test[n] + " new row(s) carry a test name: \"" + n + "\". Test rows must never reach the class Google Sheet."));
+      Object.keys(odd.deck).sort().forEach(d => add("deck", odd.deck[d] + " new row(s) name a deck not in the row agreement: \"" + d + "\"."));
+      Object.keys(odd.mode).sort().forEach(m => add("mode", odd.mode[m] + " new row(s) have a pass mode not in the row agreement: \"" + m + "\"."));
+      if (tests) add("test", tests + " new row(s) carry a test name (one containing \"sample\" or beginning with \"test\"). Test rows must never reach the class Google Sheet.");
     }
 
     const gap = feed.gapDays || 3, term = opts.term || feed.term || {}, today = dayIn(now, zone);
     let inTerm = !(term.first && term.last) || (term.first <= today && today <= term.last);
     if (inTerm && term.first && addDays(term.first, gap) > today) inTerm = false;  // give a new term gapDays first
     if (inTerm) {
-      if (newest == null) faults.push("The Google Sheet has no rows with a readable Timestamp.");
-      else if (now - newest > gap * DAY) faults.push("No new row since " + localTime(newest, shown) + ": more than " + gap + " days.");
+      if (newest == null) add("norows", "The Google Sheet has no rows with a readable Timestamp.");
+      else if (now - newest > gap * DAY) add("gap", "No new row since " + localTime(newest, shown) + ": more than " + gap + " days.");
     }
     const keep = [newest, last].filter(t => t != null);
-    return { faults: faults, state: { lastRun: new Date(now).toISOString(), rows: body.length, newestRow: keep.length ? new Date(Math.max.apply(null, keep)).toISOString() : null, faults: faults.length } };
+    return { faults: faults, kinds: kinds, state: { lastRun: new Date(now).toISOString(), rows: body.length, newestRow: keep.length ? new Date(Math.max.apply(null, keep)).toISOString() : null, faults: faults.length } };
   };
 })(typeof window !== "undefined" ? (window.SP = window.SP || {}) : module.exports);
