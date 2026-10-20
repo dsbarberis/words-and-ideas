@@ -130,6 +130,7 @@ async function simulate(browser, file, tmp) {
       const f = path.join(outDir, got.deck.replace(/\.html$/, "") + ".json");
       got.notes.forEach(n => console.log("     note: " + got.deck + ": " + n));
       if (opt("--record")) { fs.mkdirSync(outDir, { recursive: true }); fs.writeFileSync(f, JSON.stringify(got, null, 1) + "\n"); console.log(`recorded ${got.deck}: ${got.steps.join(", ")}; ${got.rows.length} Sheet rows`); continue; }
+      if (!fs.existsSync(f)) { failed++; console.log("FAIL " + got.deck + ": no record yet (a new deck: record it with --record)"); continue; }
       const want = JSON.parse(fs.readFileSync(f, "utf8"));
       const same = k => JSON.stringify(want[k]) === JSON.stringify(got[k]);
       const bad = ["posts", "rows", "attempts", "localStorage", "otherRequests", "errors"].filter(k => !same(k));
