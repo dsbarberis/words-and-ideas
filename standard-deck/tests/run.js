@@ -86,7 +86,7 @@ async function browserTests(decks) {
     errors.forEach(m => loadFails.push(f + ": " + m));
     // 4. Every Exercise Deck card accepts its own answer as the back prints it
     // (the Oct 12 impend and magnate mistake; first kept as
-    // /mnt/project-files/tools/deck-checks/check-model-answers.js, Oct 15).
+    // the project's private deck-checks tool, Oct 15).
     if (!errors.length) {
       const res = await page.evaluate(modelAnswers);
       checked += res.checked;
