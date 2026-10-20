@@ -39,6 +39,46 @@ fs.writeFileSync(path.join(d0, "page.js"), "const n = 'Sample class roster';\n")
 r = node([checker, d0], { SP_PRIVATE_SETTINGS: path.join(tmp, "settings.json") });
 ok("with the private settings file, any of its values is caught word for word", r.status === 1 && r.stdout.includes("private settings file"), r.stdout);
 
+// The data feed exception (Oct 20, 2026): with --feed, the posting address and entry codes pass
+// in deck pages only. Made-up values in the real shape; the real ones stay in the shared folder.
+const FEED = { postingAddress: "https://docs.google.com/forms/d/e/1FAIpQLSsampleSAMPLEsampleSAMPLEsample00/formResponse",
+  entryCodes: { deck: "entry.1111111", name: "entry.2222222" },
+  allowedGlobs: ["*.html", "standard-deck/template.html", "backups/**/*.html"] };
+fs.writeFileSync(path.join(tmp, "feed.json"), JSON.stringify(FEED));
+const deckLines = `const GFORM_ACTION = "${FEED.postingAddress}";\nconst F = { deck: "entry.1111111", name: "entry.2222222" };\n`;
+const repo = fs.mkdtempSync(path.join(tmp, "repo-"));
+const put = (rel, text) => { const f = path.join(repo, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, text); };
+put("Sample Deck.html", deckLines);
+put("standard-deck/template.html", deckLines);
+put("backups/2026-10-05 before a rebuild/Sample Deck (backup).html", deckLines);
+put("backups/old.html", deckLines);
+const feedRun = () => node([checker, "--feed", path.join(tmp, "feed.json"), repo]);
+r = feedRun();
+ok("with --feed, the posting address and entry codes pass in deck pages, the template and old copies", r.status === 0, r.stdout);
+r = node([checker, repo]);
+ok("without --feed, the same deck pages still fail", r.status === 1 && /a Google form ID/.test(r.stdout), r.stdout);
+put("dashboard/page.html", deckLines);
+r = feedRun();
+ok("the address in any other file fails", r.status === 1 && r.stdout.includes("dashboard/page.html") && !r.stdout.includes("Sample Deck"), r.stdout);
+fs.rmSync(path.join(repo, "dashboard"), { recursive: true });
+put("notes.md", deckLines);
+r = feedRun();
+ok("the address in a non-page file at the top fails", r.status === 1 && r.stdout.includes("notes.md"), r.stdout);
+fs.rmSync(path.join(repo, "notes.md"));
+put("Other Deck.html", deckLines.replace("SAMPLEsample00", "OTHERotherxx00"));
+r = feedRun();
+ok("another Google Form's address fails, even in a deck page", r.status === 1 && r.stdout.includes("Other Deck.html"), r.stdout);
+put("Other Deck.html", deckLines.replace("entry.2222222", "entry.3333333"));
+r = feedRun();
+ok("an entry code not on the list fails, even in a deck page", r.status === 1 && r.stdout.includes("Other Deck.html:2: a form field name"), r.stdout);
+put("Other Deck.html", `const A = "${FEED.postingAddress}"; // ask someone@example.edu\n`);
+r = feedRun();
+ok("anything else on an allowed line is still checked", r.status === 1 && r.stdout.includes("an email address"), r.stdout);
+fs.rmSync(path.join(repo, "Other Deck.html"));
+fs.writeFileSync(path.join(tmp, "feed-bad.json"), JSON.stringify({ entryCodes: FEED.entryCodes, allowedGlobs: FEED.allowedGlobs }));
+r = node([checker, "--feed", path.join(tmp, "feed-bad.json"), repo]);
+ok("data feed settings without a posting address are refused", r.status !== 0 && /no postingAddress/.test(r.stdout + r.stderr), r.stdout + r.stderr);
+
 // The build step.
 const B = path.join(P, "build", "build_page.py");
 fs.writeFileSync(path.join(tmp, "src.html"), `<style>/* shared-part: tokens/dist/working.css */ /* /shared-part: tokens/dist/working.css */</style>

@@ -42,6 +42,14 @@ left unfilled. `node parts/check/private-check.js` fails on anything that looks 
 (Google file or form IDs, form field names, artifact, session or routine IDs, shared-folder
 paths, email addresses); with `SP_PRIVATE_SETTINGS=FILE` it also looks for that file's values.
 
+The data feed exception (Oct 20, 2026): deck pages must carry the Google Form's posting address
+and its entry codes, because a student's browser posts to it. With `--feed FILE` (the data feed
+settings, kept in the shared folder), those exact values pass in the files the settings list:
+the decks at the top of the repository, the deck template, and old copies under backups/.
+Anything else, or any other address or code, still fails. Run it over the whole repository on
+every deck build and in the nightly audit:
+`node parts/check/private-check.js --feed <settings>/data-feed.json .`
+
 ## Approval forms (1.7)
 
     python3 -I parts/form-kit/check_form.py FORM.json        # the field check

@@ -1,9 +1,14 @@
 // Private-settings check (part 1.8, plan rule 7): nothing private goes into this public repository.
-//   node parts/check/private-check.js [DIR ...]          (default: parts/)
+//   node parts/check/private-check.js [--feed FILE] [DIR ...]          (default: parts/)
 // Fails (exit 1) on anything that looks like a private setting: a Google file or form ID, a
 // form's field names, a claude.ai artifact, session or routine ID, a path in the project's
 // shared folder, or an email address. With SP_PRIVATE_SETTINGS set to a settings JSON file
 // (kept in the shared folder), it also fails on any of that file's values, word for word.
+// --feed FILE: the data feed settings (kept in the shared folder, never here). Their posting
+// address and entry codes are public by design in deck pages only (the data feed exception,
+// Oct 20, 2026): in a file matching one of the settings' allowedGlobs, relative to the DIR
+// scanned, those exact values pass; anything else on the line is still checked. Elsewhere,
+// or any other address or code, fails as before.
 const fs = require("fs"), path = require("path");
 const PATTERNS = [
   ["a Google form ID", /1FAIpQL[\w-]{20,}/],
@@ -29,26 +34,45 @@ function files(dir) {
   }
   return out;
 }
-function check(dirs, extra) {
-  const found = [];
+// A glob from the settings: "*" matches within one folder, "**/" any number of folders.
+function globRe(g) {
+  const esc = g.split("**/").map(part => part.split("*").map(x => x.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join("[^/]*"));
+  return new RegExp("^" + esc.join("(?:[^/]+/)*") + "$");
+}
+// The values that may stand in deck pages: the posting address and the entry codes, longest first.
+function feedAllow(feed) {
+  if (!feed) return null;
+  const values = [feed.postingAddress].concat(Object.values(feed.entryCodes || {})).filter(v => typeof v === "string" && v.length >= 8);
+  if (!feed.postingAddress || values.length < 2 || !(feed.allowedGlobs || []).length) throw new Error("the data feed settings have no postingAddress, entryCodes or allowedGlobs");
+  return { values: values.sort((a, b) => b.length - a.length), globs: feed.allowedGlobs.map(globRe) };
+}
+function check(dirs, extra, feed) {
+  const found = [], allow = feedAllow(feed);
   for (const d of dirs) for (const f of files(d)) {
+    const rel = path.relative(d, f).split(path.sep).join("/");
+    const exempt = allow && allow.globs.some(re => re.test(rel));
     const lines = fs.readFileSync(f, "utf8").split("\n");
     lines.forEach((line, i) => {
+      if (exempt) for (const v of allow.values) line = line.split(v).join(" ");
       for (const [what, re] of PATTERNS) if (re.test(line)) found.push(`${f}:${i + 1}: ${what}`);
       for (const v of extra) if (line.includes(v)) found.push(`${f}:${i + 1}: a value from the private settings file`);
     });
   }
   return found;
 }
-module.exports = { check, PATTERNS };
+module.exports = { check, PATTERNS, globRe };
 if (require.main === module) {
-  const dirs = process.argv.slice(2).length ? process.argv.slice(2) : [path.join(__dirname, "..")];
+  const args = process.argv.slice(2);
+  let feed = null;
+  const k = args.indexOf("--feed");
+  if (k >= 0) { feed = JSON.parse(fs.readFileSync(args[k + 1], "utf8")); args.splice(k, 2); }
+  const dirs = args.length ? args : [path.join(__dirname, "..")];
   let extra = [];
   if (process.env.SP_PRIVATE_SETTINGS) {
     const s = JSON.parse(fs.readFileSync(process.env.SP_PRIVATE_SETTINGS, "utf8"));
     extra = Object.values(s).filter(v => typeof v === "string" && v.length >= 8);
   }
-  const found = check(dirs, extra);
+  const found = check(dirs, extra, feed);
   found.forEach(f => console.log("FAIL " + f));
   console.log(found.length ? found.length + " private value(s) found; take them out and put them in at build time" : "no private values found");
   process.exit(found.length ? 1 : 0);
