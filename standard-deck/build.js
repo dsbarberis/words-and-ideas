@@ -103,7 +103,8 @@ function resolveGlossary(card, file, deck) {
 // A word's analysis: each part as printed, with the glossary's full set of
 // meanings (and its note, unless the card gives its own). "accept" lists the
 // forms an Analysis box takes for the part: the form printed on the card and
-// every form of its glossary entry. A deck with "analysis: true" asks for the
+// every form of its glossary entry, plus any the card adds as "alsoAccept"
+// (INEFFABLE takes "-ble" after FA-, Oct 20, 2026). A deck with "analysis: true" asks for the
 // analysis in a box above the meaning (instructor, Oct 12, 2026).
 function resolveParts(card, file, deck) {
   if (!card.parts || card.kind !== "meaning") return card;
@@ -116,7 +117,7 @@ function resolveParts(card, file, deck) {
       const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
       const shifted = /\(\u2192 i\)/.test(pt.label) ? printed.map(function (f) { return f.replace(/y$/, "i"); }) : [];
-      o.accept = printed.concat(shifted, formsOf(entry.forms)).filter(function (f, i, a) { return a.indexOf(f) === i; });
+      o.accept = printed.concat(shifted, formsOf(entry.forms), pt.alsoAccept || []).filter(function (f, i, a) { return a.indexOf(f) === i; });
       return o;
     })
   });
