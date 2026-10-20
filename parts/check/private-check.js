@@ -21,8 +21,9 @@ const PATTERNS = [
   ["a path in the shared folder", /\/mnt\/project-files\b/],
   ["an email address", /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z]{2,})+\b/],
 ];
-// Lines that may name a pattern on purpose: this file and its own test.
-const SELF = new Set([path.resolve(__filename), path.resolve(__dirname, "..", "tests", "test-private.js")]);
+// Lines that may name a pattern on purpose: this file and its own test, wherever the check runs from.
+const SELF_NAMES = ["parts/check/private-check.js", "parts/tests/test-private.js"];
+const SELF = { has: p => p === path.resolve(__filename) || SELF_NAMES.some(n => p.split(path.sep).join("/").endsWith("/" + n)) };
 const TEXT = /\.(js|css|html|json|md|py|txt|svg)$/i;
 
 function files(dir) {
