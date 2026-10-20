@@ -481,6 +481,15 @@
 
   .spacer { width: 1px; }
 
+  /* Teacher mode: tools under the quiz card */
+  .teacher-tools { margin-top: 12px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .teacher-tools .secondary-btn { min-height: 40px; }
+  .teacher-tools select { font: inherit; font-size: 14px; min-height: 40px; max-width: 16em; padding: 4px 8px;
+    border: 1px solid var(--rule, #c9bfa8); border-radius: 8px; background: var(--paper); color: var(--ink); }
+  .teacher-tools .secondary-btn:disabled { opacity: .4; cursor: default; }
+  .teacher-pill { display: inline-block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--sage); color: #fff; border-radius: 999px; padding: 2px 9px; margin-right: 6px; vertical-align: 1px; }
+
   footer {
     margin-top: 30px;
     text-align: center;
@@ -915,9 +924,16 @@
   </div>
 
   <div class="nav-row" id="quizControls" hidden>
-    <span class="spacer"></span>
+    <button class="nav-btn" id="quizPrevBtn" hidden>&larr; Prev</button>
+    <span class="spacer" id="quizSpacer"></span>
     <span class="counter" id="quizCounter"></span>
     <button class="nav-btn" id="quizNextBtn">Next &rarr;</button>
+  </div>
+
+  <div class="nav-row teacher-tools" id="teacherTools" hidden>
+    <button class="secondary-btn" id="teacherFlipBtn">Flip card</button>
+    <button class="secondary-btn" id="teacherRetryBtn">Clear my answer</button>
+    <select id="teacherGoto" aria-label="Go to card"></select>
   </div>
 
   <footer>
@@ -4136,11 +4152,13 @@
   }
 
   function saveKnown() {
+    if (presenterMode) return;  // teacher mode stores nothing
     try { localStorage.setItem(storageKeys(currentSlug).known, JSON.stringify([...known])); }
     catch (e) { /* ignore */ }
   }
 
   function saveLearning() {
+    if (presenterMode) return;  // teacher mode stores nothing
     try { localStorage.setItem(storageKeys(currentSlug).learning, JSON.stringify([...learningMarked])); }
     catch (e) { /* ignore */ }
   }
@@ -4154,6 +4172,7 @@
   }
 
   function saveMarkSrc() {
+    if (presenterMode) return;  // teacher mode stores nothing
     try { localStorage.setItem(storageKeys(currentSlug).marks, JSON.stringify(markSrc)); }
     catch (e) { /* ignore */ }
   }
@@ -4171,6 +4190,7 @@
   }
 
   function saveQuiz() {
+    if (presenterMode) return;  // teacher mode stores nothing
     if (QUIZ_BY_SET) {
       if (quiz) quizzes[quiz.set] = quiz;
       try { localStorage.setItem(storageKeys(currentSlug).quizzes, JSON.stringify(quizzes)); }
@@ -4201,7 +4221,9 @@
       el.style.transition = "color .2s";
       el.style.color = presenterMode ? "var(--sage)" : "var(--burgundy)";
       setTimeout(function () { el.style.color = ""; }, 500);
+      teacherFlip = null;
       showScreen();
+      if (!deckScreen.hidden) render();
     });
   });
 
@@ -4354,6 +4376,14 @@
   const verdictReason = document.getElementById("verdictReason");
   const learnControls = document.getElementById("learnControls");
   const quizControls = document.getElementById("quizControls");
+  const quizPrevBtn = document.getElementById("quizPrevBtn");
+  const quizSpacer = document.getElementById("quizSpacer");
+  const teacherTools = document.getElementById("teacherTools");
+  const teacherFlipBtn = document.getElementById("teacherFlipBtn");
+  const teacherRetryBtn = document.getElementById("teacherRetryBtn");
+  const teacherGoto = document.getElementById("teacherGoto");
+  // Teacher mode: null = the usual side (back once answered); true/false = flipped by hand.
+  let teacherFlip = null;
   const counterEl = document.getElementById("counter");
   const quizCounter = document.getElementById("quizCounter");
   const prevBtn = document.getElementById("prevBtn");
@@ -4704,6 +4734,11 @@
       const item = CARDS[list[(pos + dir + list.length) % list.length]];
       return { tag: cardTag(item), item: item, quiz: false };
     }
+    if (presenterMode && quiz && quiz.phase === "card") {
+      const k = quiz.pos + dir;
+      if (k < 0 || k >= quiz.order.length) return null;
+      return { tag: "Round " + quiz.round, item: CARDS[quiz.order[k]], quiz: true, ans: quiz.answers[k] };
+    }
     if (dir > 0 && quiz && quiz.phase === "card" && quiz.answers[quiz.pos] && quiz.pos < quiz.order.length - 1) {
       return { tag: "Round " + quiz.round, item: CARDS[quiz.order[quiz.pos + 1]], quiz: true };
     }
@@ -4720,7 +4755,7 @@
     el.classList.remove("flipped");
     el.classList.add("peek", "dragging");
     if (EXERCISE) {
-      fillExerciseFront(el, info.item, null);
+      fillExerciseFront(el, info.item, info.ans || null);
       stage.appendChild(el);
       return el;
     }
@@ -4905,7 +4940,7 @@
   // Round 1 = every card, shuffled. Each later round = the cards missed in
   // the round before, until every card has been answered correctly.
   function newRound(round, indices) {
-    const inBook = DECK.round1 === "book" && round === 1;
+    const inBook = (DECK.round1 === "book" && round === 1) || presenterMode;
     return {
       round: round,
       set: filter,
@@ -5361,20 +5396,20 @@
       quizNote.textContent = "";
     }
 
-    cardEl.classList.add("no-flip");
-    cardEl.setAttribute("aria-label", "Quiz card");
+    cardEl.classList.toggle("no-flip", !presenterMode);
+    cardEl.setAttribute("aria-label", presenterMode ? "Quiz card, press Space to flip" : "Quiz card");
     if (EXERCISE) {
       fillExerciseFront(cardEl, item, ans);
       answerInput.disabled = !!ans;
       checkBtn.disabled = !!ans;
       fillExerciseBack(item, ans);
-      cardEl.classList.toggle("flipped", !!ans);
+      cardEl.classList.toggle("flipped", backShown(ans));
       const done = quiz.answers.filter(Boolean).length;
       statusText.textContent = "Round " + quiz.round + " · " + done + " of " + quiz.order.length + " answered";
+      if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
       progressFill.style.width = (done / quiz.order.length) * 100 + "%";
       quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
-      quizNextBtn.disabled = !ans;
-      quizNextBtn.innerHTML = quiz.pos === quiz.order.length - 1 ? "Finish round &rarr;" : "Next &rarr;";
+      setQuizNav(ans);
       return;
     }
     tagFront.textContent = "Round " + quiz.round;
@@ -5400,14 +5435,75 @@
       verdictReason.hidden = !ans.mixed;
       verdictReason.textContent = ans.mixed ? "That answer mixes in the meaning of “" + ans.mixed + "”." : "";
     }
-    cardEl.classList.toggle("flipped", !!ans);
+    cardEl.classList.toggle("flipped", backShown(ans));
 
     const answered = quiz.answers.filter(Boolean).length;
     statusText.textContent = "Round " + quiz.round + " · " + answered + " of " + quiz.order.length + " answered";
     progressFill.style.width = (answered / quiz.order.length) * 100 + "%";
     quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
+    if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
+    setQuizNav(ans);
+  }
+
+  // ---------- Teacher mode in a quiz: leaf, flip, jump, try an answer ----------
+  function backShown(ans) {
+    return presenterMode && teacherFlip !== null ? teacherFlip : !!ans;
+  }
+
+  function allAnswered() { return quiz.answers.every(Boolean); }
+
+  function setQuizNav(ans) {
+    const last = quiz.pos === quiz.order.length - 1;
+    quizPrevBtn.hidden = !presenterMode;
+    quizSpacer.hidden = presenterMode;
+    if (presenterMode) {
+      quizPrevBtn.disabled = quiz.pos === 0;
+      quizNextBtn.disabled = last && !allAnswered();
+      quizNextBtn.innerHTML = last && allAnswered() ? "Finish round &rarr;" : "Next &rarr;";
+      teacherRetryBtn.disabled = !ans;
+      teacherFlipBtn.textContent = cardEl.classList.contains("flipped") ? "Show the front" : "Show the back";
+      if (teacherGoto.dataset.round !== String(quiz.round) + ":" + quiz.order.length) {
+        teacherGoto.dataset.round = String(quiz.round) + ":" + quiz.order.length;
+        teacherGoto.innerHTML = "";
+        quiz.order.forEach(function (i, k) {
+          const o = document.createElement("option");
+          o.value = k;
+          o.textContent = (k + 1) + ". " + (cardLabel(CARDS[i]) || "Question " + (k + 1));
+          teacherGoto.appendChild(o);
+        });
+      }
+      teacherGoto.value = String(quiz.pos);
+      return;
+    }
     quizNextBtn.disabled = !ans;
-    quizNextBtn.innerHTML = quiz.pos === quiz.order.length - 1 ? "Finish round &rarr;" : "Next &rarr;";
+    quizNextBtn.innerHTML = last ? "Finish round &rarr;" : "Next &rarr;";
+  }
+
+  function teacherCanLeaf() { return presenterMode && mode !== "learn" && quiz && quiz.phase === "card"; }
+
+  function teacherFlipCard() {
+    if (!teacherCanLeaf() || sliding) return;
+    teacherFlip = !cardEl.classList.contains("flipped");
+    cardEl.classList.toggle("flipped", teacherFlip);
+    setQuizNav(quiz.answers[quiz.pos]);
+  }
+
+  function teacherMoveTo(k, dir, speed) {
+    if (!teacherCanLeaf() || k < 0 || k >= quiz.order.length || k === quiz.pos) return;
+    const change = function () { quiz.pos = k; teacherFlip = null; inputFor = null; render(); };
+    if (Math.abs(k - quiz.pos) === 1) slideCard(dir, change, speed); else change();
+  }
+
+  function quizPrev(speed) { if (teacherCanLeaf()) teacherMoveTo(quiz.pos - 1, -1, speed); }
+
+  function teacherRetry() {
+    if (!teacherCanLeaf() || !quiz.answers[quiz.pos]) return;
+    quiz.answers[quiz.pos] = null;
+    quiz.sent = false;
+    teacherFlip = null;
+    inputFor = null;
+    render();
+    if (needsTyping()) { answerInput.focus(); }
   }
 
   function panelButton(cls, label, onClick) {
@@ -5535,7 +5631,7 @@
     inputFor = null;
     saveQuiz();
     render();
-    if (needsTyping()) answerInput.focus();
+    if (needsTyping() && !presenterMode) answerInput.focus();
   }
 
   function startNextRound() {
@@ -5543,7 +5639,7 @@
     inputFor = null;
     saveQuiz();
     render();
-    if (needsTyping()) answerInput.focus();
+    if (needsTyping() && !presenterMode) answerInput.focus();
   }
 
   // choice = the option tapped, on an Exercise Deck's choice question.
@@ -5578,13 +5674,18 @@
     saveKnown();
     saveLearning();
     if (quiz.answers.every(Boolean)) sendQuizRound();
+    teacherFlip = null;
     saveQuiz();
     render();
     quizNextBtn.focus();
   }
 
   function quizNext(speed) {
-    if (!quiz || quiz.phase !== "card" || !quiz.answers[quiz.pos] || sliding) return;
+    if (!quiz || quiz.phase !== "card" || sliding) return;
+    if (presenterMode) {
+      if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
+      if (!allAnswered()) return;
+    } else if (!quiz.answers[quiz.pos]) return;
     if (quiz.pos < quiz.order.length - 1) {
       // Read the next card before sliding: with reduced motion the slide's
       // change runs at once and moves quiz.pos on.
@@ -5626,8 +5727,11 @@
       footerHelp.textContent = EXERCISE ? DECK.help || (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
         MEANINGS ? "One meaning per line \u00b7 Enter starts a new line \u00b7 Enter on an empty line, or Check, checks the answer" :
         "Type the meaning and press Enter to check";
+      if (presenterMode) footerHelp.textContent = "Teacher mode: \u2190 \u2192 move \u00b7 Space or a click on the card flips it \u00b7 Esc leaves an answer box \u00b7 type an answer and Check to see how it is judged";
       renderQuiz();
     }
+    teacherTools.hidden = !teacherCanLeaf();
+    if (teacherTools.hidden) { quizPrevBtn.hidden = true; quizSpacer.hidden = false; }
     if (typeof fitPhone === "function") fitPhone();
   }
 
@@ -5639,10 +5743,16 @@
     inputFor = null;
     if (QUIZ_BY_SET && !EXERCISE && mode === "quiz") quiz = quizzes[filter] || null;
     render();
-    if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping()) answerInput.focus();
+    if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
   }
 
   cardEl.addEventListener("click", function (e) {
+    if (teacherCanLeaf()) {
+      if (Date.now() - swipeHandledAt < 500) return;
+      if (e.target.closest && e.target.closest("input, textarea, button, select, a, .choice, .order-area, .quiz-form")) return;
+      teacherFlipCard();
+      return;
+    }
     if (mode !== "learn") return;
     if (Date.now() - swipeHandledAt < 500) return;
     flip();
@@ -5653,6 +5763,16 @@
   });
 
   document.addEventListener("keydown", function (e) {
+    if (!deckScreen.hidden && teacherCanLeaf()) {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT")) {
+        if (e.key === "Escape") e.target.blur();  // back to leafing with the keys
+        return;
+      }
+      if (e.code === "ArrowRight") { e.preventDefault(); quizNext(); }
+      if (e.code === "ArrowLeft") { e.preventDefault(); quizPrev(); }
+      if (e.code === "Space" && (!e.target || e.target.tagName !== "BUTTON")) { e.preventDefault(); teacherFlipCard(); }
+      return;
+    }
     if (deckScreen.hidden || mode !== "learn") return;
     if (e.target === cardEl) return;
     if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "BUTTON")) return;
@@ -5694,6 +5814,13 @@
   });
   answerInput.addEventListener("input", function () { quizNote.textContent = ""; });
   quizNextBtn.addEventListener("click", quizNext);
+  quizPrevBtn.addEventListener("click", quizPrev);
+  teacherFlipBtn.addEventListener("click", teacherFlipCard);
+  teacherRetryBtn.addEventListener("click", teacherRetry);
+  teacherGoto.addEventListener("change", function () {
+    const k = Number(teacherGoto.value);
+    teacherMoveTo(k, k > quiz.pos ? 1 : -1);
+  });
 
   // ---------- Touch, swipe and trackpad ----------
   // Touchscreens (phones and tablets) swipe between cards; phones also get
@@ -5739,6 +5866,10 @@
     if (mode === "learn") {
       if (currentList().length <= 1) return false;
       if (dir > 0) goNext(speed); else goPrev(speed);
+      return true;
+    }
+    if (teacherCanLeaf()) {
+      if (dir > 0) quizNext(speed); else quizPrev(speed);
       return true;
     }
     // In a quiz each card must be checked first, so swipes are not queued.
@@ -5878,7 +6009,7 @@
       if (DECK.shufflePasses && mode === "learn") reshuffleTab();
       if (QUIZ_BY_SET) { quiz = quizzes[filter] || null; inputFor = null; }
       render();
-      if (QUIZ_BY_SET && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping()) answerInput.focus();
+      if (QUIZ_BY_SET && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
     });
   });
 
