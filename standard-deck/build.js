@@ -5,6 +5,8 @@ const path = require("path");
 
 const here = __dirname;
 const template = fs.readFileSync(path.join(here, "template.html"), "utf8");
+// The course's time zone, shown with the instructor's results (course.json).
+const COURSE_ZONE = JSON.parse(fs.readFileSync(path.join(here, "course.json"), "utf8")).timeZone;
 const glossary = require(path.join(here, "glossary.js"));
 const vocabulary = require(path.join(here, "vocabulary.js"));
 const UNCHECKED = "Claude, unchecked";
@@ -139,6 +141,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
+    .split("{{COURSE_ZONE}}").join(COURSE_ZONE)
     .replace("{{DECK_JSON}}", () => json);
   fs.writeFileSync(path.join(here, "..", output), html);
   console.log("built " + output + " (" + deck.cards.length + " cards)");

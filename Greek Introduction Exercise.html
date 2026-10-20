@@ -2888,6 +2888,8 @@
   ]
 };
 
+  // The course's time zone (standard-deck/course.json), for times shown to the instructor.
+  const COURSE_ZONE = "America/Chicago";
   const CARDS = DECK.cards;
   const N = CARDS.length;
   const ID = DECK.id;
@@ -5407,13 +5409,22 @@
         '<div class="stat"><div class="n">' + notYet + '</div><div class="l">Not yet attempted</div></div>';
     }
 
+    // "Oct 19, 5:08 p.m. CDT": the course's zone, with zone letters.
+    function localWhen(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return "\u2014";
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: COURSE_ZONE }) + ", " +
+        d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: COURSE_ZONE, timeZoneName: "short" })
+          .replace(" AM", " a.m.").replace(" PM", " p.m.");
+    }
+
     function renderCompleted() {
       const rows = studentRows();
       const box = document.getElementById("completedTable");
       if (!rows.length) { box.innerHTML = '<p class="dash-hint">No attempts yet.</p>'; return; }
       rows.sort(function (a, b) { return (b.latest.completedAt || "").localeCompare(a.latest.completedAt || ""); });
       const html = rows.map(function (r) {
-        const when = r.latest.completedAt ? new Date(r.latest.completedAt).toLocaleString() : "—";
+        const when = r.latest.completedAt ? localWhen(r.latest.completedAt) : "—";
         const pass = (r.latest.passCorrect != null && r.latest.passSize != null) ? (r.latest.passCorrect + " / " + r.latest.passSize) : "—";
         const key = normalize(r.name);
         const action = pendingDelete === key
