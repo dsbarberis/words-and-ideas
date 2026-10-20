@@ -59,7 +59,7 @@ function testNoWorkingNotes(decks) {
 // A test copy of a deck: Sheet sending cut off and the judge exposed.
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
-  s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),CARDS:CARDS,EX:()=>EXERCISE};");
+  s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
   fs.writeFileSync(out, s);
@@ -122,8 +122,17 @@ function modelAnswers() {
       vals = c.boxes.map(bx => bx.check === "parts"
         ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ") : c.defn);
     }
+    // An accepted derivative must also pass the check made before judging
+    // (Greek Introduction's devil, diabolical: refused Oct 14 to 18).
+    if (c.derivs && !c.answerLines) c.derivs.forEach(d => {
+      const v = c.boxes.map(bx => bx.check === "deriv" ? d : "");
+      const gf = __t.goodFaith(c, v);
+      if (gf) fails.push({ word: c.word, typed: v, result: "refused before checking: " + gf });
+    });
     if (!vals) return;
     checked++;
+    const gf = __t.goodFaith(c, vals);
+    if (gf) { fails.push({ word: c.word, typed: vals, result: "refused before checking: " + gf }); return; }
     const r = __t.judgeExercise(i, vals);
     // Too long is not a wrong mark: the student is asked to shorten the answer.
     if (r.tooLong) long.push(c.word);
