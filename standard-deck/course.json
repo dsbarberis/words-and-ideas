@@ -1,0 +1,4 @@
+{
+  "about": "The course's time zone, copied from the architect's Setup (settings/time-zones.json in the Project files, \"course\"). build.js writes it into every deck so the instructor's results table shows times in it, with zone letters. Change it here when Setup changes, then rebuild.",
+  "timeZone": "America/Chicago"
+}
