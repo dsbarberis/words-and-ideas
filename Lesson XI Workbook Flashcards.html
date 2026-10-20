@@ -2633,6 +2633,9 @@
     if (!ans.length) return { empty: true };
     if (ans.length > ((own && own.maxWords) || MAX_ANSWER_WORDS)) return { tooLong: true };
     const card = own || CARDS[cardIdx];
+    // The asked word, or a word of its own family, explains nothing: the
+    // meaning is wrong (instructor, Oct 20, 2026). Only cards with "echo" stems.
+    if (!own && card.echo) { const e = echoOf(card, ans); if (e) return { ok: false, echo: e }; }
     const ownSpans = [];
     card.accepted.forEach(function (t) { findTerm(ans, t, true).forEach(function (sp) { ownSpans.push(sp); }); });
     let ok = false;
@@ -2659,6 +2662,22 @@
       });
     }
     return { ok: ok && !mixed, mixed: mixed };
+  }
+
+  // A typed word that is the card's word in one of its forms, or that starts
+  // with one of the card's "echo" stems (its close relatives: fallacy for
+  // FALLACIOUS, obsession for OBSESSED). Returns the word typed, or null.
+  function ECHO_NOTE(w) { return "Explain the word without using it or a word of its family (\u201c" + w + "\u201d)."; }
+  function echoOf(card, ans) {
+    const w = norm(card.word || "");
+    if (!w || w.indexOf(" ") >= 0) return null;
+    const own = [w, w + "s", w + "es", w + "ed", w + "d", w + "ing", w + "ly"];
+    if (/e$/.test(w)) own.push(w.slice(0, -1) + "ing");
+    const stems = card.echo || [];
+    for (const t of ans) {
+      if (own.indexOf(t) >= 0 || stems.some(function (s) { return t.indexOf(s) === 0; })) return t;
+    }
+    return null;
   }
 
   // ---------- Meaning lists (Latin Roots) ----------
@@ -2839,7 +2858,7 @@
     const card = CARDS[cardIdx];
     vals = vals || [];
     if (!vals.some(function (v) { return String(v || "").trim(); })) return { empty: true };
-    let mixed = null, tooLong = false;
+    let mixed = null, echo = null, tooLong = false;
     const parts = card.boxes.map(function (b, k) {
       const v = String(vals[k] || "").trim();
       if (!v) return false;
@@ -2855,11 +2874,12 @@
       }
       const r = judge(cardIdx, v, b.senses ? b : null);
       if (r.mixed) mixed = r.mixed;
+      if (r.echo) echo = r.echo;
       if (r.tooLong && !b.senses) tooLong = true;
       return !!r.ok;
     });
     if (tooLong) return { tooLong: true };
-    return { ok: parts.every(Boolean), parts: parts, mixed: mixed };
+    return { ok: parts.every(Boolean), parts: parts, mixed: mixed, echo: echo };
   }
 
   // A boxes card, or a meaning card that also asks for the analysis (Exercise III).
@@ -4288,15 +4308,15 @@
     feedbackBox.hidden = !ans;
     if (ans && item.boxes && Array.isArray(ans.a)) {
       fillBoxesFeedback(item, ans);
-      verdictReason.hidden = !ans.mixed;
-      verdictReason.textContent = ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
+      verdictReason.hidden = !ans.mixed && !ans.echo;
+      verdictReason.textContent = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     } else if (ans) {
       yourAnswer.className = "";
       yourAnswer.textContent = ans.a;
       verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
       verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
-      verdictReason.hidden = !ans.mixed;
-      verdictReason.textContent = ans.mixed ? "That answer mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
+      verdictReason.hidden = !ans.mixed && !ans.echo;
+      verdictReason.textContent = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "That answer mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     }
   }
 
@@ -4604,6 +4624,7 @@
     }
     quizNote.textContent = "";
     quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
+    if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
     if (result.ok) { known.add(idx); learningMarked.delete(idx); }
     else { known.delete(idx); learningMarked.add(idx); }
     noteMark(idx, "quiz");
