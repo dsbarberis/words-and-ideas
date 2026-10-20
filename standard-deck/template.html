@@ -1780,7 +1780,10 @@
         if (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); }))
           return "Please analyze the word into its elements (prefixes, bases, suffixes) before checking.";
       }
-      if (b.check === "deriv" && !fromWord(v)) return "Please type the base you find in the word before checking.";
+      // Only a Base box (Lesson X Exercise IV) must share letters with the word: an
+      // English derivative closer to the Greek (Greek Introduction) often shares none
+      // with the modern word (devil, diabolical).
+      if (b.check === "deriv" && /^base$/i.test(b.label || "") && !fromWord(v)) return "Please type the base you find in the word before checking.";
     }
     return "";
   }
@@ -3027,6 +3030,9 @@
   function quizNext(speed) {
     if (!quiz || quiz.phase !== "card" || !quiz.answers[quiz.pos] || sliding) return;
     if (quiz.pos < quiz.order.length - 1) {
+      // Read the next card before sliding: with reduced motion the slide's
+      // change runs at once and moves quiz.pos on.
+      const nextKind = CARDS[quiz.order[quiz.pos + 1]].kind;
       slideCard(1, function () {
         quiz.pos++;
         saveQuiz();
@@ -3037,7 +3043,6 @@
       answerInput.disabled = false;
       answerInput.value = "";
       if (MEANINGS) { moreLines.innerHTML = ""; setLinesDisabled(false); }
-      const nextKind = CARDS[quiz.order[quiz.pos + 1]].kind;
       if (!EXERCISE || (nextKind !== "choice" && nextKind !== "order")) answerInput.focus();
       return;
     }
