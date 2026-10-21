@@ -2833,6 +2833,19 @@
     return (names || []).some(function (n) { const k = nameWords(n); return k.trim() && a.indexOf(k) >= 0; });
   }
 
+  // Another card's person or place in the box makes it wrong, so a list of
+  // every name cannot pass on every card (a list is right only when every
+  // item is; instructor, Oct 20, 2026).
+  function otherName(answer, card) {
+    const own = (card.names || []).map(nameWords);
+    return CARDS.some(function (c) {
+      return c !== card && (c.names || []).some(function (n) {
+        const k = nameWords(n);
+        return k.trim() && own.every(function (o) { return o.indexOf(k) < 0 && k.indexOf(o) < 0; }) && hasName(answer, [n]);
+      });
+    });
+  }
+
   function plainKey(s) { return String(s || "").toLowerCase().replace(/[^a-z]/g, ""); }
 
   // A list of answers joined by "or", "and", commas, semicolons or slashes is
@@ -2866,7 +2879,7 @@
       if (!v) return false;
       if (b.check === "greek") return oneOf(v, card.greekForms, greekKey) || listOf(v, card.greekForms, greekKey);
       if (b.check === "deriv") return derivList(v, card.derivs);
-      if (b.check === "names") return hasName(v, card.names);
+      if (b.check === "names") return hasName(v, card.names) && !otherName(v, card);
       if (b.check === "parts") return partsMatch(v, card.parts);
       // A connection (Exercise IV) is right when it uses either of its meanings
       // (the base's or the word's current one) in two words or more, not
@@ -2966,7 +2979,8 @@
       pass: ID + "_learnPass_v1__" + sl,
       marks: ID + "_markSrc_v1__" + sl,
       quiz: ID + "_quiz_v1__" + sl,
-      quizzes: ID + "_quizzes_v1__" + sl
+      quizzes: ID + "_quizzes_v1__" + sl,
+      spacing: ID + "_spacing_v1__" + sl
     };
   }
 
@@ -2982,6 +2996,9 @@
   // Where each card's Know it / Still learning mark came from: { s: "learn" | "quiz", d: "YYYY-MM-DD" }.
   // Marks made before Oct 12, 2026 have none and are reported as "earlier".
   let markSrc = {};
+  // Spacing the retry across every tab of a deck (Answer Effort, Oct 21, 2026):
+  // n = questions this student has checked; miss[card] = { n, t } at the miss.
+  let spacing = { n: 0, miss: {} };
   const PASS_IDLE_MS = 60 * 60000; // a pass left this long counts as unfinished when the deck next opens
   let quiz = null;             // the quiz in progress, or null
   let quizzes = {};            // Exercise Decks: the quiz for each tab
@@ -2998,6 +3015,7 @@
     markSrc = {};
     quiz = null;
     quizzes = {};
+    spacing = { n: 0, miss: {} };
     let hadRecord = false;
     try {
       const rawK = localStorage.getItem(keys.known);
@@ -3013,6 +3031,14 @@
           if (seen.length) learnPass = { tab: "all", start: null, last: Date.now(), list: CARDS.map(function (_, i) { return i; }), seen: seen, marked: [] };
         }
         localStorage.removeItem(keys.visited);
+      }
+      const rawP = JSON.parse(localStorage.getItem(keys.spacing) || "null");
+      if (rawP && typeof rawP === "object" && Number.isFinite(rawP.n)) {
+        spacing.n = rawP.n;
+        Object.keys(rawP.miss || {}).forEach(function (k) {
+          const m = rawP.miss[k];
+          if (validIdx(+k) && m && Number.isFinite(m.n) && Number.isFinite(m.t)) spacing.miss[+k] = { n: m.n, t: m.t };
+        });
       }
       const rawS = JSON.parse(localStorage.getItem(keys.marks) || "null");
       if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
@@ -3132,6 +3158,12 @@
       if (learnPass) localStorage.setItem(k, JSON.stringify(learnPass));
       else localStorage.removeItem(k);
     } catch (e) { /* ignore */ }
+  }
+
+  function saveSpacing() {
+    if (presenterMode) return;  // teacher mode stores nothing
+    try { localStorage.setItem(storageKeys(currentSlug).spacing, JSON.stringify(spacing)); }
+    catch (e) { /* ignore */ }
   }
 
   function saveMarkSrc() {
@@ -3362,7 +3394,8 @@
       const kind = boxKind(b);
       if (kind === "parts") {
         const toks = v.toLowerCase().split(/[^a-z]+/).filter(Boolean);
-        if (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); }))
+        // Two elements typed as one piece ("uni lateral") count when the analysis is right.
+        if (!partsMatch(v, card.parts || []) && (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); })))
           return "Please analyze the word into its elements (prefixes, bases, suffixes) before checking.";
         continue;
       }
@@ -3372,8 +3405,10 @@
       if (kind === "base") { if (!fromWord(v)) return "Please type the base you find in the word before checking."; continue; }
       if (kind === "deriv") {
         // A listed form with other words beside it ("cathedra (a doublet)") is a copy of the printed key.
+        // Words beside the derivative ("cathedra (a doublet)") ask for just the
+        // derivative, whether or not it is right, so the prompt confirms no guess.
         const ws = v.split(/[^A-Za-z]+/).filter(function (w) { return w && !/^(or|and)$/i.test(w); });
-        if (ws.some(function (w) { return oneOf(w, card.derivs || [], plainKey); }) && !derivList(v, card.derivs || [])) return "Type just the derivative.";
+        if (/[()]/.test(v) || listItems(v).some(function (it) { return /\s/.test(it) && !oneOf(it, card.derivs || [], plainKey); })) return "Type just the derivative.";
         if (!ws.some(function (w) { return w.length >= 3 && plainKey(w) !== word; })) return "Type one English derivative before checking.";
         continue;
       }
@@ -3384,7 +3419,7 @@
       } else if (kind === "names") {
         if (v.replace(/[^A-Za-z]/g, "").length < 3) return "Type the person or place before checking.";
       } else if (kind === "explain") {
-        if (toTokens(v).length < 4) return "Explain in a few words (four or more) before checking.";
+        if (new Set(toTokens(v)).size < 4) return "Explain in a few words (four or more) before checking.";
       } else {
         const own = [word, word + "s", word + "es", word + "ed", word + "d", word + "ing"];
         const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
@@ -4000,29 +4035,40 @@
   // the student already got right (practice: not counted, not sent to the
   // Sheet). Without enough of those, the round opens after a pause.
   const RETRY_GAP = 3, RETRY_PAUSE_MS = 2 * 60 * 1000;
-  function planNextRound() {
-    const missed = roundMissed();
-    const after = {};
-    quiz.order.forEach(function (i, k) { if (!isReview(k)) after[i] = quiz.order.length - 1 - k; });
-    const need = function (i) { return Math.max(0, RETRY_GAP - (after[i] || 0)); };
-    const cards = shuffleArray(missed.slice()).sort(function (a, b) { return need(a) - need(b); });
-    const inRound = {};
-    missed.forEach(function (i) { inRound[i] = true; });
-    const pool = shuffleArray(setIndices(quiz.set).filter(function (i) { return known.has(i) && !inRound[i]; }));
-    const order = [], review = [];
-    let short = false;
-    cards.forEach(function (i) {
-      while (order.length < need(i)) {
-        if (!pool.length) { short = true; break; }
+  // How many more questions a missed card must wait: the gap counts every
+  // question checked since the miss, on any tab, and lapses after the pause.
+  function retryNeed(i) {
+    const m = spacing.miss[i];
+    if (!m || Date.now() - m.t >= RETRY_PAUSE_MS) return 0;
+    return Math.max(0, RETRY_GAP - (spacing.n - m.n));
+  }
+  // cards in their planned order; cards still waiting go last, after enough
+  // other questions, with review questions (already right) to make up a short
+  // list. With too few of those the list keeps its order and opens after the
+  // pause from the latest miss.
+  function spaceOrder(cards) {
+    const held = cards.filter(retryNeed).sort(function (a, b) { return retryNeed(a) - retryNeed(b); });
+    if (!held.length) return { order: cards.slice(), review: cards.map(function () { return false; }), opensAt: 0 };
+    const inList = {};
+    cards.forEach(function (i) { inList[i] = true; });
+    const pool = shuffleArray(CARDS.map(function (_, i) { return i; }).filter(function (i) { return known.has(i) && !inList[i] && !retryNeed(i); }));
+    const order = cards.filter(function (i) { return !retryNeed(i); });
+    const review = order.map(function () { return false; });
+    for (const i of held) {
+      while (order.length < retryNeed(i)) {
+        if (!pool.length) {
+          const last = Math.max.apply(null, held.map(function (h) { return spacing.miss[h].t; }));
+          return { order: cards.slice(), review: cards.map(function () { return false; }), opensAt: last + RETRY_PAUSE_MS };
+        }
         order.push(pool.shift());
         review.push(true);
       }
       order.push(i);
       review.push(false);
-    });
-    if (short) return { order: cards, review: cards.map(function () { return false; }), opensAt: Date.now() + RETRY_PAUSE_MS };
+    }
     return { order: order, review: review, opensAt: 0 };
   }
+  function planNextRound() { return spaceOrder(shuffleArray(roundMissed())); }
 
   function sendQuizRound() {
     if (quiz.sent) return;
@@ -4678,7 +4724,9 @@
         ex.textContent = cat.example;
         quizPanel.appendChild(ex);
       }
-      actions.appendChild(panelButton("nav-btn", "Start the quiz &rarr;", startQuiz));
+      const startBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
+      actions.appendChild(startBtn);
+      if (!presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -4737,21 +4785,7 @@
       quizPanel.appendChild(copy);
       const startBtn = panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound);
       actions.appendChild(startBtn);
-      // A round too short to space the retry opens after a pause (a countdown, not a clock time).
-      if (plan && plan.opensAt > Date.now()) {
-        const wait = copy.cloneNode(false);
-        quizPanel.appendChild(wait);
-        startBtn.disabled = true;
-        const tick = function () {
-          if (!quiz || quiz.phase !== "between" || quiz.next !== plan || !wait.isConnected) { clearInterval(timer); return; }
-          const left = Math.max(0, plan.opensAt - Date.now());
-          if (!left) { clearInterval(timer); startNextRound(); return; }
-          const m = Math.floor(left / 60000), sec = Math.ceil((left % 60000) / 1000);
-          wait.textContent = "Round " + (quiz.round + 1) + " opens in " + (m ? m + " min " : "") + (sec === 60 ? 59 : sec) + " s. You can close the deck and come back; your place is saved.";
-        };
-        const timer = setInterval(tick, 1000);
-        tick();
-      }
+      if (plan) waitFor(plan.opensAt, copy, startBtn, "Round " + (quiz.round + 1), startNextRound);
     } else {
       statusText.textContent = "Quiz complete";
       title.textContent = "Quiz complete";
@@ -4773,11 +4807,44 @@
     if (firstBtn) firstBtn.focus();
   }
 
+  // A round or quiz too short to space the retry opens after a pause: a
+  // countdown under the panel's text, with its Start button held until then.
+  function waitFor(opensAt, after, btn, what, open) {
+    if (!(opensAt > Date.now())) return;
+    const wait = after.cloneNode(false);
+    after.parentNode.insertBefore(wait, after.nextSibling);
+    btn.disabled = true;
+    const tick = function () {
+      if (!wait.isConnected) { clearInterval(timer); return; }
+      const left = Math.max(0, opensAt - Date.now());
+      if (!left) { clearInterval(timer); open(); return; }
+      const m = Math.floor(left / 60000), sec = Math.min(59, Math.ceil((left % 60000) / 1000));
+      wait.textContent = what + " opens in " + (m ? m + " min " : "") + sec + " s, so a question you missed comes back after a break. You can close the deck and come back; your place is saved.";
+    };
+    const timer = setInterval(tick, 1000);
+    tick();
+  }
+
   function startQuiz() {
     const indices = QUIZ_BY_SET ? setIndices(filter) : CARDS.map(function (_, i) { return i; });
-    if (!indices.length) return;
+    if (!indices.length) {
+      if (QUIZ_BY_SET) delete quizzes[filter];
+      quiz = null;
+      saveQuiz();
+      render();
+      return;
+    }
     quiz = null;
     quiz = newRound(1, indices);
+    // A question missed moments ago, on this tab or another, waits its turn here too.
+    if (EXERCISE && !presenterMode) {
+      const plan = spaceOrder(quiz.order);
+      if (plan.opensAt > Date.now()) { quiz = null; render(); return; }
+      quiz.order = plan.order;
+      quiz.review = plan.review;
+      quiz.answers = plan.order.map(function () { return null; });
+      quiz.size = indices.length;
+    }
     inputFor = null;
     saveQuiz();
     render();
@@ -4827,6 +4894,12 @@
     quizNote.textContent = "";
     quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
     if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
+    if (EXERCISE && !presenterMode) {
+      spacing.n++;
+      if (result.ok) delete spacing.miss[idx];
+      else if (!isReview(quiz.pos)) spacing.miss[idx] = { n: spacing.n, t: Date.now() };
+      saveSpacing();
+    }
     if (!isReview(quiz.pos)) {
       if (result.ok) { known.add(idx); learningMarked.delete(idx); }
       else { known.delete(idx); learningMarked.add(idx); }

@@ -60,7 +60,7 @@ function testNoWorkingNotes(decks) {
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
   s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE," +
-    "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),missed:()=>roundMissed(),score:()=>roundScore()," +
+    "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
@@ -193,41 +193,57 @@ function effortChecks() {
       if (!g && __t.judgeExercise(i, bad).ok) fails.push((c.word || c.label) + ": list with a wrong item marked right");
     });
   });
-  // 5. Spacing: a missed question comes back after at least 3 other questions.
+  // 5. Spacing: a missed question comes back after at least 3 other questions,
+  // counted on every tab, or after the 2-minute pause.
   const n = __t.CARDS.length;
   if (n >= 8) {
     const saved = __t.quiz();
-    const order = [0, 1, 2, 3, 4, 5, 6, 7];
-    const mk = okAt => ({ round: 1, set: "all", size: 8, order: order, pos: 7, phase: "between", sent: true, answers: order.map((_, k) => ({ a: "", ok: okAt(k) })) });
     const kn = __t.known();
     const keep = new Set(kn);
+    const now = Date.now();
     kn.clear(); for (let k = 0; k < n; k++) if (k !== 5 && k !== 7) kn.add(k);
-    __t.setQuiz(mk(k => k !== 5 && k !== 7));
-    const p = __t.plan();
+    // Card 5 was missed 2 questions ago, card 7 just now.
+    __t.setSpacing({ n: 8, miss: { 5: { n: 6, t: now }, 7: { n: 8, t: now } } });
+    const p = __t.space([5, 7]);
     checked++;
-    const missedLeft = { 5: 2, 7: 0 };
+    const since = { 5: 2, 7: 0 };
     if (p.opensAt) fails.push("spacing: paused although review questions were available");
     p.order.forEach((idx, k) => {
       if (p.review[k] && (idx === 5 || idx === 7 || !kn.has(idx))) fails.push("spacing: review question " + idx + " is not one already right");
-      if (!p.review[k] && missedLeft[idx] + k < 3) fails.push("spacing: question " + idx + " comes back after only " + (missedLeft[idx] + k) + " others");
+      if (!p.review[k] && since[idx] + k < 3) fails.push("spacing: question " + idx + " comes back after only " + (since[idx] + k) + " others");
     });
-    if (p.order.filter((_, k) => !p.review[k]).length !== 2) fails.push("spacing: the round does not hold exactly the 2 missed questions");
-    // With no right answers to review, the round opens after a pause.
+    if (p.order.filter((_, k) => !p.review[k]).length !== 2) fails.push("spacing: the list does not hold exactly the 2 missed questions");
+    // A quiz on another tab (here a list of other questions) keeps the gap too.
+    const q = __t.space([7, 0, 1, 2]);
+    checked++;
+    if (q.order.indexOf(7) < 3) fails.push("spacing: a question missed just now came first on another tab");
+    // With nothing to review, the list opens after the pause from the miss.
     kn.clear();
-    __t.setQuiz(mk(() => false));
-    const p2 = __t.plan();
+    const p3 = __t.space([7]);
     checked++;
-    if (p2.opensAt) fails.push("spacing: every question missed needs no pause (each keeps its place)");
-    __t.setQuiz({ round: 1, set: "all", size: 1, order: [7], pos: 0, phase: "between", sent: true, answers: [{ a: "", ok: false }] });
-    const p3 = __t.plan();
+    if (!(p3.opensAt >= now + 119000)) fails.push("spacing: a one-question list with nothing to review did not pause");
+    // A miss older than the pause needs no gap.
+    __t.setSpacing({ n: 8, miss: { 7: { n: 8, t: now - 121000 } } });
     checked++;
-    if (!(p3.opensAt > Date.now())) fails.push("spacing: a one-question round with nothing to review did not pause");
+    if (__t.space([7]).opensAt || __t.space([7]).order[0] !== 7) fails.push("spacing: a miss older than the pause was still held");
     // Review questions never count.
     __t.setQuiz({ round: 2, set: "all", size: 8, order: [1, 7], review: [true, false], pos: 1, phase: "card", sent: false, answers: [{ a: "", ok: false }, { a: "", ok: true }] });
     checked++;
     if (__t.missed().length !== 0 || __t.score() !== 1) fails.push("spacing: a review question counted in the round");
+    __t.setSpacing({ n: 0, miss: {} });
     kn.clear(); keep.forEach(x => kn.add(x));
     __t.setQuiz(saved);
+  }
+  // 6. A list of every person or place does not pass (Greek Lesson II).
+  const named = __t.CARDS.filter(c => c.names && c.names.length);
+  if (named.length > 1) {
+    const all = named.map(c => c.names[0]).join(" ");
+    named.forEach(c => {
+      const i = __t.CARDS.indexOf(c);
+      const v = c.boxes.map(bx => bx.check === "names" ? all : (c.answerLines.find(l => l[0] === bx.label) || [])[1] || "");
+      checked++;
+      if (__t.judgeExercise(i, v).ok) fails.push(c.word + ": a list of every card's person or place was marked right");
+    });
   }
   return { checked, fails };
 }
