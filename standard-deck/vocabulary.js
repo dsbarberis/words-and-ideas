@@ -26,25 +26,25 @@ module.exports = {
       {"defn":"A strong, powerful woman.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"generic":true,"terms":["woman","female","lady","girl"]},{"terms":["strong","powerful","warrior","mighty","formidable","muscular","tough","fierce"]}]}]}
     ],
     parts: [],
-    origin: {"text":"From the Amazons, a legendary tribe of female warriors in Greek mythology.","wording":"Claude, unchecked"},
+    origin: {"text":"From the Amazons, a legendary tribe of female warriors in Greek mythology.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "Procrustean": {
     word: "Procrustean",
     senses: [
-      {"defn":"Effecting conformity by violent or ruthless means.","wording":"Claude, unchecked","printed":{"text":"effecting conformity by violent means","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["conformity","conform","uniform","standard","fit","same","one-size-fits-all"]},{"terms":["violent","ruthless","force","forced","brutal","harsh","cruel"]}]}],"accepted":["punish","punishment"],"everyday":["same","fit"]}
+      {"defn":"Effecting conformity by violent or ruthless means.","wording":"instructor","printed":{"text":"effecting conformity by violent means","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["conformity","conform","uniform","standard","fit","same","one-size-fits-all"]},{"terms":["violent","ruthless","force","forced","brutal","harsh","cruel"]}]}],"accepted":["punish","punishment"],"everyday":["same","fit"]}
     ],
     parts: [],
-    origin: {"text":"From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size.","wording":"Claude, unchecked"},
+    origin: {"text":"From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "Chimerical": {
     word: "Chimerical",
     senses: [
-      {"defn":"Extremely fanciful; wildly imaginary.","wording":"Claude, unchecked","printed":{"text":"extremely fanciful","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["fanciful","imaginary","fantastic","fantasy","illusory","unreal","unrealistic","dreamlike","made-up"]}]}]}
+      {"defn":"Extremely fanciful; wildly imaginary.","wording":"instructor","printed":{"text":"extremely fanciful","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["fanciful","imaginary","fantastic","fantasy","illusory","unreal","unrealistic","dreamlike","made-up"]}]}]}
     ],
     parts: [],
-    origin: {"text":"From the Chimera, a fire-breathing hybrid monster — part lion, part goat, part serpent.","wording":"Claude, unchecked"},
+    origin: {"text":"From the Chimera, a fire-breathing hybrid monster — part lion, part goat, part serpent.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "nemesis": {
@@ -53,16 +53,16 @@ module.exports = {
       {"defn":"Retribution; an unbeatable opponent.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["retribution","vengeance","revenge","punishment","payback"]}]},{"groups":[{"terms":["opponent","rival","enemy","foe","adversary"]},{"terms":["unbeatable","invincible","unconquerable","undefeatable","ultimate","greatest","powerful","mighty","formidable"]}],"star":["archenemy","archrival"]}],"accepted":["fierce","strong","tough"]}
     ],
     parts: [],
-    origin: {"text":"From Nemesis, the Greek goddess of retribution and righteous vengeance.","wording":"Claude, unchecked"},
+    origin: {"text":"From Nemesis, the Greek goddess of retribution and righteous vengeance, personification of divine wrath.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "stygian": {
     word: "stygian",
     senses: [
-      {"defn":"Gloomy; infernally dark.","wording":"Claude, unchecked","printed":{"text":"gloomy","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["gloomy","dismal","bleak","somber","murky"]}]},{"groups":[{"terms":["dark","black","pitch-black","shadowy"]},{"terms":["infernal","hellish","hell","underworld"]}]}]}
+      {"defn":"Gloomy; infernally dark. Pertaining to the river Styx (river in Hades).","wording":"instructor","printed":{"text":"gloomy","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["gloomy","dismal","bleak","somber","murky"]}]},{"groups":[{"terms":["dark","black","pitch-black","shadowy"]},{"terms":["infernal","hellish","hell","underworld"]}]}]}
     ],
     parts: [],
-    origin: {"text":"From the River Styx, the gloomy river separating the living world from the underworld.","wording":"Claude, unchecked"},
+    origin: {"text":"From the River Styx, the gloomy river separating the living world from the underworld; infernal regions.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "halcyon": {
@@ -71,7 +71,7 @@ module.exports = {
       {"defn":"Calm; peaceful.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["calm","peaceful","tranquil","serene","idyllic","quiet","untroubled","carefree"]}]}]}
     ],
     parts: [],
-    origin: {"text":"From the mythical halcyon bird (identified with the kingfisher), said to calm the winds and sea while nesting.","wording":"Claude, unchecked"},
+    origin: {"text":"From the mythical halcyon bird (identified with the kingfisher), said to calm the winds and sea while nesting.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "mentor": {
@@ -80,7 +80,7 @@ module.exports = {
       {"defn":"A wise counselor.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["counselor","adviser","advisor","guide","teacher","tutor","coach"]},{"terms":["wise","wisdom","experienced","trusted","knowledgeable"]}],"star":["guru","sage"]}],"accepted":["support","protect"]}
     ],
     parts: [],
-    origin: {"text":"From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey.","wording":"Claude, unchecked"},
+    origin: {"text":"From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "labyrinth": {
@@ -89,25 +89,25 @@ module.exports = {
       {"defn":"A maze.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["maze","warren","tangle","intricate network","complicated passages"]}]}],"accepted":["wander","wandering","dark"]}
     ],
     parts: [],
-    origin: {"text":"From the maze built by Daedalus on Crete to house the Minotaur.","wording":"Claude, unchecked"},
+    origin: {"text":"From the maze built by Daedalus on Crete to house the Minotaur.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"workbook","lesson":"Part II, Lesson III, Exercise 4","page":"170"}]
   },
   "tantalize": {
     word: "tantalize",
     senses: [
-      {"defn":"To tease by offering something desirable while keeping it out of reach.","wording":"Claude, unchecked","printed":{"text":"to tease","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["tease","tempt","taunt","torment","dangle","offer","show"]},{"terms":["out of reach","unreachable","unattainable","withhold","keep away","deny","can't have"]}]}],"accepted":["cruel","punishment","desire","want","long for"],"everyday":["offer","show"]}
+      {"defn":"To tease by offering something desirable while keeping it out of reach.","wording":"instructor","printed":{"text":"to tease","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["tease","tempt","taunt","torment","dangle","offer","show"]},{"terms":["out of reach","unreachable","unattainable","withhold","keep away","deny","can't have"]}]}],"accepted":["cruel","punishment","desire","want","long for"],"everyday":["offer","show"]}
     ],
     parts: [],
-    origin: {"text":"From Tantalus, condemned in the underworld to stand in water beneath fruit, neither of which he could ever reach.","wording":"Claude, unchecked"},
+    origin: {"text":"From Tantalus, condemned in the underworld to suffer thirst while standing in water beneath fruit, neither of which he could ever reach.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "odyssey": {
     word: "odyssey",
     senses: [
-      {"defn":"A long wandering journey.","wording":"Claude, unchecked","printed":{"text":"a long wandering","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["journey","voyage","travel","trip","trek","quest","adventure","expedition"]},{"terms":["long","lengthy","wandering","epic","extended","years"]}]}],"everyday":["long","years"]}
+      {"defn":"A long wandering journey.","wording":"instructor","printed":{"text":"a long wandering","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["journey","voyage","travel","trip","trek","quest","adventure","expedition"]},{"terms":["long","lengthy","wandering","epic","extended","years"]}]}],"everyday":["long","years"]}
     ],
     parts: [],
-    origin: {"text":"From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy.","wording":"Claude, unchecked"},
+    origin: {"text":"From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "aegis": {
@@ -116,7 +116,7 @@ module.exports = {
       {"defn":"Protection; sponsorship.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["protection","protect","shield","defense","guardianship","sponsorship","sponsor","patronage","auspices","backing","support"]}]}],"accepted":["powerful","mighty","strong"],"everyday":["support"]}
     ],
     parts: [],
-    origin: {"text":"From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — \"under the aegis of\" means under someone's protection.","wording":"Claude, unchecked"},
+    origin: {"text":"From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — \"under the aegis of\" means under someone's protection.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"workbook","lesson":"Part II, Lesson III, Exercise 4","page":"171"}]
   },
   "Achilles' heel": {
@@ -125,7 +125,7 @@ module.exports = {
       {"defn":"A point of vulnerability.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["weakness","weak","vulnerability","vulnerable","flaw","soft spot"]}]}],"accepted":["invincible","unbeatable","strong","powerful","mighty"]}
     ],
     parts: [],
-    origin: {"text":"From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx.","wording":"Claude, unchecked"},
+    origin: {"text":"From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1}]
   },
   "laconic": {
@@ -134,7 +134,7 @@ module.exports = {
       {"defn":"Concise, brief, pithy, using few words.","wording":"instructor","printed":{"text":"brief, pithy, concise","wording":"book","ref":"Greek Lesson II, p. 172"},"note":"Replaces the earlier definition “Concise; using few words.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["concise","terse","brief","succinct","pithy","curt","few words","short"]}]}],"accepted":["speech","spoken","words"],"everyday":["short"],"ref":"instructor's wording, Oct 7, 2026"}
     ],
     parts: [],
-    origin: {"text":"From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.","wording":"Claude, unchecked"},
+    origin: {"text":"From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"172","sense":1}]
   },
   "sword of Damocles": {
@@ -152,7 +152,7 @@ module.exports = {
       {"defn":"A fiery, damning speech, or tirade.","wording":"instructor","printed":{"text":"a bitter denunciation","wording":"book","ref":"Greek Lesson II, p. 173"},"note":"Replaces the earlier definition “A stinging verbal condemnation.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["condemnation","condemn","denunciation","denounce","attack","criticism","scolding","rebuke","damning","fiery"]}],"star":["tirade","diatribe","harangue","rant","invective"]}],"accepted":["harsh","severe","bitter","scathing","verbal","speech","spoken","words","oration","lecture"],"ref":"instructor's wording, Oct 7, 2026"}
     ],
     parts: [],
-    origin: {"text":"From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon.","wording":"Claude, unchecked"},
+    origin: {"text":"From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
   },
   "Draconian": {
@@ -161,7 +161,7 @@ module.exports = {
       {"defn":"Extremely severe.","wording":"book","ref":"Greek Lesson II, p. 171","note":"Replaces the earlier definition “Extremely harsh.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["harsh","severe","strict","cruel","oppressive","punitive","brutal","merciless"]}]}],"accepted":["extreme","extremely"]}
     ],
     parts: [],
-    origin: {"text":"From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses.","wording":"Claude, unchecked"},
+    origin: {"text":"From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171","sense":1}]
   },
   "solecism": {
@@ -170,7 +170,7 @@ module.exports = {
       {"defn":"A substandard usage of language; a social blunder.","wording":"book","ref":"Greek Lesson II, p. 174","note":"Replaces the earlier definition “A grammatical or social error.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["error","mistake","blunder","slip","impropriety","substandard","incorrect","nonstandard","improper","wrong"]},{"terms":["grammatical","grammar","language","usage","speech","social","etiquette","manners","words","word"]}],"star":["faux pas","gaffe"]}]}
     ],
     parts: [],
-    origin: {"text":"From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.","wording":"Claude, unchecked"},
+    origin: {"text":"From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"174","sense":1}]
   },
   "epicure": {
@@ -179,7 +179,7 @@ module.exports = {
       {"defn":"A person of refined taste in matters of food and drink.","wording":"book","ref":"Greek Lesson II, p. 171-172","note":"Replaces the earlier definition “A person of discriminating taste, especially in food and wine.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["discerning","discriminating","refined","fine","connoisseur","picky","particular"]},{"generic":true,"terms":["taste","palate","food","wine","cuisine","dining","eating","drink"]}],"star":["gourmet","foodie","gastronome","connoisseur","good taste"]}],"accepted":["loves","enjoys","seeks","pleasure","luxury","indulges"]}
     ],
     parts: [],
-    origin: {"text":"From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.","wording":"Claude, unchecked"},
+    origin: {"text":"From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171-172","sense":1}]
   },
   "cynic": {
@@ -188,7 +188,7 @@ module.exports = {
       {"defn":"One who sarcastically doubts human motives.","wording":"book","ref":"Greek Lesson II, p. 171","note":"Replaces the earlier definition “A person who believes all human actions are prompted by self-interest.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["believes","thinks","assumes","suspects","distrusts","doubts","expects","sees"]},{"terms":["self-interest","selfish","self-serving","self-centered","ulterior","motives"]}]}],"everyday":["believes","thinks","assumes","expects","sees"],"accepted":["sarcastic","sarcastically"]}
     ],
     parts: [],
-    origin: {"text":"From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives.","wording":"Claude, unchecked"},
+    origin: {"text":"From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"171","sense":1}]
   },
   "sybarite": {
@@ -197,7 +197,7 @@ module.exports = {
       {"defn":"One devoted to luxury and pleasure.","wording":"book","note":"Replaces the earlier definition “A person devoted to luxury and pleasure.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["devoted","loves","lives for","seeks","pursues","obsessed","indulges"]},{"terms":["luxury","luxurious","pleasure","comfort","decadence"]}],"star":["hedonist","pleasure-seeker","self-indulgent"]}],"accepted":["selfish","self-centered"],"everyday":["loves","seeks","lives for"],"ref":"Greek Lesson II, p. 176"}
     ],
     parts: [],
-    origin: {"text":"From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.","wording":"Claude, unchecked"},
+    origin: {"text":"From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"176","sense":1}]
   },
   "ostracism": {
@@ -206,7 +206,7 @@ module.exports = {
       {"defn":"Exclusion from society.","wording":"book","ref":"Greek Lesson II, p. 173","note":"The book's wording (Greek Lesson II, p. 173); confirmed by the instructor, Oct 7, 2026.","keys":[{"groups":[{"terms":["exclusion","excluded","rejection","shunning","shunned","isolation"]},{"generic":true,"terms":["society","social","socially","community","group","others","people","everyone"]}],"star":["banishment","banished","exile","outcast","cast out"]}]}
     ],
     parts: [],
-    origin: {"text":"From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.","wording":"Claude, unchecked"},
+    origin: {"text":"From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"173","sense":1}]
   },
   "Pyrrhic": {
@@ -215,7 +215,7 @@ module.exports = {
       {"defn":"A victory won at too great a cost.","wording":"book","note":"Replaces the earlier definition “Pertaining to a victory won at such great cost it is nearly as bad as a defeat.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"generic":true,"terms":["victory","win","won","success","triumph"]},{"terms":["cost","costly","losses","sacrifice","expensive","damage","price","not worth it"]}]}],"accepted":["disaster","ruin","ruinous"],"ref":"Greek Lesson II, p. 174"}
     ],
     parts: [],
-    origin: {"text":"From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.","wording":"Claude, unchecked"},
+    origin: {"text":"From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.","wording":"instructor"},
     sources: [{"source":"workbook","lesson":"Lessons I & II worksheet","page":"167","sense":1},{"source":"book","lesson":"Greek Lesson II","page":"174","sense":1}]
   },
   "senile": {
