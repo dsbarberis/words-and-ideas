@@ -59,7 +59,7 @@ function testNoWorkingNotes(decks) {
 // A test copy of a deck: Sheet sending cut off and the judge exposed.
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
-  s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE};");
+  s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE,quiz:()=>quiz,render:()=>render()};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
   fs.writeFileSync(out, s);
@@ -72,8 +72,8 @@ async function browserTests(decks) {
   catch (e) { report("browser tests", ["Playwright not found; run with NODE_PATH=$(npm root -g)"], "not run"); return; }
   const browser = await chromium.launch();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-test-"));
-  const loadFails = [], modelFails = [], notes = [];
-  let checked = 0;
+  const loadFails = [], modelFails = [], stuckFails = [], notes = [];
+  let checked = 0, gated = 0;
   for (const [f, s] of Object.entries(decks)) {
     const page = await browser.newPage();
     const errors = [];
@@ -94,11 +94,60 @@ async function browserTests(decks) {
       if (res.long.length) notes.push(f + ": printed answer longer than the box allows (student asked to shorten): " + res.long.join(", "));
     }
     await page.close();
+    // 5. A card that refuses to check until the analysis or base is typed
+    // always has a way on (Oct 21, 2026: a student took the refusal for a freeze).
+    if (!errors.length && /check"?: ?"(parts|deriv)"/.test(s)) {
+      const r = await stuckCard(browser, tmp, f, s);
+      if (r.skipped) continue;
+      gated++;
+      r.fails.forEach(m => stuckFails.push(f + ": " + m));
+    }
   }
   await browser.close();
   report("decks load", loadFails, Object.keys(decks).length + " decks opened");
   report("model answers", modelFails, checked + " cards checked");
+  report("stuck card has a way on", stuckFails, gated + " decks with a refusing card tried");
   notes.forEach(n => console.log("     note: " + n));
+}
+
+// A refused check: type "idk" twice into a card that needs an analysis or a
+// base, then Show the answer must turn the card, missed, so Next works.
+async function stuckCard(browser, tmp, f, s) {
+  const page = await browser.newPage({ viewport: { width: 390, height: 780 } });
+  const fails = [];
+  page.on("pageerror", e => fails.push("script error: " + e.message));
+  await page.route(/^https?:/, r => r.abort());
+  await page.goto("file://" + testCopy(tmp, f, s));
+  await page.waitForFunction(() => window.__t, null, { timeout: 10000 });
+  await page.fill("#nameInput", "Test Student");
+  await page.click("#beginBtn");
+  const start = await page.$("button:visible >> text=/Start the quiz/");
+  if (!start) { await page.close(); return { skipped: true }; }
+  await start.click();
+  const found = await page.evaluate(() => {
+    const q = __t.quiz();
+    const k = q.order.findIndex(i => (__t.CARDS[i].boxes || []).some(b => b.check === "parts" || (b.check === "deriv" && /^base$/i.test(b.label || ""))));
+    if (k < 0) return false;
+    q.pos = k; __t.render(); return true;
+  });
+  if (!found) { await page.close(); return { skipped: true }; }
+  for (let t = 0; t < 2; t++) {
+    for (const x of await page.$$(".quiz-input:visible")) if (!(await x.isDisabled())) await x.fill("idk");
+    await page.click("#checkBtn");
+    await page.waitForTimeout(100);
+  }
+  const st = await page.evaluate(() => ({ note: document.getElementById("quizNote").textContent, btn: !!document.getElementById("showAnswerBtn") && !document.getElementById("showAnswerBtn").hidden }));
+  if (!st.note) fails.push("a refused check shows no message");
+  if (!st.btn) fails.push("no Show the answer button after two refused checks");
+  else {
+    await page.click("#showAnswerBtn");
+    await page.waitForTimeout(100);
+    const after = await page.evaluate(() => { const q = __t.quiz(), a = q.answers[q.pos]; return { a: !!a, ok: a && a.ok, next: !document.getElementById("quizNextBtn").disabled }; });
+    if (!after.a || after.ok !== false) fails.push("Show the answer did not mark the card missed");
+    if (!after.next) fails.push("Next stays off after Show the answer");
+  }
+  await page.close();
+  return { fails };
 }
 
 // Runs inside the page. Types each card's printed answer into its own boxes.

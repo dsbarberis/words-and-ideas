@@ -78,6 +78,14 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   spacing, hyphens, "+" and the book's brackets do not matter, and an English ending such as -ed may
   be added). Each element counts in the form printed on the card or any form of its glossary entry
   (the build lists them as `accept`); the card is right when both boxes are.
+- **A refused check** (instructor, Oct 21, 2026). Before judging, a card with an Analysis box
+  (Exercise III decks) or a Base box (Lesson X Exercise IV) refuses to check when that box does
+  not look like an attempt (too few elements, or no letters from the word). The deck then shows
+  the reason in a highlighted box with the box's own example ("For example: pre- DIC- -tion"),
+  and after two refused checks on the card a "Show the answer (counts as missed)" button. It
+  turns the card with every box marked wrong and the note "You chose to see the answer"; the
+  card comes back in the next round like any missed card, and its Sheet row has `"shown":true`.
+  The count of refused checks is kept with the round, so the button stays after a reload.
   Since Oct 14, 2026 (after students' answers in the class Sheet were reviewed): other words in the box
   are skipped, so meanings copied from the back do no harm; a connecting -i- may be left out, typed on
   its own or joined to the element before it; two elements may be typed as one piece ("potent"); a form
