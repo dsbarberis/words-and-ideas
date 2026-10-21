@@ -317,6 +317,33 @@
     color: var(--burgundy);
   }
 
+  /* A refused check (the analysis or base is missing): easy to see, since
+     the card does not turn (Oct 21, 2026: a student took it for a freeze). */
+  .quiz-note.refused:not(:empty) {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 8px 10px;
+    border-left: 3px solid var(--burgundy);
+    background: rgba(128, 32, 48, 0.08);
+    border-radius: 4px;
+    white-space: pre-line;
+  }
+
+  .show-answer {
+    margin-top: 10px;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--burgundy);
+    background: transparent;
+    border: 1px solid var(--burgundy);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .show-answer[hidden] { display: none; }
+  .show-answer:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 2px; }
+
   .feedback {
     width: 100%;
     max-width: 90%;
@@ -895,6 +922,7 @@
           <div class="more-lines" id="moreLines"></div>
           <button type="button" class="add-line" id="addLineBtn" hidden>+ Add another meaning</button>
                     <div class="quiz-note" id="quizNote"></div>
+          <button type="button" class="show-answer" id="showAnswerBtn" hidden>Show the answer (counts as missed)</button>
         </div>
       </div>
       <div class="face face-back">
@@ -2977,6 +3005,7 @@
       const shown = a.a == null ? "" : (EXERCISE ? answerText(CARDS[i], a.a) : Array.isArray(a.a) ? a.a.join("; ") : a.a);
       const row = { i: i, w: cardLabel(CARDS[i]), a: shown, r: !!a.ok };
       if (a.mixed) row.mixed = a.mixed;
+      if (a.shown) row.shown = true;
       return row;
     });
     reportPass({
@@ -3272,7 +3301,8 @@
     yourAnswer.className = "ya-list";
     if (hasBoxes(item)) {
       const res = judgeBoxes(CARDS.indexOf(item), ans.a);
-      const parts = res.parts || item.boxes.map(function () { return false; });
+      // An answer the student chose to see is missed in every box (instructor, Oct 21, 2026).
+      const parts = !ans.shown && res.parts || item.boxes.map(function () { return false; });
       item.boxes.forEach(function (b, k) {
         const d = el("span", "ya-line");
         d.appendChild(el("span", parts[k] ? "mark-ok" : "mark-no", parts[k] ? "\u2713 " : "\u2717 "));
@@ -3290,8 +3320,10 @@
     }
     verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
     verdictEl.className = "verdict " + (ans.ok ? "ok" : "no");
-    verdictReason.hidden = true;
+    verdictReason.hidden = !ans.shown;
+    verdictReason.textContent = ans.shown ? SHOWN_NOTE : "";
   }
+  const SHOWN_NOTE = "You chose to see the answer. This card comes back in the next round.";
 
   // The answer side: the right answer, a note (a base's meanings, one per
   // line), and the student's answer with the verdict.
@@ -3361,8 +3393,8 @@
     feedbackBox.hidden = !ans;
     if (ans && item.boxes && Array.isArray(ans.a)) {
       fillBoxesFeedback(item, ans);
-      verdictReason.hidden = !ans.mixed && !ans.echo;
-      verdictReason.textContent = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
+      verdictReason.hidden = !ans.mixed && !ans.echo && !ans.shown;
+      verdictReason.textContent = ans.shown ? SHOWN_NOTE : ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     } else if (ans) {
       yourAnswer.className = "";
       yourAnswer.textContent = ans.a;
@@ -3403,7 +3435,10 @@
       else answerInput.value = ans ? ans.a : "";
       orderPick = [];
       quizNote.textContent = "";
+      quizNote.classList.remove("refused");
     }
+    // Show the answer stays offered on a card refused twice, also after a reload.
+    showAnswerBtn.hidden = !!ans || presenterMode || !(quiz.refused && quiz.refused[quiz.pos] >= SHOW_ANSWER_AFTER);
 
     cardEl.classList.toggle("no-flip", !presenterMode);
     cardEl.setAttribute("aria-label", presenterMode ? "Quiz card, press Space to flip" : "Quiz card");
@@ -3651,18 +3686,59 @@
     if (needsTyping() && !presenterMode) answerInput.focus();
   }
 
+  // A check refused before judging (the analysis or base is missing): the
+  // card does not turn, so say so plainly, with the box's example, and after
+  // two refused tries offer to show the answer (instructor, Oct 21, 2026).
+  const showAnswerBtn = document.getElementById("showAnswerBtn");
+  const SHOW_ANSWER_AFTER = 2;
+  function refuseCheck(card, msg) {
+    const box = card.boxes.find(function (b) { return b.check === "parts" || b.check === "deriv"; });
+    const eg = box && /^e\.g\.\s*/.test(box.placeholder || "") ? box.placeholder.replace(/^e\.g\.\s*/, "") : "";
+    quiz.refused = quiz.refused || {};
+    quiz.refused[quiz.pos] = (quiz.refused[quiz.pos] || 0) + 1;
+    const tries = quiz.refused[quiz.pos];
+    quizNote.classList.add("refused");
+    quizNote.textContent = msg + (eg ? "\nFor example: " + eg : "");
+    showAnswerBtn.hidden = tries < SHOW_ANSWER_AFTER;
+    saveQuiz();
+    answerInput.focus();
+  }
+
+  // The student gives up on the card: it counts as missed and comes back in
+  // the next round, like any wrong answer.
+  function showAnswer() {
+    if (!quiz || quiz.phase !== "card" || quiz.answers[quiz.pos] || sliding) return;
+    const idx = quiz.order[quiz.pos];
+    if (!(EXERCISE && hasBoxes(CARDS[idx]))) return;
+    quizNote.textContent = "";
+    showAnswerBtn.hidden = true;
+    quiz.answers[quiz.pos] = { a: boxValues(), ok: false, mixed: null, shown: true };
+    known.delete(idx);
+    learningMarked.add(idx);
+    noteMark(idx, "quiz");
+    saveKnown();
+    saveLearning();
+    if (quiz.answers.every(Boolean)) sendQuizRound();
+    teacherFlip = null;
+    saveQuiz();
+    render();
+    quizNextBtn.focus();
+  }
+  showAnswerBtn.addEventListener("click", showAnswer);
+
   // choice = the option tapped, on an Exercise Deck's choice question.
   function checkAnswer(choice) {
     if (!quiz || quiz.phase !== "card" || quiz.answers[quiz.pos] || sliding) return;
     const idx = quiz.order[quiz.pos];
     const isChoice = EXERCISE && CARDS[idx].kind === "choice";
     if (isChoice && typeof choice !== "number") return;
+    quizNote.classList.remove("refused");
     const kind = EXERCISE ? CARDS[idx].kind : "";
     const text = isChoice ? choice : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     if (Array.isArray(text) && typedEg(text)) { egPop.hidden = false; document.getElementById("egPopOk").focus(); return; }
     if (EXERCISE && hasBoxes(CARDS[idx]) && text.some(function (v) { return String(v || "").trim(); })) {
       const gf = goodFaith(CARDS[idx], text);
-      if (gf) { quizNote.textContent = gf; answerInput.focus(); return; }
+      if (gf) { refuseCheck(CARDS[idx], gf); return; }
     }
     const result = EXERCISE ? judgeExercise(idx, text) : MEANINGS ? judgeMeanings(idx, text) : judge(idx, text);
     if (result.empty) {
