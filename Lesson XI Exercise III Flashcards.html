@@ -1128,13 +1128,15 @@
       "sentence": "She had the pathetic failing of refusing to <span class=\"target\">credit<\/span> herself in some particular without calling up a minus somewhere else.",
       "placeholder": "Your answer",
       "defn": "To have faith in; believe; trust.",
+      "accepted": [
+        "that she possesses",
+        "she possesses"
+      ],
       "senses": [
         {
           "groups": [
             {
               "terms": [
-                "that she possesses",
-                "she possesses",
                 "have faith in",
                 "faith in",
                 "believe",
@@ -1347,14 +1349,16 @@
       "sentence": "The <span class=\"target\">Fates<\/span> have spoken.",
       "placeholder": "Your answer",
       "defn": "In Roman and Greek mythology, the three goddesses who controlled human life.",
+      "accepted": [
+        "who controlled",
+        "controlled human",
+        "controlled people"
+      ],
       "senses": [
         {
           "groups": [
             {
               "terms": [
-                "who controlled",
-                "controlled human",
-                "controlled people",
                 "goddesses of destiny",
                 "goddess of destiny",
                 "three goddesses",
@@ -3325,13 +3329,15 @@
       "cite": "— Harper’s Magazine",
       "placeholder": "Your answer",
       "defn": "Capable of being defended.",
+      "accepted": [
+        "defended against objections",
+        "defended against objection"
+      ],
       "senses": [
         {
           "groups": [
             {
               "terms": [
-                "defended against objections",
-                "defended against objection",
                 "maintained against attack",
                 "defended or maintained",
                 "maintained against attack or objection",
@@ -4028,10 +4034,11 @@
       const r = judge(cardIdx, v, b.senses ? b : null);
       if (r.mixed) mixed = r.mixed;
       if (r.echo) echo = r.echo;
-      if (r.tooLong) tooLong = true;
+      if (r.tooLong) tooLong = Math.max(tooLong || 0, (b.senses && b.maxWords) || MAX_ANSWER_WORDS);
       return !!r.ok;
     });
-    if (tooLong) return { tooLong: true };
+    // The limit named in the message is the longest box's own (a box may allow more words).
+    if (tooLong) return { tooLong: true, limit: tooLong, parts: parts };
     return { ok: parts.every(Boolean), parts: parts, mixed: mixed, echo: echo };
   }
 
@@ -5373,9 +5380,10 @@
     yourAnswer.className = "ya-list";
     if (hasBoxes(item)) {
       const res = judgeBoxes(CARDS.indexOf(item), ans.a);
+      const parts = res.parts || item.boxes.map(function () { return false; });
       item.boxes.forEach(function (b, k) {
         const d = el("span", "ya-line");
-        d.appendChild(el("span", res.parts[k] ? "mark-ok" : "mark-no", res.parts[k] ? "\u2713 " : "\u2717 "));
+        d.appendChild(el("span", parts[k] ? "mark-ok" : "mark-no", parts[k] ? "\u2713 " : "\u2717 "));
         d.appendChild(document.createTextNode(b.label + ": "));
         d.appendChild(el("b", "", ans.a[k] || "\u2013"));
         yourAnswer.appendChild(d);
@@ -5771,7 +5779,7 @@
       return;
     }
     if (result.tooLong) {
-      quizNote.textContent = MEANINGS ? "Please keep each meaning to " + MAX_LINE_WORDS + " words or fewer." : "Please keep your answer to " + MAX_ANSWER_WORDS + " words or fewer.";
+      quizNote.textContent = MEANINGS ? "Please keep each meaning to " + MAX_LINE_WORDS + " words or fewer." : "Please keep your answer to " + (result.limit || MAX_ANSWER_WORDS) + " words or fewer.";
       answerInput.focus();
       return;
     }
