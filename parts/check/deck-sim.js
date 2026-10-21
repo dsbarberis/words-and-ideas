@@ -65,7 +65,7 @@ async function simulate(browser, file, tmp) {
       const st = await page.evaluate(() => __t.state());
       if (!st.quiz || st.quiz.phase !== "card") break;
       if (!st.quiz.answered) {
-        const answer = (k, forceWrong, wordOnly) => page.evaluate(([k, forceWrong, wordOnly]) => {
+        const answer = (k, forceWrong, wordOnly, long) => page.evaluate(([k, forceWrong, wordOnly, long]) => {
           const c = __t.CARDS[__t.state().quiz.idx], right = k % 2 === 0 && !forceWrong;
           if (__t.EX() && c.kind === "choice") return __t.checkAnswer(k % 2);
           if (__t.EX() && c.kind === "order") { const p = __t.poolOrder(c); __t.setPick(right ? p.slice().sort((a, b) => a - b) : p); return __t.checkAnswer(); }
@@ -86,10 +86,11 @@ async function simulate(browser, file, tmp) {
             const own = (c.senses && c.senses[0] && c.senses[0].star && c.senses[0].star[0]) || (c.accepted && c.accepted[0]) || "";
             vals = [right && own ? own : "made-up answer"];
           }
+          if (long) vals = vals.map(v => v === "made-up answer" ? "a made-up answer, wrong on purpose" : v);
           document.getElementById("answerInput").value = vals[0];
           document.querySelectorAll("#card .more-boxes input").forEach((i, k) => { i.value = vals[k + 1] || ""; });
           __t.checkAnswer();
-        }, [k, forceWrong, !!wordOnly]);
+        }, [k, forceWrong, !!wordOnly, !!long]);
         const answered = () => page.evaluate(() => { const b = document.getElementById("egPop"); if (b) b.hidden = true; return __t.state().quiz.answered; });
         // A printed answer longer than the box allows is refused (the deck asks for a shorter one): then answer wrongly.
         const k = st.quiz.pos + round;
@@ -101,6 +102,7 @@ async function simulate(browser, file, tmp) {
           await answer(k, true); await tick(300);
         }
         if (!(await answered())) { await answer(k, true, true); await tick(300); }   // the good-faith check wants letters from the word itself
+        if (!(await answered())) { await answer(k, true, false, true); await tick(300); }   // an effort gate wants four or more words
         if (!(await answered())) throw new Stop(`${path.basename(file)}: card ${st.quiz.idx} would not take an answer (the deck said: "${await page.textContent("#quizNote")}")`);
       }
       await page.evaluate(() => __t.quizNext()).catch(e => errors.push(String(e.message || e).split("\n")[0])); await tick(1000);
