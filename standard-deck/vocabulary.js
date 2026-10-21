@@ -59,7 +59,7 @@ module.exports = {
   "stygian": {
     word: "stygian",
     senses: [
-      {"defn":"Gloomy; infernally dark. Pertaining to the river Styx (river in Hades).","wording":"instructor","printed":{"text":"gloomy","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["gloomy","dismal","bleak","somber","murky"]}]},{"groups":[{"terms":["dark","black","pitch-black","shadowy"]},{"terms":["infernal","hellish","hell","underworld"]}]}]}
+      {"defn":"Gloomy; infernally dark. Pertaining to the river Styx (river in Hades).","wording":"instructor","printed":{"text":"gloomy","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["gloomy","dismal","bleak","somber","murky"]}]},{"groups":[{"terms":["dark","black","pitch-black","shadowy"]},{"terms":["infernal","hellish","hell","underworld"]}]},{"groups":[{"terms":["styx","river styx","hades"]}]}]}
     ],
     parts: [],
     origin: {"text":"From the River Styx, the gloomy river separating the living world from the underworld; infernal regions.","wording":"instructor"},
