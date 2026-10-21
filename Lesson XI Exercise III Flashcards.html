@@ -1133,6 +1133,8 @@
           "groups": [
             {
               "terms": [
+                "that she possesses",
+                "she possesses",
                 "have faith in",
                 "faith in",
                 "believe",
@@ -1350,6 +1352,9 @@
           "groups": [
             {
               "terms": [
+                "who controlled",
+                "controlled human",
+                "controlled people",
                 "goddesses of destiny",
                 "goddess of destiny",
                 "three goddesses",
@@ -1578,6 +1583,8 @@
           "groups": [
             {
               "terms": [
+                "capable of being trusted",
+                "trusted as true",
                 "to be trusted or believed",
                 "can be trusted or believed",
                 "to be trusted",
@@ -2486,6 +2493,9 @@
           "groups": [
             {
               "terms": [
+                "impossible to argue against",
+                "cannot be argued against",
+                "can't be argued against",
                 "not open to question",
                 "not capable of change",
                 "impossible to deny",
@@ -2786,6 +2796,10 @@
           "groups": [
             {
               "terms": [
+                "free from sudden changes",
+                "free from changes",
+                "not changing much",
+                "not changing",
                 "lack of change",
                 "no change",
                 "without change",
@@ -3043,6 +3057,11 @@
           "groups": [
             {
               "terms": [
+                "not able to be altered",
+                "unable to be altered",
+                "cannot be altered",
+                "can't be altered",
+                "not subject to change",
                 "not able to change",
                 "not capable of change",
                 "incapable of change",
@@ -3311,6 +3330,8 @@
           "groups": [
             {
               "terms": [
+                "defended against objections",
+                "defended against objection",
                 "maintained against attack",
                 "defended or maintained",
                 "maintained against attack or objection",
@@ -3435,6 +3456,10 @@
           "groups": [
             {
               "terms": [
+                "unable to stop thinking",
+                "can't stop thinking",
+                "cannot stop thinking",
+                "not able to stop thinking",
                 "preoccupied",
                 "preoccupied with",
                 "fixated",
@@ -4003,7 +4028,7 @@
       const r = judge(cardIdx, v, b.senses ? b : null);
       if (r.mixed) mixed = r.mixed;
       if (r.echo) echo = r.echo;
-      if (r.tooLong && !b.senses) tooLong = true;
+      if (r.tooLong) tooLong = true;
       return !!r.ok;
     });
     if (tooLong) return { tooLong: true };
