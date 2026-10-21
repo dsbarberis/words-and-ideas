@@ -11,6 +11,7 @@ module.exports = {
   output: "Greek Lesson III Exercise.html",
   title: "Greek Lesson III Exercise", // deck name sent to the Sheet
   heading: "Greek Lesson III Exercise",
+  study: "To study it: this lesson’s bases in the book; for Exercise 4, the Greek Mythology and Greek History decks.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   allTitle: "Greek Lesson III",
   round1: "book",
   orderNote: false, // the start screen doesn't name the order's source

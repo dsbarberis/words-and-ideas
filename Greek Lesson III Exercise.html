@@ -317,6 +317,29 @@
     color: var(--burgundy);
   }
 
+  /* A missed Exercise question: the front shows only the marks (Answer Effort, Oct 21, 2026) */
+  .miss-note {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 10px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .miss-note .verdict { margin-right: 8px; }
+  .miss-note .miss-reason { display: block; margin-top: 6px; color: var(--burgundy); }
+  .miss-note .study-line { display: block; margin-top: 6px; color: var(--ink-soft); }
+  .review-pill { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 10px; background: var(--rule); color: var(--ink); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .box-mark { font-weight: 700; margin-right: 4px; }
+  .box-mark.ok { color: var(--sage-dark); }
+  .box-mark.no { color: var(--burgundy); }
+  .quiz-input.in-ok { border-color: var(--sage); }
+  .quiz-input.in-no { border-color: var(--burgundy); border-width: 2px; }
+  .choice.wrong { border-color: var(--burgundy); border-width: 2px; }
+  .order-chip.ok { border-color: var(--sage); }
+  .order-chip.no { border-color: var(--burgundy); border-width: 2px; }
+  .note-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #c9b98a; margin-bottom: 2px; font-style: normal; }
+
   .feedback {
     width: 100%;
     max-width: 90%;
@@ -751,7 +774,7 @@
   .your-answer .ya-line .mark-ok { color: #cfe3c4; }
   .your-answer .ya-line .mark-no { color: #f1d3d0; }
   /* Meaning-in-context questions (Exercise III): the analysis on the back */
-  .analysis { font-style: normal; font-size: 15px; line-height: 1.45; margin: 2px 0 12px; }
+  .analysis { font-style: normal; font-size: 16.5px; line-height: 1.45; margin: 2px 0 12px; }
   .analysis .part { display: block; }
   .analysis .part b { color: var(--paper); margin-right: 6px; }
   .analysis .part-note { color: #d9dee8; font-size: 13px; }
@@ -794,7 +817,7 @@
   .answer-key { font-style: normal; font-weight: 700; margin-right: 6px; }
   .back-word { font-style: normal; font-weight: 700; font-size: clamp(24px, 5.5vw, 32px); margin-bottom: 10px; }
   .back-text { font-style: normal; font-size: 15px; line-height: 1.45; color: #d9dee8; margin-bottom: 10px; }
-  .back-note { font-size: 14px; color: #d9dee8; margin-top: -4px; }
+  .back-note { font-size: 13.5px; color: #d9dee8; margin-top: 2px; }
   /* Phones: the exercise tabs sit in one row that scrolls sideways, and a
      long list of options scrolls inside the card. */
   .phone.exercise .sub-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 2px; scrollbar-width: none; }
@@ -896,6 +919,7 @@
           <button type="button" class="add-line" id="addLineBtn" hidden>+ Add another meaning</button>
                     <div class="quiz-note" id="quizNote"></div>
         </div>
+        <div class="miss-note" id="missNote" hidden></div>
       </div>
       <div class="face face-back">
         <div class="category-tag" id="tagBack" style="color:#c9b98a;"></div>
@@ -950,6 +974,7 @@
   "type": "exercise",
   "title": "Greek Lesson III Exercise",
   "heading": "Greek Lesson III Exercise",
+  "study": "To study it: this lesson’s bases in the book; for Exercise 4, the Greek Mythology and Greek History decks.",
   "allTitle": "Greek Lesson III",
   "round1": "book",
   "orderNote": false,
@@ -1869,9 +1894,11 @@
     (card.accept || []).forEach(function (a) { answerPieces(a).forEach(function (w) { accept.push(w); }); });
     // A one-word answer must match exactly; a list of base forms must all be
     // forms of the right base.
-    const whole = answerPieces(response).join(" ");
-    const ok = (card.accept || []).some(function (a) { return answerPieces(a).join(" ") === whole; }) ||
-      (card.gloss && got.every(function (w) { return accept.indexOf(w) >= 0; }));
+    function isAccepted(t) { const k = answerPieces(t).join(" "); return !!k && (card.accept || []).some(function (a) { return answerPieces(a).join(" ") === k; }); }
+    const items = listItems(response);
+    const ok = isAccepted(response) ||
+      (card.gloss && got.every(function (w) { return accept.indexOf(w) >= 0; })) ||
+      (items.length > 1 && items.every(isAccepted));
     return { ok: !!ok };
   }
 
@@ -1903,6 +1930,25 @@
 
   function plainKey(s) { return String(s || "").toLowerCase().replace(/[^a-z]/g, ""); }
 
+  // A list of answers joined by "or", "and", commas, semicolons or slashes is
+  // right when every item in it is an accepted answer ("disk or discus",
+  // "disk, discus", "disk/discus"; instructor, Oct 20, 2026).
+  function listItems(v) {
+    return String(v || "").split(/\s*(?:[,;\/]|\bor\b|\band\b)\s*/i).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+  function listOf(v, forms, key) {
+    const items = listItems(v);
+    return items.length > 1 && items.every(function (x) { return oneOf(x, forms || [], key); });
+  }
+  // A derivative or base box: one listed form, a list of them, or several
+  // forms typed with spaces ("ann annus").
+  function derivList(v, forms) {
+    forms = forms || [];
+    if (oneOf(v, forms, plainKey) || listOf(v, forms, plainKey)) return true;
+    const ws = String(v || "").split(/[\s,;\/]+/).filter(function (w) { return plainKey(w) && !/^(or|and)$/i.test(w); });
+    return ws.length > 0 && ws.every(function (w) { return oneOf(w, forms, plainKey); });
+  }
+
   // Several boxes on one card: each box is judged on its own, and the card
   // is right when every box is.
   function judgeBoxes(cardIdx, vals) {
@@ -1913,8 +1959,8 @@
     const parts = card.boxes.map(function (b, k) {
       const v = String(vals[k] || "").trim();
       if (!v) return false;
-      if (b.check === "greek") return oneOf(v, card.greekForms, greekKey);
-      if (b.check === "deriv") return oneOf(v, card.derivs, plainKey) || v.split(/[\s,;\/]+/).filter(plainKey).every(function (w) { return oneOf(w, card.derivs, plainKey); });
+      if (b.check === "greek") return oneOf(v, card.greekForms, greekKey) || listOf(v, card.greekForms, greekKey);
+      if (b.check === "deriv") return derivList(v, card.derivs);
       if (b.check === "names") return hasName(v, card.names);
       if (b.check === "parts") return partsMatch(v, card.parts);
       // A connection (Exercise IV) is right when it uses either of its meanings
@@ -2103,6 +2149,7 @@
       q.answers.forEach(function (ans, k) {
         const idx = q.order[k];
         if (!ans || ans.ok || !Array.isArray(ans.a) || !validIdx(idx) || !hasBoxes(CARDS[idx])) return;
+        if (q.review && q.review[k]) { if (judgeExercise(idx, ans.a).ok) { ans.ok = true; changed = true; } return; }
         const r = judgeExercise(idx, ans.a);
         if (!r.ok) return;
         ans.ok = true; ans.mixed = null;
@@ -2156,6 +2203,9 @@
     if (["card", "between", "done"].indexOf(q.phase) < 0) return null;
     q.pos = Math.min(Math.max(0, q.pos | 0), q.order.length - 1);
     q.round = Math.max(1, q.round | 0);
+    if (q.review && !(Array.isArray(q.review) && q.review.length === q.order.length)) delete q.review;
+    const nx = q.next;
+    if (nx && !(Array.isArray(nx.order) && nx.order.length && nx.order.every(validIdx) && Array.isArray(nx.review) && nx.review.length === nx.order.length)) delete q.next;
     return q;
   }
 
@@ -2336,6 +2386,7 @@
   const answerInput = document.getElementById("answerInput");
   const checkBtn = document.getElementById("checkBtn");
   const quizNote = document.getElementById("quizNote");
+  const missNote = document.getElementById("missNote");
 
   // "e.g." in a box's example: the entry card explains it, and a pop-up
   // repeats the explanation if a student types "e.g." into an answer.
@@ -2348,10 +2399,43 @@
   document.getElementById("egPopOk").addEventListener("click", function () { egPop.hidden = true; answerInput.focus(); });
   function typedEg(vals) { return vals.some(function (v) { return /(^|[^a-z])e\s*\.\s*g\b/i.test(String(v || "")); }); }
 
-  // A good-faith attempt before the card is checked: the Analysis box needs a
-  // piece for every element of the word, one of them taken from the word
-  // itself; a Base box needs letters found in the word. The student is not
-  // told how many elements there are.
+  // A good-faith attempt before the card is checked (Answer Effort form, Oct 21,
+  // 2026). Every filled box must pass a short minimum for its kind, and a box
+  // must not be copied from the card's printed note. A refusal counts nothing
+  // and is not sent to the Sheet. The Analysis box needs a piece for every
+  // element of the word, one of them taken from the word itself; a Base box
+  // needs letters found in the word. The student is not told how many
+  // elements there are. vals: one value per box, or the answer typed on a
+  // card with a single box.
+  const LIGHT = ["to", "a", "an", "the", "of", "or", "and", "is", "it", "be"];
+  function boxKind(b) {
+    if (b.check === "parts") return "parts";
+    if (b.check === "greek") return "greek";
+    if (b.check === "deriv") return /^base$/i.test(b.label || "") ? "base" : "deriv";
+    if (b.check === "names") return "names";
+    if (b.senses && b.noPenalty) return "explain";
+    return "meaning";
+  }
+  // The card's printed notes: a typed answer that copies five words running
+  // from one of them is refused.
+  function noteTexts(card) {
+    const out = [card.note, card.caution, card.answerNote, card.derivNote];
+    (card.parts || []).forEach(function (pt) { if (pt && !Array.isArray(pt) && pt.note) out.push(pt.note); });
+    return out.filter(Boolean);
+  }
+  function copiesNote(card, v) {
+    const a = toTokens(v);
+    if (a.length < 5) return false;
+    return noteTexts(card).some(function (n) {
+      const t = toTokens(n);
+      for (let i = 0; i + 5 <= t.length; i++) {
+        const run = t.slice(i, i + 5).join(" ");
+        for (let j = 0; j + 5 <= a.length; j++) if (a.slice(j, j + 5).join(" ") === run) return true;
+      }
+      return false;
+    });
+  }
+  const COPY_NOTE = "Type the answer in your own words, not the note.";
   function goodFaith(card, vals) {
     const word = String(card.word || "").toLowerCase().replace(/[^a-z]/g, "");
     function fromWord(s) {
@@ -2359,17 +2443,50 @@
       for (let i = 0; i + 1 < k.length; i++) if (word.indexOf(k.slice(i, i + 2)) >= 0) return true;
       return false;
     }
+    if (!card.boxes) {
+      const v = String(vals || "");
+      if (!v.trim() || card.kind === "choice" || card.kind === "order") return "";
+      if (copiesNote(card, v)) return COPY_NOTE;
+      // A typed answer whose printed answer runs to four words or more is an explanation.
+      if (card.kind === "typed" && toTokens(card.answerText || "").length >= 4 && toTokens(v).length < 4) return "Explain in a few words (four or more) before checking.";
+      return "";
+    }
     for (let k = 0; k < card.boxes.length; k++) {
       const b = card.boxes[k], v = String(vals[k] || "");
-      if (b.check === "parts") {
+      if (!v.trim()) continue;
+      const kind = boxKind(b);
+      if (kind === "parts") {
         const toks = v.toLowerCase().split(/[^a-z]+/).filter(Boolean);
         if (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); }))
           return "Please analyze the word into its elements (prefixes, bases, suffixes) before checking.";
+        continue;
       }
       // Only a Base box (Lesson X Exercise IV) must share letters with the word: an
       // English derivative closer to the Greek (Greek Introduction) often shares none
       // with the modern word (devil, diabolical).
-      if (b.check === "deriv" && /^base$/i.test(b.label || "") && !fromWord(v)) return "Please type the base you find in the word before checking.";
+      if (kind === "base") { if (!fromWord(v)) return "Please type the base you find in the word before checking."; continue; }
+      if (kind === "deriv") {
+        // A listed form with other words beside it ("cathedra (a doublet)") is a copy of the printed key.
+        const ws = v.split(/[^A-Za-z]+/).filter(function (w) { return w && !/^(or|and)$/i.test(w); });
+        if (ws.some(function (w) { return oneOf(w, card.derivs || [], plainKey); }) && !derivList(v, card.derivs || [])) return "Type just the derivative.";
+        if (!ws.some(function (w) { return w.length >= 3 && plainKey(w) !== word; })) return "Type one English derivative before checking.";
+        continue;
+      }
+      if (copiesNote(card, v)) return COPY_NOTE;
+      if (kind === "greek") {
+        const g = v.normalize("NFD").replace(/[^A-Za-z]/g, "");
+        if (g.length < 3 || plainKey(v) === word) return "Type the Greek word in English letters before checking.";
+      } else if (kind === "names") {
+        if (v.replace(/[^A-Za-z]/g, "").length < 3) return "Type the person or place before checking.";
+      } else if (kind === "explain") {
+        if (toTokens(v).length < 4) return "Explain in a few words (four or more) before checking.";
+      } else {
+        const own = [word, word + "s", word + "es", word + "ed", word + "d", word + "ing"];
+        const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
+        // The card's own word is no meaning, unless it is the answer (almond, from amygdalē "almond").
+        const echoes = content.length && content.every(function (w) { return own.indexOf(w.replace(/[^a-z]/g, "")) >= 0; });
+        if (!content.length || (echoes && !(judgeBoxes(CARDS.indexOf(card), card.boxes.map(function (_, j) { return j === k ? v : ""; })).parts || [])[k])) return "Type a meaning in your own words before checking.";
+      }
     }
     return "";
   }
@@ -2961,28 +3078,62 @@
     };
   }
 
+  // Review questions (a review break) never count toward the round.
   function roundScore() {
-    return quiz.answers.filter(function (a) { return a && a.ok; }).length;
+    return quiz.answers.filter(function (a, k) { return a && a.ok && !isReview(k); }).length;
   }
 
   function roundMissed() {
-    return quiz.order.filter(function (_, k) { return !(quiz.answers[k] && quiz.answers[k].ok); });
+    return quiz.order.filter(function (_, k) { return !isReview(k) && !(quiz.answers[k] && quiz.answers[k].ok); });
+  }
+
+  // Space the retry (Answer Effort form and the instructor's "review break",
+  // Oct 21, 2026): a missed question comes back only after at least
+  // RETRY_GAP other questions. Questions after it in its own round count,
+  // so the next round puts the questions missed last at its end. When the
+  // round is too short to keep the gap, it is filled with review questions
+  // the student already got right (practice: not counted, not sent to the
+  // Sheet). Without enough of those, the round opens after a pause.
+  const RETRY_GAP = 3, RETRY_PAUSE_MS = 2 * 60 * 1000;
+  function planNextRound() {
+    const missed = roundMissed();
+    const after = {};
+    quiz.order.forEach(function (i, k) { if (!isReview(k)) after[i] = quiz.order.length - 1 - k; });
+    const need = function (i) { return Math.max(0, RETRY_GAP - (after[i] || 0)); };
+    const cards = shuffleArray(missed.slice()).sort(function (a, b) { return need(a) - need(b); });
+    const inRound = {};
+    missed.forEach(function (i) { inRound[i] = true; });
+    const pool = shuffleArray(setIndices(quiz.set).filter(function (i) { return known.has(i) && !inRound[i]; }));
+    const order = [], review = [];
+    let short = false;
+    cards.forEach(function (i) {
+      while (order.length < need(i)) {
+        if (!pool.length) { short = true; break; }
+        order.push(pool.shift());
+        review.push(true);
+      }
+      order.push(i);
+      review.push(false);
+    });
+    if (short) return { order: cards, review: cards.map(function () { return false; }), opensAt: Date.now() + RETRY_PAUSE_MS };
+    return { order: order, review: review, opensAt: 0 };
   }
 
   function sendQuizRound() {
     if (quiz.sent) return;
     quiz.sent = true;
     const answers = quiz.order.map(function (i, k) {
+      if (isReview(k)) return null;
       const a = quiz.answers[k] || {};
       const shown = a.a == null ? "" : (EXERCISE ? answerText(CARDS[i], a.a) : Array.isArray(a.a) ? a.a.join("; ") : a.a);
       const row = { i: i, w: cardLabel(CARDS[i]), a: shown, r: !!a.ok };
       if (a.mixed) row.mixed = a.mixed;
       return row;
-    });
+    }).filter(Boolean);
     reportPass({
       passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
-      passSize: quiz.order.length,
+      passSize: answers.length,
       results: answers.map(function (x) { return { i: x.i, r: x.r }; }),
       answers: answers,
       json: answers
@@ -3207,6 +3358,15 @@
 
   // The answer side of a Greek Introduction card: the Greek word, its parts
   // and meaning, the closer derivative, the note, and the route into English.
+  // The back keeps the answer apart from the teaching note, which sits
+  // under a "Note" label in smaller type (Answer Effort form, Oct 21, 2026).
+  function noteBlock(texts) {
+    const d = el("div", "back-note");
+    d.appendChild(el("span", "note-label", "Note"));
+    d.appendChild(document.createTextNode(texts.filter(Boolean).join(" ")));
+    return d;
+  }
+
   function fillGreekBack(item, ans) {
     meaningBack.innerHTML = "";
     meaningBack.appendChild(el("div", "back-word", item.word));
@@ -3227,7 +3387,7 @@
       an.appendChild(d);
     });
     meaningBack.appendChild(an);
-    if (item.note) meaningBack.appendChild(el("div", "back-note", item.note));
+    if (item.note || item.derivNote) meaningBack.appendChild(noteBlock([item.derivNote, item.note]));
     originLabel.hidden = true;
     originBack.innerHTML = "";
     originBox.hidden = true;
@@ -3252,7 +3412,7 @@
       an.appendChild(d);
     }
     meaningBack.appendChild(an);
-    if (item.note) meaningBack.appendChild(el("div", "back-note", item.note));
+    if (item.note || item.derivNote) meaningBack.appendChild(noteBlock([item.derivNote, item.note]));
     originLabel.textContent = "Route into English";
     originLabel.hidden = false;
     originBack.innerHTML = "";
@@ -3313,7 +3473,7 @@
       originLabel.textContent = item.glossMeanings.length > 1 ? "Meanings" : "Meaning";
       item.glossMeanings.forEach(function (m) { originBack.appendChild(el("div", "", m)); });
     } else {
-      originLabel.textContent = "";
+      originLabel.textContent = item.answerNote ? "Note" : "";
       if (item.answerNote) originBack.textContent = item.answerNote;
     }
     originLabel.hidden = !originLabel.textContent;
@@ -3349,7 +3509,7 @@
     });
     meaningBack.appendChild(an);
     meaningBack.appendChild(el("div", "back-defn", item.defn));
-    if (item.caution) meaningBack.appendChild(el("div", "back-note", item.caution));
+    if (item.caution) meaningBack.appendChild(noteBlock([item.caution]));
     originLabel.textContent = "In context";
     originLabel.hidden = false;
     originBack.innerHTML = "";
@@ -3409,14 +3569,20 @@
     cardEl.setAttribute("aria-label", presenterMode ? "Quiz card, press Space to flip" : "Quiz card");
     if (EXERCISE) {
       fillExerciseFront(cardEl, item, ans);
+      if (isReview(quiz.pos)) cardEl.querySelectorAll(".face-front .category-tag").forEach(function (n) { n.appendChild(el("span", "review-pill", "Review")); });
       answerInput.disabled = !!ans;
       checkBtn.disabled = !!ans;
-      fillExerciseBack(item, ans);
+      // The back is filled only when it may be seen, so a missed question's
+      // answer is not on the page (instructor, Oct 21, 2026).
+      if (presenterMode || backShown(ans)) fillExerciseBack(item, ans);
+      else { meaningBack.innerHTML = ""; originBack.innerHTML = ""; originLabel.textContent = ""; feedbackBox.hidden = true; }
+      fillMissMarks(item, ans);
       cardEl.classList.toggle("flipped", backShown(ans));
-      const done = quiz.answers.filter(Boolean).length;
-      statusText.textContent = "Round " + quiz.round + " · " + done + " of " + quiz.order.length + " answered";
+      const counted = countedPositions();
+      const done = counted.filter(function (k) { return quiz.answers[k]; }).length;
+      statusText.textContent = "Round " + quiz.round + " · " + done + " of " + counted.length + " answered";
       if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
-      progressFill.style.width = (done / quiz.order.length) * 100 + "%";
+      progressFill.style.width = (counted.length ? done / counted.length * 100 : 100) + "%";
       quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
       setQuizNav(ans);
       return;
@@ -3455,8 +3621,59 @@
   }
 
   // ---------- Teacher mode in a quiz: leaf, flip, jump, try an answer ----------
+  // An Exercise question's back (the answer and notes) shows only once it is
+  // answered right; a miss shows the student's answer marked on the front
+  // (instructor, Oct 21, 2026). Teacher mode shows the back once answered.
   function backShown(ans) {
-    return presenterMode && teacherFlip !== null ? teacherFlip : !!ans;
+    if (presenterMode && teacherFlip !== null) return teacherFlip;
+    return !!ans && (!EXERCISE || presenterMode || !!ans.ok);
+  }
+
+  function isReview(k) { return !!(quiz && quiz.review && quiz.review[k]); }
+  // The questions of the round that count (review questions do not).
+  function countedPositions() { return quiz.order.map(function (_, k) { return k; }).filter(function (k) { return !isReview(k); }); }
+
+  // Where to study a question: the category's line, or the deck's.
+  function studyLine(item) {
+    const cat = CATS[item.cat] || {};
+    return cat.study || DECK.study || "";
+  }
+
+  // The marks on the front of a missed question: a ✓ or ✗ for each box (or
+  // the option tapped, or each stage), with no answer, hint or note.
+  function fillMissMarks(item, ans) {
+    const form = cardEl.querySelector(".quiz-form");
+    form.querySelectorAll(".box-mark").forEach(function (n) { n.remove(); });
+    form.querySelectorAll(".quiz-input").forEach(function (n) { n.classList.remove("in-ok", "in-no"); });
+    missNote.hidden = true;
+    missNote.innerHTML = "";
+    if (!ans || ans.ok || backShown(ans)) return;
+    if (hasBoxes(item) && Array.isArray(ans.a)) {
+      const res = judgeBoxes(CARDS.indexOf(item), ans.a);
+      const parts = res.parts || item.boxes.map(function () { return false; });
+      const labels = [form.querySelector(".box-label0")].concat(Array.prototype.slice.call(form.querySelectorAll(".more-boxes .box-label")));
+      const inputs = [answerInput].concat(Array.prototype.slice.call(form.querySelectorAll(".more-boxes input")));
+      labels.forEach(function (lab, k) {
+        if (!lab) return;
+        lab.insertBefore(el("span", "box-mark " + (parts[k] ? "ok" : "no"), parts[k] ? "\u2713" : "\u2717"), lab.firstChild);
+        if (inputs[k]) inputs[k].classList.add(parts[k] ? "in-ok" : "in-no");
+      });
+    } else if (item.kind === "choice") {
+      const b = cardEl.querySelector('.choice[data-k="' + ans.a + '"]');
+      if (b) b.classList.add("wrong");
+    } else if (item.kind === "order") {
+      cardEl.querySelectorAll(".order-picked .order-chip").forEach(function (b, n) { b.classList.add(Number(b.dataset.k) === n ? "ok" : "no"); });
+    } else {
+      answerInput.classList.add("in-no");
+    }
+    const v = el("span", "verdict no", "Not quite");
+    missNote.appendChild(v);
+    missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review question; it does not count." : "This question comes back later in the quiz."));
+    const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
+    if (why) missNote.appendChild(el("span", "miss-reason", why));
+    const st = studyLine(item);
+    if (st) missNote.appendChild(el("span", "study-line", st));
+    missNote.hidden = false;
   }
 
   function allAnswered() { return quiz.answers.every(Boolean); }
@@ -3594,7 +3811,7 @@
     }
 
     const score = roundScore();
-    const size = quiz.order.length;
+    const size = countedPositions().length;
     progressFill.style.width = "100%";
     const scoreEl = document.createElement("div");
     scoreEl.className = "panel-score";
@@ -3605,12 +3822,31 @@
       statusText.textContent = "Round " + quiz.round + " complete";
       title.textContent = "Round " + quiz.round + " complete";
       const noun = EXERCISE ? "question" : NOUN;
+      const plan = quiz.next;
+      const reviews = plan ? plan.review.filter(Boolean).length : 0;
       copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") +
-        " you missed, in a new order.";
+        " you missed, in a new order." + (reviews ? " " + reviews + " " + noun + (reviews === 1 ? "" : "s") +
+        " you already got right " + (reviews === 1 ? "is" : "are") + " mixed in for review; " + (reviews === 1 ? "it does" : "they do") + " not count." : "");
       quizPanel.appendChild(title);
       quizPanel.appendChild(scoreEl);
       quizPanel.appendChild(copy);
-      actions.appendChild(panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
+      const startBtn = panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound);
+      actions.appendChild(startBtn);
+      // A round too short to space the retry opens after a pause (a countdown, not a clock time).
+      if (plan && plan.opensAt > Date.now()) {
+        const wait = copy.cloneNode(false);
+        quizPanel.appendChild(wait);
+        startBtn.disabled = true;
+        const tick = function () {
+          if (!quiz || quiz.phase !== "between" || quiz.next !== plan || !wait.isConnected) { clearInterval(timer); return; }
+          const left = Math.max(0, plan.opensAt - Date.now());
+          if (!left) { clearInterval(timer); startNextRound(); return; }
+          const m = Math.floor(left / 60000), sec = Math.ceil((left % 60000) / 1000);
+          wait.textContent = "Round " + (quiz.round + 1) + " opens in " + (m ? m + " min " : "") + (sec === 60 ? 59 : sec) + " s. You can close the deck and come back; your place is saved.";
+        };
+        const timer = setInterval(tick, 1000);
+        tick();
+      }
     } else {
       statusText.textContent = "Quiz complete";
       title.textContent = "Quiz complete";
@@ -3644,7 +3880,14 @@
   }
 
   function startNextRound() {
-    quiz = newRound(quiz.round + 1, roundMissed());
+    const plan = quiz.next;
+    if (plan && plan.opensAt > Date.now()) return;
+    if (plan) {
+      const r = newRound(quiz.round + 1, plan.order);
+      r.order = plan.order.slice();
+      r.review = plan.review.slice();
+      quiz = r;
+    } else quiz = newRound(quiz.round + 1, roundMissed());
     inputFor = null;
     saveQuiz();
     render();
@@ -3660,7 +3903,8 @@
     const kind = EXERCISE ? CARDS[idx].kind : "";
     const text = isChoice ? choice : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     if (Array.isArray(text) && typedEg(text)) { egPop.hidden = false; document.getElementById("egPopOk").focus(); return; }
-    if (EXERCISE && hasBoxes(CARDS[idx]) && text.some(function (v) { return String(v || "").trim(); })) {
+    // Teacher mode skips the good-faith gate (Answer Effort plan, Oct 19, 2026).
+    if (EXERCISE && !presenterMode && !isChoice && kind !== "order") {
       const gf = goodFaith(CARDS[idx], text);
       if (gf) { quizNote.textContent = gf; answerInput.focus(); return; }
     }
@@ -3678,11 +3922,13 @@
     quizNote.textContent = "";
     quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
     if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
-    if (result.ok) { known.add(idx); learningMarked.delete(idx); }
-    else { known.delete(idx); learningMarked.add(idx); }
-    noteMark(idx, "quiz");
-    saveKnown();
-    saveLearning();
+    if (!isReview(quiz.pos)) {
+      if (result.ok) { known.add(idx); learningMarked.delete(idx); }
+      else { known.delete(idx); learningMarked.add(idx); }
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
+    }
     if (quiz.answers.every(Boolean)) sendQuizRound();
     teacherFlip = null;
     saveQuiz();
@@ -3715,6 +3961,7 @@
     }
     if (!quiz.sent) sendQuizRound();
     quiz.phase = roundMissed().length ? "between" : "done";
+    if (quiz.phase === "between" && EXERCISE && !presenterMode) quiz.next = planNextRound();
     saveQuiz();
     render();
   }

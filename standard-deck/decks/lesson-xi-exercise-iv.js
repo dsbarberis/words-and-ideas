@@ -15,6 +15,7 @@ module.exports = {
   "output": "Lesson XI Exercise IV Flashcards.html",
   "title": "Lesson XI Exercise IV Flashcards",
   "heading": "Lesson XI Exercise IV",
+  "study": "To study it: the word’s history in a dictionary, such as etymonline.com.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   "allTitle": "Lesson XI Exercise IV",
   "instruction": "Using the dictionary, give the original or etymological meaning of each word. Each has changed its meaning through similitude.",
   "round1": "book",

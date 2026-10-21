@@ -12,6 +12,7 @@ module.exports = {
   output: "Lesson XI Workbook Flashcards.html",
   title: "Lesson XI Workbook Flashcards",
   heading: "Lesson XI Workbook",
+  study: "To study it: this lesson’s bases in the book, and the Latin Roots deck.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   allTitle: "Lesson XI Workbook",
   round1: "book",
   orderNote: false,
