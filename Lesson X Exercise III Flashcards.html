@@ -3926,7 +3926,7 @@
       const r = judge(cardIdx, v, b.senses ? b : null);
       if (r.mixed) mixed = r.mixed;
       if (r.echo) echo = r.echo;
-      if (r.tooLong && !b.senses) tooLong = true;
+      if (r.tooLong) tooLong = true;
       return !!r.ok;
     });
     if (tooLong) return { tooLong: true };
