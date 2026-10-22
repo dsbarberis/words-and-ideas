@@ -14,6 +14,7 @@ module.exports = {
   output: "Exercise III Flashcards.html",
   title: "Exercise III Flashcards", // deck name sent to the Sheet
   heading: "Exercise III: Analyze & Define",
+  study: "To study it: the elements in this lesson’s list of bases (or the Latin Roots deck), and the word in a dictionary.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   allTitle: "Exercise III",
   instruction: "Analyze the highlighted word, then give its meaning in context.",
   analysis: true, // an Analysis box above the meaning (instructor, Oct 12, 2026)

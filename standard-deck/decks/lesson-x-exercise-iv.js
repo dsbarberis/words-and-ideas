@@ -17,6 +17,7 @@ module.exports = {
   output: "Lesson X Exercise IV Flashcards.html",
   title: "Lesson X Exercise IV Flashcards",
   heading: "Lesson X Exercise IV",
+  study: "To study it: the base in this lesson’s list of bases (or the Latin Roots deck), and the word in a dictionary.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   allTitle: "Lesson X Exercise IV",
   instruction: "Name the base in the word, give the base’s meaning, and explain in a few words how that meaning leads to the word’s current meaning.",
   round1: "book",

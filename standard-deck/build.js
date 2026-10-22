@@ -129,6 +129,17 @@ function resolveParts(card, file, deck) {
   return out;
 }
 
+// A typed answer printed with an example word in brackets ("lumin
+// (illuminate)") shows the answer in large type and the example as its note
+// (Answer Effort form, Oct 21, 2026). The wording is unchanged, only moved.
+function splitExample(card, deck) {
+  if (deck.type !== "exercise" || card.kind !== "typed" || card.answerNote || !card.answerText) return card;
+  const m = card.answerText.match(/^(.*\S)\s+\(([^()]+)\)$/);
+  // Only an example word: "EQU-, (IQU-)" is a list of forms.
+  if (!m || /-/.test(m[2]) || !/^[a-z\u00e0-\u00ff]/.test(m[2])) return card;
+  return Object.assign({}, card, { answerText: m[1], answerNote: "Example: " + m[2] + "." });
+}
+
 const uses = {}; // vocabulary key -> [{ deck, sense, override }]
 for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWith(".js")).sort()) {
   const deck = require(path.join(here, "decks", file));
@@ -138,7 +149,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     if (!key) return;
     (uses[key] = uses[key] || []).push({ deck: deck.title, sense: c.sense || 0, override: c.defn ? (c.defnWording || UNCHECKED) : null });
   });
-  data.cards = deck.cards.map(function (c) { return resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck); });
+  data.cards = deck.cards.map(function (c) { return splitExample(resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck), deck); });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))

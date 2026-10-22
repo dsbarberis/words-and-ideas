@@ -1,0 +1,83 @@
+// Greek Lesson III Exercise: an Exercise Deck (Quiz only) from the workbook's
+// Part II, Lesson III, Exercises 1-4 (pp. 169-171), approved Oct 7, 2026
+// (proposals/workbook-lesson-iii/import-proposal.md). Answers follow the
+// instructor's answer key. Exercises 1 and 2 each have two extra options that
+// match nothing (instructor's rule, Oct 7, 2026), placed at random positions,
+// so their letters differ from the workbook key's; Exercise 3 prints its own
+// two. Exercise 4's word bank is not shown (instructor's ruling).
+module.exports = {
+  id: "greekl3x",
+  type: "exercise",
+  output: "Greek Lesson III Exercise.html",
+  title: "Greek Lesson III Exercise", // deck name sent to the Sheet
+  heading: "Greek Lesson III Exercise",
+  allTitle: "Greek Lesson III",
+  round1: "book",
+  orderNote: false, // the start screen doesn't name the order's source
+  categories: [
+    { key: "1", label: "Ex 1", title: "Exercise 1: OD-", instruction: "Match each word with the best definition.", baseLine: "OD-",
+      options: ["song sung in honor of a bride and groom","exaggerated expression of feeling","a singing back: recantation","concert hall","short lyric poem","tune; song","goat song: tale of disaster","burlesque imitation","mirth song: drama with a happy ending","song sung by one voice","instrument that records the distance a vehicle travels","song sung after another song: third part of a Greek ode"], optionStyle: "letters" },
+    { key: "2", label: "Ex 2", title: "Exercise 2: BIBLI-; CRYPT-, CRYPH-; TOM-", instruction: "Match each word with the best definition.", baseLine: "BIBLI-; CRYPT-, CRYPH-; TOM-",
+      options: ["one who dislikes or fears books","typical or ideal example","smallest part of an element","secret; obscure","any large, scholarly book","of doubtful authorship","obsession with collecting books","booklover: collector of books","having a secret name","list of references","excision of a breast","collection of books","division, especially of two mutually exclusive groups","underground vault beneath a church","distorted in appearance","study of insects","the Good Book"], optionStyle: "letters" },
+    { key: "3", label: "Ex 3", title: "Exercise 3: CANON-; CYCL-; GLOSS-, GLOT(T)-; ICON-; MIM-; PYR-", instruction: "Match each word with the best definition.", baseLine: "CANON-; CYCL-; GLOSS-, GLOT(T)-; ICON-; MIM-; PYR-",
+      options: ["pertaining to the tongue","study of artistic symbolism","conforming to a general rule","heartburn","multilingual","a work that contains information on all branches of knowledge","an expert on religious representations","attacker of established beliefs","heavens","note of explanation","the telling of a story without words","violent storm characterized by circular wind motion","involving volcanic action","to imitate","two-wheeler","pertaining to fire fighting","person with a passion for setting fires"], optionStyle: "letters" },
+    { key: "4", label: "Ex 4", title: "Exercise 4: Review of Greek Mythology, History, and Philosophy", instruction: "Supply the appropriate word." }
+  ],
+  cards: [
+    { vocab: "epode", cat: "1", kind: "choice", word: "epode", ask: "Which definition matches?", answer: 11 },
+    { vocab: "tragedy", cat: "1", kind: "choice", word: "tragedy", ask: "Which definition matches?", answer: 6 },
+    { vocab: "monody", cat: "1", kind: "choice", word: "monody", ask: "Which definition matches?", answer: 9 },
+    { vocab: "odeum", cat: "1", kind: "choice", word: "odeum", ask: "Which definition matches?", answer: 3 },
+    { vocab: "comedy", cat: "1", kind: "choice", word: "comedy", ask: "Which definition matches?", answer: 8 },
+    { vocab: "rhapsody", cat: "1", kind: "choice", word: "rhapsody", ask: "Which definition matches?", answer: 1 },
+    { vocab: "parody", cat: "1", kind: "choice", word: "parody", ask: "Which definition matches?", answer: 7 },
+    { vocab: "palinode", cat: "1", kind: "choice", word: "palinode", ask: "Which definition matches?", answer: 2 },
+    { vocab: "melody", cat: "1", kind: "choice", word: "melody", ask: "Which definition matches?", answer: 5 },
+    { vocab: "ode", cat: "1", kind: "choice", word: "ode", ask: "Which definition matches?", answer: 4 },
+    { vocab: "bibliomania", cat: "2", kind: "choice", word: "bibliomania", ask: "Which definition matches?", answer: 6 },
+    { vocab: "bibliotheca", cat: "2", kind: "choice", word: "bibliotheca", ask: "Which definition matches?", answer: 11 },
+    { vocab: "Bible", cat: "2", kind: "choice", word: "Bible", ask: "Which definition matches?", answer: 16 },
+    { vocab: "bibliography", cat: "2", kind: "choice", word: "bibliography", ask: "Which definition matches?", answer: 9 },
+    { vocab: "bibliophile", cat: "2", kind: "choice", word: "bibliophile", ask: "Which definition matches?", answer: 7 },
+    { vocab: "cryptic", cat: "2", kind: "choice", word: "cryptic", ask: "Which definition matches?", answer: 3 },
+    { vocab: "grotesque", cat: "2", kind: "choice", word: "grotesque", ask: "Which definition matches?", answer: 14 },
+    { vocab: "apocryphal", cat: "2", kind: "choice", word: "apocryphal", ask: "Which definition matches?", answer: 5 },
+    { vocab: "cryptonymous", cat: "2", kind: "choice", word: "cryptonymous", ask: "Which definition matches?", answer: 8 },
+    { vocab: "dichotomy", cat: "2", kind: "choice", word: "dichotomy", ask: "Which definition matches?", answer: 12 },
+    { vocab: "epitome", cat: "2", kind: "choice", word: "epitome", ask: "Which definition matches?", answer: 1 },
+    { vocab: "tome", cat: "2", kind: "choice", word: "tome", ask: "Which definition matches?", answer: 4 },
+    { vocab: "mastectomy", cat: "2", kind: "choice", word: "mastectomy", ask: "Which definition matches?", answer: 10 },
+    { vocab: "atom", cat: "2", kind: "choice", word: "atom", ask: "Which definition matches?", answer: 2 },
+    { vocab: "entomology", cat: "2", kind: "choice", word: "entomology", ask: "Which definition matches?", answer: 15 },
+    { vocab: "canonical", cat: "3", kind: "choice", word: "canonical", ask: "Which definition matches?", answer: 2 },
+    { vocab: "bicycle", cat: "3", kind: "choice", word: "bicycle", ask: "Which definition matches?", answer: 14 },
+    { vocab: "cyclone", cat: "3", kind: "choice", word: "cyclone", ask: "Which definition matches?", answer: 11 },
+    { vocab: "encyclopedia", cat: "3", kind: "choice", word: "encyclopedia", ask: "Which definition matches?", answer: 5 },
+    { vocab: "glossal", cat: "3", kind: "choice", word: "glossal", ask: "Which definition matches?", answer: 0 },
+    { vocab: "gloss", cat: "3", kind: "choice", word: "gloss", ask: "Which definition matches?", answer: 9 },
+    { vocab: "polyglot", cat: "3", kind: "choice", word: "polyglot", ask: "Which definition matches?", answer: 4 },
+    { vocab: "iconoclast", cat: "3", kind: "choice", word: "iconoclast", ask: "Which definition matches?", answer: 7 },
+    { vocab: "iconology", cat: "3", kind: "choice", word: "iconology", ask: "Which definition matches?", answer: 1 },
+    { vocab: "mimic", cat: "3", kind: "choice", word: "mimic", ask: "Which definition matches?", answer: 13 },
+    { vocab: "pantomime", cat: "3", kind: "choice", word: "pantomime", ask: "Which definition matches?", answer: 10 },
+    { vocab: "pyromaniac", cat: "3", kind: "choice", word: "pyromaniac", ask: "Which definition matches?", answer: 16 },
+    { vocab: "pyrosis", cat: "3", kind: "choice", word: "pyrosis", ask: "Which definition matches?", answer: 3 },
+    { vocab: "empyrean", cat: "3", kind: "choice", word: "empyrean", ask: "Which definition matches?", answer: 8 },
+    { vocab: "pyroclastic", cat: "3", kind: "choice", word: "pyroclastic", ask: "Which definition matches?", answer: 12 },
+    { cat: "4", kind: "typed", label: "Amazons", text: "Race of female warriors", accept: ["Amazons","Amazon"], answerText: "Amazons", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Narcissus", text: "Beautiful youth who fell in love with his own image", accept: ["Narcissus"], answerText: "Narcissus", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Midas", text: "King who wished that everything he touched would turn to gold", accept: ["Midas"], answerText: "Midas", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "labyrinth", text: "Structure built to house the Minotaur", accept: ["labyrinth"], answerText: "labyrinth", placeholder: "Type the word", vocab: "labyrinth" },
+    { cat: "4", kind: "typed", label: "Oedipus", text: "Protagonist of a Greek tragedy who killed his father and married his mother", accept: ["Oedipus"], answerText: "Oedipus", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Arcadia", text: "Place in Greece proverbial for its pastoral way of life", accept: ["Arcadia"], answerText: "Arcadia", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Spartans", text: "Greeks known for rigid self-discipline", accept: ["Spartans","Spartan"], answerText: "Spartans", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Sirens", text: "Sea nymphs whose enticing songs lured men to their deaths", accept: ["Sirens","Siren"], answerText: "Sirens", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Meander", text: "River proverbial for its winding course", accept: ["Meander"], answerText: "Meander", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Mausoleum", text: "Tomb of Mausolus: built in his honor by the widow of King Mausolus of Caria; one of the Seven Wonders of the World", accept: ["Mausoleum"], answerText: "Mausoleum", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Procrustes", text: "Mythical highwayman whose bed was “one size fits all”", accept: ["Procrustes"], answerText: "Procrustes", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Draco", text: "Codifier of extremely severe laws", accept: ["Draco"], answerText: "Draco", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "Chimera", text: "Monster with the head of a lion, the body of a goat, and the tail of a serpent", accept: ["Chimera"], answerText: "Chimera", placeholder: "Type the word" },
+    { cat: "4", kind: "typed", label: "aegis", text: "Shield of Zeus and later Athena", accept: ["aegis"], answerText: "aegis", placeholder: "Type the word", vocab: "aegis" },
+    { cat: "4", kind: "typed", label: "Diogenes", text: "Famous Cynic in search of an honest man", accept: ["Diogenes","Diogenes of Sinope"], answerText: "Diogenes", placeholder: "Type the word" }
+  ]
+};

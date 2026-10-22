@@ -11,6 +11,7 @@ module.exports = {
   output: "Greek Lesson II Exercise.html",
   title: "Greek Lesson II Exercise", // deck name sent to the Sheet
   heading: "Words from Proper Names",
+  study: "To study it: the word in a dictionary, such as etymonline.com, which names the person or place behind it.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   allTitle: "Greek Lesson II",
   round1: "book",
   orderNote: false, // the start screen doesn't name the order's source

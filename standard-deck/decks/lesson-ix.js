@@ -13,6 +13,7 @@ module.exports = {
   output: "Lesson IX Workbook Flashcards.html",
   title: "Lesson IX Workbook Flashcards", // deck name sent to the Sheet (unchanged)
   heading: "Lesson IX Workbook",
+  study: "To study it: this lesson’s bases in the book, and the Latin Roots deck.", // shown on a missed question (Answer Effort, Oct 21, 2026)
   round1: "book", // Round 1 in the workbook's order; later rounds shuffled
   legacy: { progressKey: "l9_progress", nameKey: "l9_name" },
   categories: [
