@@ -4109,8 +4109,10 @@
   // hyphens and "+" do not matter). Other words are skipped, so meanings
   // copied with the forms ("dif- apart, FID- faith, -ent") and an added
   // English ending (inflam-ed) do no harm. A connecting -i- may be left out,
-  // typed on its own or joined to the element before it (OMN-, omni-, PLENI-),
-  // and two elements may be typed as one piece ("potent"). A form of any
+  // typed on its own or joined to the element before it (OMN-, omni-, PLENI-).
+  // Every other element is typed as a piece of its own: "potent" for POT- and
+  // -ent, or "genit" for GEN- and -it-, is not an analysis (instructor, Oct 22,
+  // 2026). A form of any
   // element typed after the last one counts as an extra element. Elements
   // listed with their meanings and split by semicolons ("in - not; sub -
   // under; ORDIN - arrange; -ate - being in a state") are read without each
@@ -4127,7 +4129,6 @@
     for (; t < toks.length && k < parts.length; t++) {
       const w = toks[t], A = parts[k].accept || [];
       if (fits(w, A)) { k++; continue; }
-      if (k + 1 < parts.length && A.some(function (a) { return (parts[k + 1].accept || []).some(function (c) { return w === a + c || w === a + "i" + c; }); })) { k += 2; continue; }
     }
     if (k < parts.length) return false;
     // After the last element, another element's form ("-ous") is an extra element.
@@ -4597,8 +4598,7 @@
       const kind = boxKind(b);
       if (kind === "parts") {
         const toks = v.toLowerCase().split(/[^a-z]+/).filter(Boolean);
-        // Two elements typed as one piece ("uni lateral") count when the analysis is right.
-        if (!partsMatch(v, card.parts || []) && (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); })))
+        if (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); }))
           return "Please analyze the word into its elements (prefixes, bases, suffixes) before checking.";
         continue;
       }
