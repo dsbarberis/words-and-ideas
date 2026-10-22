@@ -234,7 +234,20 @@ function effortChecks() {
     kn.clear(); keep.forEach(x => kn.add(x));
     __t.setQuiz(saved);
   }
-  // 6. A list of every person or place does not pass (Greek Lesson II).
+  // 6. Every element of an analysis is typed as a piece of its own: a base
+  // joined to its suffix ("genit" for GEN- and -it-) is wrong (instructor, Oct 22, 2026).
+  __t.CARDS.forEach((c, i) => {
+    if (!c.boxes || !c.parts || !c.defn || c.parts.length < 3) return;
+    const forms = c.parts.map(pt => (pt.accept || [])[0] || "");
+    for (let k = 0; k + 1 < forms.length; k++) {
+      const joined = forms.slice(0, k).concat([forms[k] + forms[k + 1]], forms.slice(k + 2)).join(" ");
+      const v = c.boxes.map(bx => bx.check === "parts" ? joined : c.defn);
+      checked++;
+      const g = __t.goodFaith(c, v);
+      if (!g && __t.judgeExercise(i, v).ok) fails.push(c.word + ": analysis with two elements joined (" + joined + ") was marked right");
+    }
+  });
+  // 7. A list of every person or place does not pass (Greek Lesson II).
   const named = __t.CARDS.filter(c => c.names && c.names.length);
   if (named.length > 1) {
     const all = named.map(c => c.names[0]).join(" ");
