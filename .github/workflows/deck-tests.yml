@@ -1,0 +1,38 @@
+# Deck tests on every pull request to main, and on every change to main.
+# GitHub branch protection requires this check to pass before a pull request
+# can be merged (the Architect's word, Oct 23, 2026). It runs the same suite as
+# standard-deck/tests/run.js does in a Claude session. It reads nothing private
+# and sends nothing to the class Sheet: the test copies of the decks have their
+# sending cut off and every web request blocked.
+name: Deck tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deck-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deck-tests:
+    name: Deck tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright and its browser
+        run: |
+          npm install -g playwright@1.56.1
+          playwright install --with-deps chromium
+      - name: Run the deck tests
+        run: NODE_PATH="$(npm root -g)" node standard-deck/tests/run.js
