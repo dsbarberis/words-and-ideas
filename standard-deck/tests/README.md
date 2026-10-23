@@ -5,7 +5,7 @@ One command runs every test on the built decks. Run it before every publish, aft
 
     NODE_PATH=$(npm root -g) node standard-deck/tests/run.js
 
-It needs Node and Playwright (both installed in Claude's cloud sessions). It changes
+It needs Node and Playwright (both installed in Claude's cloud sessions). GitHub also runs it on every pull request to main (.github/workflows/deck-tests.yml), and branch protection holds the merge until it passes. It changes
 no file in the repository and sends nothing to the class Sheet: it builds into a
 temporary folder, and the test copies of the decks have their Sheet sending cut off
 and every web request blocked. It ends with "all tests passed" (exit code 0) or lists
