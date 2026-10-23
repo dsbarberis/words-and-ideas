@@ -328,6 +328,7 @@
   }
   .miss-note .verdict { margin-right: 8px; }
   .miss-note .miss-reason { display: block; margin-top: 6px; color: var(--burgundy); }
+  .miss-note .miss-lines { display: block; margin-top: 6px; color: var(--ink-soft); }
   .miss-note .study-line { display: block; margin-top: 6px; color: var(--ink-soft); }
   .review-pill { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 10px; background: var(--rule); color: var(--ink); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
   .box-mark { font-weight: 700; margin-right: 4px; }
@@ -836,17 +837,17 @@
   /* Meaning Clouds (instructor, Oct 23, 2026): one pill per distinct meaning,
      its synonyms inside joined by a small "or" (any one counts), and a count
      above the pills. The same pill, smaller, on Exercise backs. */
-  .sense-count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  .sense-count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #d6bb8a; margin: 0 0 8px; }
   .senses { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .sense-pill { display: inline-block; max-width: 100%; padding: 6px 16px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(214,187,138,0.45); line-height: 1.25; }
+  .sense-pill { display: inline-block; max-width: 100%; padding: 6px 16px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(214,187,138,0.6); line-height: 1.25; }
   .sense-pill .or { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 11px; letter-spacing: 0.6px; color: #d6bb8a; margin: 0 7px; }
   .sense-pill .ml-mark { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 13px; margin-right: 8px; }
   .sense-pill.got { border-color: rgba(159,196,140,0.8); }
   .sense-pill.got .ml-mark { color: #cfe3c4; }
-  .sense-pill.missing { opacity: 0.62; border-style: dashed; }
+  .sense-pill.missing { opacity: 0.75; border-style: dashed; }
   .sense-pill.missing .ml-mark { color: #f1d3d0; }
   .part .chips { display: inline-flex; flex-wrap: wrap; gap: 6px; vertical-align: top; }
-  .part .chip { display: inline-block; font-size: 0.95em; padding: 1px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(214,187,138,0.4); }
+  .part .chip { display: inline-block; font-size: 0.95em; padding: 1px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(214,187,138,0.6); }
   .part .chip .or { font-size: 10px; letter-spacing: 0.6px; color: #d6bb8a; margin: 0 5px; }
   .more-lines .line-row { display: flex; gap: 8px; margin-top: 8px; }
   .line-remove { flex: none; width: 36px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink-soft); font-size: 18px; line-height: 1; cursor: pointer; }
@@ -4729,6 +4730,7 @@
     form.querySelectorAll(".quiz-input").forEach(function (n) { n.classList.remove("in-ok", "in-no"); });
     missNote.hidden = true;
     missNote.innerHTML = "";
+    let lineNote = "";
     if (!ans || ans.ok || backShown(ans)) return;
     if (hasBoxes(item) && Array.isArray(ans.a)) {
       const res = judgeBoxes(CARDS.indexOf(item), ans.a);
@@ -4744,10 +4746,15 @@
       // Each line marked: a line that counted for a meaning, or one that did not.
       const res = judgeMeanings(CARDS.indexOf(item), ans.a);
       const filled = lineInputs().filter(function (i) { return i.value.trim(); });
+      const counted = [];
       filled.forEach(function (inp) {
         const r = (res.rows || []).filter(function (row) { return inp.value.indexOf(row.text) >= 0; });
-        inp.classList.add(r.some(function (row) { return row.meaning >= 0; }) ? "in-ok" : "in-no");
+        const hit = r.some(function (row) { return row.meaning >= 0; });
+        inp.classList.add(hit ? "in-ok" : "in-no");
+        if (hit) counted.push(inp.value.trim());
       });
+      // Said in words too, not by colour alone; nothing says how many are missing.
+      lineNote = counted.length ? "Counted: " + counted.join("; ") + "." : "None of these lines counted.";
     } else if (item.kind === "choice") {
       const b = cardEl.querySelector('.choice[data-k="' + ans.a + '"]');
       if (b) b.classList.add("wrong");
@@ -4759,6 +4766,7 @@
     const v = el("span", "verdict no", "Not quite");
     missNote.appendChild(v);
     missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review " + (EXERCISE ? "question" : NOUN) + "; it does not count." : "This " + (EXERCISE ? "question" : NOUN) + " comes back later in the quiz."));
+    if (lineNote) missNote.appendChild(el("span", "miss-lines", lineNote));
     const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     if (why) missNote.appendChild(el("span", "miss-reason", why));
     const st = studyLine(item);
