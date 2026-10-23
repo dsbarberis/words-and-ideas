@@ -26,6 +26,19 @@ function formsOf(forms) {
   return out.map(function (f) { return f.toLowerCase(); }).filter(function (f, i, a) { return f && a.indexOf(f) === i; });
 }
 
+// A glossary entry's distinct meanings: its "groups" (synonyms together, any
+// one counts; Meaning Clouds form, Oct 23, 2026), or one meaning per group.
+// The groups must hold every meaning exactly once.
+function groupsOf(entry, key) {
+  if (!entry.groups) return entry.meanings.map(function (m) { return [m]; });
+  const flat = [].concat.apply([], entry.groups);
+  const a = flat.slice().sort(), b = entry.meanings.slice().sort();
+  if (entry.groups.some(function (g) { return !g.length; }) || JSON.stringify(a) !== JSON.stringify(b)) {
+    throw new Error("glossary.js: the groups of \"" + key + "\" must hold each of its meanings exactly once");
+  }
+  return entry.groups.map(function (g) { return g.slice(); });
+}
+
 // A card that names a vocabulary entry takes the word's content from it.
 // A Flashcard Deck card's word is its key; an Exercise Deck card gives it as
 // "vocab". Anything the card sets itself is kept (an override). A card may
@@ -90,11 +103,22 @@ function resolveGlossary(card, file, deck) {
   if (!card.answerText) out.answerText = entry.forms;
   if (deck.answer === "meanings") {
     out.word = entry.forms;
-    out.meanings = entry.meanings;
     out.origin = entry.examples || "";
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }
+    // One answer line per distinct meaning: the key-word lists of a group's
+    // synonyms are joined, so any one of them counts.
+    const groups = groupsOf(entry, card.gloss);
+    out.meaningGroups = groups;
+    out.meanings = groups.map(function (g) { return g.join(" or "); });
+    out.keys = groups.map(function (g) {
+      const list = [];
+      g.forEach(function (m) {
+        card.keys[entry.meanings.indexOf(m)].forEach(function (w) { if (list.indexOf(w) < 0) list.push(w); });
+      });
+      return list;
+    });
     delete out.glossForms; delete out.glossMeanings; delete out.answerText;
   }
   return out;
@@ -112,7 +136,7 @@ function resolveParts(card, file, deck) {
     parts: card.parts.map(function (pt) {
       const entry = glossary[pt.gloss];
       if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
-      const o = { label: pt.label, meanings: entry.meanings };
+      const o = { label: pt.label, meanings: entry.meanings, meaningGroups: groupsOf(entry, pt.gloss) };
       if (pt.note || entry.note) o.note = pt.note || entry.note;
       const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
