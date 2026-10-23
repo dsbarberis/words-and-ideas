@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__github__merge_pull_request",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 120,
+            "command": "R=/mnt/project-files; if [ -f \"$R/tools/hooks/dispatch.py\" ]; then python3 \"$R/tools/hooks/dispatch.py\" pre-merge || exit 2; else echo 'Publish gate: this session cannot reach the Project Files folder, so the merge is refused. Merge from a cloud session in the project, or ask the Architect.' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
