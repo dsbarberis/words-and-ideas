@@ -328,6 +328,7 @@
   }
   .miss-note .verdict { margin-right: 8px; }
   .miss-note .miss-reason { display: block; margin-top: 6px; color: var(--burgundy); }
+  .miss-note .miss-lines { display: block; margin-top: 6px; color: var(--ink-soft); }
   .miss-note .study-line { display: block; margin-top: 6px; color: var(--ink-soft); }
   .review-pill { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 10px; background: var(--rule); color: var(--ink); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
   .box-mark { font-weight: 700; margin-right: 4px; }
@@ -833,6 +834,21 @@
   .meaning-line.got .ml-mark { color: #cfe3c4; }
   .meaning-line.missing { opacity: 0.75; }
   .meaning-line.missing .ml-mark { color: #f1d3d0; }
+  /* Meaning Clouds (instructor, Oct 23, 2026): one pill per distinct meaning,
+     its synonyms inside joined by a small "or" (any one counts), and a count
+     above the pills. The same pill, smaller, on Exercise backs. */
+  .sense-count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #d6bb8a; margin: 0 0 8px; }
+  .senses { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .sense-pill { display: inline-block; max-width: 100%; padding: 6px 16px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(214,187,138,0.6); line-height: 1.25; }
+  .sense-pill .or { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 11px; letter-spacing: 0.6px; color: #d6bb8a; margin: 0 7px; }
+  .sense-pill .ml-mark { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-style: normal; font-size: 13px; margin-right: 8px; }
+  .sense-pill.got { border-color: rgba(159,196,140,0.8); }
+  .sense-pill.got .ml-mark { color: #cfe3c4; }
+  .sense-pill.missing { opacity: 0.75; border-style: dashed; }
+  .sense-pill.missing .ml-mark { color: #f1d3d0; }
+  .part .chips { display: inline-flex; flex-wrap: wrap; gap: 6px; vertical-align: top; }
+  .part .chip { display: inline-block; font-size: 0.95em; padding: 1px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(214,187,138,0.6); }
+  .part .chip .or { font-size: 10px; letter-spacing: 0.6px; color: #d6bb8a; margin: 0 5px; }
   .more-lines .line-row { display: flex; gap: 8px; margin-top: 8px; }
   .line-remove { flex: none; width: 36px; border: 1px solid var(--rule); border-radius: 8px; background: #fff; color: var(--ink-soft); font-size: 18px; line-height: 1; cursor: pointer; }
   .line-remove:disabled { opacity: 0.5; cursor: default; }
@@ -1055,6 +1071,11 @@
           "meanings": [
             "old"
           ],
+          "meaningGroups": [
+            [
+              "old"
+            ]
+          ],
           "accept": [
             "sen"
           ]
@@ -1063,6 +1084,11 @@
           "label": "-ile",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "ile"
@@ -1148,6 +1174,11 @@
           "meanings": [
             "one"
           ],
+          "meaningGroups": [
+            [
+              "one"
+            ]
+          ],
           "accept": [
             "uni"
           ]
@@ -1157,6 +1188,11 @@
           "meanings": [
             "side"
           ],
+          "meaningGroups": [
+            [
+              "side"
+            ]
+          ],
           "accept": [
             "later"
           ]
@@ -1165,6 +1201,11 @@
           "label": "-al",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "al"
@@ -1238,6 +1279,15 @@
             "kind",
             "origin"
           ],
+          "meaningGroups": [
+            [
+              "race",
+              "kind"
+            ],
+            [
+              "origin"
+            ]
+          ],
           "note": "related to GEN-, “to give birth to, produce”",
           "accept": [
             "gener"
@@ -1247,6 +1297,11 @@
           "label": "-ate",
           "meanings": [
             "verbal suffix"
+          ],
+          "meaningGroups": [
+            [
+              "verbal suffix"
+            ]
           ],
           "accept": [
             "ate"
@@ -1336,6 +1391,14 @@
             "to shine",
             "light"
           ],
+          "meaningGroups": [
+            [
+              "to shine"
+            ],
+            [
+              "light"
+            ]
+          ],
           "accept": [
             "lumin"
           ]
@@ -1345,6 +1408,14 @@
           "meanings": [
             "pertaining to",
             "one connected with"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ],
+            [
+              "one connected with"
+            ]
           ],
           "accept": [
             "ary"
@@ -1415,6 +1486,11 @@
           "meanings": [
             "to disturb"
           ],
+          "meaningGroups": [
+            [
+              "to disturb"
+            ]
+          ],
           "accept": [
             "turb"
           ]
@@ -1423,6 +1499,11 @@
           "label": "-ulent",
           "meanings": [
             "full of"
+          ],
+          "meaningGroups": [
+            [
+              "full of"
+            ]
           ],
           "accept": [
             "ulent"
@@ -1473,6 +1554,11 @@
           "meanings": [
             "water"
           ],
+          "meaningGroups": [
+            [
+              "water"
+            ]
+          ],
           "accept": [
             "aqu",
             "aqua"
@@ -1482,6 +1568,11 @@
           "label": "-ic",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "ic"
@@ -1547,6 +1638,11 @@
           "meanings": [
             "body"
           ],
+          "meaningGroups": [
+            [
+              "body"
+            ]
+          ],
           "accept": [
             "corpor",
             "corp",
@@ -1557,6 +1653,11 @@
           "label": "-ulent",
           "meanings": [
             "full of"
+          ],
+          "meaningGroups": [
+            [
+              "full of"
+            ]
           ],
           "accept": [
             "ulent"
@@ -1628,6 +1729,15 @@
             "beg",
             "prayer"
           ],
+          "meaningGroups": [
+            [
+              "to request",
+              "beg"
+            ],
+            [
+              "prayer"
+            ]
+          ],
           "accept": [
             "prec"
           ]
@@ -1638,6 +1748,14 @@
             "pertaining to",
             "one connected with"
           ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ],
+            [
+              "one connected with"
+            ]
+          ],
           "accept": [
             "ary",
             "ari"
@@ -1647,6 +1765,11 @@
           "label": "-ous",
           "meanings": [
             "full of"
+          ],
+          "meaningGroups": [
+            [
+              "full of"
+            ]
           ],
           "accept": [
             "ous"
@@ -1723,6 +1846,18 @@
             "against",
             "upon"
           ],
+          "meaningGroups": [
+            [
+              "in",
+              "into"
+            ],
+            [
+              "against"
+            ],
+            [
+              "upon"
+            ]
+          ],
           "accept": [
             "in",
             "im",
@@ -1735,6 +1870,14 @@
           "meanings": [
             "to call",
             "voice"
+          ],
+          "meaningGroups": [
+            [
+              "to call"
+            ],
+            [
+              "voice"
+            ]
           ],
           "accept": [
             "voc",
@@ -1795,6 +1938,11 @@
           "meanings": [
             "four"
           ],
+          "meaningGroups": [
+            [
+              "four"
+            ]
+          ],
           "accept": [
             "quadri"
           ]
@@ -1804,6 +1952,11 @@
           "meanings": [
             "side"
           ],
+          "meaningGroups": [
+            [
+              "side"
+            ]
+          ],
           "accept": [
             "later"
           ]
@@ -1812,6 +1965,11 @@
           "label": "-al",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "al"
@@ -1881,6 +2039,12 @@
             "flock",
             "herd"
           ],
+          "meaningGroups": [
+            [
+              "flock",
+              "herd"
+            ]
+          ],
           "accept": [
             "greg"
           ]
@@ -1891,6 +2055,14 @@
             "pertaining to",
             "one connected with"
           ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ],
+            [
+              "one connected with"
+            ]
+          ],
           "accept": [
             "ary",
             "ari"
@@ -1900,6 +2072,11 @@
           "label": "-ous",
           "meanings": [
             "full of"
+          ],
+          "meaningGroups": [
+            [
+              "full of"
+            ]
           ],
           "accept": [
             "ous"
@@ -1986,6 +2163,17 @@
             "off",
             "thoroughly"
           ],
+          "meaningGroups": [
+            [
+              "down"
+            ],
+            [
+              "off"
+            ],
+            [
+              "thoroughly"
+            ]
+          ],
           "accept": [
             "de"
           ]
@@ -1994,6 +2182,11 @@
           "label": "FLAT-",
           "meanings": [
             "to blow"
+          ],
+          "meaningGroups": [
+            [
+              "to blow"
+            ]
           ],
           "accept": [
             "flat"
@@ -2061,6 +2254,14 @@
             "back",
             "again"
           ],
+          "meaningGroups": [
+            [
+              "back"
+            ],
+            [
+              "again"
+            ]
+          ],
           "accept": [
             "re",
             "red"
@@ -2070,6 +2271,11 @@
           "label": "TEN-, TAIN-",
           "meanings": [
             "to hold"
+          ],
+          "meaningGroups": [
+            [
+              "to hold"
+            ]
           ],
           "accept": [
             "ten",
@@ -2142,6 +2348,15 @@
             "kind",
             "origin"
           ],
+          "meaningGroups": [
+            [
+              "race",
+              "kind"
+            ],
+            [
+              "origin"
+            ]
+          ],
           "note": "related to GEN-, “to give birth to, produce”",
           "accept": [
             "gener"
@@ -2151,6 +2366,11 @@
           "label": "-ic",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "ic"
@@ -2223,6 +2443,18 @@
             "against",
             "upon"
           ],
+          "meaningGroups": [
+            [
+              "in",
+              "into"
+            ],
+            [
+              "against"
+            ],
+            [
+              "upon"
+            ]
+          ],
           "accept": [
             "in",
             "im",
@@ -2235,6 +2467,14 @@
           "meanings": [
             "to burn",
             "flame"
+          ],
+          "meaningGroups": [
+            [
+              "to burn"
+            ],
+            [
+              "flame"
+            ]
           ],
           "accept": [
             "flam",
@@ -2308,6 +2548,14 @@
             "to shine",
             "light"
           ],
+          "meaningGroups": [
+            [
+              "to shine"
+            ],
+            [
+              "light"
+            ]
+          ],
           "accept": [
             "lumin"
           ]
@@ -2316,6 +2564,11 @@
           "label": "-ous",
           "meanings": [
             "full of"
+          ],
+          "meaningGroups": [
+            [
+              "full of"
+            ]
           ],
           "accept": [
             "ous"
@@ -2391,6 +2644,15 @@
             "together",
             "very"
           ],
+          "meaningGroups": [
+            [
+              "with",
+              "together"
+            ],
+            [
+              "very"
+            ]
+          ],
           "accept": [
             "con",
             "com",
@@ -2404,6 +2666,17 @@
             "due season",
             "to set bounds"
           ],
+          "meaningGroups": [
+            [
+              "time"
+            ],
+            [
+              "due season"
+            ],
+            [
+              "to set bounds"
+            ]
+          ],
           "accept": [
             "tempor",
             "temper"
@@ -2414,6 +2687,14 @@
           "meanings": [
             "pertaining to",
             "one connected with"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ],
+            [
+              "one connected with"
+            ]
           ],
           "accept": [
             "ary"
@@ -2481,6 +2762,14 @@
             "to serve",
             "save"
           ],
+          "meaningGroups": [
+            [
+              "to serve"
+            ],
+            [
+              "save"
+            ]
+          ],
           "accept": [
             "serv"
           ]
@@ -2489,6 +2778,11 @@
           "label": "-ile",
           "meanings": [
             "pertaining to"
+          ],
+          "meaningGroups": [
+            [
+              "pertaining to"
+            ]
           ],
           "accept": [
             "ile"
@@ -2562,6 +2856,18 @@
             "against",
             "upon"
           ],
+          "meaningGroups": [
+            [
+              "in",
+              "into"
+            ],
+            [
+              "against"
+            ],
+            [
+              "upon"
+            ]
+          ],
           "note": "causative",
           "accept": [
             "en",
@@ -2574,6 +2880,11 @@
           "label": "CANT-, CHANT-",
           "meanings": [
             "to sing"
+          ],
+          "meaningGroups": [
+            [
+              "to sing"
+            ]
           ],
           "accept": [
             "cant",
@@ -2658,6 +2969,18 @@
             "against",
             "upon"
           ],
+          "meaningGroups": [
+            [
+              "in",
+              "into"
+            ],
+            [
+              "against"
+            ],
+            [
+              "upon"
+            ]
+          ],
           "accept": [
             "in",
             "im",
@@ -2670,6 +2993,12 @@
           "meanings": [
             "to carry",
             "bear"
+          ],
+          "meaningGroups": [
+            [
+              "to carry",
+              "bear"
+            ]
           ],
           "accept": [
             "fer"
@@ -2708,6 +3037,11 @@
   // Latin Roots: the answer is the card's list of meanings, typed one per
   // line, and every meaning is required.
   const MEANINGS = DECK.answer === "meanings";
+  // The answer-effort rules (a real attempt before Check, the back hidden
+  // until right, a missed card back only after 3 others) hold in every
+  // deck's quiz: Exercise Decks since Oct 21, 2026, and Latin Roots, Greek
+  // History and Greek Mythology since the instructor's "Every quiz", Oct 23, 2026.
+  const EFFORT = DECK.answerEffort !== false;
   const NOUN = DECK.noun || "word";
   const CATS = {};
   (DECK.categories || []).forEach(function (c) { CATS[c.key] = c; });
@@ -3652,6 +3986,41 @@
       for (let i = 0; i + 1 < k.length; i++) if (word.indexOf(k.slice(i, i + 2)) >= 0) return true;
       return false;
     }
+    const idx = CARDS.indexOf(card);
+    // Latin Roots (instructor, Oct 23, 2026): each filled line needs a word
+    // of its own, not only little words and not only the root's own forms
+    // (unless that is a meaning, as ART "art"), and copies no five words of a
+    // note. How many lines is not checked: the count shows on the back only.
+    if (MEANINGS) {
+      // The root's forms, with and without optional letters: CUR(R)- gives cur and curr.
+      const own = [];
+      (String(card.word || "").toLowerCase().match(/[a-z()]+/g) || []).forEach(function (f) {
+        [f.replace(/\([a-z]*\)/g, ""), f.replace(/[()]/g, "")].forEach(function (x) { if (x.length >= 2 && own.indexOf(x) < 0) own.push(x); });
+      });
+      for (const line of (Array.isArray(vals) ? vals : [vals])) {
+        const v = String(line || "");
+        if (!v.trim()) continue;
+        if (copiesNote(card, v)) return COPY_NOTE;
+        const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
+        const echoes = content.length && content.every(function (w) { return own.indexOf(w.replace(/[^a-z]/g, "")) >= 0; });
+        // A line that is itself a meaning always counts as an attempt (AD- "to", -INE "of", ART- "art").
+        if ((!content.length || echoes) && !((judgeMeanings(idx, [v]).rows || [])[0] || { hits: [] }).hits.length) return "Type each meaning in your own words before checking.";
+      }
+      return "";
+    }
+    // Greek History and Greek Mythology: the rule of an Exercise meaning box.
+    if (!EXERCISE) {
+      const v = String(vals || "");
+      if (!v.trim()) return "";
+      if (copiesNote(card, v)) return COPY_NOTE;
+      // The headword word by word ("Achilles' heel" gives achilles and heel), with simple endings.
+      const own = [];
+      String(card.word || "").toLowerCase().split(/[^a-z]+/).filter(Boolean).forEach(function (w) { own.push(w, w + "s", w + "es", w + "ed", w + "d", w + "ing"); });
+      const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
+      const echoes = content.length && content.every(function (w) { return own.indexOf(w.replace(/[^a-z]/g, "")) >= 0; });
+      if ((!content.length || echoes) && !judge(idx, v).ok) return "Type a meaning in your own words before checking.";
+      return "";
+    }
     if (!card.boxes) {
       const v = String(vals || "");
       if (!v.trim() || card.kind === "choice" || card.kind === "order") return "";
@@ -3835,19 +4204,34 @@
     if (empty) empty.focus(); else addLine("", true);
   });
 
-  // The back of a meanings card: one meaning per line, marked got or
-  // missing once the answer is checked.
+  // A distinct meaning as a pill: its synonyms joined by a small "or".
+  function senseNode(cls, group) {
+    const d = el("span", cls);
+    group.forEach(function (w, j) {
+      if (j) d.appendChild(el("span", "or", "or"));
+      d.appendChild(document.createTextNode(w));
+    });
+    return d;
+  }
+  // The back of a meanings card: a count, then one pill per distinct meaning
+  // (Meaning Clouds form, Oct 23, 2026), each marked got or missing once
+  // the answer is checked.
   function fillMeanings(node, item, res) {
     node.innerHTML = "";
-    (item.meanings || []).forEach(function (m, k) {
-      const d = el("div", "meaning-line");
-      if (res) {
+    const groups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    const n = groups.length;
+    const got = res && res.got ? res.got.filter(Boolean).length : 0;
+    node.appendChild(el("div", "sense-count", (res && res.got ? got + " of " + n : n) + " meaning" + (n === 1 ? "" : "s")));
+    const box = el("div", "senses");
+    groups.forEach(function (g, k) {
+      const d = senseNode("sense-pill", g);
+      if (res && res.got) {
         d.classList.add(res.got[k] ? "got" : "missing");
-        d.appendChild(el("span", "ml-mark", res.got[k] ? "\u2713" : "\u2013"));
+        d.insertBefore(el("span", "ml-mark", res.got[k] ? "\u2713" : "\u2013"), d.firstChild);
       }
-      d.appendChild(document.createTextNode(m));
-      node.appendChild(d);
+      box.appendChild(d);
     });
+    node.appendChild(box);
   }
 
   // The student's lines, each marked as counted, repeated, another root's
@@ -4725,7 +5109,10 @@
     (item.parts || []).forEach(function (pt) {
       const d = el("span", "part");
       d.appendChild(el("b", "", pt.label));
-      d.appendChild(document.createTextNode(pt.meanings.join(", ")));
+      // One pill per distinct meaning (Meaning Clouds form, Oct 23, 2026).
+      const chips = el("span", "chips");
+      (pt.meaningGroups || pt.meanings.map(function (m) { return [m]; })).forEach(function (g) { chips.appendChild(senseNode("chip", g)); });
+      d.appendChild(chips);
       if (pt.note) d.appendChild(el("span", "part-note", " (" + pt.note + ")"));
       an.appendChild(d);
     });
@@ -4809,7 +5196,7 @@
       setQuizNav(ans);
       return;
     }
-    tagFront.textContent = "Round " + quiz.round;
+    tagFront.textContent = "Round " + quiz.round + (isReview(quiz.pos) ? " \u00b7 Review" : "");
     tagBack.textContent = "Round " + quiz.round;
     termFront.textContent = item.word;
     hintFront.hidden = true;
@@ -4819,12 +5206,17 @@
     if (MEANINGS) setLinesDisabled(!!ans);
 
     const res = MEANINGS && ans ? judgeMeanings(idx, ans.a) : null;
-    if (MEANINGS) fillMeanings(meaningBack, item, res);
+    // The back is filled only when it may be seen, so a missed card's
+    // answer is not on the page (every quiz, Oct 23, 2026).
+    const showBack = presenterMode || backShown(ans);
+    if (!showBack) { meaningBack.innerHTML = ""; originBack.textContent = ""; }
+    else if (MEANINGS) fillMeanings(meaningBack, item, res);
     else meaningBack.textContent = item.defn;
-    originBox.hidden = false;
-    originBack.textContent = item.origin;
-    feedbackBox.hidden = !ans;
-    if (ans) {
+    originBox.hidden = !showBack;
+    if (showBack) originBack.textContent = item.origin;
+    feedbackBox.hidden = !ans || !showBack;
+    fillMissMarks(item, ans);
+    if (ans && showBack) {
       if (res && res.rows) fillYourLines(item, res);
       else yourAnswer.textContent = ans.a;
       verdictEl.textContent = ans.ok ? "Correct" : "Not quite";
@@ -4834,9 +5226,10 @@
     }
     cardEl.classList.toggle("flipped", backShown(ans));
 
-    const answered = quiz.answers.filter(Boolean).length;
-    statusText.textContent = "Round " + quiz.round + " · " + answered + " of " + quiz.order.length + " answered";
-    progressFill.style.width = (answered / quiz.order.length) * 100 + "%";
+    const counted = countedPositions();
+    const answered = counted.filter(function (k) { return quiz.answers[k]; }).length;
+    statusText.textContent = "Round " + quiz.round + " · " + answered + " of " + counted.length + " answered";
+    progressFill.style.width = (counted.length ? answered / counted.length * 100 : 100) + "%";
     quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
     if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
     setQuizNav(ans);
@@ -4848,7 +5241,7 @@
   // (instructor, Oct 21, 2026). Teacher mode shows the back once answered.
   function backShown(ans) {
     if (presenterMode && teacherFlip !== null) return teacherFlip;
-    return !!ans && (!EXERCISE || presenterMode || !!ans.ok);
+    return !!ans && (!EFFORT || presenterMode || !!ans.ok);
   }
 
   function isReview(k) { return !!(quiz && quiz.review && quiz.review[k]); }
@@ -4869,6 +5262,7 @@
     form.querySelectorAll(".quiz-input").forEach(function (n) { n.classList.remove("in-ok", "in-no"); });
     missNote.hidden = true;
     missNote.innerHTML = "";
+    let lineNote = "";
     if (!ans || ans.ok || backShown(ans)) return;
     if (hasBoxes(item) && Array.isArray(ans.a)) {
       const res = judgeBoxes(CARDS.indexOf(item), ans.a);
@@ -4880,6 +5274,23 @@
         lab.insertBefore(el("span", "box-mark " + (parts[k] ? "ok" : "no"), parts[k] ? "\u2713" : "\u2717"), lab.firstChild);
         if (inputs[k]) inputs[k].classList.add(parts[k] ? "in-ok" : "in-no");
       });
+    } else if (MEANINGS && Array.isArray(ans.a)) {
+      // Each line marked: a line that counted for a meaning, or one that did not.
+      const res = judgeMeanings(CARDS.indexOf(item), ans.a);
+      const filled = lineInputs().filter(function (i) { return i.value.trim(); });
+      const counted = [];
+      let at = 0;
+      filled.forEach(function (inp) {
+        // This line's own pieces, in the order judgeMeanings made them.
+        const n = meaningPieces([inp.value]).length;
+        const r = (res.rows || []).slice(at, at + n);
+        at += n;
+        const hit = r.some(function (row) { return row.meaning >= 0; });
+        inp.classList.add(hit ? "in-ok" : "in-no");
+        if (hit) counted.push(inp.value.trim());
+      });
+      // Said in words too, not by colour alone; nothing says how many are missing.
+      lineNote = counted.length ? "Counted: " + counted.join("; ") + "." : "None of these lines counted.";
     } else if (item.kind === "choice") {
       const b = cardEl.querySelector('.choice[data-k="' + ans.a + '"]');
       if (b) b.classList.add("wrong");
@@ -4890,7 +5301,8 @@
     }
     const v = el("span", "verdict no", "Not quite");
     missNote.appendChild(v);
-    missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review question; it does not count." : "This question comes back later in the quiz."));
+    missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review " + (EXERCISE ? "question" : NOUN) + "; it does not count." : "This " + (EXERCISE ? "question" : NOUN) + " comes back later in the quiz."));
+    if (lineNote) missNote.appendChild(el("span", "miss-lines", lineNote));
     const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     if (why) missNote.appendChild(el("span", "miss-reason", why));
     const st = studyLine(item);
@@ -5016,7 +5428,9 @@
       copy.textContent = (DECK.quizIntro ? DECK.quizIntro + " " : "") + "Round 1 covers all " + size + " " + NOUN + (size === 1 ? "" : "s") +
         ". Any you miss come back in the next round, until you have answered every one correctly.";
       quizPanel.appendChild(copy);
-      actions.appendChild(panelButton("nav-btn", "Start the quiz &rarr;", startQuiz));
+      const startSetBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
+      actions.appendChild(startSetBtn);
+      if (EFFORT && !presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startSetBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -5025,11 +5439,13 @@
       statusText.textContent = known.size + " of " + N + " known";
       progressFill.style.width = "0%";
       title.textContent = "Quiz";
-      copy.textContent = "Type the meaning of each word, then press Check. Round 1 covers all " + N +
-        " words. Any you miss come back in the next round, until you have answered every word correctly.";
+      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " Round 1 covers all " + N +
+        " " + NOUN + "s. Any you miss come back in the next round, until you have answered every " + NOUN + " correctly.";
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
-      actions.appendChild(panelButton("nav-btn", "Start the quiz &rarr;", startQuiz));
+      const startAllBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
+      actions.appendChild(startAllBtn);
+      if (EFFORT && !presenterMode) waitFor(spaceOrder(CARDS.map(function (_, i) { return i; })).opensAt, copy, startAllBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -5108,7 +5524,7 @@
     quiz = null;
     quiz = newRound(1, indices);
     // A question missed moments ago, on this tab or another, waits its turn here too.
-    if (EXERCISE && !presenterMode) {
+    if (EFFORT && !presenterMode) {
       const plan = spaceOrder(quiz.order);
       if (plan.opensAt > Date.now()) { quiz = null; render(); return; }
       quiz.order = plan.order;
@@ -5123,8 +5539,9 @@
   }
 
   function startNextRound() {
-    const plan = quiz.next;
-    if (plan && plan.opensAt > Date.now()) return;
+    // A quiz saved before the rules reached this deck has no plan yet.
+    const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
+    if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
     if (plan) {
       const r = newRound(quiz.round + 1, plan.order);
       r.order = plan.order.slice();
@@ -5147,7 +5564,7 @@
     const text = isChoice ? choice : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     if (Array.isArray(text) && typedEg(text)) { egPop.hidden = false; document.getElementById("egPopOk").focus(); return; }
     // Teacher mode skips the good-faith gate (Answer Effort plan, Oct 19, 2026).
-    if (EXERCISE && !presenterMode && !isChoice && kind !== "order") {
+    if (EFFORT && !presenterMode && !isChoice && kind !== "order") {
       const gf = goodFaith(CARDS[idx], text);
       if (gf) { quizNote.textContent = gf; answerInput.focus(); return; }
     }
@@ -5165,7 +5582,7 @@
     quizNote.textContent = "";
     quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
     if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
-    if (EXERCISE && !presenterMode) {
+    if (EFFORT && !presenterMode) {
       spacing.n++;
       if (result.ok) delete spacing.miss[idx];
       else if (!isReview(quiz.pos)) spacing.miss[idx] = { n: spacing.n, t: Date.now() };
@@ -5210,7 +5627,7 @@
     }
     if (!quiz.sent) sendQuizRound();
     quiz.phase = roundMissed().length ? "between" : "done";
-    if (quiz.phase === "between" && EXERCISE && !presenterMode) quiz.next = planNextRound();
+    if (quiz.phase === "between" && EFFORT && !presenterMode) quiz.next = planNextRound();
     saveQuiz();
     render();
   }

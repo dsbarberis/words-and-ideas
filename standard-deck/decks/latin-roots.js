@@ -9,6 +9,10 @@
 // instructor's choice; the earlier wordings stay accepted in the lists, and
 // the key words for the book's added meanings (very, thoroughly, secretly,
 // wrongly, in front of, behind and others) are Claude's, unchecked.
+// Oct 23, 2026 (Meaning Clouds form): synonyms among a root's meanings form
+// one distinct meaning (the glossary's "groups"), and any one counts. The
+// lists below stay one per printed meaning; the build joins the lists of
+// each group.
 const SEE=["see","sight","vision"], STRONG=["strong","strength","sturdy","mighty","powerful"],
  GO=["go","move","proceed"], PUSH=["push","shove","press"], HOLY=["holy","holiness","hallowed"],
  AROUND=["around","round","about","surrounding"], BEFORE=["before","prior","earlier","previous","preceding"],
@@ -26,7 +30,8 @@ module.exports = {
   shufflePasses: true, // every Learn pass starts in a new random order (instructor, Oct 12, 2026)
   noun: "card",
   backLabel: "Examples",
-  quizIntro: "Type every meaning of each base, prefix or suffix, one per line. Tap “+ Add another meaning” (or press Enter) for each new line.",
+  // Instruction approved on the Meaning Clouds form (instructor, Oct 23, 2026).
+  quizIntro: "Type each meaning on its own line. Where a meaning has synonyms, any one of them counts. Tap “+ Add another meaning” (or press Enter) for each new line.",
   categories: [
     { key: "base", label: "Bases" },
     { key: "prefix", label: "Prefixes" },

@@ -39,10 +39,27 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   Quiz modes, for content to be memorized.
   - Latin Roots (`decks/latin-roots.js`, built as `index.html`) is a meanings deck
     (`answer: "meanings"`): each card is a glossary entry, with its forms on the front
-    and its meanings (one per line) and examples on the back. In the quiz the student
+    and its meanings and examples on the back. In the quiz the student
     types the meanings one per line ("+ Add another meaning", or Enter), and every
-    meaning is required. `keys` holds one key-word list per meaning, in the glossary's
-    order. A line that matches only another card's wording makes the answer wrong;
+    distinct meaning is required. `keys` holds one key-word list per printed meaning, in
+    the glossary's order. **Meaning Clouds** (instructor, Oct 23, 2026): a glossary
+    entry's `groups` sorts its meanings into distinct meanings, each a list of
+    synonyms of which any one counts (`[["art","skill"]]` is one meaning; JUR- has
+    three). The build joins the key-word lists of each group, so one line answers a
+    group. The back shows a count ("3 meanings", "2 of 3 meanings" after a check) and
+    one pill per distinct meaning, its synonyms joined by a small "or"; Exercise backs
+    show the same pills, smaller, beside each element. An entry without `groups` has
+    one meaning per group.
+- **Answer effort in every quiz** (Exercise Decks since Oct 21, 2026; Latin Roots,
+  Greek History and Greek Mythology since the instructor's "Every quiz", Oct 23,
+  2026): a real attempt before Check, the back hidden and off the page until the
+  answer is right, a missed card back only after 3 others (with review cards already
+  right, which never count, or a 2-minute pause). On Latin Roots each filled line needs
+  a word of its own (not only little words, not only the root's own forms unless that
+  is a meaning) and copies no five words of a note; the number of lines is not
+  checked, since the count shows on the back only. Greek History and Greek Mythology
+  use the rule of an Exercise meaning box. Teacher mode skips the gate. A deck can
+  opt out with `answerEffort: false`. A line that matches only another card's wording makes the answer wrong;
     a line that matches nothing is ignored. The quiz always covers every card (the
     instructor dropped quizzing by tab on Oct 12, 2026; `quizBySet: true` would make a
     deck's quiz cover the selected tab, with Sheet rows such as "quiz round 1 (Bases)").
