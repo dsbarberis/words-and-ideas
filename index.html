@@ -5118,14 +5118,19 @@
     // (unless that is a meaning, as ART "art"), and copies no five words of a
     // note. How many lines is not checked: the count shows on the back only.
     if (MEANINGS) {
-      const own = String(card.word || "").toLowerCase().split(/[^a-z]+/).filter(function (f) { return f.length >= 2; });
+      // The root's forms, with and without optional letters: CUR(R)- gives cur and curr.
+      const own = [];
+      (String(card.word || "").toLowerCase().match(/[a-z()]+/g) || []).forEach(function (f) {
+        [f.replace(/\([a-z]*\)/g, ""), f.replace(/[()]/g, "")].forEach(function (x) { if (x.length >= 2 && own.indexOf(x) < 0) own.push(x); });
+      });
       for (const line of (Array.isArray(vals) ? vals : [vals])) {
         const v = String(line || "");
         if (!v.trim()) continue;
         if (copiesNote(card, v)) return COPY_NOTE;
         const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
         const echoes = content.length && content.every(function (w) { return own.indexOf(w.replace(/[^a-z]/g, "")) >= 0; });
-        if (!content.length || (echoes && !((judgeMeanings(idx, [v]).rows || [])[0] || { hits: [] }).hits.length)) return "Type each meaning in your own words before checking.";
+        // A line that is itself a meaning always counts as an attempt (AD- "to", -INE "of", ART- "art").
+        if ((!content.length || echoes) && !((judgeMeanings(idx, [v]).rows || [])[0] || { hits: [] }).hits.length) return "Type each meaning in your own words before checking.";
       }
       return "";
     }
@@ -5134,10 +5139,12 @@
       const v = String(vals || "");
       if (!v.trim()) return "";
       if (copiesNote(card, v)) return COPY_NOTE;
-      const own = [word, word + "s", word + "es", word + "ed", word + "d", word + "ing"];
+      // The headword word by word ("Achilles' heel" gives achilles and heel), with simple endings.
+      const own = [];
+      String(card.word || "").toLowerCase().split(/[^a-z]+/).filter(Boolean).forEach(function (w) { own.push(w, w + "s", w + "es", w + "ed", w + "d", w + "ing"); });
       const content = toTokens(v).filter(function (w) { return LIGHT.indexOf(w) < 0; });
       const echoes = content.length && content.every(function (w) { return own.indexOf(w.replace(/[^a-z]/g, "")) >= 0; });
-      if (!content.length || (echoes && !judge(idx, v).ok)) return "Type a meaning in your own words before checking.";
+      if ((!content.length || echoes) && !judge(idx, v).ok) return "Type a meaning in your own words before checking.";
       return "";
     }
     if (!card.boxes) {
@@ -6398,8 +6405,12 @@
       const res = judgeMeanings(CARDS.indexOf(item), ans.a);
       const filled = lineInputs().filter(function (i) { return i.value.trim(); });
       const counted = [];
+      let at = 0;
       filled.forEach(function (inp) {
-        const r = (res.rows || []).filter(function (row) { return inp.value.indexOf(row.text) >= 0; });
+        // This line's own pieces, in the order judgeMeanings made them.
+        const n = meaningPieces([inp.value]).length;
+        const r = (res.rows || []).slice(at, at + n);
+        at += n;
         const hit = r.some(function (row) { return row.meaning >= 0; });
         inp.classList.add(hit ? "in-ok" : "in-no");
         if (hit) counted.push(inp.value.trim());
@@ -6554,8 +6565,8 @@
       statusText.textContent = known.size + " of " + N + " known";
       progressFill.style.width = "0%";
       title.textContent = "Quiz";
-      copy.textContent = "Type the meaning of each word, then press Check. Round 1 covers all " + N +
-        " words. Any you miss come back in the next round, until you have answered every word correctly.";
+      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " Round 1 covers all " + N +
+        " " + NOUN + "s. Any you miss come back in the next round, until you have answered every " + NOUN + " correctly.";
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
       const startAllBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
@@ -6654,8 +6665,9 @@
   }
 
   function startNextRound() {
-    const plan = quiz.next;
-    if (plan && plan.opensAt > Date.now()) return;
+    // A quiz saved before the rules reached this deck has no plan yet.
+    const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
+    if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
     if (plan) {
       const r = newRound(quiz.round + 1, plan.order);
       r.order = plan.order.slice();
