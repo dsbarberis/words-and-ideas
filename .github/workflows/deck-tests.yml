@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: deck-tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deck-tests:
     name: Deck tests
@@ -29,6 +33,6 @@ jobs:
       - name: Install Playwright and its browser
         run: |
           npm install -g playwright@1.56.1
-          npx -y playwright@1.56.1 install --with-deps chromium
+          playwright install --with-deps chromium
       - name: Run the deck tests
         run: NODE_PATH="$(npm root -g)" node standard-deck/tests/run.js
