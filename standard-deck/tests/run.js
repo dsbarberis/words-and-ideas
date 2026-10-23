@@ -60,6 +60,7 @@ function testNoWorkingNotes(decks) {
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
   s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE," +
+    "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
@@ -74,7 +75,8 @@ async function browserTests(decks) {
   catch (e) { report("browser tests", ["Playwright not found; run with NODE_PATH=$(npm root -g)"], "not run"); return; }
   const browser = await chromium.launch();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-test-"));
-  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [];
+  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [], flashFails = [];
+  let flashCount = 0;
   const effort = { checked: 0 };
   let uiCount = 0;
   let checked = 0;
@@ -102,6 +104,16 @@ async function browserTests(decks) {
       effort.checked += ef.checked;
       ef.fails.forEach(x => effortFails.push(f + ": " + x));
       const isEx = await page.evaluate(() => __t.EX());
+      if (!isEx) {
+        const fc = await page.evaluate(flashcardChecks);
+        flashCount += fc.checked;
+        fc.fails.forEach(x => flashFails.push(f + ": " + x));
+        let ui;
+        try { ui = await flashcardUi(page); }
+        catch (e) { ui = { checked: 0, fails: ["the in-deck check stopped: " + String(e.message).split("\n")[0]] }; }
+        flashCount += ui.checked;
+        ui.fails.forEach(x => flashFails.push(f + ": " + x));
+      }
       if (isEx) {
         let ui;
         try { ui = await uiChecks(page); }
@@ -117,6 +129,7 @@ async function browserTests(decks) {
   report("model answers", modelFails, checked + " cards checked");
   report("answer effort", effortFails, effort.checked + " checks of the gate, the copy prompt, lists and spacing");
   report("answer effort in the deck", uiFails, uiCount + " answers typed and checked with the deck's own Check button");
+  report("Flashcard quizzes", flashFails, flashCount + " checks of meaning groups, the gate, the hidden back and spacing in the Flashcard Decks");
   notes.forEach(n => console.log("     note: " + n));
 }
 
@@ -318,6 +331,119 @@ async function uiChecks(page) {
       if (!/comes back later/.test(res.miss) || !/To study it/.test(res.miss)) fails.push("miss: no miss line or study line on the front");
       if (!res.marks) fails.push("miss: no marks on the front");
     }
+  }
+  return { checked, fails };
+}
+
+// Flashcard Decks (Meaning Clouds and "Every quiz", instructor, Oct 23, 2026).
+// Runs inside the page. Latin Roots: each group's synonyms count once and any
+// one of them answers the group; every printed meaning and key word passes the
+// gate; little words and the root's own forms are refused unless they are a
+// meaning. Greek decks: the headword typed back and little words are refused,
+// the printed definition is not. All: a missed card waits for 3 others.
+function flashcardChecks() {
+  const fails = []; let checked = 0;
+  const C = __t.CARDS;
+  if (__t.MEANINGS()) {
+    C.forEach((c, i) => {
+      const groups = c.meaningGroups || [];
+      checked++;
+      if (!groups.length || groups.length !== c.meanings.length || groups.length !== c.keys.length) { fails.push(c.word + ": groups, meanings and key-word lists do not match"); return; }
+      // One synonym from each group answers the card.
+      groups.forEach((g, k) => {
+        g.forEach(w => {
+          checked++;
+          if (__t.goodFaith(c, [w])) fails.push(c.word + ": printed meaning \"" + w + "\" refused by the gate");
+          // A line may fit two groups ("up from under" fits SUB-'s "under" too); it must fit its own.
+          const r = __t.judgeMeanings(i, [w]);
+          if (!r.rows || !r.rows.some(row => row.hits.indexOf(k) >= 0)) fails.push(c.word + ": \"" + w + "\" does not answer its group " + (k + 1));
+        });
+      });
+      checked++;
+      const one = groups.map(g => g[g.length - 1]);
+      if (!__t.judgeMeanings(i, one).ok) fails.push(c.word + ": one synonym per group " + JSON.stringify(one) + " marked wrong");
+      if (groups.length > 1) {
+        checked++;
+        if (__t.judgeMeanings(i, one.slice(1)).ok) fails.push(c.word + ": an answer missing a group was marked right");
+      }
+      c.keys.forEach(l => l.forEach(w => { checked++; if (__t.goodFaith(c, [w])) fails.push(c.word + ": key word \"" + w + "\" refused by the gate"); }));
+      // Little words and the root's own forms are no attempt, unless they are a meaning.
+      const forms = (c.word.toLowerCase().match(/[a-z()]+/g) || []).map(f => f.replace(/[()]/g, "")).filter(f => f.length >= 2);
+      ["the of", "to"].concat(forms).forEach(v => {
+        const isMeaning = ((__t.judgeMeanings(i, [v]).rows || [])[0] || { hits: [] }).hits.length;
+        if (isMeaning) return;
+        checked++;
+        if (!__t.goodFaith(c, [v])) fails.push(c.word + ": \"" + v + "\" passed the gate");
+      });
+    });
+  } else {
+    C.forEach((c, i) => {
+      checked++;
+      if (c.defn && __t.goodFaith(c, c.defn)) fails.push(c.word + ": printed definition refused by the gate");
+      checked++;
+      if (!__t.goodFaith(c, "the of")) fails.push(c.word + ": little words passed the gate");
+      checked++;
+      if (!__t.judge(i, c.word).ok && !__t.goodFaith(c, c.word)) fails.push(c.word + ": the headword typed back passed the gate");
+    });
+  }
+  // A missed card comes back after at least 3 others.
+  if (C.length >= 8) {
+    const saved = __t.quiz();
+    const kn = __t.known(); const keep = new Set(kn);
+    kn.clear(); for (let k = 0; k < C.length; k++) if (k !== 7) kn.add(k);
+    __t.setSpacing({ n: 8, miss: { 7: { n: 8, t: Date.now() } } });
+    checked++;
+    const q = __t.space([7, 0, 1, 2]);
+    if (q.order.indexOf(7) < 3) fails.push("spacing: a card missed just now came back before 3 others");
+    __t.setSpacing({ n: 0, miss: {} });
+    kn.clear(); keep.forEach(x => kn.add(x));
+    __t.setQuiz(saved);
+  }
+  return { checked, fails };
+}
+
+// Through the deck itself (made-up learner): a miss keeps the back empty and
+// hidden, with no count on the page; a right answer shows the back, and on
+// Latin Roots the count and one pill per group.
+async function flashcardUi(page) {
+  const fails = []; let checked = 0;
+  await page.fill("#nameInput", "Test Student");
+  await page.keyboard.press("Enter");
+  await page.click("button.mode-tab[data-mode=quiz], .mode-tab:has-text('Quiz'), button:has-text('Quiz')");
+  const start = page.locator("#quizPanel button", { hasText: "Start the quiz" });
+  if (await start.count()) await start.first().click();
+  const pick = await page.evaluate(() => {
+    const C = __t.CARDS, M = __t.MEANINGS();
+    const multi = M ? C.findIndex(c => c.meaningGroups.length > 1) : 0;
+    return { M, miss: multi, right: M ? C.findIndex((c, i) => i !== multi && c.meaningGroups.length > 1) : 1 };
+  });
+  // A miss: only the first group answered (Latin Roots), or a wrong meaning.
+  await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); }, pick.miss);
+  const missVal = await page.evaluate(p => p.M ? __t.CARDS[p.miss].meaningGroups[0][0] : "zebra quartz violin", pick);
+  await page.fill("#answerInput", missVal);
+  await page.click("#checkBtn");
+  let res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok }, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), origin: document.getElementById("originBack").textContent.trim(), count: document.querySelectorAll(".sense-count, .sense-pill").length, miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent }; }, pick.miss);
+  checked++;
+  if (!res.a) fails.push("miss: the answer was not checked");
+  else if (res.a.ok) fails.push("miss: a partial or wrong answer was marked right");
+  else {
+    if (res.flipped) fails.push("miss: the back was shown");
+    if (res.back || res.origin || res.count) fails.push("miss: the answer or the count is on the page");
+    if (!/comes back later/.test(res.miss)) fails.push("miss: no \"comes back later\" line on the front");
+  }
+  // A right answer.
+  await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); }, pick.right);
+  const vals = await page.evaluate(p => p.M ? __t.CARDS[p.right].meaningGroups.map(g => g[g.length - 1]) : [__t.CARDS[p.right].defn], pick);
+  await page.fill("#answerInput", vals[0]);
+  for (const v of vals.slice(1)) { await page.keyboard.press("Enter"); await page.keyboard.type(v); }
+  await page.click("#checkBtn");
+  res = await page.evaluate(p => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(p.right)]; return { a: a && { ok: a.ok }, note: document.getElementById("quizNote").textContent, flipped: document.getElementById("card").classList.contains("flipped"), pills: document.querySelectorAll("#meaningBack .sense-pill").length, count: (document.querySelector("#meaningBack .sense-count") || {}).textContent || "", groups: p.M ? __t.CARDS[p.right].meaningGroups.length : 0 }; }, pick);
+  checked++;
+  if (!res.a) fails.push("right: the answer was not checked (" + res.note + ")");
+  else if (pick.M && !res.a.ok) fails.push("right: one synonym per group " + JSON.stringify(vals) + " marked wrong");
+  else if (res.a.ok) {
+    if (!res.flipped) fails.push("right: the back was not shown");
+    if (pick.M && (res.pills !== res.groups || res.count !== res.groups + " of " + res.groups + " meanings")) fails.push("right: the back shows " + res.pills + " pills and \"" + res.count + "\" for " + res.groups + " meanings");
   }
   return { checked, fails };
 }
