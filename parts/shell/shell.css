@@ -1,0 +1,35 @@
+/* Page shell (part 1.3). Needs one of the colour sheets from parts/tokens/dist/ first.
+   Base type, focus, the status line, indicator glyphs, dialogs, tabs and the "Next Unanswered"
+   control, drawn once for every page (general design checklist, sections 2 to 5 and 10). */
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.5; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.25; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button, input, select, textarea { font: inherit; }
+button { min-height: 24px; min-width: 24px; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Status line: one line of fixed wording (shell.js, STATUS). */
+.sp-status { min-height: 1.5em; padding: 4px 8px; border-radius: 4px; color: var(--ink-soft); }
+.sp-status[data-kind="ok"] { background: var(--ok-soft); color: var(--ok); }
+.sp-status[data-kind="warn"] { background: var(--warn-soft); color: var(--warn); }
+.sp-status[data-kind="bad"] { background: var(--bad-soft); color: var(--bad); }
+
+/* Indicator glyphs: a fixed size of their own, never the size of the text around them. */
+.sp-ind { display: inline-block; font-size: 16px; line-height: 1; width: 1.25em; text-align: center; font-style: normal; }
+button.sp-ind { min-width: 24px; min-height: 24px; padding: 0; border: 0; background: none; color: inherit; }
+
+/* Dialog */
+.sp-dialog { border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); color: var(--ink); max-width: min(560px, calc(100vw - 32px)); padding: 16px; }
+.sp-dialog::backdrop { background: rgba(0, 0, 0, .35); }
+.sp-dialog .sp-close { float: right; }
+
+/* Tabs */
+.sp-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--rule); margin-bottom: 12px; }
+.sp-tabs [role="tab"] { border: 1px solid transparent; border-bottom: 0; background: none; color: var(--ink-soft); padding: 8px 14px; min-height: 44px; border-radius: 6px 6px 0 0; }
+.sp-tabs [role="tab"][aria-selected="true"] { background: var(--surface); color: var(--ink); border-color: var(--rule); font-weight: 600; margin-bottom: -1px; }
+
+/* Next Unanswered */
+.sp-next { border: 1px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 6px; padding: 6px 12px; min-height: 44px; }
+.sp-next[disabled] { opacity: .6; cursor: default; }

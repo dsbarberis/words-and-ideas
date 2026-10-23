@@ -1,0 +1,14 @@
+/* Filter chips and saved views (part 1.5). */
+.sp-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sp-chips .sp-group { display: contents; }
+.sp-chips .sp-group-label { color: var(--ink-soft); font-size: .9em; margin-left: 6px; }
+.sp-chip { border: 1px solid var(--rule); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 4px 12px; min-height: 32px; }
+.sp-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.sp-chip .n { color: inherit; opacity: .8; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.sp-chips .sp-clear { border: 0; background: none; color: var(--accent); text-decoration: underline; min-height: 32px; }
+.sp-views { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.sp-views .sp-empty { color: var(--ink-soft); }
+.sp-views .sp-view { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.sp-views .sp-view button { border: 0; background: var(--surface); color: var(--ink); min-height: 32px; padding: 4px 10px; }
+.sp-views .sp-view button + button { border-left: 1px solid var(--rule); color: var(--ink-soft); }
+.sp-views .sp-save { border: 1px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 6px; min-height: 32px; padding: 4px 10px; }
