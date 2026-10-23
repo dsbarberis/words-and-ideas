@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-10-22). Do not edit by hand.
+Written by build.js on every rebuild (2026-10-23). Do not edit by hand.
 
 ## 1. Conflicts
 
@@ -72,9 +72,9 @@ Written by build.js on every rebuild (2026-10-22). Do not edit by hand.
 
 ## 2. Wording still marked "Claude, unchecked"
 
-### Glossary meanings (106)
+### Glossary meanings (1)
 
-ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, yield, withdraw · CLUD-, CLUS-, [CLOS-] to close, shut · CRUC- cross · CUR(R)-, CURS- [COURS-], [COR(S)-] to run · DUC-, DUCT- to lead · FAC- [FIC-] to make, do · FIN- end, boundary · FIRM- strong, firm · FORT- strong, brave · GRAD-, GRESS- to step, go, walk · GRAND- great, large · GRAV- [GRIEV-] heavy · GREG- flock, group · HAB-, AB- [HIB-] to have, hold · JUDIC- to judge · JUR-, JUST- law, right, to swear · LEV- light (weight), to lift · LINE- [LIGN-] line, thread · LIMIN- threshold · LOC- place · LOQU-, LOCUT- to speak, talk · LUD-, LUS- to play · NIHIL- nothing · NOMIN- name · NUL(L)- none, not any · PART- part, share · PED- foot · PEND-, PENS- to hang, weigh, pay · PLE-, PLET-, PLEN- to fill, full · PREC- to pray, ask, beg · PULS- to drive, push, beat · PUNG-, PUNCT- to prick, pierce, point · SACR- [SECR-] sacred, holy · SANCT- holy, inviolable · SENT-, SENS- to feel, perceive · SPEC-, (SPIC-), SPECT- to look, see · SPIR- to breathe · TRUD-, TRUS- to push, thrust · TURB- to disturb, confuse, crowd · UND- [OUND-] wave · VEN-, VENT-, [VENU-] to come · VERB- word · VERT-, VERS- to turn · VEST- clothing · VI(A)- way, road · VID-, VIS- [VIEW-] to see · VOC-, VOK- to call, voice · AB-, A-, ABS- away from, from · AD-, AC- to, toward · AMBI- both, around · ANTE- before · CIRCUM- around · CON-, COM-, CO- with, together · CONTRA-, CONTRO-, COUNTER- against · DE- down, away, reversal · DIS-, DI-, DIF- apart, not, away · EX-, E-, EF- out, out of · EXTRA-, EXTRO- outside, beyond · IN-, IM- [IG- before n] (negative) not, without · IN-, IM-, [EN-], [EM-] (directional) into, in, on, upon · INFRA- below, beneath · INTER- between, among · INTRA-, INTRO- within, inside · NON- not · OB- against, toward, in the way · PER- through, thoroughly · POST- after · PRE- before · PRO- forward, for, in favor of · RE-, RED- (before vowels) back, again · RETRO- backward · SE-, SED- (before vowels) apart, aside, without · SUB-, SUS-, SUC- under, below · SUPER- [SUR-] above, over · TRANS-, TRAN-, TRA- across, through, beyond · ULTRA- beyond, excessively · SEN- old · LATER- side · LUMIN- to shine, light · AQU(A)- water · CORPOR-, CORP(US)- body · FLAT- to blow · TEN-, TAIN- to hold · FLAG(R)-, FLAM(M)- flame · TEMPOR- time · SERV- to serve · CANT-, CHANT- to sing · FER- to carry, bear · BENE-, BON- good, well · EQU-, (IQU-) equal · REG-, (RIG-), RECT- to rule, straight · DOM(IN)- house, master · PRIM- first · UNI- one · QUADRI- four · -ILE pertaining to, like · -AL pertaining to · -ATE to make, do · -ULENT full of, disposed to · -IC pertaining to · -OUS full of · MAGN- great · OMNI- all · -AIN pertaining to
+LIMIN- threshold
 
 ## 3. Which decks use each word
 
