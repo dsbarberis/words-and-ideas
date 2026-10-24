@@ -2596,6 +2596,7 @@
     let mixed = null, echo = null, tooLong = false;
     const parts = card.boxes.map(function (b, k) {
       const v = String(vals[k] || "").trim();
+      if (/^el:/.test(b.check || "")) return elementsMatch(v, (card.parts || []).filter(function (pt) { return pt.type === b.check.slice(3); }));
       if (!v) return false;
       if (b.check === "greek") return oneOf(v, card.greekForms, greekKey) || listOf(v, card.greekForms, greekKey);
       if (b.check === "deriv") return derivList(v, card.derivs);
@@ -2650,6 +2651,40 @@
     if (k < parts.length) return false;
     // After the last element, another element's form ("-ous") is an extra element.
     return !toks.slice(t).some(function (w) { return w.length >= 2 && elementForms()[w]; });
+  }
+
+  // An element box (instructor, Oct 20 and Oct 24, 2026): the word's
+  // prefixes, bases or suffixes, each with a meaning, in any order. A box
+  // whose kind the word lacks is right when left empty or marked "none".
+  // Otherwise every element must be there in a form the card accepts, and
+  // for each element one meaning: a glossary meaning, a plain wording the
+  // glossary allows, or the answer key's wording on this card. A meaning
+  // counts when each of its content words is there, in any ending; little
+  // words and the words "suffix" and "prefix" need not be typed.
+  const NONE = /^(none|no|n\/?a|nothing|-+|\u2013|\u2014|0)\.?$/i;
+  const MEAN_FILLER = ["to", "a", "an", "the", "of", "or", "and", "be", "suffix", "prefix"];
+  function elementsMatch(v, parts) {
+    v = String(v || "").trim();
+    if (!parts.length) return !v || NONE.test(v);
+    if (!v) return false;
+    const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
+    function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
+    const formsIn = parts.every(function (pt) {
+      return toks.some(function (t) { return (pt.accept || []).some(function (a) { return fits(t, a); }); });
+    });
+    if (!formsIn) return false;
+    function near(a, b) { const n = Math.min(5, a.length, b.length); return a === b || stem(a) === stem(b) || (n >= 4 && a.slice(0, n) === b.slice(0, n)); }
+    function says(m) {
+      const all = toTokens(m), content = all.filter(function (w) { return MEAN_FILLER.indexOf(w) < 0; });
+      const need = content.length ? content : all; // "to" (AD-) is itself the meaning
+      return need.length > 0 && need.every(function (w) { return toks.some(function (t) { return near(t, w); }); });
+    }
+    return parts.every(function (pt) {
+      // A wording such as "to sit, settle" gives each of its meanings.
+      const ways = [];
+      (pt.meanings || []).concat(pt.alsoMeans || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
+      return ways.some(says);
+    });
   }
 
   let ELEMENT_FORMS = null;
@@ -3068,6 +3103,7 @@
   const LIGHT = ["to", "a", "an", "the", "of", "or", "and", "is", "it", "be"];
   function boxKind(b) {
     if (b.check === "parts") return "parts";
+    if (/^el:/.test(b.check || "")) return b.check;
     if (b.check === "greek") return "greek";
     if (b.check === "deriv") return /^base$/i.test(b.label || "") ? "base" : "deriv";
     if (b.check === "names") return "names";
@@ -3152,6 +3188,15 @@
         const toks = v.toLowerCase().split(/[^a-z]+/).filter(Boolean);
         if (toks.length < (card.parts || []).length || !toks.some(function (w) { return w.length >= 2 && fromWord(w); }))
           return "Please analyze the word into its elements (prefixes, bases, suffixes) before checking.";
+        continue;
+      }
+      // An element box: a Bases box needs letters found in the word; any
+      // element box is refused when it copies a note, and a filled Prefixes
+      // or Suffixes box needs letters of its own (or "none").
+      if (/^el:/.test(kind)) {
+        if (copiesNote(card, v)) return COPY_NOTE;
+        if (kind === "el:base" && !fromWord(v)) return "Please type the base you find in the word, with its meaning, before checking.";
+        if (!NONE.test(v.trim()) && v.replace(/[^A-Za-z]/g, "").length < 2) return "Type each element with its meaning, or none, before checking.";
         continue;
       }
       // Only a Base box (Lesson X Exercise IV) must share letters with the word: an
