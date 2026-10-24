@@ -166,9 +166,9 @@ function resolveParts(card, file, deck) {
     // Element boxes (instructor, Oct 20 and Oct 24, 2026): one box each for
     // prefixes, bases and suffixes, every element with its meaning, then the
     // meaning in context. The card is right only when every box is.
-    out.boxes = [{ label: "Prefixes and their meanings", placeholder: "Each prefix with its meaning, or none", check: "el:prefix" },
-                 { label: "Bases and their meanings", placeholder: "Each base with its meaning", check: "el:base" },
-                 { label: "Suffixes and their meanings", placeholder: "Each suffix with its meaning, or none", check: "el:suffix" },
+    out.boxes = [{ label: "Prefixes and their meanings", placeholder: "Prefix + meaning, or none", check: "el:prefix" },
+                 { label: "Bases and their meanings", placeholder: "Base + meaning", check: "el:base" },
+                 { label: "Suffixes and their meanings", placeholder: "Suffix + meaning, or none", check: "el:suffix" },
                  { label: "Meaning in context", placeholder: card.placeholder || "Your answer" }];
   } else if (deck.analysis && !card.boxes) {
     out.boxes = [{ label: "Analysis (forms only)", placeholder: "e.g. pre- DIC- -tion" },
