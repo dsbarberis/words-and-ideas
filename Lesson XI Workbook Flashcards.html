@@ -3029,21 +3029,24 @@
     if (!v) return false;
     const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
     function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
-    const formsIn = parts.every(function (pt) {
-      return toks.some(function (t) { return (pt.accept || []).some(function (a) { return fits(t, a); }); });
+    // The place of each element's form: that word is the form, not a
+    // meaning ("-able" alone does not give the meaning "able to").
+    const formAt = parts.map(function (pt) {
+      for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return fits(toks[j], a); })) return j;
+      return -1;
     });
-    if (!formsIn) return false;
+    if (formAt.indexOf(-1) >= 0) return false;
     function near(a, b) { const n = Math.min(5, a.length, b.length); return a === b || stem(a) === stem(b) || (n >= 4 && a.slice(0, n) === b.slice(0, n)); }
-    function says(m) {
+    function says(m, own) {
       const all = toTokens(m), content = all.filter(function (w) { return MEAN_FILLER.indexOf(w) < 0; });
       const need = content.length ? content : all; // "to" (AD-) is itself the meaning
-      return need.length > 0 && need.every(function (w) { return toks.some(function (t) { return near(t, w); }); });
+      return need.length > 0 && need.every(function (w) { return toks.some(function (t, j) { return j !== own && near(t, w); }); });
     }
-    return parts.every(function (pt) {
+    return parts.every(function (pt, p) {
       // A wording such as "to sit, settle" gives each of its meanings.
       const ways = [];
       (pt.meanings || []).concat(pt.alsoMeans || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
-      return ways.some(says);
+      return ways.some(function (m) { return says(m, formAt[p]); });
     });
   }
 
