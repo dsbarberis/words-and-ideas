@@ -992,9 +992,10 @@
   "heading": "Lesson X Exercise III",
   "study": "To study it: the elements in this lesson’s list of bases (or the Latin Roots deck), and the word in a dictionary.",
   "allTitle": "Lesson X Exercise III",
-  "instruction": "Analyze the highlighted word, then give its meaning in context.",
+  "instruction": "List the word’s prefixes, bases and suffixes with their meanings, then give its meaning in context.",
   "analysis": true,
-  "help": "Type the elements, press Enter, then type the meaning and press Enter to check",
+  "elementBoxes": true,
+  "help": "Fill in each box, then press Enter or Check",
   "round1": "book",
   "orderNote": false,
   "cards": [
@@ -1077,7 +1078,8 @@
             "dif",
             "dis",
             "di"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "FID-",
@@ -1091,7 +1093,8 @@
           ],
           "accept": [
             "fid"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -1116,14 +1119,25 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1204,7 +1218,8 @@
             "in",
             "im",
             "ig"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "sub-",
@@ -1228,7 +1243,8 @@
             "sub",
             "sus",
             "suc"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "ORDIN-",
@@ -1245,7 +1261,8 @@
           "accept": [
             "ordin",
             "ord"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ate",
@@ -1265,14 +1282,25 @@
             "ate",
             "it",
             "ite"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1383,7 +1411,8 @@
             "con",
             "com",
             "co"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "CUB-",
@@ -1398,7 +1427,8 @@
           "accept": [
             "cub",
             "cumb"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ine",
@@ -1418,14 +1448,25 @@
           ],
           "accept": [
             "ine"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1434,6 +1475,70 @@
       ]
     },
     {
+      "parts": [
+        {
+          "label": "super-",
+          "meanings": [
+            "above",
+            "over"
+          ],
+          "meaningGroups": [
+            [
+              "above",
+              "over"
+            ]
+          ],
+          "accept": [
+            "super",
+            "sur"
+          ],
+          "type": "prefix"
+        },
+        {
+          "label": "SED-",
+          "meanings": [
+            "to sit",
+            "settle"
+          ],
+          "meaningGroups": [
+            [
+              "to sit"
+            ],
+            [
+              "settle"
+            ]
+          ],
+          "accept": [
+            "sed",
+            "sid",
+            "sess"
+          ],
+          "type": "base"
+        },
+        {
+          "label": "-ed",
+          "meanings": [
+            "past participial suffix"
+          ],
+          "meaningGroups": [
+            [
+              "past participial suffix"
+            ]
+          ],
+          "note": "English",
+          "accept": [
+            "ed"
+          ],
+          "type": "suffix",
+          "alsoMeans": [
+            "past",
+            "past tense",
+            "past participle",
+            "done",
+            "having been"
+          ]
+        }
+      ],
       "kind": "meaning",
       "word": "SUPERSEDED",
       "echo": [
@@ -1498,50 +1603,21 @@
         "taken over",
         "wiped out"
       ],
-      "parts": [
-        {
-          "label": "super-",
-          "meanings": [
-            "above",
-            "over"
-          ],
-          "meaningGroups": [
-            [
-              "above",
-              "over"
-            ]
-          ],
-          "accept": [
-            "super",
-            "sur"
-          ]
-        },
-        {
-          "label": "SED-",
-          "meanings": [
-            "to sit",
-            "settle"
-          ],
-          "meaningGroups": [
-            [
-              "to sit"
-            ],
-            [
-              "settle"
-            ]
-          ],
-          "accept": [
-            "sed",
-            "sid",
-            "sess"
-          ]
-        }
-      ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1649,7 +1725,8 @@
             "im",
             "en",
             "em"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "HER-",
@@ -1664,7 +1741,8 @@
           "accept": [
             "her",
             "hes"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -1689,14 +1767,25 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1795,7 +1884,8 @@
             "sil",
             "salt",
             "sult"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ient",
@@ -1820,14 +1910,25 @@
             "ient",
             "ant",
             "ent"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -1932,7 +2033,8 @@
             "plen",
             "ple",
             "plet"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "POT-",
@@ -1949,7 +2051,8 @@
           "accept": [
             "pot",
             "poss"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -1974,7 +2077,8 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         },
         {
           "label": "-iary",
@@ -1993,14 +2097,25 @@
           "accept": [
             "iary",
             "ary"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2093,7 +2208,8 @@
             "sed",
             "sid",
             "sess"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -2118,7 +2234,8 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         },
         {
           "label": "-ary",
@@ -2136,14 +2253,25 @@
           ],
           "accept": [
             "ary"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2248,7 +2376,8 @@
             "sub",
             "sus",
             "suc"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "SID-",
@@ -2268,7 +2397,8 @@
             "sid",
             "sed",
             "sess"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-iary",
@@ -2287,14 +2417,25 @@
           "accept": [
             "iary",
             "ary"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2404,7 +2545,8 @@
             "ag",
             "ad",
             "ac"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "GREG-",
@@ -2420,7 +2562,8 @@
           ],
           "accept": [
             "greg"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ate",
@@ -2440,14 +2583,25 @@
             "ate",
             "it",
             "ite"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2540,7 +2694,8 @@
           ],
           "accept": [
             "terr"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ain",
@@ -2555,14 +2710,25 @@
           "note": "French form of Latin -anus",
           "accept": [
             "ain"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2666,7 +2832,8 @@
           "accept": [
             "pung",
             "punct"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -2691,14 +2858,25 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2790,7 +2968,8 @@
           ],
           "accept": [
             "uni"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "VERS-",
@@ -2805,14 +2984,25 @@
           "accept": [
             "vers",
             "vert"
-          ]
+          ],
+          "type": "base"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -2930,7 +3120,8 @@
           "accept": [
             "re",
             "red"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "SIL-",
@@ -2947,7 +3138,8 @@
             "sal",
             "salt",
             "sult"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ient",
@@ -2972,14 +3164,25 @@
             "ient",
             "ant",
             "ent"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3097,7 +3300,8 @@
             "in",
             "im",
             "ig"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "ORDIN-",
@@ -3114,7 +3318,8 @@
           "accept": [
             "ordin",
             "ord"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ate",
@@ -3134,14 +3339,25 @@
             "ate",
             "it",
             "ite"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3270,7 +3486,8 @@
             "flag",
             "flam",
             "flamm"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ant",
@@ -3295,14 +3512,25 @@
             "ant",
             "ent",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3437,7 +3665,8 @@
           ],
           "accept": [
             "omni"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "POT-",
@@ -3454,7 +3683,8 @@
           "accept": [
             "pot",
             "poss"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -3479,14 +3709,25 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3611,7 +3852,8 @@
             "ex",
             "e",
             "ef"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "PED-",
@@ -3625,7 +3867,8 @@
           ],
           "accept": [
             "ped"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ient",
@@ -3650,14 +3893,25 @@
             "ient",
             "ant",
             "ent"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3780,7 +4034,8 @@
             "im",
             "en",
             "em"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "CUMB-",
@@ -3795,7 +4050,8 @@
           "accept": [
             "cumb",
             "cub"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ent",
@@ -3820,14 +4076,25 @@
             "ent",
             "ant",
             "ient"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -3922,7 +4189,8 @@
             "con",
             "com",
             "co"
-          ]
+          ],
+          "type": "prefix"
         },
         {
           "label": "GEN-",
@@ -3944,7 +4212,8 @@
           "accept": [
             "gen",
             "gener"
-          ]
+          ],
+          "type": "base"
         },
         {
           "label": "-ital",
@@ -3959,14 +4228,25 @@
           "accept": [
             "ital",
             "al"
-          ]
+          ],
+          "type": "suffix"
         }
       ],
       "boxes": [
         {
-          "label": "Analysis (forms only)",
-          "placeholder": "e.g. pre- DIC- -tion",
-          "check": "parts"
+          "label": "Prefixes and their meanings",
+          "placeholder": "Prefix + meaning, or none",
+          "check": "el:prefix"
+        },
+        {
+          "label": "Bases and their meanings",
+          "placeholder": "Base + meaning",
+          "check": "el:base"
+        },
+        {
+          "label": "Suffixes and their meanings",
+          "placeholder": "Suffix + meaning, or none",
+          "check": "el:suffix"
         },
         {
           "label": "Meaning in context",
@@ -4681,6 +4961,9 @@
       q.answers.forEach(function (ans, k) {
         const idx = q.order[k];
         if (!ans || ans.ok || !Array.isArray(ans.a) || !validIdx(idx) || !hasBoxes(CARDS[idx])) return;
+        // Answers typed into an earlier set of boxes (the Analysis box before the
+        // element boxes, Oct 25, 2026) keep their mark: they are not judged again.
+        if (CARDS[idx].boxes && ans.a.length !== CARDS[idx].boxes.length) return;
         if (q.review && q.review[k]) { if (judgeExercise(idx, ans.a).ok) { ans.ok = true; changed = true; } return; }
         const r = judgeExercise(idx, ans.a);
         if (!r.ok) return;
@@ -4982,6 +5265,10 @@
       for (let i = 0; i + 1 < k.length; i++) if (word.indexOf(k.slice(i, i + 2)) >= 0) return true;
       return false;
     }
+    function namesBase(s) {
+      const toks = toTokens(s);
+      return (card.parts || []).some(function (pt) { return pt.type === "base" && (pt.accept || []).some(function (a) { return toks.indexOf(a) >= 0; }); });
+    }
     const idx = CARDS.indexOf(card);
     // Latin Roots (instructor, Oct 23, 2026): each filled line needs a word
     // of its own, not only little words and not only the root's own forms
@@ -5040,7 +5327,9 @@
       // or Suffixes box needs letters of its own (or "none").
       if (/^el:/.test(kind)) {
         if (copiesNote(card, v)) return COPY_NOTE;
-        if (kind === "el:base" && !fromWord(v)) return "Please type the base you find in the word, with its meaning, before checking.";
+        // A form the card prints for the base counts too ("TEN- to hold" for
+        // RETAINED, where the word shows TAIN-).
+        if (kind === "el:base" && !fromWord(v) && !namesBase(v)) return "Please type the base you find in the word, with its meaning, before checking.";
         if (!NONE.test(v.trim()) && v.replace(/[^A-Za-z]/g, "").length < 2) return "Type each element with its meaning, or none, before checking.";
         continue;
       }

@@ -115,7 +115,8 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   a student types "e.g." in an answer. Answers saved in the round under way are marked again with the
   current rules when the deck opens.
   **Element boxes** (`elementBoxes: true` with `analysis: true`; instructor, Oct 20 and Oct 24, 2026;
-  first for Lesson XII Exercise III, other decks only at the instructor's word): instead of the
+  first for Lesson XII Exercise III; Lessons IX, X and XI added at the instructor's word, Oct 25, 2026,
+  without re-judging past answers: answers saved in an earlier set of boxes keep their mark): instead of the
   Analysis box, three boxes, Prefixes, Bases and Suffixes, each asking for every element of that kind
   with its meaning, then Meaning in context. The glossary entry's `kind` (prefix, base, suffix) picks
   the box. In a box, every element of that kind must be there in a form the card accepts (any order),
