@@ -151,7 +151,9 @@ function effortChecks() {
       const baseForm = base.split(/[ ,]/)[0], baseMeaning = q >= 0 ? base.slice(q + 1, base.indexOf(RQ, q)) : "";
       return c.boxes.map(bx => bx.label !== "Base" && L(bx.label) ? L(bx.label) : bx.check === "deriv" ? baseForm : bx.senses ? L("Connection") : baseMeaning);
     }
-    if (c.parts && c.defn) return c.boxes.map(bx => bx.check === "parts" ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ") : c.defn);
+    // Element boxes: each element of the box's kind as printed, with its first meaning, or "none".
+    const elModel = k => c.parts.filter(pt => pt.type === k).map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim() + " " + pt.meanings[0]).join("; ") || "none";
+    if (c.parts && c.defn) return c.boxes.map(bx => bx.check === "parts" ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ") : /^el:/.test(bx.check || "") ? elModel(bx.check.slice(3)) : c.defn);
     if (c.greekForms) return c.boxes.map(bx => bx.check === "greek" ? c.greek : bx.check === "deriv" ? c.deriv : c.gmean);
     return null;
   }
@@ -271,6 +273,25 @@ function effortChecks() {
       if (__t.judgeExercise(i, v).ok) fails.push(c.word + ": a list of every card's person or place was marked right");
     });
   }
+  // 8. Element boxes (instructor, Oct 24, 2026): the forms without their
+  // meanings are wrong, and so is a box that leaves out an element.
+  __t.CARDS.forEach((c, i) => {
+    if (!c.boxes || !c.parts || !c.boxes.some(bx => /^el:/.test(bx.check || ""))) return;
+    const m = model(c);
+    c.boxes.forEach((bx, k) => {
+      if (!/^el:/.test(bx.check || "")) return;
+      const mine = c.parts.filter(pt => pt.type === bx.check.slice(3));
+      if (!mine.length) return;
+      const bare = m.map((x, j) => j === k ? mine.map(pt => (pt.accept || [])[0]).join(" ") : x);
+      checked++;
+      if (__t.judgeExercise(i, bare).ok) fails.push(c.word + ": " + bx.label + " with forms but no meanings was marked right");
+      if (mine.length > 1) {
+        const short = m.map((x, j) => j === k ? x.split("; ").slice(1).join("; ") : x);
+        checked++;
+        if (__t.judgeExercise(i, short).ok) fails.push(c.word + ": " + bx.label + " missing an element was marked right");
+      }
+    });
+  });
   return { checked, fails };
 }
 
@@ -318,7 +339,7 @@ async function uiChecks(page) {
   const t = cards.find(c => c.kind === "typed" || c.boxes.length);
   if (t) {
     await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); }, t.i);
-    const vals = await page.evaluate(i => { const c = __t.CARDS[i]; return c.boxes ? c.boxes.map(b => b.check === "parts" ? c.parts.map(p => p.accept[0]).join(" ") : b.check === "explain" || (b.senses && b.noPenalty) ? "zebra quartz violin harbor mango" : b.check === "names" ? "Zanzibar" : b.check === "greek" ? "zzzqqq" : b.check === "deriv" ? (/^base$/i.test(b.label) ? c.word.slice(0, 3) : "zebra") : "zebra quartz violin") : ["zzzq"]; }, t.i);
+    const vals = await page.evaluate(i => { const c = __t.CARDS[i]; return c.boxes ? c.boxes.map(b => b.check === "parts" ? c.parts.map(p => p.accept[0]).join(" ") : /^el:/.test(b.check || "") ? (c.parts.filter(p => p.type === b.check.slice(3)).map(p => p.accept[0]).join(" ") || "none") : b.check === "explain" || (b.senses && b.noPenalty) ? "zebra quartz violin harbor mango" : b.check === "names" ? "Zanzibar" : b.check === "greek" ? "zzzqqq" : b.check === "deriv" ? (/^base$/i.test(b.label) ? c.word.slice(0, 3) : "zebra") : "zebra quartz violin") : ["zzzq"]; }, t.i);
     await typeInto(vals);
     await page.click("#checkBtn");
     const res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok }, note: document.getElementById("quizNote").textContent, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent, marks: document.querySelectorAll(".face-front .box-mark, .face-front .in-no").length }; }, t.i);
@@ -466,8 +487,12 @@ function modelAnswers() {
         : bx.check === "deriv" ? baseForm : bx.senses ? L("Connection") : baseMeaning);
     } else if (c.parts && c.defn) {
       // Exercise III: the forms-only line, then the definition.
+      // With element boxes: each element of the box's kind as printed with
+      // every printed meaning, or "none".
+      const elVals = k => c.parts.filter(pt => pt.type === k).map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim() + " " + pt.meanings.join(", ")).join("; ") || "none";
       vals = c.boxes.map(bx => bx.check === "parts"
-        ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ") : c.defn);
+        ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ")
+        : /^el:/.test(bx.check || "") ? elVals(bx.check.slice(3)) : c.defn);
     }
     // An accepted derivative must also pass the check made before judging
     // (Greek Introduction's devil, diabolical: refused Oct 14 to 18).
