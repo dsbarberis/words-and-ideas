@@ -6,7 +6,7 @@ Written by build.js on every rebuild (2026-10-25). Do not edit by hand.
 
 **A word two decks use with different senses:** none.
 
-**A deck card that overrides the shared definition:** 60.
+**A deck card that overrides the shared definition:** 80.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -67,6 +67,26 @@ Written by build.js on every rebuild (2026-10-25). Do not edit by hand.
 - **docile** in Lesson XI Exercise III Flashcards (wording: answer key)
 - **tenable** in Lesson XI Exercise III Flashcards (wording: answer key)
 - **obsessed** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incredulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **decadent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **distracting** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **elevate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pendulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **florid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **effluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pernicious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **factitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **feasible** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **confluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **renovate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **versatile** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **defoliated** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **perceive** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **acrid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **adventitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **capacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **efficacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **precepts** in Lesson XII Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -382,3 +402,23 @@ LIMIN- threshold
 - remorse: Lesson XI Exercise IV Flashcards
 - scruple: Lesson XI Exercise IV Flashcards
 - seminary: Lesson XI Exercise IV Flashcards
+- incredulous: Lesson XII Exercise III Flashcards
+- decadent: Lesson XII Exercise III Flashcards
+- distracting: Lesson XII Exercise III Flashcards
+- elevate: Lesson XII Exercise III Flashcards
+- pendulous: Lesson XII Exercise III Flashcards
+- florid: Lesson XII Exercise III Flashcards
+- effluent: Lesson XII Exercise III Flashcards
+- pernicious: Lesson XII Exercise III Flashcards
+- factitious: Lesson XII Exercise III Flashcards
+- feasible: Lesson XII Exercise III Flashcards
+- confluent: Lesson XII Exercise III Flashcards
+- renovate: Lesson XII Exercise III Flashcards
+- versatile: Lesson XII Exercise III Flashcards
+- defoliated: Lesson XII Exercise III Flashcards
+- perceive: Lesson XII Exercise III Flashcards
+- acrid: Lesson XII Exercise III Flashcards
+- adventitious: Lesson XII Exercise III Flashcards
+- capacious: Lesson XII Exercise III Flashcards
+- efficacious: Lesson XII Exercise III Flashcards
+- precepts: Lesson XII Exercise III Flashcards
