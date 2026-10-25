@@ -102,8 +102,12 @@ function resolveGlossary(card, file, deck) {
   if (card.kind === "typed" && !card.accept) out.accept = formsOf(entry.forms);
   if (!card.answerText) out.answerText = entry.forms;
   if (deck.answer === "meanings") {
-    out.word = entry.forms;
-    out.origin = entry.examples || "";
+    // A card may show the book's whole line of forms ("CAD-, (CID-), CAS-")
+    // and its own examples where the glossary splits a family into one
+    // entry per form (Lesson XII Import form, Oct 25, 2026).
+    out.word = card.forms || entry.forms;
+    out.origin = card.examples || entry.examples || "";
+    delete out.forms; delete out.examples;
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }
@@ -142,10 +146,35 @@ function resolveParts(card, file, deck) {
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
       const shifted = /\(\u2192 i\)/.test(pt.label) ? printed.map(function (f) { return f.replace(/y$/, "i"); }) : [];
       o.accept = printed.concat(shifted, formsOf(entry.forms), pt.alsoAccept || []).filter(function (f, i, a) { return a.indexOf(f) === i; });
+      if (deck.elementBoxes) {
+        // Element boxes: the element's kind picks its box, and "alsoMeans"
+        // holds wordings that count but are not shown: the glossary's plain
+        // wordings for a grammatical suffix ("plainMeanings") and the answer
+        // key's wording on this card ("keyMeanings", by glossary key).
+        if (["prefix", "base", "suffix"].indexOf(entry.kind) < 0) throw new Error(file + ": glossary entry \"" + pt.gloss + "\" has no kind prefix, base or suffix");
+        o.type = entry.kind;
+        const key = (card.keyMeanings || {})[pt.gloss];
+        const also = [].concat(entry.plainMeanings || [], key || []);
+        if (also.length) o.alsoMeans = also;
+      }
       return o;
     })
   });
-  if (deck.analysis && !card.boxes) {
+  if (card.keyMeanings) {
+    Object.keys(card.keyMeanings).forEach(function (g) {
+      if (!card.parts.some(function (pt) { return pt.gloss === g; })) throw new Error(file + ": keyMeanings names \"" + g + "\", which is not one of the card's parts");
+    });
+    delete out.keyMeanings;
+  }
+  if (deck.analysis && deck.elementBoxes && !card.boxes) {
+    // Element boxes (instructor, Oct 20 and Oct 24, 2026): one box each for
+    // prefixes, bases and suffixes, every element with its meaning, then the
+    // meaning in context. The card is right only when every box is.
+    out.boxes = [{ label: "Prefixes and their meanings", placeholder: "Prefix + meaning, or none", check: "el:prefix" },
+                 { label: "Bases and their meanings", placeholder: "Base + meaning", check: "el:base" },
+                 { label: "Suffixes and their meanings", placeholder: "Suffix + meaning, or none", check: "el:suffix" },
+                 { label: "Meaning in context", placeholder: card.placeholder || "Your answer" }];
+  } else if (deck.analysis && !card.boxes) {
     out.boxes = [{ label: "Analysis (forms only)", placeholder: "e.g. pre- DIC- -tion" },
                  { label: "Meaning in context", placeholder: card.placeholder || "Your answer" }];
     out.boxes[0].check = "parts";

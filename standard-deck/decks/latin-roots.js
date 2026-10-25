@@ -150,6 +150,20 @@ module.exports = {
     { gloss: "TRACT", cat: "base", keys: [["drag","dragging","dragged","draw","drawing","drawn","pull","pulling","pulled","haul","tow","attract"]] },
     { gloss: "-ABLE", cat: "suffix", keys: [["able to be","capable of being","can be","may be"],["able to","capable of","can","capable","ability"],["tending to","tend to","tendency","inclined to","given to","liable to","prone to","apt to"]] },
     { gloss: "-ILE-able", cat: "suffix", keys: [["able to be","capable of being","can be","may be"],["able to","capable of","can","capable","ability"],["tending to","tend to","tendency","inclined to","given to","liable to","prone to","apt to"]] },
-    { gloss: "-ACIOUS", cat: "suffix", keys: [["tending to","tend to","tendency","apt to","likely to","prone to"],["inclined to","inclined","inclination","given to","disposed to","full of","abounding in"]] }
+    { gloss: "-ACIOUS", cat: "suffix", keys: [["tending to","tend to","tendency","apt to","likely to","prone to"],["inclined to","inclined","inclination","given to","disposed to","full of","abounding in"]] },
+    // Lesson XII (Latin Lesson XII Import form, Oct 25, 2026): one card per line of
+    // the Assignment (book p. 84), with the book's line of forms and its examples;
+    // key words Claude's, approved on the form.
+    { gloss: "AC", cat: "base", examples: "acid, acute, acetic acid", keys: [["sharp","sharpness","keen","pointed","acute","piercing"],["bitter","bitterness","sour","acid","acidic","tart","biting","harsh"]] },
+    { gloss: "CAD", cat: "base", forms: "CAD-, (CID-), CAS-", examples: "cadence, accident, incident, casual, occasion", keys: [["fall","falling","fell","fallen","drop","dropping","collapse","sink"],["befall","befalls","happen","happening","occur","occurrence","chance","come about"]] },
+    { gloss: "CAP", cat: "base", forms: "CAP-, (CIP-), CAPT-, (CEPT-), [CEIV-]", examples: "incapacitate, recipient, capture, except, reception, receive", keys: [["take","taking","took","taken","grasp","hold","receive","get","catch"],["seize","seizing","seized","capture","grab","grip","snatch","catch"]] },
+    { gloss: "FLOR", cat: "base", examples: "florist, floral, Florida (through Spanish)", keys: [["flower","flowers","flowering","bloom","blooming","blossom","floral"]] },
+    { gloss: "FLU", cat: "base", examples: "fluid, flux, effluvia, fluoroscope", keys: [["flow","flowing","flowed","stream","streaming","run","running","pour"],["a flow","flow","current","stream","flood","flux","tide"]] },
+    { gloss: "FOLI", cat: "base", forms: "FOLI-, [FOIL-]", examples: "folio, defoliant, tinfoil", keys: [["leaf","leaves","leafy","foliage","sheet"]] },
+    { gloss: "NOC", cat: "base", forms: "NOC-, NOX-, NIC-, NEC-", examples: "innocent, obnoxious, pernicious, internecine", keys: [["harm","harming","harmed","harmful","hurt","injure","injury","damage"],["kill","killing","killed","slay","slaughter","destroy","murder","death"]] },
+    { gloss: "NOV", cat: "base", examples: "novel, novice, innovative", keys: [["new","newness","novel","fresh","recent","young","renew"]] },
+    { gloss: "-ITIOUS", cat: "suffix", examples: "fictitious, expeditious", keys: [["tending to","tend to","tendency","inclined to","apt to","prone to","given to"],["characterized by","characteristic of","marked by","having","showing","full of"]] },
+    { gloss: "-ID", cat: "suffix", examples: "frigid, rapid, humid", keys: [["tending to","tend to","tendency","apt to","prone to","likely to"],["inclined to","inclined","inclination","given to","disposed to"]] },
+    { gloss: "-ULOUS", cat: "suffix", examples: "garrulous, tremulous", keys: [["tending to","tend to","tendency","apt to","prone to","likely to"],["inclined to","inclined","inclination","given to","disposed to","full of"]] }
   ]
 };
