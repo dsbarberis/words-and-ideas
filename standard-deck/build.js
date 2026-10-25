@@ -102,8 +102,12 @@ function resolveGlossary(card, file, deck) {
   if (card.kind === "typed" && !card.accept) out.accept = formsOf(entry.forms);
   if (!card.answerText) out.answerText = entry.forms;
   if (deck.answer === "meanings") {
-    out.word = entry.forms;
-    out.origin = entry.examples || "";
+    // A card may show the book's whole line of forms ("CAD-, (CID-), CAS-")
+    // and its own examples where the glossary splits a family into one
+    // entry per form (Lesson XII Import form, Oct 25, 2026).
+    out.word = card.forms || entry.forms;
+    out.origin = card.examples || entry.examples || "";
+    delete out.forms; delete out.examples;
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }

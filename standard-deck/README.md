@@ -50,6 +50,9 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
     one pill per distinct meaning, its synonyms joined by a small "or"; Exercise backs
     show the same pills, smaller, beside each element. An entry without `groups` has
     one meaning per group.
+    A Latin Roots card may set `forms` and `examples` to show the book's whole line where the
+    glossary splits a family into one entry per form ("CAD-, (CID-), CAS-"; Lesson XII Import
+    form, Oct 25, 2026); the meanings and key words still come from the entry it names.
 - **Answer effort in every quiz** (Exercise Decks since Oct 21, 2026; Latin Roots,
   Greek History and Greek Mythology since the instructor's "Every quiz", Oct 23,
   2026): a real attempt before Check, the back hidden and off the page until the
