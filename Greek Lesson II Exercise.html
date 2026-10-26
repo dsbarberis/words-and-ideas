@@ -2291,6 +2291,9 @@
       q.answers.forEach(function (ans, k) {
         const idx = q.order[k];
         if (!ans || ans.ok || !Array.isArray(ans.a) || !validIdx(idx) || !hasBoxes(CARDS[idx])) return;
+        // Answers typed into an earlier set of boxes (the Analysis box before the
+        // element boxes, Oct 25, 2026) keep their mark: they are not judged again.
+        if (CARDS[idx].boxes && ans.a.length !== CARDS[idx].boxes.length) return;
         if (q.review && q.review[k]) { if (judgeExercise(idx, ans.a).ok) { ans.ok = true; changed = true; } return; }
         const r = judgeExercise(idx, ans.a);
         if (!r.ok) return;
@@ -2592,6 +2595,10 @@
       for (let i = 0; i + 1 < k.length; i++) if (word.indexOf(k.slice(i, i + 2)) >= 0) return true;
       return false;
     }
+    function namesBase(s) {
+      const toks = toTokens(s);
+      return (card.parts || []).some(function (pt) { return pt.type === "base" && (pt.accept || []).some(function (a) { return toks.indexOf(a) >= 0; }); });
+    }
     const idx = CARDS.indexOf(card);
     // Latin Roots (instructor, Oct 23, 2026): each filled line needs a word
     // of its own, not only little words and not only the root's own forms
@@ -2650,7 +2657,9 @@
       // or Suffixes box needs letters of its own (or "none").
       if (/^el:/.test(kind)) {
         if (copiesNote(card, v)) return COPY_NOTE;
-        if (kind === "el:base" && !fromWord(v)) return "Please type the base you find in the word, with its meaning, before checking.";
+        // A form the card prints for the base counts too ("TEN- to hold" for
+        // RETAINED, where the word shows TAIN-).
+        if (kind === "el:base" && !fromWord(v) && !namesBase(v)) return "Please type the base you find in the word, with its meaning, before checking.";
         if (!NONE.test(v.trim()) && v.replace(/[^A-Za-z]/g, "").length < 2) return "Type each element with its meaning, or none, before checking.";
         continue;
       }
