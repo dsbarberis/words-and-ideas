@@ -5,7 +5,7 @@
   --surface-2: #f4ecdb;
   --ink: #2a2f26;
   --ink-soft: #5a5648;
-  --muted: #8a8473;
+  --muted: #686457;
   --rule: #d8cbae;
   --accent: #263248;
   --accent-soft: #dfe3ec;
@@ -17,8 +17,10 @@
   --bad: #7a2e2e;
   --bad-soft: #f1d9d5;
   --burgundy: #7a2e2e;
-  --sage: #5c6e4f;
-  --gold: #b08d57;
+  --sage: #4f6343;
+  --gold: #796039;
+  --navy: #263248;
+  --gold-on-navy: #b99a6a;
   --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
   --font-body: "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -44,6 +46,8 @@
     --burgundy: #e3958c;
     --sage: #a9c194;
     --gold: #d6b67a;
+    --navy: #263248;
+    --gold-on-navy: #b99a6a;
     color-scheme: dark;
   }
 }
@@ -67,5 +71,7 @@
   --burgundy: #e3958c;
   --sage: #a9c194;
   --gold: #d6b67a;
+  --navy: #263248;
+  --gold-on-navy: #b99a6a;
   color-scheme: dark;
 }

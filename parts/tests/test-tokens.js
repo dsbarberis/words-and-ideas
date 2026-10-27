@@ -13,7 +13,7 @@ function lum(h) {
 }
 function ratio(a, b) { const A = lum(a), B = lum(b); return (Math.max(A, B) + 0.05) / (Math.min(A, B) + 0.05); }
 const colourNames = Object.keys(T.names).filter(k => !k.startsWith("font-"));
-const courseOnly = ["burgundy", "sage", "gold"];
+const courseOnly = ["burgundy", "sage", "gold", "navy", "gold-on-navy"];
 let checked = 0, excepted = 0;
 for (const [theme, own] of Object.entries(T.themes)) {
   const light = theme.replace("-dark", "-light");
@@ -42,6 +42,6 @@ for (const f of ["course.css", "working.css"]) {
 }
 if (/color-scheme/.test(fs.readFileSync(path.join(__dirname, "..", "tokens", "dist", "course-nodark.css"), "utf8"))) fails.push("course-nodark.css sets a color-scheme; the decks have no dark theme");
 fails.forEach(f => console.log("FAIL " + f));
-console.log(`${checked} pairs checked in ${Object.keys(T.themes).length} themes; ${excepted} listed exceptions, waiting on the architect's look decision`);
+console.log(`${checked} pairs checked in ${Object.keys(T.themes).length} themes; ${excepted} listed exceptions (the look decided on the Shared Colours form, Oct 27, 2026)`);
 console.log(fails.length ? fails.length + " failure(s)" : "all token tests passed");
 process.exit(fails.length ? 1 : 0);
