@@ -42,7 +42,7 @@ parts. The build refuses a settings file inside this repository and a page with 
 left unfilled. `node parts/check/private-check.js` fails on anything that looks private
 (Google file or form IDs, short Google Forms links, form field names, artifact, session,
 routine or project message IDs, document IDs, shared-folder paths, email addresses), in every
-text file except under node_modules and .git; with `SP_PRIVATE_SETTINGS=FILE` it also looks for that file's values.
+text file except under node_modules, .git and .claude; with `SP_PRIVATE_SETTINGS=FILE` it also looks for that file's values.
 
 The data feed exception (Oct 20, 2026): deck pages must carry the Google Form's posting address
 and its entry codes, because a student's browser posts to it. With `--feed FILE` (the data feed

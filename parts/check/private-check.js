@@ -3,7 +3,7 @@
 // Fails (exit 1) on anything that looks like a private setting: a Google file or form ID, a
 // form's field names, a claude.ai artifact, session or routine ID, a path in the project's
 // shared folder, a project message ID, a short Google Forms link, a document or artifact ID
-// (a UUID), or an email address. Every folder is scanned except node_modules and .git. With SP_PRIVATE_SETTINGS set to a settings JSON file
+// (a UUID), or an email address. Every folder is scanned except node_modules, .git and .claude. With SP_PRIVATE_SETTINGS set to a settings JSON file
 // (kept in the shared folder), it also fails on any of that file's values, word for word.
 // --feed FILE: the data feed settings (kept in the shared folder, never here). Their posting
 // address and entry codes are public by design in deck pages only (the data feed exception,
@@ -27,14 +27,18 @@ const PATTERNS = [
 ];
 // Lines that may name a pattern on purpose: this file and its own test, wherever the check runs from.
 const SELF_NAMES = ["parts/check/private-check.js", "parts/tests/test-private.js"];
-const SELF = { has: p => p === path.resolve(__filename) || SELF_NAMES.some(n => p.split(path.sep).join("/").endsWith("/" + n)) };
+// Their dated backups (backups/<date> <reason>/...) carry the same planted lines.
+const SELF_BACKUP = /\/(?:private-check|test-private) \(backup \d{4}-\d\d-\d\d\)\.js$/;
+const SELF = { has: p => { const u = p.split(path.sep).join("/"); return p === path.resolve(__filename) || SELF_NAMES.some(n => u.endsWith("/" + n)) || SELF_BACKUP.test(u); } };
+// Folders not scanned: installed packages, git's own files, and Claude's settings (.claude), whose hooks name shared-folder tools.
+const SKIP = new Set(["node_modules", ".git", ".claude"]);
 const TEXT = /\.(js|mjs|cjs|css|html|json|md|py|txt|svg|csv|tsv|yml|yaml|sh|toml|xml)$/i;
 
 function files(dir) {
   const out = [];
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (e.name !== "node_modules" && e.name !== ".git") out.push(...files(p)); }
+    if (e.isDirectory()) { if (!SKIP.has(e.name)) out.push(...files(p)); }
     else if (TEXT.test(e.name) && !SELF.has(path.resolve(p))) out.push(p);
   }
   return out;

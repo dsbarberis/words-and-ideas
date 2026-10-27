@@ -31,7 +31,7 @@ def _for_against(h):
 def _rules(q):
     """The new rules a question proposes: its rows when it is a table, else the question itself."""
     marked = q.get("newRule") or "new rule" in str(q.get("section", "")).lower()
-    rows = [r for r in q.get("rows", []) if isinstance(r, dict)]
+    rows = [r for r in (q.get("rows") or []) if isinstance(r, dict)]
     if rows:
         return [r for r in rows if marked or r.get("newRule")]
     return [q] if marked else []

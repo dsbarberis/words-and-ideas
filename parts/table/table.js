@@ -7,7 +7,7 @@
 (function () {
   const isEmpty = v => v === "" || v === null || v === undefined || (typeof v === "number" && isNaN(v));
   // In a number column, a value that isn't a number (or a numeric string) counts as empty.
-  const numOf = v => (typeof v === "number" ? v : typeof v === "string" && v.trim() !== "" ? Number(v) : NaN);
+  const numOf = v => (v instanceof Date ? +v : typeof v === "number" ? v : typeof v === "string" && v.trim() !== "" ? Number(v) : NaN);
   function table(box, opt) {
     const cols = opt.columns, base = opt.rows.map((r, i) => ({ r, i }));
     let sortKey = null, dir = 1, showAll = !opt.limit;
