@@ -274,14 +274,20 @@ function effortChecks() {
     });
   }
   // 8. Element boxes (instructor, Oct 24, 2026): the forms without their
-  // meanings are wrong, and so is a box that leaves out an element.
+  // meanings are wrong, and so is a box that leaves out an element. An
+  // optional English ending (-ing, -ed) is never judged, and a named plural
+  // -s or -es never fails a suffix box (instructor, Oct 27, 2026).
   __t.CARDS.forEach((c, i) => {
     if (!c.boxes || !c.parts || !c.boxes.some(bx => /^el:/.test(bx.check || ""))) return;
     const m = model(c);
     c.boxes.forEach((bx, k) => {
       if (!/^el:/.test(bx.check || "")) return;
       const mine = c.parts.filter(pt => pt.type === bx.check.slice(3));
-      if (!mine.length) return;
+      if (!mine.length && bx.check === "el:suffix" && __t.judgeExercise(i, m).ok) {
+        checked++;
+        if (!__t.judgeExercise(i, m.map((x, j) => j === k ? "-s plural ending" : x)).ok) fails.push(c.word + ": " + bx.label + " naming the plural -s was marked wrong");
+      }
+      if (!mine.some(pt => !pt.optional)) return;
       const bare = m.map((x, j) => j === k ? mine.map(pt => (pt.accept || [])[0]).join(" ") : x);
       checked++;
       if (__t.judgeExercise(i, bare).ok) fails.push(c.word + ": " + bx.label + " with forms but no meanings was marked right");

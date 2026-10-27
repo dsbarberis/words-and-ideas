@@ -1095,7 +1095,11 @@
           "accept": [
             "ile"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1225,7 +1229,11 @@
           "accept": [
             "al"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1470,7 +1478,11 @@
           "accept": [
             "ary"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1570,7 +1582,11 @@
           "accept": [
             "ulent"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1651,7 +1667,11 @@
           "accept": [
             "ic"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1748,7 +1768,11 @@
           "accept": [
             "ulent"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -1858,7 +1882,11 @@
             "ary",
             "ari"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         },
         {
           "label": "-ous",
@@ -1873,7 +1901,11 @@
           "accept": [
             "ous"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -2098,7 +2130,11 @@
           "accept": [
             "al"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -2203,7 +2239,11 @@
             "ary",
             "ari"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         },
         {
           "label": "-ous",
@@ -2218,7 +2258,11 @@
           "accept": [
             "ous"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -2596,7 +2640,11 @@
           "accept": [
             "ic"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -2842,7 +2890,11 @@
           "accept": [
             "ous"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -2981,7 +3033,11 @@
           "accept": [
             "ary"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -3081,7 +3137,11 @@
           "accept": [
             "ile"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "having the quality of",
+            "characterized by"
+          ]
         }
       ],
       "boxes": [
@@ -3834,7 +3894,7 @@
     let mixed = null, echo = null, tooLong = false;
     const parts = card.boxes.map(function (b, k) {
       const v = String(vals[k] || "").trim();
-      if (/^el:/.test(b.check || "")) return elementsMatch(v, (card.parts || []).filter(function (pt) { return pt.type === b.check.slice(3); }));
+      if (/^el:/.test(b.check || "")) return elementsMatch(v, (card.parts || []).filter(function (pt) { return pt.type === b.check.slice(3); }), b.check.slice(3));
       if (!v) return false;
       if (b.check === "greek") return oneOf(v, card.greekForms, greekKey) || listOf(v, card.greekForms, greekKey);
       if (b.check === "deriv") return derivList(v, card.derivs);
@@ -3901,11 +3961,20 @@
   // words and the words "suffix" and "prefix" need not be typed.
   const NONE = /^(none|no|n\/?a|nothing|-+|\u2013|\u2014|0)\.?$/i;
   const MEAN_FILLER = ["to", "a", "an", "the", "of", "or", "and", "be", "suffix", "prefix"];
-  function elementsMatch(v, parts) {
+  // An English plural -s or -es named in the suffix box: Ayers doesn't teach it,
+  // so it never fails the box, whatever meaning is given (instructor, Oct 27, 2026).
+  function onlyPlural(v) {
+    const forms = (String(v).match(/(^|[^a-z])-\s*[a-z]+/gi) || []).map(function (f) { return f.replace(/[^a-z]/gi, "").toLowerCase(); });
+    if (forms.length) return forms.every(function (f) { return f === "s" || f === "es"; });
+    const first = toTokens(v)[0];
+    return first === "s" || first === "es";
+  }
+
+  function elementsMatch(v, parts, kind) {
     v = String(v || "").trim();
-    if (!parts.length) return !v || NONE.test(v);
+    if (!parts.length) return !v || NONE.test(v) || (kind === "suffix" && onlyPlural(v));
     // English endings Ayers doesn't teach (-ing, -ed) are optional: the box is
-    // right without them, and a named one needs a meaning (instructor, Oct 27, 2026).
+    // right without them, and a named one is never judged (instructor, Oct 27, 2026).
     const need = parts.filter(function (pt) { return !pt.optional; });
     if (!v || NONE.test(v)) return need.length === 0;
     const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
@@ -3924,7 +3993,7 @@
       return need.length > 0 && need.every(function (w) { return toks.some(function (t, j) { return j !== own && near(t, w); }); });
     }
     return parts.every(function (pt, p) {
-      if (formAt[p] < 0) return true; // an optional ending left out
+      if (formAt[p] < 0 || pt.optional) return true; // an optional ending, left out or named
       // A wording such as "to sit, settle" gives each of its meanings.
       const ways = [];
       (pt.meanings || []).concat(pt.alsoMeans || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
