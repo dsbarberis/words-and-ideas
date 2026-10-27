@@ -1422,6 +1422,7 @@
             "ing"
           ],
           "type": "suffix",
+          "optional": true,
           "alsoMeans": [
             "participle",
             "present participle",
@@ -3026,6 +3027,7 @@
             "ed"
           ],
           "type": "suffix",
+          "optional": true,
           "alsoMeans": [
             "past",
             "past tense",
@@ -4412,7 +4414,10 @@
   function elementsMatch(v, parts) {
     v = String(v || "").trim();
     if (!parts.length) return !v || NONE.test(v);
-    if (!v) return false;
+    // English endings Ayers doesn't teach (-ing, -ed) are optional: the box is
+    // right without them, and a named one needs a meaning (instructor, Oct 27, 2026).
+    const need = parts.filter(function (pt) { return !pt.optional; });
+    if (!v || NONE.test(v)) return need.length === 0;
     const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
     function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
     // The place of each element's form: that word is the form, not a
@@ -4421,7 +4426,7 @@
       for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return fits(toks[j], a); })) return j;
       return -1;
     });
-    if (formAt.indexOf(-1) >= 0) return false;
+    if (parts.some(function (pt, p) { return formAt[p] < 0 && !pt.optional; })) return false;
     function near(a, b) { const n = Math.min(5, a.length, b.length); return a === b || stem(a) === stem(b) || (n >= 4 && a.slice(0, n) === b.slice(0, n)); }
     function says(m, own) {
       const all = toTokens(m), content = all.filter(function (w) { return MEAN_FILLER.indexOf(w) < 0; });
@@ -4429,6 +4434,7 @@
       return need.length > 0 && need.every(function (w) { return toks.some(function (t, j) { return j !== own && near(t, w); }); });
     }
     return parts.every(function (pt, p) {
+      if (formAt[p] < 0) return true; // an optional ending left out
       // A wording such as "to sit, settle" gives each of its meanings.
       const ways = [];
       (pt.meanings || []).concat(pt.alsoMeans || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });

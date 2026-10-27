@@ -153,6 +153,7 @@ function resolveParts(card, file, deck) {
         // key's wording on this card ("keyMeanings", by glossary key).
         if (["prefix", "base", "suffix"].indexOf(entry.kind) < 0) throw new Error(file + ": glossary entry \"" + pt.gloss + "\" has no kind prefix, base or suffix");
         o.type = entry.kind;
+        if (entry.optionalInBoxes) o.optional = true;
         const key = (card.keyMeanings || {})[pt.gloss];
         const also = [].concat(entry.plainMeanings || [], key || []);
         if (also.length) o.alsoMeans = also;
