@@ -1,0 +1,62 @@
+/* Built by parts/tokens/build.js from tokens.json. Do not edit by hand. */
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --surface-2: #f1f4f6;
+  --ink: #1d2328;
+  --ink-soft: #5d6870;
+  --muted: #5d6870;
+  --rule: #d9dee2;
+  --accent: #1f5f7a;
+  --accent-soft: #e3eff4;
+  --on-accent: #ffffff;
+  --ok: #2e6b3f;
+  --ok-soft: #e4f1e7;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0d9;
+  --bad: #b3261e;
+  --bad-soft: #fbe9e7;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181b;
+    --surface: #1c2125;
+    --surface-2: #232a2f;
+    --ink: #e6eaed;
+    --ink-soft: #9aa5ad;
+    --muted: #9aa5ad;
+    --rule: #2f363c;
+    --accent: #7cc0dc;
+    --accent-soft: #1d3440;
+    --on-accent: #14181b;
+    --ok: #8fd19e;
+    --ok-soft: #1d3324;
+    --warn: #f0c46b;
+    --warn-soft: #3a2f17;
+    --bad: #f2a39b;
+    --bad-soft: #3a1d1b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181b;
+  --surface: #1c2125;
+  --surface-2: #232a2f;
+  --ink: #e6eaed;
+  --ink-soft: #9aa5ad;
+  --muted: #9aa5ad;
+  --rule: #2f363c;
+  --accent: #7cc0dc;
+  --accent-soft: #1d3440;
+  --on-accent: #14181b;
+  --ok: #8fd19e;
+  --ok-soft: #1d3324;
+  --warn: #f0c46b;
+  --warn-soft: #3a2f17;
+  --bad: #f2a39b;
+  --bad-soft: #3a1d1b;
+  color-scheme: dark;
+}
