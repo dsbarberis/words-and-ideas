@@ -37,6 +37,23 @@ ok("a page with the table passes the page check", pc.status === 0, pc.stdout.tri
   ok("short columns stay on one line at phone width (wrap scan)", !wraps.some(Boolean), wraps);
   const caught = await p.evaluate(() => { const c = document.querySelector("tbody td"); c.style.whiteSpace = "normal"; c.style.maxWidth = "10px"; c.textContent = "two words"; const rg = document.createRange(); rg.selectNodeContents(c); return new Set([...rg.getClientRects()].map(x => Math.round(x.top))).size > 1; });
   ok("the wrap scan does catch a wrapped cell", caught, caught);
+  // Every column sorts both ways: name and note too, with empty notes last both ways.
+  const col = i => p.$$eval("tbody tr", (rs, i) => rs.map(r => r.cells[i].textContent), i);
+  await p.click('th button[data-key="name"]');
+  ok("the name column sorts up", JSON.stringify(await names()) === JSON.stringify(["Ann", "Ben", "Cy", "Dee", "Eve", "Fay"]), await names());
+  await p.click('th button[data-key="name"]');
+  ok("the name column sorts down", JSON.stringify(await names()) === JSON.stringify(["Fay", "Eve", "Dee", "Cy", "Ben", "Ann"]), await names());
+  await p.click('th button[data-key="note"]');
+  const up = await col(2);
+  await p.click('th button[data-key="note"]');
+  const down = await col(2);
+  ok("the note column sorts both ways, empty last both ways", up[0].startsWith("A longer") && up.slice(-2).every(x => x === "—") && down[0] === "x" && down.slice(-2).every(x => x === "—"), [up, down]);
+  // A word in a number column counts as empty: shown as a dash, sorted last, and the sort stays consistent.
+  const mixed = await p.evaluate(() => { const t = document.createElement("div"); document.body.appendChild(t);
+    const tb = SP.table(t, { rows: [{ n: "a", s: 5 }, { n: "b", s: "n/a" }, { n: "c", s: "2" }, { n: "d", s: 9 }], columns: [{ key: "n", label: "N" }, { key: "s", label: "S", num: true }] });
+    const read = () => [...t.querySelectorAll("tbody tr")].map(r => r.cells[0].textContent + r.cells[1].textContent);
+    tb.sortBy("s", "asc"); const a = read(); tb.sortBy("s", "desc"); const d = read(); t.remove(); return [a, d]; });
+  ok("a word in a number column shows as a dash and sorts last both ways", JSON.stringify(mixed) === JSON.stringify([["c2", "a5", "d9", "b—"], ["d9", "a5", "c2", "b—"]]), mixed);
   ok("text is escaped", await p.evaluate(() => { T.render(); const t = document.createElement("div"); SP.table(t, { rows: [{ a: "<b>x</b>" }], columns: [{ key: "a", label: "A" }] }); return t.querySelector("td").innerHTML === "&lt;b&gt;x&lt;/b&gt;"; }), null);
   await b.close(); fs.rmSync(tmp, { recursive: true, force: true });
   console.log(fails ? fails + " failure(s)" : "all table tests passed"); process.exit(fails ? 1 : 0);

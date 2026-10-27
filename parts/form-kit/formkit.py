@@ -42,8 +42,10 @@ def _common(q, section, prompt, details_html, clarify):
     return q
 
 
-def question(id, title, options, section=None, prompt=None, details_html=None, clarify=None):
-    return _common({"id": id, "title": title, "options": options}, section, prompt, details_html, clarify)
+def question(id, title, options, section=None, prompt=None, details_html=None, clarify=None, breach=None):
+    q = {"id": id, "title": title, "options": options}
+    if breach: q["breach"] = breach   # a new rule: how a breach is found (R-147)
+    return _common(q, section, prompt, details_html, clarify)
 
 
 def item(id, label, options=None, details_html=None):
@@ -65,8 +67,9 @@ def column(key, label, bulk_label=None):
     return c
 
 
-def row(id, label, cells, rec=None, sub=None, clarify=None):
+def row(id, label, cells, rec=None, sub=None, clarify=None, breach=None):
     r = {"id": id, "label": label, "cells": cells}
+    if breach: r["breach"] = breach
     if rec: r["rec"] = rec
     if sub: r["sub"] = sub
     if clarify: r["clarify"] = clarify
@@ -81,8 +84,8 @@ def table(id, title, columns, rows, combine=False, combine_label=None, extra=Non
     return _common(q, section, prompt, details_html, clarify)
 
 
-def form(form_id, title, questions, subtitle=None, intro_html=None):
-    f = {"formId": form_id, "title": title}
+def form(form_id, title, questions, subtitle=None, intro_html=None, notify=None):
+    f = {"formId": form_id, "title": title, "notify": notify}
     if subtitle: f["subtitle"] = subtitle
     if intro_html: f["introHtml"] = intro_html
     f["questions"] = questions

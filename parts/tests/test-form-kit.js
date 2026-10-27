@@ -45,6 +45,9 @@ const bad = {
   "an item with nothing to choose": f => { delete f.questions[1].options; },
   "a missing title": f => { delete f.title; },
   "an unknown question type": f => { f.questions[0].type = "slider"; },
+  "a form that doesn't say who its Submit tells": f => { delete f.notify; },
+  "a form naming a desk the kit's page can't tell": f => { f.notify = { trigger: "sample", desk: "Sample Desk" }; },
+  "a real choice with no For and Against table (R-158)": f => { f.questions[0].realChoice = true; },
 };
 for (const [name, plant] of Object.entries(bad)) {
   const f = JSON.parse(JSON.stringify(sample)); plant(f);
@@ -54,6 +57,14 @@ for (const [name, plant] of Object.entries(bad)) {
 }
 r = py([path.join(K, "check_form.py"), "sample.json"]);
 ok("the field check passes the sample", r.status === 0, r.stdout);
+// A real choice with a For and Against table passes; a new rule with no breach line is warned about.
+const good = JSON.parse(JSON.stringify(sample));
+good.questions[0].realChoice = true; good.questions[0].detailsHtml = "<table><tr><th>For</th><th>Against</th></tr><tr><td>a</td><td>b</td></tr></table>";
+good.questions[2].newRule = true; good.questions[2].rows[0].breach = "A sample check finds it.";
+fs.writeFileSync(path.join(tmp, "good.json"), JSON.stringify(good));
+r = py([path.join(K, "check_form.py"), "good.json"]);
+ok("a real choice with a For and Against table passes", r.status === 0, r.stdout);
+ok("a new rule with no breach line is warned about, and only that one", (r.stdout.match(/How a breach is found/g) || []).length === 1 && /row 2|r2/.test(r.stdout), r.stdout);
 r = py([path.join(K, "build-form.py"), "bad.json", "bad.html"]);
 ok("build-form refuses a form the field check stops", r.status === 1 && !fs.existsSync(path.join(tmp, "bad.html")) && /build refused/.test(r.stdout), r.stdout);
 
@@ -120,6 +131,14 @@ ok("the new page looks the same as the old in every state, width and theme", r.s
   ok("every database read and write is the same, in the same order", JSON.stringify(a.log) === JSON.stringify(n.log) && a.log.length > 5, { old: a.log.length, new: n.log.length });
   ok("the stored data ends up the same", JSON.stringify(a.docs) === JSON.stringify(n.docs) && Object.keys(n.docs).some(k => k.startsWith("submissions/N")), Object.keys(n.docs));
   ok("the browser copy of the draft is the same", a.local === n.local && !!n.local, null);
+  // A new rule's breach line shows on the page, for a question and for a table row.
+  const bq = JSON.parse(JSON.stringify(sample)); bq.questions[0].breach = "A sample question check."; bq.questions[2].rows[0].breach = "A sample row check.";
+  fs.writeFileSync(path.join(tmp, "breach.json"), JSON.stringify(bq));
+  const rb = py([path.join(K, "build-form.py"), "breach.json", "breach.html", "--zones", "zones.json"]);
+  const bc = await b.newContext(); await bc.route("**/*", rt => rt.request().url().startsWith("file:") ? rt.continue() : rt.abort());
+  const bp = await bc.newPage(); await bp.goto("file://" + path.join(tmp, "breach.html")); await bp.waitForTimeout(300);
+  const btext = await bp.textContent("body"); await bc.close();
+  ok("the page shows each new rule's breach line", rb.status === 0 && btext.includes("How a breach is found: A sample question check.") && btext.includes("How a breach is found: A sample row check."), rb.stdout);
   const off = await run("new.html", { available: false });
   ok("outside claude.ai the new page says it can't save, as the old did", /can't save answers in this view/.test(off.loaded.status) && !off.submitOn, off.loaded.status);
   ok("no script errors", !a.errs.length && !n.errs.length && !off.errs.length, [a.errs, n.errs, off.errs]);

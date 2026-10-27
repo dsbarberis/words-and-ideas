@@ -49,6 +49,12 @@
   const addDays = (iso, n) => new Date(Date.parse(iso + "T00:00:00Z") + n * DAY).toISOString().slice(0, 10);
   const isTestName = (n, r) => { n = String(n || "").trim().toLowerCase(); return (r.contains || []).some(c => n.includes(c)) || (r.startsWith || []).some(s => n.startsWith(s)); };
 
+  // The test-name rule in words, from the settings: one containing "sample" or beginning with "test".
+  const testRule = r => {
+    const q = a => a.map(x => "\"" + x + "\"").join(" or ");
+    const parts = [(r.contains || []).length ? "containing " + q(r.contains) : "", (r.startsWith || []).length ? "beginning with " + q(r.startsWith) : ""].filter(Boolean);
+    return parts.length ? "one " + parts.join(" or ") : "a name the settings mark as a test";
+  };
   SP.feedCheck = function (rows, feed, saved, opts) {
     opts = opts || {};
     const now = +(opts.now || new Date()), zone = feed.sheetTimeZone || "America/Chicago", shown = opts.zone || zone;
@@ -80,7 +86,7 @@
       });
       Object.keys(odd.deck).sort().forEach(d => add("deck", odd.deck[d] + " new row(s) name a deck not in the row agreement: \"" + d + "\"."));
       Object.keys(odd.mode).sort().forEach(m => add("mode", odd.mode[m] + " new row(s) have a pass mode not in the row agreement: \"" + m + "\"."));
-      if (tests) add("test", tests + " new row(s) carry a test name (one containing \"sample\" or beginning with \"test\"). Test rows must never reach the class Google Sheet.");
+      if (tests) add("test", tests + " new row(s) carry a test name (" + testRule(feed.testNames || {}) + "). Test rows must never reach the class Google Sheet.");
     }
 
     const gap = feed.gapDays || 3, term = opts.term || feed.term || {}, today = dayIn(now, zone);

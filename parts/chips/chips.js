@@ -15,12 +15,14 @@
       box.className = "sp-chips"; box.setAttribute("role", "group"); box.setAttribute("aria-label", opt.label || "Filters");
       const any = Object.values(state).some(v => v && v.length);
       box.innerHTML = opt.groups.map(g => `<span class="sp-group"><span class="sp-group-label">${SP.esc(g.label)}</span>` +
-        g.options.map(o => { const on = (state[g.key] || []).includes(o.value);
+        g.options.map(o => { const on = (state[g.key] || []).map(String).includes(String(o.value));
           return `<button type="button" class="sp-chip" aria-pressed="${on}" data-g="${SP.esc(g.key)}" data-v="${SP.esc(o.value)}">${SP.esc(o.label)}${o.count != null ? `<span class="n">${SP.esc(o.count)}</span>` : ""}</button>`; }).join("") + "</span>").join("") +
         (any ? '<button type="button" class="sp-clear">Clear Filters</button>' : "");
       box.querySelectorAll(".sp-chip").forEach(b => b.addEventListener("click", () => {
         const g = opt.groups.find(x => x.key === b.dataset.g), v = b.dataset.v, cur = state[g.key] || [];
-        state[g.key] = cur.includes(v) ? cur.filter(x => x !== v) : (g.multi ? cur.concat(v) : [v]);
+        // The button carries the value as text; keep the option's own value (a number stays a number).
+        const o = g.options.find(x => String(x.value) === v), real = o ? o.value : v, has = cur.some(x => String(x) === v);
+        state[g.key] = has ? cur.filter(x => String(x) !== v) : (g.multi ? cur.concat([real]) : [real]);
         render(); const again = box.querySelector(`.sp-chip[data-g="${CSS.escape(g.key)}"][data-v="${CSS.escape(v)}"]`); if (again) again.focus();
         if (opt.onChange) opt.onChange(api.get());
       }));

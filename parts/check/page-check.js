@@ -8,7 +8,7 @@
 //        [--standin CONFIG.json] [--states STATES.js]
 //
 // For each width, in light and dark: loads the page with the claude.ai stand-in and every web
-// request blocked, waits for fonts, and records script errors, blocked requests, sideways
+// request blocked but Google Fonts, waits for fonts, and records script errors, blocked requests, sideways
 // scroll, clickable targets under 24 px, and indicator glyphs not drawn at a fixed size.
 // Then runs each named state (a module exporting [{name, run: async page => {...}}]) and
 // screenshots it. Writes DIR/report.json and DIR/<shot>.png. Exit 1 on any failure.
@@ -27,6 +27,8 @@ const widths = opt("--widths", "390,820,1280").split(",").map(Number);
 const themes = argv.includes("--no-dark") ? ["light"] : ["light", "dark"];
 const standin = opt("--standin", null) ? JSON.parse(fs.readFileSync(opt("--standin"), "utf8")) : {};
 const states = opt("--states", null) ? require(path.resolve(opt("--states"))) : [];
+// Google Fonts is the one web source a page may load (the design checklist allows it).
+const FONTS = /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\//;
 const DIFF_SHARE = 0.001, DIFF_LEVEL = 32;
 const strict = process.argv.includes("--strict");   // any changed pixel fails: for moves meant to be identical
 
@@ -91,7 +93,7 @@ async function compare(browser, a, b) {
     await ctx.addInitScript(`window.__STANDIN_CONFIG = ${JSON.stringify(standin)};`);
     await ctx.addInitScript(initScript);
     const blocked = [];
-    await ctx.route("**/*", r => { const u = r.request().url(); if (u.startsWith("file:") || u.startsWith("data:")) return r.continue(); blocked.push(u); return r.abort(); });
+    await ctx.route("**/*", r => { const u = r.request().url(); if (u.startsWith("file:") || u.startsWith("data:") || FONTS.test(u)) return r.continue(); blocked.push(u); return r.abort(); });
     const page = await ctx.newPage();
     const errors = [];
     page.on("pageerror", e => errors.push(String(e.message || e)));

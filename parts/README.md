@@ -40,8 +40,9 @@ and writes each private setting as `__NAME__`. Then:
 The labels stay in the built page, so the shared-parts scan can tell it was built from the
 parts. The build refuses a settings file inside this repository and a page with a setting
 left unfilled. `node parts/check/private-check.js` fails on anything that looks private
-(Google file or form IDs, form field names, artifact, session or routine IDs, shared-folder
-paths, email addresses); with `SP_PRIVATE_SETTINGS=FILE` it also looks for that file's values.
+(Google file or form IDs, short Google Forms links, form field names, artifact, session,
+routine or project message IDs, document IDs, shared-folder paths, email addresses), in every
+text file except under node_modules and .git; with `SP_PRIVATE_SETTINGS=FILE` it also looks for that file's values.
 
 The data feed exception (Oct 20, 2026): deck pages must carry the Google Form's posting address
 and its entry codes, because a student's browser posts to it. With `--feed FILE` (the data feed
@@ -54,6 +55,10 @@ every deck build and in the nightly audit:
 ## Approval forms (1.7)
 
     python3 -I parts/form-kit/check_form.py FORM.json        # the field check
+    # The field check refuses a form that doesn't say who its Submit tells ("notify": null for no one;
+    # the kit's page can't tell a desk yet, so such forms are built in the shared folder), and a real
+    # choice with no For and Against table (R-158). It warns on a new rule with no "breach" line,
+    # and the page shows each breach line. The Message Check runs only in the shared folder's builder.
     python3 -I parts/form-kit/build-form.py FORM.json OUT.html --zones settings/time-zones.json   # Setup's zone file, from the shared folder
 
 A maker script can build its questions with `formkit.py` (`question`, `opt`, `other`, `clar`,

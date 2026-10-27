@@ -44,6 +44,10 @@ function suite(F, label) {
   }
   r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { name: "Celeste Vasquez" })])), F, s2, at("2026-10-22T08:00Z"));
   ok(label + "an ordinary name is not taken for a test name", r.faults.length === 0, r.faults);
+  // The fault describes the test-name rule the settings give, not a fixed one.
+  const F2 = Object.assign({}, F, { testNames: { contains: ["dummy"], startsWith: [] } });
+  r = SP.feedCheck(sheet(good.concat([row("10/21/2026 9:00:00", { name: "Dummy Row" })])), F2, s2, at("2026-10-22T08:00Z"));
+  ok(label + "the test-name fault describes the rule from the settings", r.faults.length === 1 && r.faults[0].includes("(one containing \"dummy\")"), r.faults);
 
   r = SP.feedCheck(sheet(good, F.header.slice(0, 8).concat(["Results"])), F, s2, at("2026-10-22T08:00Z"));
   ok(label + "a changed header row is reported", r.faults.some(f => f.includes("header row has changed")) && r.kinds.includes("header"), r);

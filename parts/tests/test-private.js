@@ -24,12 +24,23 @@ const plants = {
   "a session ID": "// from cse_01AbcdefghijklmnopQR",
   "a path in the shared folder": 'fs.readFileSync("/mnt/project-files/forms/x.json")',
   "an email address": "/* ask someone@example.edu */",
+  "a project message ID": "// see cmsg_01AbcdefghijklmnopQR",
+  "a short Google Forms link": "<a href=\"https://forms.gle/AbcDef123\">form</a>",
+  "a document or artifact ID": "// doc 0a1b2c3d-4e5f-4a6b-8c7d-0e1f2a3b4c5d",
 };
 for (const [what, line] of Object.entries(plants)) {
   const d = fs.mkdtempSync(path.join(tmp, "plant-"));
   fs.writeFileSync(path.join(d, "page.js"), "// a part\n" + line + "\n");
   r = node([checker, d]);
   ok("the check catches " + what, r.status === 1 && r.stdout.includes(what), r.stdout);
+}
+// Files the check used to skip: other text kinds, and folders whose names start with a dot.
+for (const [where, name] of [["a .yml file", "ci.yml"], ["a .csv file", "rows.csv"], ["a .sh file", "run.sh"], ["a .mjs file", "part.mjs"], ["a dot folder", ".github/notes.md"]]) {
+  const d = fs.mkdtempSync(path.join(tmp, "plant-"));
+  fs.mkdirSync(path.dirname(path.join(d, name)), { recursive: true });
+  fs.writeFileSync(path.join(d, name), "x: cse_01AbcdefghijklmnopQR\n");
+  r = node([checker, d]);
+  ok("the check reads " + where, r.status === 1, r.stdout);
 }
 const d0 = fs.mkdtempSync(path.join(tmp, "plant-"));
 fs.writeFileSync(path.join(d0, "page.css"), "@import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500');\n.a{color:#1f5f7a}\n");

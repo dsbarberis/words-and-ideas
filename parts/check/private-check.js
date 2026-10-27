@@ -2,7 +2,8 @@
 //   node parts/check/private-check.js [--feed FILE] [DIR ...]          (default: parts/)
 // Fails (exit 1) on anything that looks like a private setting: a Google file or form ID, a
 // form's field names, a claude.ai artifact, session or routine ID, a path in the project's
-// shared folder, or an email address. With SP_PRIVATE_SETTINGS set to a settings JSON file
+// shared folder, a project message ID, a short Google Forms link, a document or artifact ID
+// (a UUID), or an email address. Every folder is scanned except node_modules and .git. With SP_PRIVATE_SETTINGS set to a settings JSON file
 // (kept in the shared folder), it also fails on any of that file's values, word for word.
 // --feed FILE: the data feed settings (kept in the shared folder, never here). Their posting
 // address and entry codes are public by design in deck pages only (the data feed exception,
@@ -18,19 +19,22 @@ const PATTERNS = [
   ["a claude.ai artifact link", /claude\.ai\/(?:code\/)?artifact\//],
   ["a routine ID", /\btrig_[A-Za-z0-9]{12,}\b/],
   ["a session ID", /\b(?:cse|session)_[A-Za-z0-9]{12,}\b/],
+  ["a project message ID", /\bcmsg_[A-Za-z0-9]{12,}\b/],
+  ["a short Google Forms link", /forms\.gle\//],
+  ["a document or artifact ID", /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/i],
   ["a path in the shared folder", /\/mnt\/project-files\b/],
   ["an email address", /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z]{2,})+\b/],
 ];
 // Lines that may name a pattern on purpose: this file and its own test, wherever the check runs from.
 const SELF_NAMES = ["parts/check/private-check.js", "parts/tests/test-private.js"];
 const SELF = { has: p => p === path.resolve(__filename) || SELF_NAMES.some(n => p.split(path.sep).join("/").endsWith("/" + n)) };
-const TEXT = /\.(js|css|html|json|md|py|txt|svg)$/i;
+const TEXT = /\.(js|mjs|cjs|css|html|json|md|py|txt|svg|csv|tsv|yml|yaml|sh|toml|xml)$/i;
 
 function files(dir) {
   const out = [];
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (e.name !== "node_modules" && !e.name.startsWith(".")) out.push(...files(p)); }
+    if (e.isDirectory()) { if (e.name !== "node_modules" && e.name !== ".git") out.push(...files(p)); }
     else if (TEXT.test(e.name) && !SELF.has(path.resolve(p))) out.push(p);
   }
   return out;

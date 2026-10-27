@@ -41,6 +41,13 @@ ok("a page with chips and views passes the page check", pc.status === 0, pc.stdo
   ok("applying a saved view restores its filters", JSON.stringify(await p.evaluate(() => C.get().kind)) === '["a","b"]', null);
   await p.click(".sp-views .del");
   ok("a saved view can be deleted", await p.evaluate(() => saved.length === 0), null);
+  // Number values (a lesson number) press, show pressed, and clear, and stay numbers in the state.
+  const num = await p.evaluate(() => { const box = document.createElement("div"); document.body.appendChild(box);
+    const n = SP.chips(box, { groups: [{ key: "lesson", label: "Lesson", multi: true, options: [{ value: 3, label: "III" }, { value: 11, label: "XI" }] }], state: { lesson: [11] } });
+    const pressed = () => box.querySelector('.sp-chip[data-v="11"]').getAttribute("aria-pressed");
+    const first = pressed(); box.querySelector('.sp-chip[data-v="3"]').click(); const both = JSON.stringify(n.get().lesson);
+    box.querySelector('.sp-chip[data-v="11"]').click(); const after = JSON.stringify(n.get().lesson); box.remove(); return [first, both, after]; });
+  ok("number values press, show pressed and clear", JSON.stringify(num) === JSON.stringify(["true", "[11,3]", "[3]"]), num);
   ok("chips have a 24 px target or more", await p.evaluate(() => [...document.querySelectorAll(".sp-chip")].every(c => c.getBoundingClientRect().height >= 24)), null);
   await b.close(); fs.rmSync(tmp, { recursive: true, force: true });
   console.log(fails ? fails + " failure(s)" : "all chips tests passed"); process.exit(fails ? 1 : 0);

@@ -192,6 +192,7 @@ textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); bac
     const head = el("div", "row-head");
     head.appendChild(el("span", "row-label", r.label));
     if (r.sub) head.appendChild(el("span", "row-sub", r.sub));
+    if (r.breach) head.appendChild(el("span", "row-sub", "How a breach is found: " + r.breach));
     if (r.clarify) head.appendChild(clarifyBtn(r.label + ": " + (r.cells[q.columns[0].key] || ""), r.clarify));
     box.appendChild(head);
     const cells = el("div", "cells");
@@ -354,6 +355,7 @@ textarea { width: 100%; font: 14px/1.45 var(--font-body); color: var(--ink); bac
       if (q.clarify) head.appendChild(clarifyBtn(q.title, q.clarify));
       box.appendChild(head);
       if (q.prompt) box.appendChild(el("p", "prompt", q.prompt));
+      if (q.breach) box.appendChild(el("p", "prompt", "How a breach is found: " + q.breach));
       if (q.detailsHtml) { const d = el("div", "details"); d.innerHTML = q.detailsHtml; box.appendChild(d); }
       if (q.type === "table") {
         const bulk = el("div", "bulk");

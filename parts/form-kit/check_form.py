@@ -2,17 +2,39 @@
 
 Checks a form's JSON against what the template reads (forms/README.md in the shared folder
 describes the fields). Errors would break the page or lose an answer, and stop the build.
-Warnings are worth a look but do not stop it. Exit 1 if any file has an error.
+Errors also cover a form that doesn't say who its Submit tells, and a real choice with no For and
+Against table (R-158). Warnings are worth a look but do not stop it; one is a new rule with no breach line. Exit 1 if any file has an error.
 """
 import json, pathlib, re, sys
 
 ID = re.compile(r"^[\w-]+$")   # no dots: answers are keyed "question.item"
-TOP = {"formId", "title", "subtitle", "introHtml", "questions"}
-Q = {"id", "section", "title", "prompt", "detailsHtml", "clarify", "options", "items", "type", "columns", "rows", "combine", "combineLabel", "extra", "noRec"}
+TOP = {"formId", "title", "subtitle", "introHtml", "questions", "notify"}
+Q = {"id", "section", "title", "prompt", "detailsHtml", "clarify", "options", "items", "type", "columns", "rows", "combine", "combineLabel", "extra", "noRec", "breach", "newRule", "realChoice", "supportHtml", "html"}
 OPT = {"value", "label", "note", "rec", "text", "prefill"}
 ITEM = {"id", "label", "detailsHtml", "options", "clarify"}
 COL = {"key", "label", "bulkLabel"}
-ROW = {"id", "label", "sub", "cells", "rec", "clarify"}
+ROW = {"id", "label", "sub", "cells", "rec", "clarify", "breach", "newRule"}
+
+
+def _html(q):
+    """The question's own details, where a For and Against table would be."""
+    return " ".join(str(q.get(k) or "") for k in ("detailsHtml", "supportHtml", "html")) + " ".join(
+        str(o.get("detailsHtml") or "") for o in q.get("options", []) if isinstance(o, dict))
+
+
+def _for_against(h):
+    cells = [re.sub(r"[^a-z]", "", re.sub(r"<[^>]+>|&nbsp;|&#160;", " ", x).lower())[:7]
+             for x in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", h, re.S | re.I)]
+    return any(c.startswith("for") and not c.startswith("form") for c in cells) and any(c.startswith("against") for c in cells)
+
+
+def _rules(q):
+    """The new rules a question proposes: its rows when it is a table, else the question itself."""
+    marked = q.get("newRule") or "new rule" in str(q.get("section", "")).lower()
+    rows = [r for r in q.get("rows", []) if isinstance(r, dict)]
+    if rows:
+        return [r for r in rows if marked or r.get("newRule")]
+    return [q] if marked else []
 
 
 def check(form):
@@ -42,6 +64,11 @@ def check(form):
     unknown(form, TOP, "form")
     if not (isinstance(form.get("formId"), str) and ID.match(form["formId"])): E("form: formId must be letters, digits, - or _")
     if not s(form.get("title")): E("form: needs a title")
+    # Submit Tells Claude: a form says who its Submit tells; "notify": null means no one (the Architect's
+    # "Refuse", Oct 27, 2026). The kit's page cannot tell anyone yet, so a form that names a desk is
+    # built with the shared folder's own form builder until it can.
+    if "notify" not in form: E('form: does not say who its Submit tells; add "notify": null if no one needs telling')
+    elif form["notify"] is not None: E("form: names a desk to tell on Submit, which the kit's page cannot do yet; build it with the shared folder's form builder")
     qs = form.get("questions")
     if not isinstance(qs, list) or not qs: E("form: needs a non-empty questions list"); return errors, warnings
     ids = set()
@@ -55,6 +82,12 @@ def check(form):
         else: ids.add(qid)
         if not s(q.get("title")): E(f"{w}: needs a title")
         if "clarify" in q and not s(q["clarify"]): E(f"{w}: clarify must be words")
+        # Pros and Cons on Every Real Choice (R-158): a real choice shows a For and Against table.
+        if (q.get("realChoice") or "real choice" in str(q.get("section", "")).lower()) and not _for_against(_html(q)):
+            E(f"{w}: a real choice with no For and Against table in its details (R-158)")
+        # The Counter Ladder (R-147): every new rule says how a breach is found.
+        for x in _rules(q):
+            if not s(x.get("breach")): W(f"{w}: {x.get('id') or x.get('label')}: a new rule with no \"How a breach is found\" line; add \"breach\" to it")
         # The template reads items first (they may share the question's options), then a table.
         kinds = (["items"] if "items" in q else []) + (["table"] if q.get("type") == "table" else []) + (["options"] if "options" in q and "items" not in q and q.get("type") != "table" else [])
         if "type" in q and q["type"] != "table": E(f"{w}: unknown type '{q['type']}'")
