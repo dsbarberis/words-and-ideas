@@ -1,143 +1,100 @@
 # Build report
 
-Written by build.js on every rebuild (2026-10-17). Do not edit by hand.
+Written by build.js on every rebuild (2026-10-26). Do not edit by hand.
 
 ## 1. Conflicts
 
 **A word two decks use with different senses:** none.
 
-**A deck card that overrides the shared definition:** 40.
-- **senile** in Exercise III Flashcards (wording: Claude, unchecked)
-- **unilateral** in Exercise III Flashcards (wording: Claude, unchecked)
-- **generate** in Exercise III Flashcards (wording: Claude, unchecked)
-- **luminary** in Exercise III Flashcards (wording: Claude, unchecked)
-- **turbulent** in Exercise III Flashcards (wording: Claude, unchecked)
-- **aquatic** in Exercise III Flashcards (wording: Claude, unchecked)
-- **corpulent** in Exercise III Flashcards (wording: Claude, unchecked)
-- **precarious** in Exercise III Flashcards (wording: Claude, unchecked)
-- **invoke** in Exercise III Flashcards (wording: Claude, unchecked)
-- **quadrilateral** in Exercise III Flashcards (wording: Claude, unchecked)
-- **gregarious** in Exercise III Flashcards (wording: Claude, unchecked)
-- **deflated** in Exercise III Flashcards (wording: Claude, unchecked)
-- **retained** in Exercise III Flashcards (wording: Claude, unchecked)
-- **generic** in Exercise III Flashcards (wording: Claude, unchecked)
-- **inflamed** in Exercise III Flashcards (wording: Claude, unchecked)
-- **luminous** in Exercise III Flashcards (wording: Claude, unchecked)
-- **contemporary** in Exercise III Flashcards (wording: Claude, unchecked)
-- **servile** in Exercise III Flashcards (wording: Claude, unchecked)
-- **enchanted** in Exercise III Flashcards (wording: Claude, unchecked)
-- **infer** in Exercise III Flashcards (wording: Claude, unchecked)
-- **flagrant** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **congenital** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **diffident** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **insubordinate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **concubine** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **supersede** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **inherent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **salient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **plenipotentiary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **sedentary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **subsidiary** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **aggregate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **terrain** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **pungent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **universe** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **resilient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **inordinate** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **omnipotent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **expedient** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
-- **incumbent** in Lesson X Exercise III Flashcards (wording: Claude, unchecked)
+**A deck card that overrides the shared definition:** 80.
+- **senile** in Exercise III Flashcards (wording: instructor)
+- **unilateral** in Exercise III Flashcards (wording: instructor)
+- **generate** in Exercise III Flashcards (wording: instructor)
+- **luminary** in Exercise III Flashcards (wording: instructor)
+- **turbulent** in Exercise III Flashcards (wording: instructor)
+- **aquatic** in Exercise III Flashcards (wording: instructor)
+- **corpulent** in Exercise III Flashcards (wording: instructor)
+- **precarious** in Exercise III Flashcards (wording: instructor)
+- **invoke** in Exercise III Flashcards (wording: instructor)
+- **quadrilateral** in Exercise III Flashcards (wording: instructor)
+- **gregarious** in Exercise III Flashcards (wording: instructor)
+- **deflated** in Exercise III Flashcards (wording: instructor)
+- **retained** in Exercise III Flashcards (wording: instructor)
+- **generic** in Exercise III Flashcards (wording: instructor)
+- **inflamed** in Exercise III Flashcards (wording: instructor)
+- **luminous** in Exercise III Flashcards (wording: instructor)
+- **contemporary** in Exercise III Flashcards (wording: instructor)
+- **servile** in Exercise III Flashcards (wording: instructor)
+- **enchanted** in Exercise III Flashcards (wording: instructor)
+- **infer** in Exercise III Flashcards (wording: instructor)
+- **flagrant** in Lesson X Exercise III Flashcards (wording: instructor)
+- **congenital** in Lesson X Exercise III Flashcards (wording: instructor)
+- **diffident** in Lesson X Exercise III Flashcards (wording: instructor)
+- **insubordinate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **concubine** in Lesson X Exercise III Flashcards (wording: instructor)
+- **supersede** in Lesson X Exercise III Flashcards (wording: instructor)
+- **inherent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **salient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **plenipotentiary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **sedentary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **subsidiary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **aggregate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **terrain** in Lesson X Exercise III Flashcards (wording: instructor)
+- **pungent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **universe** in Lesson X Exercise III Flashcards (wording: instructor)
+- **resilient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **inordinate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **omnipotent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **expedient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **incumbent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **ineffable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credit** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **transmuted** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **Fates** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intractable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **contingent** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **genitally** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intangible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **despicable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **assimilable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incontrovertible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **defame** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **equable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallacious** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **immutable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **docile** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **tenable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **obsessed** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incredulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **decadent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **distracting** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **elevate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pendulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **florid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **effluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pernicious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **factitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **feasible** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **confluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **renovate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **versatile** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **defoliated** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **perceive** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **acrid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **adventitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **capacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **efficacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **precepts** in Lesson XII Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
 ## 2. Wording still marked "Claude, unchecked"
 
-### Exercise III Flashcards (20)
+### Glossary meanings (1)
 
-- **senile**, definition in context on the card
-- **unilateral**, definition in context on the card
-- **generate**, definition in context on the card
-- **luminary**, definition in context on the card
-- **turbulent**, definition in context on the card
-- **aquatic**, definition in context on the card
-- **corpulent**, definition in context on the card
-- **precarious**, definition in context on the card
-- **invoke**, definition in context on the card
-- **quadrilateral**, definition in context on the card
-- **gregarious**, definition in context on the card
-- **deflated**, definition in context on the card
-- **retained**, definition in context on the card
-- **generic**, definition in context on the card
-- **inflamed**, definition in context on the card
-- **luminous**, definition in context on the card
-- **contemporary**, definition in context on the card
-- **servile**, definition in context on the card
-- **enchanted**, definition in context on the card
-- **infer**, definition in context on the card
-
-### Greek History Words Flashcards (9)
-
-- **laconic**, origin note: From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.
-- **philippic**, origin note: From the fiery orations the Athenian statesman Demosthenes delivered against Philip II of Macedon.
-- **Draconian**, origin note: From Draco, the Athenian lawgiver whose legal code prescribed severe punishments even for minor offenses.
-- **solecism**, origin note: From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.
-- **epicure, epicurean**, origin note: From Epicurus, the philosopher whose name became (somewhat unfairly) linked to refined pleasure-seeking.
-- **cynic**, origin note: From the ancient Cynic philosophers, who scorned social convention — the modern sense has drifted toward general distrust of others' motives.
-- **sybarite**, origin note: From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.
-- **ostracism**, origin note: From ostrakon, the pottery shard Athenians inscribed with a name when voting to banish a citizen for ten years.
-- **Pyrrhic victory**, origin note: From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.
-
-### Greek Lesson III Exercise (2)
-
-- **labyrinth**, origin note: From the maze built by Daedalus on Crete to house the Minotaur.
-- **aegis**, origin note: From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — "under the aegis of" means under someone's protection.
-
-### Greek Mythology Words Flashcards (17)
-
-- **labyrinth**, origin note: From the maze built by Daedalus on Crete to house the Minotaur.
-- **aegis**, origin note: From the aegis, the shield (or goatskin cloak) of Zeus, later associated with Athena — "under the aegis of" means under someone's protection.
-- **amazon**, origin note: From the Amazons, a legendary tribe of female warriors in Greek mythology.
-- **Procrustean**, sense 1: Effecting conformity by violent or ruthless means. (source's words: “effecting conformity by violent means”, Lessons I & II worksheet, p. 167)
-- **Procrustean**, origin note: From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size.
-- **Chimerical**, sense 1: Extremely fanciful; wildly imaginary. (source's words: “extremely fanciful”, Lessons I & II worksheet, p. 167)
-- **Chimerical**, origin note: From the Chimera, a fire-breathing hybrid monster — part lion, part goat, part serpent.
-- **nemesis**, origin note: From Nemesis, the Greek goddess of retribution and righteous vengeance.
-- **stygian**, sense 1: Gloomy; infernally dark. (source's words: “gloomy”, Lessons I & II worksheet, p. 167)
-- **stygian**, origin note: From the River Styx, the gloomy river separating the living world from the underworld.
-- **halcyon**, origin note: From the mythical halcyon bird (identified with the kingfisher), said to calm the winds and sea while nesting.
-- **mentor**, origin note: From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey.
-- **tantalize**, sense 1: To tease by offering something desirable while keeping it out of reach. (source's words: “to tease”, Lessons I & II worksheet, p. 167)
-- **tantalize**, origin note: From Tantalus, condemned in the underworld to stand in water beneath fruit, neither of which he could ever reach.
-- **odyssey**, sense 1: A long wandering journey. (source's words: “a long wandering”, Lessons I & II worksheet, p. 167)
-- **odyssey**, origin note: From Homer's Odyssey, the epic recounting Odysseus's ten-year journey home from Troy.
-- **Achilles' heel**, origin note: From Achilles, the Greek hero whose only vulnerable spot was the heel his mother held when she dipped him in the River Styx.
-
-### Lesson X Exercise III Flashcards (20)
-
-- **flagrant**, definition in context on the card
-- **congenital**, definition in context on the card
-- **diffident**, definition in context on the card
-- **insubordinate**, definition in context on the card
-- **concubine**, definition in context on the card
-- **supersede**, definition in context on the card
-- **inherent**, definition in context on the card
-- **salient**, definition in context on the card
-- **plenipotentiary**, definition in context on the card
-- **sedentary**, definition in context on the card
-- **subsidiary**, definition in context on the card
-- **aggregate**, definition in context on the card
-- **terrain**, definition in context on the card
-- **pungent**, definition in context on the card
-- **universe**, definition in context on the card
-- **resilient**, definition in context on the card
-- **inordinate**, definition in context on the card
-- **omnipotent**, definition in context on the card
-- **expedient**, definition in context on the card
-- **incumbent**, definition in context on the card
-
-### Glossary meanings (106)
-
-ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, yield, withdraw · CLUD-, CLUS-, [CLOS-] to close, shut · CRUC- cross · CUR(R)-, CURS- [COURS-], [COR(S)-] to run · DUC-, DUCT- to lead · FAC- [FIC-] to make, do · FIN- end, boundary · FIRM- strong, firm · FORT- strong, brave · GRAD-, GRESS- to step, go, walk · GRAND- great, large · GRAV- [GRIEV-] heavy · GREG- flock, group · HAB-, AB- [HIB-] to have, hold · JUDIC- to judge · JUR-, JUST- law, right, to swear · LEV- light (weight), to lift · LINE- [LIGN-] line, thread · LIMIN- threshold · LOC- place · LOQU-, LOCUT- to speak, talk · LUD-, LUS- to play · NIHIL- nothing · NOMIN- name · NUL(L)- none, not any · PART- part, share · PED- foot · PEND-, PENS- to hang, weigh, pay · PLE-, PLET-, PLEN- to fill, full · PREC- to pray, ask, beg · PULS- to drive, push, beat · PUNG-, PUNCT- to prick, pierce, point · SACR- [SECR-] sacred, holy · SANCT- holy, inviolable · SENT-, SENS- to feel, perceive · SPEC-, (SPIC-), SPECT- to look, see · SPIR- to breathe · TRUD-, TRUS- to push, thrust · TURB- to disturb, confuse, crowd · UND- [OUND-] wave · VEN-, VENT-, [VENU-] to come · VERB- word · VERT-, VERS- to turn · VEST- clothing · VI(A)- way, road · VID-, VIS- [VIEW-] to see · VOC-, VOK- to call, voice · AB-, A-, ABS- away from, from · AD-, AC- to, toward · AMBI- both, around · ANTE- before · CIRCUM- around · CON-, COM-, CO- with, together · CONTRA-, CONTRO-, COUNTER- against · DE- down, away, reversal · DIS-, DI-, DIF- apart, not, away · EX-, E-, EF- out, out of · EXTRA-, EXTRO- outside, beyond · IN-, IM- [IG- before n] (negative) not, without · IN-, IM-, [EN-], [EM-] (directional) into, in, on, upon · INFRA- below, beneath · INTER- between, among · INTRA-, INTRO- within, inside · NON- not · OB- against, toward, in the way · PER- through, thoroughly · POST- after · PRE- before · PRO- forward, for, in favor of · RE-, RED- (before vowels) back, again · RETRO- backward · SE-, SED- (before vowels) apart, aside, without · SUB-, SUS-, SUC- under, below · SUPER- [SUR-] above, over · TRANS-, TRAN-, TRA- across, through, beyond · ULTRA- beyond, excessively · SEN- old · LATER- side · LUMIN- to shine, light · AQU(A)- water · CORPOR-, CORP(US)- body · FLAT- to blow · TEN-, TAIN- to hold · FLAG(R)-, FLAM(M)- flame · TEMPOR- time · SERV- to serve · CANT-, CHANT- to sing · FER- to carry, bear · BENE-, BON- good, well · EQU-, (IQU-) equal · REG-, (RIG-), RECT- to rule, straight · DOM(IN)- house, master · PRIM- first · UNI- one · QUADRI- four · -ILE pertaining to, like · -AL pertaining to · -ATE to make, do · -ULENT full of, disposed to · -IC pertaining to · -OUS full of · MAGN- great · OMNI- all · -AIN pertaining to
+LIMIN- threshold
 
 ## 3. Which decks use each word
 
@@ -225,7 +182,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - superannuated: Lesson IX Workbook Flashcards
 - engine: Lesson IX Workbook Flashcards
 - domino: Lesson IX Workbook Flashcards
-- dessert: Lesson IX Workbook Flashcards
+- dessert: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - parade: Lesson IX Workbook Flashcards
 - afflatus: Lesson IX Workbook Flashcards
 - Lucifer: Lesson IX Workbook Flashcards
@@ -248,7 +205,7 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - parry: Lesson IX Workbook Flashcards
 - pare: Lesson IX Workbook Flashcards
 - apparel: Lesson IX Workbook Flashcards
-- seniority: Lesson IX Workbook Flashcards
+- seniority: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
 - senectitude: Lesson IX Workbook Flashcards
 - subserve: Lesson IX Workbook Flashcards
 - reserved: Lesson IX Workbook Flashcards
@@ -346,11 +303,11 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - pyrosis: Greek Lesson III Exercise
 - empyrean: Greek Lesson III Exercise
 - pyroclastic: Greek Lesson III Exercise
-- insult: Lesson X Workbook Flashcards
+- insult: Lesson X Workbook Flashcards, Lesson XI Exercise IV Flashcards
 - assail: Lesson X Workbook Flashcards
 - resilient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - salacious: Lesson X Workbook Flashcards
-- salmon: Lesson X Workbook Flashcards
+- salmon: Lesson X Workbook Flashcards, Lesson XI Workbook Flashcards
 - salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - sally: Lesson X Workbook Flashcards
 - exultation: Lesson X Workbook Flashcards
@@ -414,3 +371,54 @@ ALIEN- belonging to another, foreign · ART- skill, craft · CED-, CESS- to go, 
 - segregate: Lesson X Exercise IV Flashcards
 - senate: Lesson X Exercise IV Flashcards
 - travesty: Lesson X Exercise IV Flashcards
+- ineffable: Lesson XI Exercise III Flashcards
+- credit: Lesson XI Exercise III Flashcards
+- transmuted: Lesson XI Exercise III Flashcards
+- Fates: Lesson XI Exercise III Flashcards
+- fallible: Lesson XI Exercise III Flashcards
+- credible: Lesson XI Exercise III Flashcards
+- intractable: Lesson XI Exercise III Flashcards
+- contingent: Lesson XI Exercise III Flashcards
+- genitally: Lesson XI Exercise III Flashcards
+- intangible: Lesson XI Exercise III Flashcards
+- despicable: Lesson XI Exercise III Flashcards
+- assimilable: Lesson XI Exercise III Flashcards
+- incontrovertible: Lesson XI Exercise III Flashcards
+- defame: Lesson XI Exercise III Flashcards, Lesson XI Workbook Flashcards
+- equable: Lesson XI Exercise III Flashcards
+- fallacious: Lesson XI Exercise III Flashcards
+- immutable: Lesson XI Exercise III Flashcards
+- docile: Lesson XI Exercise III Flashcards
+- tenable: Lesson XI Exercise III Flashcards
+- obsessed: Lesson XI Exercise III Flashcards
+- cancer: Lesson XI Exercise IV Flashcards
+- eradicate: Lesson XI Exercise IV Flashcards
+- flourish: Lesson XI Exercise IV Flashcards
+- focus: Lesson XI Exercise IV Flashcards
+- gladiolus: Lesson XI Exercise IV Flashcards
+- gland: Lesson XI Exercise IV Flashcards
+- muscle: Lesson XI Exercise IV Flashcards
+- pastor: Lesson XI Exercise IV Flashcards
+- remorse: Lesson XI Exercise IV Flashcards
+- scruple: Lesson XI Exercise IV Flashcards
+- seminary: Lesson XI Exercise IV Flashcards
+- incredulous: Lesson XII Exercise III Flashcards
+- decadent: Lesson XII Exercise III Flashcards
+- distracting: Lesson XII Exercise III Flashcards
+- elevate: Lesson XII Exercise III Flashcards
+- pendulous: Lesson XII Exercise III Flashcards
+- florid: Lesson XII Exercise III Flashcards
+- effluent: Lesson XII Exercise III Flashcards
+- pernicious: Lesson XII Exercise III Flashcards
+- factitious: Lesson XII Exercise III Flashcards
+- feasible: Lesson XII Exercise III Flashcards
+- confluent: Lesson XII Exercise III Flashcards
+- renovate: Lesson XII Exercise III Flashcards
+- versatile: Lesson XII Exercise III Flashcards
+- defoliated: Lesson XII Exercise III Flashcards
+- perceive: Lesson XII Exercise III Flashcards
+- acrid: Lesson XII Exercise III Flashcards
+- adventitious: Lesson XII Exercise III Flashcards
+- capacious: Lesson XII Exercise III Flashcards
+- efficacious: Lesson XII Exercise III Flashcards
+- precepts: Lesson XII Exercise III Flashcards

@@ -9,6 +9,12 @@ one template, so the decks stay identical apart from their content.
 - `glossary.js`: every base, prefix and suffix used in the decks, once, with its forms
   and its full set of meanings. Decks point to entries (`gloss: "PED"`) instead of
   repeating the meanings, so all decks agree. Change a meaning here and rebuild.
+  Since Oct 22, 2026 it also holds every Latin prefix, suffix and base in the book's
+  lists (Ayers, pp. 149-155): one entry per printed line, with `lesson` ("Latin XII")
+  and `lessonNo` (12) for the lesson the book gives, `book` (the printed lines, stored on
+  entries that existed before), and `latin` (the Latin word it comes from; `family`
+  links every form of one word). The import's records are in the Project files,
+  proposals/latin-elements-full-list/.
 - `vocabulary.js`: every whole word the decks teach, once each (approved Oct 7, 2026):
   its numbered senses (definition, wording source, quiz key-word lists), its parts
   (glossary keys), its origin note or etymology, and every place the course introduces
@@ -33,10 +39,30 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   Quiz modes, for content to be memorized.
   - Latin Roots (`decks/latin-roots.js`, built as `index.html`) is a meanings deck
     (`answer: "meanings"`): each card is a glossary entry, with its forms on the front
-    and its meanings (one per line) and examples on the back. In the quiz the student
+    and its meanings and examples on the back. In the quiz the student
     types the meanings one per line ("+ Add another meaning", or Enter), and every
-    meaning is required. `keys` holds one key-word list per meaning, in the glossary's
-    order. A line that matches only another card's wording makes the answer wrong;
+    distinct meaning is required. `keys` holds one key-word list per printed meaning, in
+    the glossary's order. **Meaning Clouds** (instructor, Oct 23, 2026): a glossary
+    entry's `groups` sorts its meanings into distinct meanings, each a list of
+    synonyms of which any one counts (`[["art","skill"]]` is one meaning; JUR- has
+    three). The build joins the key-word lists of each group, so one line answers a
+    group. The back shows a count ("3 meanings", "2 of 3 meanings" after a check) and
+    one pill per distinct meaning, its synonyms joined by a small "or"; Exercise backs
+    show the same pills, smaller, beside each element. An entry without `groups` has
+    one meaning per group.
+    A Latin Roots card may set `forms` and `examples` to show the book's whole line where the
+    glossary splits a family into one entry per form ("CAD-, (CID-), CAS-"; Lesson XII Import
+    form, Oct 25, 2026); the meanings and key words still come from the entry it names.
+- **Answer effort in every quiz** (Exercise Decks since Oct 21, 2026; Latin Roots,
+  Greek History and Greek Mythology since the instructor's "Every quiz", Oct 23,
+  2026): a real attempt before Check, the back hidden and off the page until the
+  answer is right, a missed card back only after 3 others (with review cards already
+  right, which never count, or a 2-minute pause). On Latin Roots each filled line needs
+  a word of its own (not only little words, not only the root's own forms unless that
+  is a meaning) and copies no five words of a note; the number of lines is not
+  checked, since the count shows on the back only. Greek History and Greek Mythology
+  use the rule of an Exercise meaning box. Teacher mode skips the gate. A deck can
+  opt out with `answerEffort: false`. A line that matches only another card's wording makes the answer wrong;
     a line that matches nothing is ignored. The quiz always covers every card (the
     instructor dropped quizzing by tab on Oct 12, 2026; `quizBySet: true` would make a
     deck's quiz cover the selected tab, with Sheet rows such as "quiz round 1 (Bases)").
@@ -88,6 +114,20 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   A deck whose boxes show "e.g." explains it on the entry card, and a pop-up repeats the explanation if
   a student types "e.g." in an answer. Answers saved in the round under way are marked again with the
   current rules when the deck opens.
+  **Element boxes** (`elementBoxes: true` with `analysis: true`; instructor, Oct 20 and Oct 24, 2026;
+  first for Lesson XII Exercise III; Lessons IX, X and XI added at the instructor's word, Oct 25, 2026,
+  without re-judging past answers: answers saved in an earlier set of boxes keep their mark): instead of the
+  Analysis box, three boxes, Prefixes, Bases and Suffixes, each asking for every element of that kind
+  with its meaning, then Meaning in context. The glossary entry's `kind` (prefix, base, suffix) picks
+  the box. In a box, every element of that kind must be there in a form the card accepts (any order),
+  and for each one a meaning: any glossary meaning, a plain wording the glossary entry allows
+  (`plainMeanings`, for grammatical suffixes such as -ED), or the answer key's wording on that card
+  (`keyMeanings: { "FA": "to say, tell" }`, by glossary key). Wordings with commas give each meaning
+  separately. A meaning counts when each of its content words is there in any ending; little words and
+  the words "suffix" and "prefix" need not be typed. A box whose kind the word lacks is right when
+  empty or "none". The card is right only when every box is, and the back marks each box. Before
+  Check, the Bases box must share letters with the word. Plain and key wordings are accepted but not
+  shown; the back shows the glossary's pills.
   A `boxes` card (Greek Introduction) has one box per part of the answer
   (`boxes: [{ label, check }]`; Enter moves to the next box). A box with
   `check: "greek"` accepts any of `greekForms` (ignoring accents, and treating k/c,

@@ -1,0 +1,424 @@
+# Build report
+
+Written by build.js on every rebuild (2026-10-25). Do not edit by hand.
+
+## 1. Conflicts
+
+**A word two decks use with different senses:** none.
+
+**A deck card that overrides the shared definition:** 80.
+- **senile** in Exercise III Flashcards (wording: instructor)
+- **unilateral** in Exercise III Flashcards (wording: instructor)
+- **generate** in Exercise III Flashcards (wording: instructor)
+- **luminary** in Exercise III Flashcards (wording: instructor)
+- **turbulent** in Exercise III Flashcards (wording: instructor)
+- **aquatic** in Exercise III Flashcards (wording: instructor)
+- **corpulent** in Exercise III Flashcards (wording: instructor)
+- **precarious** in Exercise III Flashcards (wording: instructor)
+- **invoke** in Exercise III Flashcards (wording: instructor)
+- **quadrilateral** in Exercise III Flashcards (wording: instructor)
+- **gregarious** in Exercise III Flashcards (wording: instructor)
+- **deflated** in Exercise III Flashcards (wording: instructor)
+- **retained** in Exercise III Flashcards (wording: instructor)
+- **generic** in Exercise III Flashcards (wording: instructor)
+- **inflamed** in Exercise III Flashcards (wording: instructor)
+- **luminous** in Exercise III Flashcards (wording: instructor)
+- **contemporary** in Exercise III Flashcards (wording: instructor)
+- **servile** in Exercise III Flashcards (wording: instructor)
+- **enchanted** in Exercise III Flashcards (wording: instructor)
+- **infer** in Exercise III Flashcards (wording: instructor)
+- **flagrant** in Lesson X Exercise III Flashcards (wording: instructor)
+- **congenital** in Lesson X Exercise III Flashcards (wording: instructor)
+- **diffident** in Lesson X Exercise III Flashcards (wording: instructor)
+- **insubordinate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **concubine** in Lesson X Exercise III Flashcards (wording: instructor)
+- **supersede** in Lesson X Exercise III Flashcards (wording: instructor)
+- **inherent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **salient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **plenipotentiary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **sedentary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **subsidiary** in Lesson X Exercise III Flashcards (wording: instructor)
+- **aggregate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **terrain** in Lesson X Exercise III Flashcards (wording: instructor)
+- **pungent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **universe** in Lesson X Exercise III Flashcards (wording: instructor)
+- **resilient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **inordinate** in Lesson X Exercise III Flashcards (wording: instructor)
+- **omnipotent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **expedient** in Lesson X Exercise III Flashcards (wording: instructor)
+- **incumbent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **ineffable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credit** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **transmuted** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **Fates** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **credible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intractable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **contingent** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **genitally** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **intangible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **despicable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **assimilable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incontrovertible** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **defame** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **equable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **fallacious** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **immutable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **docile** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **tenable** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **obsessed** in Lesson XI Exercise III Flashcards (wording: answer key)
+- **incredulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **decadent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **distracting** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **elevate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pendulous** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **florid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **effluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **pernicious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **factitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **feasible** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **confluent** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **renovate** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **versatile** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **defoliated** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **perceive** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **acrid** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **adventitious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **capacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **efficacious** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **precepts** in Lesson XII Exercise III Flashcards (wording: answer key)
+
+**Possible duplicates or homographs:** none.
+
+## 2. Wording still marked "Claude, unchecked"
+
+### Glossary meanings (1)
+
+LIMIN- threshold
+
+## 3. Which decks use each word
+
+- amazon: Greek Mythology Words Flashcards
+- Procrustean: Greek Mythology Words Flashcards
+- Chimerical: Greek Mythology Words Flashcards
+- nemesis: Greek Mythology Words Flashcards
+- stygian: Greek Mythology Words Flashcards
+- halcyon: Greek Mythology Words Flashcards
+- mentor: Greek Mythology Words Flashcards
+- labyrinth: Greek Lesson III Exercise, Greek Mythology Words Flashcards
+- tantalize: Greek Mythology Words Flashcards
+- odyssey: Greek Mythology Words Flashcards
+- aegis: Greek Lesson III Exercise, Greek Mythology Words Flashcards
+- Achilles' heel: Greek Mythology Words Flashcards
+- laconic: Greek History Words Flashcards
+- sword of Damocles: Greek History Words Flashcards
+- philippic: Greek History Words Flashcards
+- Draconian: Greek History Words Flashcards
+- solecism: Greek History Words Flashcards
+- epicure, epicurean: Greek History Words Flashcards
+- cynic: Greek History Words Flashcards
+- sybarite: Greek History Words Flashcards
+- ostracism: Greek History Words Flashcards
+- Pyrrhic victory: Greek History Words Flashcards
+- senile: Exercise III Flashcards
+- unilateral: Exercise III Flashcards
+- generate: Exercise III Flashcards
+- luminary: Exercise III Flashcards
+- turbulent: Exercise III Flashcards
+- aquatic: Exercise III Flashcards
+- corpulent: Exercise III Flashcards
+- precarious: Exercise III Flashcards
+- invoke: Exercise III Flashcards
+- quadrilateral: Exercise III Flashcards
+- gregarious: Exercise III Flashcards
+- deflated: Exercise III Flashcards
+- retained: Exercise III Flashcards
+- generic: Exercise III Flashcards
+- inflamed: Exercise III Flashcards
+- luminous: Exercise III Flashcards
+- contemporary: Exercise III Flashcards
+- servile: Exercise III Flashcards
+- enchanted: Exercise III Flashcards
+- infer: Exercise III Flashcards
+- bishop: Greek Introduction Exercise
+- blame: Greek Introduction Exercise
+- chair: Greek Introduction Exercise
+- desk: Greek Introduction Exercise
+- devil: Greek Introduction Exercise
+- glamour: Greek Introduction Exercise
+- palsy: Greek Introduction Exercise
+- parole: Greek Introduction Exercise
+- priest: Greek Introduction Exercise
+- story: Greek Introduction Exercise
+- alms: Greek Introduction Exercise
+- box: Greek Introduction Exercise
+- chimney: Greek Introduction Exercise
+- church: Greek Introduction Exercise
+- elixir: Greek Introduction Exercise
+- pew: Greek Introduction Exercise
+- prow: Greek Introduction Exercise
+- almond: Greek Introduction Exercise
+- cherry: Greek Introduction Exercise
+- date: Greek Introduction Exercise
+- fancy: Greek Introduction Exercise
+- frantic: Greek Introduction Exercise
+- guitar: Greek Introduction Exercise
+- lantern: Greek Introduction Exercise
+- licorice: Greek Introduction Exercise
+- place: Greek Introduction Exercise
+- surgeon, surgery: Greek Introduction Exercise
+- truck: Greek Introduction Exercise
+- biped: Lesson IX Workbook Flashcards
+- introversive: Lesson IX Workbook Flashcards
+- recessive: Lesson IX Workbook Flashcards
+- unanimous: Lesson IX Workbook Flashcards
+- discursive: Lesson IX Workbook Flashcards
+- devious: Lesson IX Workbook Flashcards
+- prospective: Lesson IX Workbook Flashcards
+- complementary: Lesson IX Workbook Flashcards
+- prelusory: Lesson IX Workbook Flashcards
+- evidential: Lesson IX Workbook Flashcards
+- circumlocutory: Lesson IX Workbook Flashcards
+- superannuated: Lesson IX Workbook Flashcards
+- engine: Lesson IX Workbook Flashcards
+- domino: Lesson IX Workbook Flashcards
+- dessert: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
+- parade: Lesson IX Workbook Flashcards
+- afflatus: Lesson IX Workbook Flashcards
+- Lucifer: Lesson IX Workbook Flashcards
+- flamingo: Lesson IX Workbook Flashcards
+- dungeon: Lesson IX Workbook Flashcards
+- soufflé: Lesson IX Workbook Flashcards
+- dome: Lesson IX Workbook Flashcards
+- flagrant: Lesson IX Workbook Flashcards, Lesson X Exercise III Flashcards
+- limn: Lesson IX Workbook Flashcards
+- flamboyant: Lesson IX Workbook Flashcards
+- collateral: Lesson IX Workbook Flashcards
+- several: Lesson IX Workbook Flashcards
+- condominium: Lesson IX Workbook Flashcards
+- dominant: Lesson IX Workbook Flashcards
+- domain: Lesson IX Workbook Flashcards
+- domicile: Lesson IX Workbook Flashcards
+- conflagration: Lesson IX Workbook Flashcards
+- illuminate: Lesson IX Workbook Flashcards
+- pellucid: Lesson IX Workbook Flashcards
+- parry: Lesson IX Workbook Flashcards
+- pare: Lesson IX Workbook Flashcards
+- apparel: Lesson IX Workbook Flashcards
+- seniority: Lesson IX Workbook Flashcards, Lesson XI Workbook Flashcards
+- senectitude: Lesson IX Workbook Flashcards
+- subserve: Lesson IX Workbook Flashcards
+- reserved: Lesson IX Workbook Flashcards
+- servitude: Lesson IX Workbook Flashcards
+- congenital: Lesson IX Workbook Flashcards, Lesson X Exercise III Flashcards
+- genre: Lesson IX Workbook Flashcards
+- disingenuous: Lesson IX Workbook Flashcards
+- gender: Lesson IX Workbook Flashcards
+- gentle: Lesson IX Workbook Flashcards
+- progeny: Lesson IX Workbook Flashcards
+- generalize: Lesson IX Workbook Flashcards
+- congenial: Lesson IX Workbook Flashcards
+- ingénue: Lesson IX Workbook Flashcards
+- generous: Lesson IX Workbook Flashcards
+- regenerate: Lesson IX Workbook Flashcards
+- generic products: Lesson IX Workbook Flashcards
+- genuine: Lesson IX Workbook Flashcards
+- genetics: Lesson IX Workbook Flashcards
+- germinate: Lesson IX Workbook Flashcards
+- align: Lesson IX Workbook Flashcards
+- pawn: Lesson IX Workbook Flashcards
+- ingredient: Lesson IX Workbook Flashcards
+- bonny: Lesson IX Workbook Flashcards
+- egalitarian: Lesson IX Workbook Flashcards
+- regime: Lesson IX Workbook Flashcards
+- damsel: Lesson IX Workbook Flashcards
+- enclosure: Lesson IX Workbook Flashcards
+- grievous: Lesson IX Workbook Flashcards
+- portion: Lesson IX Workbook Flashcards
+- convey: Lesson IX Workbook Flashcards
+- revenue: Lesson IX Workbook Flashcards
+- pansy: Lesson IX Workbook Flashcards
+- abound: Lesson IX Workbook Flashcards
+- premiere: Lesson IX Workbook Flashcards
+- marathon: Greek History Words Flashcards
+- Solon: Greek History Words Flashcards
+- academy: Greek History Words Flashcards
+- Arcadian: Greek History Words Flashcards
+- Croesus: Greek History Words Flashcards
+- hedonism, hedonistic: Greek History Words Flashcards
+- to cut the Gordian knot: Greek History Words Flashcards
+- mausoleum: Greek History Words Flashcards
+- meander: Greek History Words Flashcards
+- sophistry, sophism: Greek History Words Flashcards
+- Spartan: Greek History Words Flashcards
+- stoic: Greek History Words Flashcards
+- sandwich: Greek History Words Flashcards
+- bedlam: Greek Lesson II Exercise
+- boycott: Greek Lesson II Exercise
+- dunce: Greek Lesson II Exercise
+- Frankenstein: Greek Lesson II Exercise
+- jeremiad: Greek Lesson II Exercise
+- maudlin: Greek Lesson II Exercise
+- quixotic: Greek Lesson II Exercise
+- simony: Greek Lesson II Exercise
+- tawdry: Greek Lesson II Exercise
+- utopia: Greek Lesson II Exercise
+- epode: Greek Lesson III Exercise
+- tragedy: Greek Lesson III Exercise
+- monody: Greek Lesson III Exercise
+- odeum: Greek Lesson III Exercise
+- comedy: Greek Lesson III Exercise
+- rhapsody: Greek Lesson III Exercise
+- parody: Greek Lesson III Exercise
+- palinode: Greek Lesson III Exercise
+- melody: Greek Lesson III Exercise
+- ode: Greek Lesson III Exercise
+- bibliomania: Greek Lesson III Exercise
+- bibliotheca: Greek Lesson III Exercise
+- Bible: Greek Lesson III Exercise
+- bibliography: Greek Lesson III Exercise
+- bibliophile: Greek Lesson III Exercise
+- cryptic: Greek Lesson III Exercise
+- grotesque: Greek Lesson III Exercise
+- apocryphal: Greek Lesson III Exercise
+- cryptonymous: Greek Lesson III Exercise
+- dichotomy: Greek Lesson III Exercise
+- epitome: Greek Lesson III Exercise
+- tome: Greek Lesson III Exercise
+- mastectomy: Greek Lesson III Exercise
+- atom: Greek Lesson III Exercise
+- entomology: Greek Lesson III Exercise
+- canonical: Greek Lesson III Exercise
+- bicycle: Greek Lesson III Exercise
+- cyclone: Greek Lesson III Exercise
+- encyclopedia: Greek Lesson III Exercise
+- glossal: Greek Lesson III Exercise
+- gloss: Greek Lesson III Exercise
+- polyglot: Greek Lesson III Exercise
+- iconoclast: Greek Lesson III Exercise
+- iconology: Greek Lesson III Exercise
+- mimic: Greek Lesson III Exercise
+- pantomime: Greek Lesson III Exercise
+- pyromaniac: Greek Lesson III Exercise
+- pyrosis: Greek Lesson III Exercise
+- empyrean: Greek Lesson III Exercise
+- pyroclastic: Greek Lesson III Exercise
+- insult: Lesson X Workbook Flashcards, Lesson XI Exercise IV Flashcards
+- assail: Lesson X Workbook Flashcards
+- resilient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- salacious: Lesson X Workbook Flashcards
+- salmon: Lesson X Workbook Flashcards, Lesson XI Workbook Flashcards
+- salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- sally: Lesson X Workbook Flashcards
+- exultation: Lesson X Workbook Flashcards
+- desultory: Lesson X Workbook Flashcards
+- result: Lesson X Workbook Flashcards
+- posse: Lesson X Workbook Flashcards
+- diffident: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- incubate: Lesson X Exercise IV Flashcards, Lesson X Workbook Flashcards
+- siege: Lesson X Workbook Flashcards
+- somersault: Lesson X Workbook Flashcards
+- séance: Lesson X Workbook Flashcards
+- cubicle: Lesson X Workbook Flashcards
+- terra incognita: Lesson X Workbook Flashcards
+- possess: Lesson X Workbook Flashcards
+- Fido: Lesson X Workbook Flashcards
+- terra cotta: Lesson X Workbook Flashcards
+- sauté: Lesson X Workbook Flashcards
+- fiancé: Lesson X Workbook Flashcards
+- inter: Lesson X Workbook Flashcards
+- exordium: Lesson X Workbook Flashcards
+- succumb: Lesson X Workbook Flashcards
+- covey: Lesson X Workbook Flashcards
+- concubine: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- defiant: Lesson X Workbook Flashcards
+- fiduciary: Lesson X Workbook Flashcards
+- affiance: Lesson X Workbook Flashcards
+- adhesive: Lesson X Workbook Flashcards
+- hesitant: Lesson X Workbook Flashcards
+- coordinate: Lesson X Workbook Flashcards
+- extraordinary: Lesson X Workbook Flashcards
+- impotent: Lesson X Workbook Flashcards
+- session: Lesson X Workbook Flashcards
+- subsidy: Lesson X Workbook Flashcards
+- supersede: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
+- Terre Haute: Lesson X Workbook Flashcards
+- insubordinate: Lesson X Exercise III Flashcards
+- inherent: Lesson X Exercise III Flashcards
+- plenipotentiary: Lesson X Exercise III Flashcards
+- sedentary: Lesson X Exercise III Flashcards
+- subsidiary: Lesson X Exercise III Flashcards
+- aggregate: Lesson X Exercise III Flashcards
+- terrain: Lesson X Exercise III Flashcards
+- pungent: Lesson X Exercise III Flashcards
+- universe: Lesson X Exercise III Flashcards
+- inordinate: Lesson X Exercise III Flashcards
+- omnipotent: Lesson X Exercise III Flashcards
+- expedient: Lesson X Exercise III Flashcards
+- incumbent: Lesson X Exercise III Flashcards
+- annals: Lesson X Exercise IV Flashcards
+- ordinance: Lesson X Exercise IV Flashcards
+- confinement: Lesson X Exercise IV Flashcards
+- impediment: Lesson X Exercise IV Flashcards
+- impend: Lesson X Exercise IV Flashcards
+- incorporate: Lesson X Exercise IV Flashcards
+- invent: Lesson X Exercise IV Flashcards
+- jury: Lesson X Exercise IV Flashcards
+- magnate: Lesson X Exercise IV Flashcards
+- obvious: Lesson X Exercise IV Flashcards
+- prejudice: Lesson X Exercise IV Flashcards
+- punctuate: Lesson X Exercise IV Flashcards
+- segregate: Lesson X Exercise IV Flashcards
+- senate: Lesson X Exercise IV Flashcards
+- travesty: Lesson X Exercise IV Flashcards
+- ineffable: Lesson XI Exercise III Flashcards
+- credit: Lesson XI Exercise III Flashcards
+- transmuted: Lesson XI Exercise III Flashcards
+- Fates: Lesson XI Exercise III Flashcards
+- fallible: Lesson XI Exercise III Flashcards
+- credible: Lesson XI Exercise III Flashcards
+- intractable: Lesson XI Exercise III Flashcards
+- contingent: Lesson XI Exercise III Flashcards
+- genitally: Lesson XI Exercise III Flashcards
+- intangible: Lesson XI Exercise III Flashcards
+- despicable: Lesson XI Exercise III Flashcards
+- assimilable: Lesson XI Exercise III Flashcards
+- incontrovertible: Lesson XI Exercise III Flashcards
+- defame: Lesson XI Exercise III Flashcards, Lesson XI Workbook Flashcards
+- equable: Lesson XI Exercise III Flashcards
+- fallacious: Lesson XI Exercise III Flashcards
+- immutable: Lesson XI Exercise III Flashcards
+- docile: Lesson XI Exercise III Flashcards
+- tenable: Lesson XI Exercise III Flashcards
+- obsessed: Lesson XI Exercise III Flashcards
+- cancer: Lesson XI Exercise IV Flashcards
+- eradicate: Lesson XI Exercise IV Flashcards
+- flourish: Lesson XI Exercise IV Flashcards
+- focus: Lesson XI Exercise IV Flashcards
+- gladiolus: Lesson XI Exercise IV Flashcards
+- gland: Lesson XI Exercise IV Flashcards
+- muscle: Lesson XI Exercise IV Flashcards
+- pastor: Lesson XI Exercise IV Flashcards
+- remorse: Lesson XI Exercise IV Flashcards
+- scruple: Lesson XI Exercise IV Flashcards
+- seminary: Lesson XI Exercise IV Flashcards
+- incredulous: Lesson XII Exercise III Flashcards
+- decadent: Lesson XII Exercise III Flashcards
+- distracting: Lesson XII Exercise III Flashcards
+- elevate: Lesson XII Exercise III Flashcards
+- pendulous: Lesson XII Exercise III Flashcards
+- florid: Lesson XII Exercise III Flashcards
+- effluent: Lesson XII Exercise III Flashcards
+- pernicious: Lesson XII Exercise III Flashcards
+- factitious: Lesson XII Exercise III Flashcards
+- feasible: Lesson XII Exercise III Flashcards
+- confluent: Lesson XII Exercise III Flashcards
+- renovate: Lesson XII Exercise III Flashcards
+- versatile: Lesson XII Exercise III Flashcards
+- defoliated: Lesson XII Exercise III Flashcards
+- perceive: Lesson XII Exercise III Flashcards
+- acrid: Lesson XII Exercise III Flashcards
+- adventitious: Lesson XII Exercise III Flashcards
+- capacious: Lesson XII Exercise III Flashcards
+- efficacious: Lesson XII Exercise III Flashcards
+- precepts: Lesson XII Exercise III Flashcards
