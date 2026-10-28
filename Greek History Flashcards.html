@@ -2016,10 +2016,17 @@
       }
       if (t.join("").length >= 6 && m(ans[i], t.join(""))) { spans.push([i, i + 1]); continue; }
       if (!m(ans[i], t[0])) continue;
-      let j = i + 1, gap = false, ok = true;
+      let j = i + 1, gap = false, alt = false, ok = true;
       for (let k = 1; k < t.length; k++) {
         if (j < ans.length && m(ans[j], t[k])) { j++; continue; }
         if (!gap && j + 1 < ans.length && m(ans[j + 1], t[k])) { gap = true; j += 2; continue; }
+        // "unwilling or unable to believe": an alternative of up to three words
+        // after "or"/"and" inside a key phrase (instructor, Oct 28, 2026).
+        if (!alt && (ans[j] === "or" || ans[j] === "and")) {
+          let hit = -1;
+          for (let q = j + 2; q <= Math.min(j + 4, ans.length - 1); q++) if (m(ans[q], t[k])) { hit = q; break; }
+          if (hit > 0) { alt = true; j = hit + 1; continue; }
+        }
         ok = false; break;
       }
       if (ok) spans.push([i, j]);
@@ -2074,7 +2081,16 @@
     const card = own || CARDS[cardIdx];
     // The asked word, or a word of its own family, explains nothing: the
     // meaning is wrong (instructor, Oct 20, 2026). Only cards with "echo" stems.
-    if (!own && card.echo) { const e = echoOf(card, ans); if (e) return { ok: false, echo: e }; }
+    // A family word alone still explains nothing, but an answer that is right
+    // without it counts ("spacious, roomy, a vast capacity"; instructor, Oct 28, 2026).
+    if (!own && card.echo) {
+      const e = echoOf(card, ans);
+      if (e) {
+        const rest = ans.filter(function (t) { return !echoOf(card, [t]); });
+        const r2 = rest.length ? judge(cardIdx, rest.join(" "), own) : null;
+        return r2 && r2.ok ? r2 : { ok: false, echo: e };
+      }
+    }
     const ownSpans = [];
     card.accepted.forEach(function (t) { findTerm(ans, t, true).forEach(function (sp) { ownSpans.push(sp); }); });
     let ok = false;
