@@ -3992,10 +3992,11 @@
   // An English plural -s or -es named in the suffix box: Ayers doesn't teach it,
   // so it never fails the box, whatever meaning is given (instructor, Oct 27, 2026).
   function onlyPlural(v) {
-    const forms = (String(v).match(/(^|[^a-z])-\s*[a-z]+/gi) || []).map(function (f) { return f.replace(/[^a-z]/gi, "").toLowerCase(); });
-    if (forms.length) return forms.every(function (f) { return f === "s" || f === "es"; });
+    // "s - plural": a hyphen can also part the form from its meaning.
     const first = toTokens(v)[0];
-    return first === "s" || first === "es";
+    if (first === "s" || first === "es") return true;
+    const forms = (String(v).match(/(^|[^a-z])-\s*[a-z]+/gi) || []).map(function (f) { return f.replace(/[^a-z]/gi, "").toLowerCase(); });
+    return forms.length > 0 && forms.every(function (f) { return f === "s" || f === "es"; });
   }
 
   function elementsMatch(v, parts, kind) {
