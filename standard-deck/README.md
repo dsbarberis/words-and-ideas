@@ -181,8 +181,11 @@ such as "Greek Mythology Words Flashcards"; keep it unchanged so Sheet rows stay
 
 Each card has one or more `senses` (alternative meanings). An answer is correct when,
 for at least one sense, it contains a term from every group, or one of that sense's
-`star` terms (which cover all of its groups), and it contains no term that belongs
-only to other cards in the deck.
+`star` terms (which cover all of its groups). An answer that matches its own card is
+never refused for also containing another card's term (instructor, Oct 28, 2026). An
+answer that matches nothing of its own is checked against the other cards: a term that
+belongs only to another card names the card it seems mixed up with ("That answer mixes
+in the meaning of ...").
 
 - A word that fits two cards goes on both: a term that also belongs to the card being
   answered never counts against the answer, so lists may overlap.

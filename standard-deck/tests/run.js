@@ -411,6 +411,24 @@ function flashcardChecks() {
       if (!__t.goodFaith(c, "the of")) fails.push(c.word + ": little words passed the gate");
       checked++;
       if (!__t.judge(i, c.word).ok && !__t.goodFaith(c, c.word)) fails.push(c.word + ": the headword typed back passed the gate");
+      // Other-card rule (instructor, Oct 28, 2026): an answer that matches its own
+      // card is never refused for another card's term; an answer made only of
+      // another card's term is still wrong and names that card.
+      const sense = (c.senses || [])[0];
+      if (!sense || !sense.groups.length) return;
+      const own = sense.groups.map(g => g.terms[0].text).join(" ");
+      if (!__t.judge(i, own).ok) return;
+      for (let j = 0; j < C.length; j++) {
+        if (j === i) continue;
+        const t = (C[j].penaltyTerms || []).find(x => !__t.judge(i, x.text).ok && __t.judge(i, x.text).mixed);
+        if (!t) continue;
+        checked += 2;
+        const both = __t.judge(i, own + " " + t.text);
+        if (!both.ok) fails.push(c.word + ": \"" + own + " " + t.text + "\" matches its own card but was refused (mixed: " + both.mixed + ")");
+        const alone = __t.judge(i, t.text);
+        if (alone.ok || !alone.mixed) fails.push(c.word + ": \"" + t.text + "\" (another card's term alone) was not refused as mixed");
+        break;
+      }
     });
   }
   // A missed card comes back after at least 3 others.
