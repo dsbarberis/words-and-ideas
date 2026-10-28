@@ -28,6 +28,14 @@ one template, so the decks stay identical apart from their content.
   `build-report.md`: words two decks use with different senses, cards that override
   the shared definition, possible duplicates or homographs, every wording still
   marked "Claude, unchecked" (by deck), and which decks use each word.
+- `card-keys.json`: every deck's card keys as they stood on Oct 28, 2026, when the
+  records kept on students' devices moved from card positions to card keys (release A
+  of the Latin Roots Lesson Filter). A card's key is its `id` if it has one, else its
+  glossary key, vocabulary key, word or label. Those cards must stay first and in that
+  order, because older records and the Sheet's `i` name a card by its position:
+  **add new cards at the end.** If a key has to change (a label corrected), give the
+  card `id` with its old key. `build.js` refuses a deck that breaks this. Never edit
+  the file except to add a new deck's keys.
 - `tests/run.js`: the deck tests, run before every publish
   (`NODE_PATH=$(npm root -g) node standard-deck/tests/run.js`; see `tests/README.md`).
 

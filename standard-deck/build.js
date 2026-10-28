@@ -204,16 +204,46 @@ function splitExample(card, deck) {
   return Object.assign({}, card, { answerText: m[1], answerNote: "Example: " + m[2] + "." });
 }
 
+// Card keys (records kept by element, release A, Oct 28, 2026). Each card's
+// record on a student's device is kept under its key, not its position: the
+// card's "id" if it has one, else its glossary key, vocabulary key, word or
+// label. card-keys.json holds every deck's keys as they stood when records
+// moved to keys; those cards must stay first and in that order, because older
+// records and the Sheet's "i" give a card by its position. New cards go at the
+// end. If a key has to change (a label corrected), give the card "id" with
+// its old key.
+const FROZEN_KEYS = JSON.parse(fs.readFileSync(path.join(here, "card-keys.json"), "utf8"));
+function cardKey(c) { return c.id || c.gloss || c.vocab || c.word || c.label; }
+function checkKeys(deck, file) {
+  const keys = deck.cards.map(cardKey);
+  keys.forEach(function (k, i) {
+    if (typeof k !== "string" || !k) throw new Error(file + ": card " + (i + 1) + " has no key (give it an \"id\")");
+    if (keys.indexOf(k) !== i) throw new Error(file + ": two cards share the key \"" + k + "\" (give one an \"id\")");
+  });
+  const frozen = FROZEN_KEYS[deck.id] || [];
+  frozen.forEach(function (k, i) {
+    if (keys[i] !== k) throw new Error(file + ": card " + (i + 1) + " must keep the key \"" + k + "\" (card-keys.json); new cards go at the end, and a changed label needs \"id\": \"" + k + "\"");
+  });
+  return { keys: keys, frozenCount: frozen.length };
+}
+
 const uses = {}; // vocabulary key -> [{ deck, sense, override }]
 for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWith(".js")).sort()) {
   const deck = require(path.join(here, "decks", file));
   const { output, ...data } = deck;
+  const cardKeys = checkKeys(deck, file);
+  data.frozenCount = cardKeys.frozenCount;
   deck.cards.forEach(function (c) {
     const key = vocabKey(c, deck);
     if (!key) return;
     (uses[key] = uses[key] || []).push({ deck: deck.title, sense: c.sense || 0, override: c.defn ? (c.defnWording || UNCHECKED) : null });
   });
-  data.cards = deck.cards.map(function (c) { return splitExample(resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck), deck); });
+  data.cards = deck.cards.map(function (c, i) {
+    const out = splitExample(resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck), deck);
+    delete out.id;
+    out.k = cardKeys.keys[i];
+    return out;
+  });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const html = template
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))

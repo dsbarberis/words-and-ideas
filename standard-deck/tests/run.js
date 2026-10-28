@@ -62,7 +62,9 @@ function testCopy(tmp, f, s) {
   s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE," +
     "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
-    "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}};");
+    "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}," +
+    "load:(n)=>loadStudent(n),ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
+    "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
   fs.writeFileSync(out, s);
@@ -75,7 +77,8 @@ async function browserTests(decks) {
   catch (e) { report("browser tests", ["Playwright not found; run with NODE_PATH=$(npm root -g)"], "not run"); return; }
   const browser = await chromium.launch();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-test-"));
-  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [], flashFails = [];
+  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [], flashFails = [], keyFails = [];
+  let keyCount = 0;
   let flashCount = 0;
   const effort = { checked: 0 };
   let uiCount = 0;
@@ -98,6 +101,16 @@ async function browserTests(decks) {
       checked += res.checked;
       res.fails.forEach(x => modelFails.push(f + ": " + x.word + " typed " + JSON.stringify(x.typed) + " got " + JSON.stringify(x.result)));
       if (res.long.length) notes.push(f + ": printed answer longer than the box allows (student asked to shorten): " + res.long.join(", "));
+    }
+    // 8. Records kept by element (release A, Oct 28, 2026): Latin Roots and
+    // one deck that quizzes by tab move every record from positions to keys.
+    if (!errors.length && (f === "index.html" || f === "Lesson X Exercise III Flashcards.html")) {
+      let kr;
+      try { kr = await page.evaluate(keyedRecords); }
+      catch (e) { kr = { checked: 0, fails: ["the check stopped: " + String(e.message).split("\n")[0]] }; }
+      keyCount += kr.checked;
+      kr.fails.forEach(x => keyFails.push(f + ": " + x));
+      await page.evaluate(() => localStorage.clear());
     }
     if (!errors.length) {
       const ef = await page.evaluate(effortChecks);
@@ -129,6 +142,7 @@ async function browserTests(decks) {
   report("model answers", modelFails, checked + " cards checked");
   report("answer effort", effortFails, effort.checked + " checks of the gate, the copy prompt, lists and spacing");
   report("answer effort in the deck", uiFails, uiCount + " answers typed and checked with the deck's own Check button");
+  report("records kept by element", keyFails, keyCount + " checks of moving records from card positions to element keys");
   report("Flashcard quizzes", flashFails, flashCount + " checks of meaning groups, the gate, the hidden back and spacing in the Flashcard Decks");
   notes.forEach(n => console.log("     note: " + n));
 }
@@ -496,6 +510,108 @@ async function flashcardUi(page) {
   return { checked, fails };
 }
 
+// 9. Every deck's first cards keep the keys and order they had when records
+// moved to keys (card-keys.json), so older records and the Sheet's "i" still
+// name the same cards; new cards only go at the end.
+function testFrozenKeys(decks) {
+  const frozen = JSON.parse(fs.readFileSync(path.join(repo, "standard-deck", "card-keys.json"), "utf8"));
+  const fails = []; let n = 0;
+  for (const [f, s] of Object.entries(decks)) {
+    const m = s.match(/const DECK = (\{[\s\S]*?\});\n/);
+    const deck = JSON.parse(m[1].replace(/<\\\//g, "</"));
+    const want = frozen[deck.id];
+    if (!want) { fails.push(f + ": deck \"" + deck.id + "\" is not in card-keys.json"); continue; }
+    if (deck.frozenCount !== want.length) fails.push(f + ": frozenCount " + deck.frozenCount + ", card-keys.json lists " + want.length);
+    want.forEach((k, i) => { n++; if (!deck.cards[i] || deck.cards[i].k !== k) fails.push(f + ": card " + (i + 1) + " should have key " + JSON.stringify(k) + ", has " + JSON.stringify(deck.cards[i] && deck.cards[i].k)); });
+    const ks = deck.cards.map(c => c.k);
+    ks.forEach((k, i) => { if (!k || ks.indexOf(k) !== i) fails.push(f + ": card " + (i + 1) + " key " + JSON.stringify(k) + " missing or repeated"); });
+  }
+  report("card keys frozen", fails, n + " frozen keys compared");
+}
+
+// Runs inside the page (release A, Oct 28, 2026). Writes records by card
+// position under the old ("_v1") names, as the earlier deck left them, then
+// checks that the deck reads them, writes them by key under "_v2", leaves the
+// old records untouched, can run the move twice, takes a newer old record
+// from a tab still open on the earlier deck, and survives storage failing
+// partway through the move.
+function keyedRecords() {
+  const fails = []; let checked = 0;
+  const T = __t, ID = T.ID(), N = T.N(), sl = "move-test", K = i => T.CARDS[i].k;
+  function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+  const names = { known: "known", learning: "learning", pass: "learnPass", marks: "markSrc", quiz: "quiz", quizzes: "quizzes", spacing: "spacing" };
+  const v1 = s => ID + "_" + names[s] + "_v1__" + sl, v2 = s => ID + "_" + names[s] + "_v2__" + sl;
+  localStorage.clear();
+  const now = Date.now();
+  const a = 0, b = Math.min(5, N - 1), c = Math.min(7, N - 1), d = Math.min(3, N - 1);
+  const order = [c, b, a, d], review = [false, false, true, false];
+  const q = { round: 2, set: "all", size: 4, order: order, pos: 1, answers: [{ a: "x", ok: false }, null, null, null], phase: "card", sent: false,
+    review: review, next: { order: [b, c], review: [false, false] } };
+  const rec = {
+    known: [a, b], learning: [c],
+    pass: { tab: "all", start: now - 1000, last: now, list: T.CARDS.map((_, i) => i), seen: [a, b], marked: [a] },
+    marks: { [a]: { s: "learn", d: "2026-10-20" }, [c]: { s: "quiz", d: "2026-10-21" } },
+    spacing: { n: 10, miss: { [c]: { n: 8, t: now } } }
+  };
+  if (T.BYSET()) rec.quizzes = { all: q }; else rec.quiz = q;
+  Object.keys(rec).forEach(s => localStorage.setItem(v1(s), JSON.stringify(rec[s])));
+  const oldRaw = {}; Object.keys(rec).forEach(s => oldRaw[s] = localStorage.getItem(v1(s)));
+  function expectState(st, label, knownWant) {
+    check(JSON.stringify(st.known) === JSON.stringify(knownWant || [a, b].sort((x, y) => x - y)), label + ": Know It marks " + JSON.stringify(st.known));
+    check(JSON.stringify(st.learning) === JSON.stringify([c]), label + ": Still Learning marks " + JSON.stringify(st.learning));
+    check(st.pass && JSON.stringify(st.pass.seen) === JSON.stringify([a, b]) && JSON.stringify(st.pass.marked) === JSON.stringify([a]) && st.pass.list.length === N, label + ": the Learn pass under way");
+    check(st.marks[a] && st.marks[a].d === "2026-10-20" && st.marks[c] && st.marks[c].s === "quiz", label + ": where marks came from");
+    check(st.spacing.n === 10 && st.spacing.miss[c] && st.spacing.miss[c].n === 8, label + ": spacing");
+    const qq = T.BYSET() ? st.quizzes.all : st.quiz;
+    check(qq && JSON.stringify(qq.order) === JSON.stringify(order) && qq.round === 2 && qq.pos === 1 && JSON.stringify(qq.review) === JSON.stringify(review) &&
+      qq.next && JSON.stringify(qq.next.order) === JSON.stringify([b, c]) && qq.answers[0] && qq.answers[0].a === "x", label + ": the quiz in round 2, with review and next round");
+  }
+  // 1. The move.
+  T.load("Move Test");
+  expectState(T.state(), "first load");
+  const k2 = JSON.parse(localStorage.getItem(v2("known")) || "null");
+  check(Array.isArray(k2) && k2.indexOf(K(a)) >= 0 && k2.indexOf(K(b)) >= 0, "the new Know It record names cards by key: " + JSON.stringify(k2));
+  const q2 = JSON.parse(localStorage.getItem(v2(T.BYSET() ? "quizzes" : "quiz")) || "null");
+  const qk = T.BYSET() ? q2 && q2.all : q2;
+  check(qk && qk.order[0] === K(c) && qk.next.order[0] === K(b), "the new quiz record names cards by key");
+  const sp2 = JSON.parse(localStorage.getItem(v2("spacing")) || "null");
+  check(sp2 && sp2.miss[K(c)], "the new spacing record names cards by key");
+  Object.keys(oldRaw).forEach(s => check(localStorage.getItem(v1(s)) === oldRaw[s], "the old " + s + " record was changed"));
+  // 2. Twice.
+  const snap = {}; Object.keys(names).forEach(s => snap[s] = localStorage.getItem(v2(s)));
+  T.load("Move Test");
+  expectState(T.state(), "second load");
+  Object.keys(names).forEach(s => check(localStorage.getItem(v2(s)) === snap[s], "a second load changed the new " + s + " record"));
+  // 3. A record by key reaches its card wherever it sits; an unknown key is dropped.
+  const e = Math.min(9, N - 1);
+  localStorage.setItem(v2("known"), JSON.stringify([K(a), K(b), K(e), "NO-SUCH-CARD"]));
+  T.load("Move Test");
+  check(JSON.stringify(T.state().known) === JSON.stringify([a, b, e].filter((x, i, arr) => arr.indexOf(x) === i).sort((x, y) => x - y)), "a Know It record by key: " + JSON.stringify(T.state().known));
+  // 4. A tab still open on the earlier deck writes the old record: it is newer and wins.
+  localStorage.setItem(v1("known"), JSON.stringify([d]));
+  T.load("Move Test");
+  check(JSON.stringify(T.state().known) === JSON.stringify([d]), "the newer old record was not taken: " + JSON.stringify(T.state().known));
+  check(JSON.stringify(JSON.parse(localStorage.getItem(v2("known")))) === JSON.stringify([K(d)]), "the newer old record was not moved");
+  localStorage.setItem(v1("known"), oldRaw.known);
+  // 5. Storage failing partway through the move.
+  Object.keys(names).forEach(s => localStorage.removeItem(v2(s)));
+  localStorage.removeItem(ID + "_movedFrom_v2__" + sl);
+  const set = Storage.prototype.setItem; let calls = 0;
+  Storage.prototype.setItem = function (k, v) { if (++calls > 2) throw new Error("full"); return set.call(this, k, v); };
+  try { T.load("Move Test"); expectState(T.state(), "load with storage failing"); }
+  finally { Storage.prototype.setItem = set; }
+  check(localStorage.getItem(ID + "_movedFrom_v2__" + sl) === null, "the move was marked done although it failed partway");
+  T.load("Move Test");
+  expectState(T.state(), "load after storage recovered");
+  check(localStorage.getItem(ID + "_movedFrom_v2__" + sl) !== null, "the move was not finished after storage recovered");
+  // 6. The Sheet gets the element key on Latin Roots only.
+  const item = T.markItem(a, true, new Set());
+  if (T.MEANINGS && T.MEANINGS()) check(item.i === a && item.e === K(a), "a Learn entry for the Sheet lacks \"e\": " + JSON.stringify(item));
+  else check(item.e === undefined, "a deck not of glossary entries sends \"e\"");
+  localStorage.clear();
+  return { checked, fails };
+}
+
 // Runs inside the page. Types each card's printed answer into its own boxes.
 function modelAnswers() {
   const LQ = "“", RQ = "”", ARROW = "→";
@@ -544,6 +660,7 @@ function modelAnswers() {
   const decks = builtDecks();
   testBuildMatches(decks);
   testNoWorkingNotes(decks);
+  testFrozenKeys(decks);
   await browserTests(decks);
   const failed = results.filter(r => r.failures.length);
   console.log(failed.length ? failed.length + " of " + results.length + " tests failed: do not publish" : "all " + results.length + " tests passed");
