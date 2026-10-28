@@ -404,6 +404,7 @@ function flashcardChecks() {
       });
     });
   } else {
+    let otherCardChecked = 0;
     C.forEach((c, i) => {
       checked++;
       if (c.defn && __t.goodFaith(c, c.defn)) fails.push(c.word + ": printed definition refused by the gate");
@@ -412,24 +413,26 @@ function flashcardChecks() {
       checked++;
       if (!__t.judge(i, c.word).ok && !__t.goodFaith(c, c.word)) fails.push(c.word + ": the headword typed back passed the gate");
       // Other-card rule (instructor, Oct 28, 2026): an answer that matches its own
-      // card is never refused for another card's term; an answer made only of
-      // another card's term is still wrong and names that card.
+      // card is never refused for another card's term, here one that typed alone
+      // is refused as a mix-up (so that case still names the other card).
       const sense = (c.senses || [])[0];
       if (!sense || !sense.groups.length) return;
       const own = sense.groups.map(g => g.terms[0].text).join(" ");
       if (!__t.judge(i, own).ok) return;
       for (let j = 0; j < C.length; j++) {
         if (j === i) continue;
-        const t = (C[j].penaltyTerms || []).find(x => !__t.judge(i, x.text).ok && __t.judge(i, x.text).mixed);
+        // A term of the other card's that, typed alone, is refused as a mix-up.
+        const t = (C[j].penaltyTerms || []).find(x => { const r = __t.judge(i, x.text); return !r.ok && r.mixed; });
         if (!t) continue;
-        checked += 2;
+        checked++;
         const both = __t.judge(i, own + " " + t.text);
         if (!both.ok) fails.push(c.word + ": \"" + own + " " + t.text + "\" matches its own card but was refused (mixed: " + both.mixed + ")");
-        const alone = __t.judge(i, t.text);
-        if (alone.ok || !alone.mixed) fails.push(c.word + ": \"" + t.text + "\" (another card's term alone) was not refused as mixed");
+        otherCardChecked++;
         break;
       }
     });
+    // A deck where no card could be checked would pass silently.
+    if (C.length >= 2 && !otherCardChecked) fails.push("other-card rule: no card could be checked in this deck");
   }
   // A missed card comes back after at least 3 others.
   if (C.length >= 8) {
