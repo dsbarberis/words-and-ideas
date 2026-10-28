@@ -63,7 +63,7 @@ function testCopy(tmp, f, s) {
     "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}," +
-    "load:(n)=>loadStudent(n),ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
+    "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
@@ -593,6 +593,12 @@ function keyedRecords() {
   check(JSON.stringify(T.state().known) === JSON.stringify([d]), "the newer old record was not taken: " + JSON.stringify(T.state().known));
   check(JSON.stringify(JSON.parse(localStorage.getItem(v2("known")))) === JSON.stringify([K(d)]), "the newer old record was not moved");
   localStorage.setItem(v1("known"), oldRaw.known);
+  // 4b. An old position at or past the frozen cards names no card and is dropped.
+  const keepK = localStorage.getItem(v1("known"));
+  localStorage.setItem(v1("known"), JSON.stringify([a, T.FROZEN(), T.FROZEN() + 3]));
+  T.load("Move Test");
+  check(JSON.stringify(T.state().known) === JSON.stringify([a]), "an old position past the frozen cards was kept: " + JSON.stringify(T.state().known));
+  localStorage.setItem(v1("known"), keepK);
   // 5. Storage failing partway through the move.
   Object.keys(names).forEach(s => localStorage.removeItem(v2(s)));
   localStorage.removeItem(ID + "_movedFrom_v2__" + sl);
