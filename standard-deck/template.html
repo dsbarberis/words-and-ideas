@@ -1545,6 +1545,14 @@
     // meaning ("-able" alone does not give the meaning "able to").
     const formAt = parts.map(function (pt) {
       for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return fits(toks[j], a); })) return j;
+      // A suffix written in two pieces ("ac + ious" for -acious) counts as its
+      // form; its meaning is still needed (instructor, Oct 28, 2026).
+      if (kind === "suffix") {
+        for (let j = 0; j < toks.length; j++) for (let k = j + 1; k < toks.length; k++) {
+          if (toks[j].length < 2 || toks[k].length < 2) continue;
+          if ((pt.accept || []).some(function (a) { return fits(toks[j] + toks[k], a); })) return j;
+        }
+      }
       return -1;
     });
     if (parts.some(function (pt, p) { return formAt[p] < 0 && !pt.optional; })) return false;
