@@ -134,6 +134,15 @@ function resolveGlossary(card, file, deck) {
 // every form of its glossary entry, plus any the card adds as "alsoAccept"
 // (INEFFABLE takes "-ble" after FA-, Oct 20, 2026). A deck with "analysis: true" asks for the
 // analysis in a box above the meaning (instructor, Oct 12, 2026).
+// Dictionary wordings that count in the suffix box for every adjective
+// suffix, and for the present participle -ant/-ent (instructor, Element Box
+// Answers form, Oct 27, 2026). Not shown on the card.
+const ADJECTIVE_SUFFIXES = ["-ILE", "-AL", "-ARY", "-ULENT", "-IC", "-OUS", "-INE", "-ATE-adj", "-AIN",
+  "-ABLE", "-ILE-able", "-ACIOUS", "-AN", "-ANE", "-AR", "-ID", "-IL-pertaining", "-ITIOUS", "-IVE",
+  "-ORY", "-OSE", "-TIC", "-ULOUS", "-UOUS"];
+const ADJECTIVE_WORDINGS = ["having the quality of", "characterized by"];
+const PARTICIPLE_WORDINGS = ["being in a state of", "in a state of"];
+
 function resolveParts(card, file, deck) {
   if (!card.parts || card.kind !== "meaning") return card;
   const out = Object.assign({}, card, {
@@ -155,7 +164,8 @@ function resolveParts(card, file, deck) {
         o.type = entry.kind;
         if (entry.optionalInBoxes) o.optional = true;
         const key = (card.keyMeanings || {})[pt.gloss];
-        const also = [].concat(entry.plainMeanings || [], key || []);
+        const dictionary = ADJECTIVE_SUFFIXES.indexOf(pt.gloss) >= 0 ? ADJECTIVE_WORDINGS : pt.gloss === "-ANT" ? PARTICIPLE_WORDINGS : [];
+        const also = [].concat(entry.plainMeanings || [], dictionary, key || []);
         if (also.length) o.alsoMeans = also;
       }
       return o;
