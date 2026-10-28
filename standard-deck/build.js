@@ -167,6 +167,13 @@ function resolveParts(card, file, deck) {
         const dictionary = ADJECTIVE_SUFFIXES.indexOf(pt.gloss) >= 0 ? ADJECTIVE_WORDINGS : pt.gloss === "-ANT" ? PARTICIPLE_WORDINGS : [];
         const also = [].concat(entry.plainMeanings || [], dictionary, key || []);
         if (also.length) o.alsoMeans = also;
+        // A suffix built from two pieces (-ac + -ous for -acious): written as
+        // its pieces, the last piece's book meaning counts (instructor, Oct 28, 2026).
+        if (entry.lastPiece) {
+          const last = glossary[entry.lastPiece];
+          if (!last) throw new Error(file + ": glossary entry \"" + pt.gloss + "\" names lastPiece \"" + entry.lastPiece + "\", which is not in the glossary");
+          o.pieceMeans = [].concat(last.meanings || [], last.plainMeanings || []);
+        }
       }
       return o;
     })

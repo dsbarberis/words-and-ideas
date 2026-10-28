@@ -3670,6 +3670,9 @@
           "alsoMeans": [
             "having the quality of",
             "characterized by"
+          ],
+          "pieceMeans": [
+            "full of"
           ]
         }
       ],
@@ -4020,6 +4023,7 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "capable of",
             "having the quality of",
             "characterized by"
           ]
@@ -4968,14 +4972,15 @@
     function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
     // The place of each element's form: that word is the form, not a
     // meaning ("-able" alone does not give the meaning "able to").
-    const formAt = parts.map(function (pt) {
+    const split = parts.map(function () { return -1; });
+    const formAt = parts.map(function (pt, p) {
       for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return fits(toks[j], a); })) return j;
       // A suffix written in two pieces ("ac + ious" for -acious) counts as its
       // form; its meaning is still needed (instructor, Oct 28, 2026).
       if (kind === "suffix") {
         for (let j = 0; j < toks.length; j++) for (let k = j + 1; k < toks.length; k++) {
           if (toks[j].length < 2 || toks[k].length < 2) continue;
-          if ((pt.accept || []).some(function (a) { return fits(toks[j] + toks[k], a); })) return j;
+          if ((pt.accept || []).some(function (a) { return fits(toks[j] + toks[k], a); })) { split[p] = k; return j; }
         }
       }
       return -1;
@@ -4991,7 +4996,9 @@
       if (formAt[p] < 0 || pt.optional) return true; // an optional ending, left out or named
       // A wording such as "to sit, settle" gives each of its meanings.
       const ways = [];
-      (pt.meanings || []).concat(pt.alsoMeans || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
+      // Written in its pieces ("-ac + -ious"), the last piece's meaning counts too
+      // ("-ious full of"); written whole, it needs the suffix's own meaning.
+      (pt.meanings || []).concat(pt.alsoMeans || [], split[p] >= 0 ? pt.pieceMeans || [] : []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
       return ways.some(function (m) { return says(m, formAt[p]); });
     });
   }
