@@ -15,6 +15,11 @@ one template, so the decks stay identical apart from their content.
   entries that existed before), and `latin` (the Latin word it comes from; `family`
   links every form of one word). The import's records are in the Project files,
   proposals/latin-elements-full-list/.
+  Since Oct 28, 2026 it also holds every Greek prefix, suffix and base in the book's
+  lists (Ayers, pp. 285-290), keyed `g:` like the Greek Introduction words: one entry per
+  printed line, with `lesson` ("Greek III"), `lessonNo`, `book`, and `greek` (the Greek
+  word, with `family`, and `entry` where it is one of the Greek Introduction words).
+  Records: proposals/greek-roots/ in the Project files.
 - `vocabulary.js`: every whole word the decks teach, once each (approved Oct 7, 2026):
   its numbered senses (definition, wording source, quiz key-word lists), its parts
   (glossary keys), its origin note or etymology, and every place the course introduces
