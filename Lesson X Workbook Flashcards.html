@@ -2482,10 +2482,13 @@
   // ---------- Answer judging ----------
   // A typed answer is correct when, for at least one of the word's senses,
   // it contains a key term from every required group (or a ★ term, which
-  // covers all groups of its sense) and no key term that belongs ONLY to
-  // other words in this deck. A term that also belongs to this word (in any
-  // group, ★ or its accepted list) never triggers that penalty, so lists
-  // may overlap. Accepted terms fit the meaning without being required;
+  // covers all groups of its sense). An answer that matches nothing of its
+  // own is checked against the other words in this deck: a key term that
+  // belongs ONLY to another word names the word it seems mixed up with. An
+  // answer that matches its own card is never refused for another card's
+  // term (instructor, Oct 28, 2026). A term that also belongs to this word
+  // (in any group, ★ or its accepted list) never counts as another card's,
+  // so lists may overlap. Accepted terms fit the meaning without being required;
   // generic groups and a card's everyday terms never trigger the penalty
   // on other cards.
   const MAX_ANSWER_WORDS = 12;
@@ -2671,8 +2674,9 @@
     function covered(sp) {
       return ownSpans.some(function (o) { return o[0] <= sp[0] && o[1] >= sp[1]; });
     }
+    // Only an answer that missed its own card is checked for a mix-up.
     let mixed = null;
-    for (let j = 0; j < N && !mixed && !(own && own.noPenalty); j++) {
+    for (let j = 0; j < N && !mixed && !ok && !(own && own.noPenalty); j++) {
       if (j === cardIdx) continue;
       CARDS[j].penaltyTerms.forEach(function (t) {
         if (mixed) return;
