@@ -41,6 +41,9 @@ function testBuildMatches(decks) {
   const rep = p => strip(fs.readFileSync(p, "utf8"));
   if (rep(path.join(tmp, "standard-deck", "build-report.md")) !== rep(path.join(repo, "standard-deck", "build-report.md")))
     fails.push("standard-deck/build-report.md: out of date (run build.js)");
+  const vfile = p => { try { return fs.readFileSync(p, "utf8"); } catch (e) { return null; } };
+  if (vfile(path.join(tmp, "deck-versions.json")) !== vfile(path.join(repo, "deck-versions.json")))
+    fails.push("deck-versions.json: out of date (run build.js)");
   report("build matches", fails, rebuilt.length + " decks rebuilt and compared");
 }
 
@@ -662,9 +665,31 @@ function modelAnswers() {
   return { checked, fails, long };
 }
 
+// Deck versions (reload prompt, Old Deck Pages plan, Oct 28, 2026): every
+// built page carries the DECK_VERSION and page name that deck-versions.json
+// gives it, so an open page offers a reload only when its deck has changed.
+function testDeckVersions(decks) {
+  const fails = [];
+  let list = null;
+  try { list = JSON.parse(fs.readFileSync(path.join(repo, "deck-versions.json"), "utf8")); }
+  catch (e) { fails.push("deck-versions.json: missing or not JSON (run build.js)"); }
+  if (list) {
+    for (const [f, s] of Object.entries(decks)) {
+      const v = (s.match(/const DECK_VERSION = "([^"]*)";/) || [])[1];
+      const p = (s.match(/const DECK_PAGE = "([^"]*)";/) || [])[1];
+      if (!v || !/^[0-9a-f]{12}$/.test(v)) fails.push(f + ": no DECK_VERSION of 12 hex digits");
+      else if (list[f] !== v) fails.push(f + ": DECK_VERSION " + v + " but deck-versions.json gives " + JSON.stringify(list[f]));
+      if (p !== f) fails.push(f + ": DECK_PAGE is " + JSON.stringify(p) + ", not the page's own file name");
+    }
+    if (!process.env.ONLY) Object.keys(list).forEach(f => { if (!(f in decks)) fails.push("deck-versions.json lists " + f + ", which is not a built deck"); });
+  }
+  report("deck versions", fails, Object.keys(decks).length + " pages compared with deck-versions.json");
+}
+
 (async () => {
   const decks = builtDecks();
   testBuildMatches(decks);
+  testDeckVersions(decks);
   testNoWorkingNotes(decks);
   testFrozenKeys(decks);
   await browserTests(decks);

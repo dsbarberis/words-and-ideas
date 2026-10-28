@@ -2,6 +2,7 @@
 // Usage (from the repository root): node standard-deck/build.js
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const here = __dirname;
 const template = fs.readFileSync(path.join(here, "template.html"), "utf8");
@@ -234,6 +235,20 @@ function checkKeys(deck, file) {
   return { keys: keys, frozenCount: frozen.length };
 }
 
+// Deck versions (reload prompt, Old Deck Pages plan, Oct 28, 2026). Each page
+// carries a short hash of what judges it: the deck's embedded data (its cards
+// as built, with the glossary and vocabulary content they take, and its
+// settings) and the template's script (the judging code). The template's
+// styles and markup, the title and the course time zone are left out, so a
+// change only to how pages look asks no one to reload. deck-versions.json at
+// the site root lists every page's hash; an open page that finds a different
+// hash there offers a reload.
+const templateScript = (template.match(/<script>[\s\S]*<\/script>/) || [template])[0];
+function deckVersion(json) {
+  return crypto.createHash("sha256").update(templateScript + "\n" + json).digest("hex").slice(0, 12);
+}
+const versions = {}; // page file name -> hash
+
 const uses = {}; // vocabulary key -> [{ deck, sense, override }]
 for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWith(".js")).sort()) {
   const deck = require(path.join(here, "decks", file));
@@ -252,13 +267,23 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     return out;
   });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
+  const version = deckVersion(json);
+  versions[output] = version;
   const html = template
+    .split("{{DECK_VERSION}}").join(version)
+    .split("{{DECK_PAGE}}").join(JSON.stringify(output).slice(1, -1))
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
     .split("{{COURSE_ZONE}}").join(COURSE_ZONE)
     .replace("{{DECK_JSON}}", () => json);
   fs.writeFileSync(path.join(here, "..", output), html);
   console.log("built " + output + " (" + deck.cards.length + " cards)");
 }
+
+// The version file the open pages check (sorted, so a rebuild with no change
+// writes the same file).
+fs.writeFileSync(path.join(here, "..", "deck-versions.json"),
+  JSON.stringify(Object.keys(versions).sort().reduce(function (o, k) { o[k] = versions[k]; return o; }, {}), null, 2) + "\n");
+console.log("deck versions: deck-versions.json (" + Object.keys(versions).length + " pages)");
 
 // ---- Build report: which decks use each word, conflicts, unchecked wording ----
 (function report() {
