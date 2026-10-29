@@ -4,9 +4,11 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 
 ## 1. Conflicts
 
-**A word two decks use with different senses:** none.
+**A word two decks use with different senses:** 
+- **discursive**: Lesson IX Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 1)
+- **desultory**: Lesson X Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 2)
 
-**A deck card that overrides the shared definition:** 80.
+**A deck card that overrides the shared definition:** 100.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -27,6 +29,7 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 - **servile** in Exercise III Flashcards (wording: instructor)
 - **enchanted** in Exercise III Flashcards (wording: instructor)
 - **infer** in Exercise III Flashcards (wording: instructor)
+- **discursive** in Lesson XIII Exercise III Flashcards (wording: answer key)
 - **flagrant** in Lesson X Exercise III Flashcards (wording: instructor)
 - **congenital** in Lesson X Exercise III Flashcards (wording: instructor)
 - **diffident** in Lesson X Exercise III Flashcards (wording: instructor)
@@ -47,6 +50,7 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 - **omnipotent** in Lesson X Exercise III Flashcards (wording: instructor)
 - **expedient** in Lesson X Exercise III Flashcards (wording: instructor)
 - **incumbent** in Lesson X Exercise III Flashcards (wording: instructor)
+- **desultory** in Lesson XIII Exercise III Flashcards (wording: answer key)
 - **ineffable** in Lesson XI Exercise III Flashcards (wording: answer key)
 - **credit** in Lesson XI Exercise III Flashcards (wording: answer key)
 - **transmuted** in Lesson XI Exercise III Flashcards (wording: answer key)
@@ -87,6 +91,24 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 - **capacious** in Lesson XII Exercise III Flashcards (wording: answer key)
 - **efficacious** in Lesson XII Exercise III Flashcards (wording: answer key)
 - **precepts** in Lesson XII Exercise III Flashcards (wording: answer key)
+- **introspectiveness** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **prefatory** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **during** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **Conservative** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **tortuous** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **compulsive** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **discernible** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **assiduous** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **sensuous** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **cursory** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **effusive** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **expository** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **obdurate** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **nascent** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **impulsive** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **perspicuous** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **deciduous** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **repulsive** in Lesson XIII Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -172,7 +194,7 @@ LIMIN- threshold
 - introversive: Lesson IX Workbook Flashcards
 - recessive: Lesson IX Workbook Flashcards
 - unanimous: Lesson IX Workbook Flashcards
-- discursive: Lesson IX Workbook Flashcards
+- discursive: Lesson IX Workbook Flashcards, Lesson XIII Exercise III Flashcards
 - devious: Lesson IX Workbook Flashcards
 - prospective: Lesson IX Workbook Flashcards
 - complementary: Lesson IX Workbook Flashcards
@@ -311,7 +333,7 @@ LIMIN- threshold
 - salient: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
 - sally: Lesson X Workbook Flashcards
 - exultation: Lesson X Workbook Flashcards
-- desultory: Lesson X Workbook Flashcards
+- desultory: Lesson X Workbook Flashcards, Lesson XIII Exercise III Flashcards
 - result: Lesson X Workbook Flashcards
 - posse: Lesson X Workbook Flashcards
 - diffident: Lesson X Exercise III Flashcards, Lesson X Workbook Flashcards
@@ -422,3 +444,21 @@ LIMIN- threshold
 - capacious: Lesson XII Exercise III Flashcards
 - efficacious: Lesson XII Exercise III Flashcards
 - precepts: Lesson XII Exercise III Flashcards
+- introspectiveness: Lesson XIII Exercise III Flashcards
+- prefatory: Lesson XIII Exercise III Flashcards
+- during: Lesson XIII Exercise III Flashcards
+- Conservative: Lesson XIII Exercise III Flashcards
+- tortuous: Lesson XIII Exercise III Flashcards
+- compulsive: Lesson XIII Exercise III Flashcards
+- discernible: Lesson XIII Exercise III Flashcards
+- assiduous: Lesson XIII Exercise III Flashcards
+- sensuous: Lesson XIII Exercise III Flashcards
+- cursory: Lesson XIII Exercise III Flashcards
+- effusive: Lesson XIII Exercise III Flashcards
+- expository: Lesson XIII Exercise III Flashcards
+- obdurate: Lesson XIII Exercise III Flashcards
+- nascent: Lesson XIII Exercise III Flashcards
+- impulsive: Lesson XIII Exercise III Flashcards
+- perspicuous: Lesson XIII Exercise III Flashcards
+- deciduous: Lesson XIII Exercise III Flashcards
+- repulsive: Lesson XIII Exercise III Flashcards

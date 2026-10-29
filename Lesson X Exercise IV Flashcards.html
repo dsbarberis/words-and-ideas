@@ -2564,7 +2564,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "efc5798e9df5";
+  const DECK_VERSION = "9b7c1dfd3bd8";
   const DECK_PAGE = "Lesson X Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4870,14 +4870,17 @@
     meaningBack.appendChild(an);
     meaningBack.appendChild(el("div", "back-defn", item.defn));
     if (item.caution) meaningBack.appendChild(noteBlock([item.caution]));
+    // A card with no sentence (Lesson XIII Workbook, Exercise 6) has no "In context".
     originLabel.textContent = "In context";
-    originLabel.hidden = false;
+    originLabel.hidden = !item.sentence;
     originBack.innerHTML = "";
-    const sen = el("div", "back-sentence");
-    sen.innerHTML = item.sentence;
-    if (item.cite) sen.appendChild(el("span", "cite", item.cite));
-    originBack.appendChild(sen);
-    originBox.hidden = false;
+    if (item.sentence) {
+      const sen = el("div", "back-sentence");
+      sen.innerHTML = item.sentence;
+      if (item.cite) sen.appendChild(el("span", "cite", item.cite));
+      originBack.appendChild(sen);
+    }
+    originBox.hidden = !item.sentence;
     feedbackBox.hidden = !ans;
     if (ans && item.boxes && Array.isArray(ans.a)) {
       fillBoxesFeedback(item, ans);

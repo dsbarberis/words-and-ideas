@@ -269,7 +269,8 @@ function effortChecks() {
   // 6. Every element of an analysis is typed as a piece of its own: a base
   // joined to its suffix ("genit" for GEN- and -it-) is wrong (instructor, Oct 22, 2026).
   __t.CARDS.forEach((c, i) => {
-    if (!c.boxes || !c.parts || !c.defn || c.parts.length < 3) return;
+    // Only a card with an analysis (forms) box; element boxes are checked elsewhere.
+    if (!c.boxes || !c.boxes.some(bx => bx.check === "parts") || !c.parts || !c.defn || c.parts.length < 3) return;
     const forms = c.parts.map(pt => (pt.accept || [])[0] || "");
     for (let k = 0; k + 1 < forms.length; k++) {
       const joined = forms.slice(0, k).concat([forms[k] + forms[k + 1]], forms.slice(k + 2)).join(" ");
@@ -552,7 +553,8 @@ function keyedRecords() {
     review: review, next: { order: [b, c], review: [false, false] } };
   const rec = {
     known: [a, b], learning: [c],
-    pass: { tab: "all", start: now - 1000, last: now, list: T.CARDS.map((_, i) => i), seen: [a, b], marked: [a] },
+    // An old record knew only the cards of its day: the frozen ones (cards added later, as Latin Roots gained in Lesson XIII, were not in it).
+    pass: { tab: "all", start: now - 1000, last: now, list: T.CARDS.slice(0, T.FROZEN()).map((_, i) => i), seen: [a, b], marked: [a] },
     marks: { [a]: { s: "learn", d: "2026-10-20" }, [c]: { s: "quiz", d: "2026-10-21" } },
     spacing: { n: 10, miss: { [c]: { n: 8, t: now } } }
   };
@@ -562,7 +564,7 @@ function keyedRecords() {
   function expectState(st, label, knownWant) {
     check(JSON.stringify(st.known) === JSON.stringify(knownWant || [a, b].sort((x, y) => x - y)), label + ": Know It marks " + JSON.stringify(st.known));
     check(JSON.stringify(st.learning) === JSON.stringify([c]), label + ": Still Learning marks " + JSON.stringify(st.learning));
-    check(st.pass && JSON.stringify(st.pass.seen) === JSON.stringify([a, b]) && JSON.stringify(st.pass.marked) === JSON.stringify([a]) && st.pass.list.length === N, label + ": the Learn pass under way");
+    check(st.pass && JSON.stringify(st.pass.seen) === JSON.stringify([a, b]) && JSON.stringify(st.pass.marked) === JSON.stringify([a]) && st.pass.list.length === T.FROZEN(), label + ": the Learn pass under way");
     check(st.marks[a] && st.marks[a].d === "2026-10-20" && st.marks[c] && st.marks[c].s === "quiz", label + ": where marks came from");
     check(st.spacing.n === 10 && st.spacing.miss[c] && st.spacing.miss[c].n === 8, label + ": spacing");
     const qq = T.BYSET() ? st.quizzes.all : st.quiz;
