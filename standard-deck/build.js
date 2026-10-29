@@ -10,6 +10,12 @@ const template = fs.readFileSync(path.join(here, "template.html"), "utf8");
 const COURSE_ZONE = JSON.parse(fs.readFileSync(path.join(here, "course.json"), "utf8")).timeZone;
 const glossary = require(path.join(here, "glossary.js"));
 const vocabulary = require(path.join(here, "vocabulary.js"));
+// Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
+// The Bases box counts them, not shown (instructor's card "Bases, as described", Oct 29, 2026).
+const latinRootsKeys = {};
+(require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
+  if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
+});
 const UNCHECKED = "Claude, unchecked";
 
 function escHtml(s) {
@@ -166,7 +172,10 @@ function resolveParts(card, file, deck) {
         if (entry.optionalInBoxes) o.optional = true;
         const key = (card.keyMeanings || {})[pt.gloss];
         const dictionary = ADJECTIVE_SUFFIXES.indexOf(pt.gloss) >= 0 ? ADJECTIVE_WORDINGS : pt.gloss === "-ANT" ? PARTICIPLE_WORDINGS : [];
-        const also = [].concat(entry.plainMeanings || [], dictionary, key || []);
+        // A base also takes its Latin Roots synonyms; suffixes don't, because
+        // their Latin Roots lists hold wordings the instructor ruled wrong in the boxes.
+        const synonyms = entry.kind === "base" ? latinRootsKeys[pt.gloss] || [] : [];
+        const also = [].concat(entry.plainMeanings || [], dictionary, key || [], synonyms);
         if (also.length) o.alsoMeans = also;
         // A suffix built from two pieces (-ac + -ous for -acious): written as
         // its pieces, the last piece's book meaning counts (instructor, Oct 28, 2026).
