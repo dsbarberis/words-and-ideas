@@ -164,6 +164,15 @@ module.exports = {
     { gloss: "NOV", cat: "base", examples: "novel, novice, innovative", keys: [["new","newness","novel","fresh","recent","young","renew"]] },
     { gloss: "-ITIOUS", cat: "suffix", examples: "fictitious, expeditious", keys: [["tending to","tend to","tendency","inclined to","apt to","prone to","given to"],["characterized by","characteristic of","marked by","having","showing","full of"]] },
     { gloss: "-ID", cat: "suffix", examples: "frigid, rapid, humid", keys: [["tending to","tend to","tendency","apt to","prone to","likely to"],["inclined to","inclined","inclination","given to","disposed to"]] },
-    { gloss: "-ULOUS", cat: "suffix", examples: "garrulous, tremulous", keys: [["tending to","tend to","tendency","apt to","prone to","likely to"],["inclined to","inclined","inclination","given to","disposed to","full of"]] }
+    { gloss: "-ULOUS", cat: "suffix", examples: "garrulous, tremulous", keys: [["tending to","tend to","tendency","apt to","prone to","likely to"],["inclined to","inclined","inclination","given to","disposed to","full of"]] },
+    {"gloss": "CERN", "cat": "base", "forms": "CERN-, CRET-, [CERT-]", "examples": "discernment, secret, excrete, ascertain", "keys": [["separate", "separating", "set apart", "sift", "sort"], ["distinguish", "distinguishing", "discern", "discriminate", "tell apart", "decide", "determine"]]},
+    {"gloss": "DUR", "cat": "base", "examples": "duration, endurable", "keys": [["hard", "harsh", "tough", "stern", "firm"], ["last", "lasting", "endure", "enduring", "continue", "remain", "persist"]]},
+    {"gloss": "FUND", "cat": "base", "forms": "FUND-, FUS-, [FOUND-]", "examples": "refund, fusion, confusion, foundry", "keys": [["pour", "pouring", "poured", "spill", "flow"], ["melt", "melting", "melted", "fuse", "smelt", "cast"]]},
+    {"gloss": "NASC", "cat": "base", "examples": "nascent, native, prenatal, nature, natural", "keys": [["be born", "born", "birth", "being born", "arise", "spring up", "come into being"]]},
+    {"gloss": "PON", "cat": "base", "forms": "PON-, POSIT-, [POUND-], [POSE-]", "examples": "component, deposit, position, compound, compose, oppose", "note": "[POSE-], though historically from a different verb, was confused in meaning with PON- so long ago that the book takes it here (p. 88).", "keys": [["place", "placed", "placing", "position", "set"], ["put", "putting", "lay", "set down"]]},
+    {"gloss": "TORT", "cat": "base", "examples": "torture, distort", "keys": [["twist", "twisting", "twisted", "wind", "wring", "wrench", "bend"]]},
+    {"gloss": "-IVE", "cat": "suffix", "examples": "active, attractive, effective", "keys": [["tending to", "tend to", "tendency", "apt to", "prone to", "likely to"], ["inclined to", "inclined", "inclination", "given to", "disposed to"]]},
+    {"gloss": "-UOUS", "cat": "suffix", "examples": "continuous, conspicuous", "keys": [["tending to", "tend to", "tendency", "apt to", "prone to", "likely to"], ["inclined to", "inclined", "inclination", "given to", "disposed to"]]},
+    {"gloss": "-ORY", "cat": "suffix", "examples": "introductory, compulsory, contradictory", "keys": [["tending to", "tend to", "tendency", "apt to", "prone to", "likely to"], ["serving for", "serving as", "serving to", "serves for", "serves as", "used for", "useful for"]]}
   ]
 };
