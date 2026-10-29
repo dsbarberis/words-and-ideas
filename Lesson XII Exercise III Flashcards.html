@@ -542,6 +542,15 @@
   .eg-pop-box { background: var(--card); color: var(--ink); border: 1px solid var(--rule); border-radius: 12px; max-width: 360px; padding: 20px; text-align: center; font-size: 15px; line-height: 1.5; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); }
   .eg-pop-box .nav-btn { margin-top: 14px; }
 
+  /* Reload prompt: this deck has been updated since the page was opened (Old Deck Pages plan, Oct 28, 2026) */
+  .update-bar { width: 100%; max-width: 640px; margin: 0 0 16px; padding: 10px 14px; background: var(--card); color: var(--ink);
+    border: 1px solid var(--gold); border-left: 4px solid var(--gold); border-radius: 8px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; font-size: 14px; line-height: 1.4; }
+  .update-bar .nav-btn { flex: none; padding: 8px 16px; }
+  .update-bar-flash { animation: updateFlash 0.9s ease-out; }
+  @keyframes updateFlash { 0%, 40% { box-shadow: 0 0 0 3px var(--gold); } 100% { box-shadow: none; } }
+  @media (max-width: 600px) { .update-bar { margin-bottom: 10px; padding: 8px 10px; font-size: 13.5px; } }
+
   /* Name gate */
   .gate-copy {
     text-align: center;
@@ -863,6 +872,11 @@
 </style>
 </head>
 <body>
+
+<div class="update-bar" id="updateBar" role="status" hidden>
+  <span id="updateBarText">This deck has been updated. Reload to get the latest version.</span>
+  <button type="button" class="nav-btn" id="updateReloadBtn">Reload</button>
+</div>
 
 <div class="wrap" id="gateScreen">
   <header>
@@ -3966,6 +3980,14 @@
   ],
   "frozenCount": 20
 };
+  // This page's version: a hash of what judges this deck, written by build.js,
+  // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
+  const DECK_VERSION = "2a14167bfa67";
+  const DECK_PAGE = "Lesson XII Exercise III Flashcards.html";
+  // The reload prompt's state (see "Reload prompt" below).
+  const updateBar = document.getElementById("updateBar");
+  const VERSION_CHECK_MS = 60000;
+  let versionCheckedAt = 0, newVersion = null;
 
   // The course's time zone (standard-deck/course.json), for times shown to the instructor.
   const COURSE_ZONE = "America/Chicago";
@@ -6660,6 +6682,7 @@
   }
 
   function startQuiz() {
+    if (lockedForUpdate()) return;
     const indices = QUIZ_BY_SET ? setIndices(filter) : CARDS.map(function (_, i) { return i; });
     if (!indices.length) {
       if (QUIZ_BY_SET) delete quizzes[filter];
@@ -6683,9 +6706,11 @@
     saveQuiz();
     render();
     if (needsTyping() && !presenterMode) answerInput.focus();
+    checkDeckVersion();
   }
 
   function startNextRound() {
+    if (lockedForUpdate()) return;
     // A quiz saved before the rules reached this deck has no plan yet.
     const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
     if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
@@ -6699,6 +6724,7 @@
     saveQuiz();
     render();
     if (needsTyping() && !presenterMode) answerInput.focus();
+    checkDeckVersion();
   }
 
   // choice = the option tapped, on an Exercise Deck's choice question.
@@ -6802,6 +6828,7 @@
     }
     teacherTools.hidden = !teacherCanLeaf();
     if (teacherTools.hidden) { quizPrevBtn.hidden = true; quizSpacer.hidden = false; }
+    showUpdateBar();
     if (typeof fitPhone === "function") fitPhone();
   }
 
@@ -7350,8 +7377,81 @@
     });
   }
 
+  // ---------- Reload prompt (Old Deck Pages plan, Oct 28, 2026) ----------
+  // A page left open keeps judging by the rules it was opened with. The page
+  // compares its DECK_VERSION with deck-versions.json when it opens, when the
+  // student comes back to the tab, when a phone restores it, and when a round
+  // starts (at most once a minute). If they differ, a banner offers a reload.
+  // The banner sends nothing anywhere and a failed check does nothing. On
+  // Exercise Decks it may show mid-round, because a reload keeps the saved
+  // round and remarkSaved() marks it again with the new rules; on other decks
+  // it waits until the round under way is finished.
+  function checkDeckVersion() {
+    if (newVersion || Date.now() - versionCheckedAt < VERSION_CHECK_MS) return;
+    versionCheckedAt = Date.now();
+    try {
+      fetch("deck-versions.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (list) {
+          const v = list && typeof list === "object" ? list[DECK_PAGE] : null;
+          if (typeof v !== "string" || !/^[0-9a-f]{6,64}$/.test(v) || v === DECK_VERSION) return;
+          // This address already asked for that version and still got an older
+          // page: stay quiet rather than offer the same reload again.
+          if (new URLSearchParams(location.search).get("v") === v) return;
+          newVersion = v;
+          showUpdateBar();
+        })
+        .catch(function () { /* offline or no version file: no check */ });
+    } catch (e) { /* no fetch: no check */ }
+  }
+
+  function roundUnderWay() {
+    return !deckScreen.hidden && mode === "quiz" && !!quiz && quiz.phase === "card" &&
+      Array.isArray(quiz.answers) && quiz.answers.some(Boolean) && !quiz.answers.every(Boolean);
+  }
+
+  function showUpdateBar() {
+    if (!newVersion || !updateBar.hidden) return;
+    if (!EXERCISE && roundUnderWay()) return;
+    updateBar.hidden = false;
+    if (typeof fitPhone === "function") fitPhone();
+  }
+
+  // New-round lock (D's card "Lock new rounds", Oct 29, 2026): once the page
+  // knows a newer version exists, a new round does not start until the student
+  // reloads, so no round is judged by old rules. A round under way is never
+  // interrupted, Learn passes are not locked (they judge nothing), and a failed
+  // or offline check never locks, because newVersion is then never set.
+  function lockedForUpdate() {
+    if (!newVersion) return false;
+    document.getElementById("updateBarText").textContent =
+      "This deck has been updated. Reload to start a new round.";
+    updateBar.hidden = false;
+    updateBar.classList.remove("update-bar-flash");
+    void updateBar.offsetWidth;
+    updateBar.classList.add("update-bar-flash");
+    if (typeof fitPhone === "function") fitPhone();
+    try { updateBar.scrollIntoView({ block: "nearest" }); } catch (e) { /* old browser */ }
+    return true;
+  }
+
+  // The new version goes in the address, so GitHub's cache cannot serve the
+  // old page again; other parts of the address are kept.
+  document.getElementById("updateReloadBtn").addEventListener("click", function () {
+    const url = new URL(location.href);
+    url.searchParams.set("v", newVersion);
+    location.href = url.toString();
+  });
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") checkDeckVersion();
+  });
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) { versionCheckedAt = 0; checkDeckVersion(); }
+  });
+
   window.addEventListener("hashchange", showScreen);
   showScreen();
+  checkDeckVersion();
 </script>
 
 </body>

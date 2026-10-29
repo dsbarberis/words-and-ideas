@@ -33,6 +33,21 @@ one template, so the decks stay identical apart from their content.
   `build-report.md`: words two decks use with different senses, cards that override
   the shared definition, possible duplicates or homographs, every wording still
   marked "Claude, unchecked" (by deck), and which decks use each word.
+- `deck-versions.json` (at the repository root, written by `build.js`): each deck page's
+  version, a short hash of what judges it (the deck's built card data and settings,
+  which include the glossary and vocabulary content its cards take, and the template's
+  script). The page carries the same hash as `DECK_VERSION`. An open page checks the
+  file when it opens, when the student comes back to the tab, when a phone restores it
+  and when a round starts (at most once a minute), and if its deck has changed shows
+  "This deck has been updated. Reload to get the latest version." Reload opens the page
+  with `?v=<new hash>` so GitHub's cache cannot serve the old page again. Exercise Decks
+  may show it mid-round (a reload keeps the saved round and marks it again with the new
+  rules); other decks wait until the round under way is finished. A change only to the
+  template's styles or markup changes no hash (Old Deck Pages plan, Oct 28, 2026).
+  Once the page knows of a newer version, a new quiz round does not start: Start shows
+  the banner as "This deck has been updated. Reload to start a new round." A round under
+  way is never interrupted, Learn passes are not locked, and a failed or offline check
+  never locks (D's "Lock new rounds", Oct 29, 2026).
 - `card-keys.json`: every deck's card keys as they stood on Oct 28, 2026, when the
   records kept on students' devices moved from card positions to card keys (release A
   of the Latin Roots Lesson Filter). A card's key is its `id` if it has one, else its
