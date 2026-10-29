@@ -44,6 +44,10 @@ one template, so the decks stay identical apart from their content.
   may show it mid-round (a reload keeps the saved round and marks it again with the new
   rules); other decks wait until the round under way is finished. A change only to the
   template's styles or markup changes no hash (Old Deck Pages plan, Oct 28, 2026).
+  Once the page knows of a newer version, a new quiz round does not start: Start shows
+  the banner as "This deck has been updated. Reload to start a new round." A round under
+  way is never interrupted, Learn passes are not locked, and a failed or offline check
+  never locks (D's "Lock new rounds", Oct 29, 2026).
 - `card-keys.json`: every deck's card keys as they stood on Oct 28, 2026, when the
   records kept on students' devices moved from card positions to card keys (release A
   of the Latin Roots Lesson Filter). A card's key is its `id` if it has one, else its

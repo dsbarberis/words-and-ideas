@@ -547,6 +547,8 @@
     border: 1px solid var(--gold); border-left: 4px solid var(--gold); border-radius: 8px; display: flex; align-items: center;
     justify-content: space-between; gap: 12px; font-size: 14px; line-height: 1.4; }
   .update-bar .nav-btn { flex: none; padding: 8px 16px; }
+  .update-bar-flash { animation: updateFlash 0.9s ease-out; }
+  @keyframes updateFlash { 0%, 40% { box-shadow: 0 0 0 3px var(--gold); } 100% { box-shadow: none; } }
   @media (max-width: 600px) { .update-bar { margin-bottom: 10px; padding: 8px 10px; font-size: 13.5px; } }
 
   /* Name gate */
@@ -872,7 +874,7 @@
 <body>
 
 <div class="update-bar" id="updateBar" role="status" hidden>
-  <span>This deck has been updated. Reload to get the latest version.</span>
+  <span id="updateBarText">This deck has been updated. Reload to get the latest version.</span>
   <button type="button" class="nav-btn" id="updateReloadBtn">Reload</button>
 </div>
 
@@ -2995,7 +2997,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "e28fef34d29c";
+  const DECK_VERSION = "d5ee613f782e";
   const DECK_PAGE = "Greek Introduction Exercise.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -5695,6 +5697,7 @@
   }
 
   function startQuiz() {
+    if (lockedForUpdate()) return;
     const indices = QUIZ_BY_SET ? setIndices(filter) : CARDS.map(function (_, i) { return i; });
     if (!indices.length) {
       if (QUIZ_BY_SET) delete quizzes[filter];
@@ -5722,6 +5725,7 @@
   }
 
   function startNextRound() {
+    if (lockedForUpdate()) return;
     // A quiz saved before the rules reached this deck has no plan yet.
     const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
     if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
@@ -6426,6 +6430,24 @@
     if (!EXERCISE && roundUnderWay()) return;
     updateBar.hidden = false;
     if (typeof fitPhone === "function") fitPhone();
+  }
+
+  // New-round lock (D's card "Lock new rounds", Oct 29, 2026): once the page
+  // knows a newer version exists, a new round does not start until the student
+  // reloads, so no round is judged by old rules. A round under way is never
+  // interrupted, Learn passes are not locked (they judge nothing), and a failed
+  // or offline check never locks, because newVersion is then never set.
+  function lockedForUpdate() {
+    if (!newVersion) return false;
+    document.getElementById("updateBarText").textContent =
+      "This deck has been updated. Reload to start a new round.";
+    updateBar.hidden = false;
+    updateBar.classList.remove("update-bar-flash");
+    void updateBar.offsetWidth;
+    updateBar.classList.add("update-bar-flash");
+    if (typeof fitPhone === "function") fitPhone();
+    try { updateBar.scrollIntoView({ block: "nearest" }); } catch (e) { /* old browser */ }
+    return true;
   }
 
   // The new version goes in the address, so GitHub's cache cannot serve the

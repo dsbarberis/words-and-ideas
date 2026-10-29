@@ -686,6 +686,102 @@ function testDeckVersions(decks) {
   report("deck versions", fails, Object.keys(decks).length + " pages compared with deck-versions.json");
 }
 
+// 11. Reload prompt and new-round lock (Old Deck Pages plan, Oct 28, 2026;
+// D's "Lock new rounds", Oct 29). The pages are served over a local http
+// server so the version check can run; deck-versions.json is served from a
+// list the test changes. Starting point: the Tools and Tests Desk's hand probe.
+async function reloadPromptTests(decks) {
+  const fails = []; let checked = 0;
+  const ex = "Lesson XII Exercise III Flashcards.html", fc = "Greek History Flashcards.html";
+  const want = [ex, fc].filter(f => decks[f]);
+  if (!want.length) { report("reload prompt", [], "not run (neither deck built)"); return; }
+  let chromium;
+  try { ({ chromium } = require("playwright")); }
+  catch (e) { report("reload prompt", ["Playwright not found; run with NODE_PATH=$(npm root -g)"], "not run"); return; }
+  const http = require("http");
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-reload-"));
+  want.forEach(f => testCopy(tmp, f, decks[f]));
+  const versions = JSON.parse(fs.readFileSync(path.join(repo, "deck-versions.json"), "utf8"));
+  const srv = http.createServer((q, r) => {
+    const u = decodeURIComponent(q.url.split("?")[0].slice(1));
+    if (u === "deck-versions.json") { r.setHeader("content-type", "application/json"); return r.end(JSON.stringify(versions)); }
+    try { r.end(fs.readFileSync(path.join(tmp, path.basename(u)))); } catch (e) { r.statusCode = 404; r.end(); }
+  });
+  await new Promise(ok => srv.listen(0, "127.0.0.1", ok));
+  const base = "http://127.0.0.1:" + srv.address().port + "/";
+  const browser = await chromium.launch();
+  const NEW = "abcdef123456";
+  async function open(f, qs) {
+    const page = await browser.newPage();
+    await page.route(/^https?:/, r => r.request().url().startsWith(base) ? r.continue() : r.abort());
+    const got = page.waitForResponse(r => r.url().includes("deck-versions.json"), { timeout: 10000 });
+    await page.goto(base + encodeURIComponent(f) + (qs || ""));
+    await page.waitForFunction(() => window.__t, null, { timeout: 10000 });
+    await got; await page.waitForTimeout(100);
+    return page;
+  }
+  const barShown = page => page.evaluate(() => !document.getElementById("updateBar").hidden);
+  async function toQuiz(page) {
+    await page.fill("#nameInput", "Test Student");
+    await page.keyboard.press("Enter");
+    // Exercise Decks open straight on the quiz; other decks have a Quiz tab.
+    const tab = page.locator(".tab:visible", { hasText: /^Quiz$/ });
+    if (await tab.count()) await tab.first().click();
+  }
+  async function recheck(page) {
+    const got = page.waitForResponse(r => r.url().includes("deck-versions.json"), { timeout: 10000 });
+    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true })));
+    await got; await page.waitForTimeout(100);
+  }
+  try {
+    for (const f of want) {
+      const orig = versions[f], isEx = f === ex;
+      let page = await open(f);
+      checked++; if (await barShown(page)) fails.push(f + ": banner shown when the version is the same");
+      // Mid-round: Exercise Decks show the banner, other decks wait for the round's end.
+      await toQuiz(page);
+      const start = page.locator("#quizPanel button", { hasText: "Start the quiz" });
+      if (await start.count()) await start.first().click();
+      const begun = await page.evaluate(() => { const q = __t.quiz(); if (!q || !q.answers || q.answers.length < 2) return false; q.answers[0] = { ok: true }; return true; });
+      if (begun) {
+        versions[f] = NEW;
+        await recheck(page);
+        checked++;
+        const shown = await barShown(page);
+        if (isEx && !shown) fails.push(f + ": banner not shown mid-round on an Exercise Deck");
+        if (!isEx && shown) fails.push(f + ": banner shown mid-round on a Flashcard Deck");
+      } else fails.push(f + ": could not start a round");
+      await page.close();
+      // A newer version on open: banner, and a new round is locked.
+      versions[f] = NEW;
+      page = await open(f);
+      checked++; if (!(await barShown(page))) fails.push(f + ": banner not shown when the version changed");
+      await page.evaluate(() => localStorage.clear());
+      await toQuiz(page);
+      const before = await page.evaluate(() => JSON.stringify(__t.quiz()));
+      const st = page.locator("#quizPanel button", { hasText: "Start the quiz" });
+      if (await st.count()) {
+        await st.first().click();
+        const after = await page.evaluate(() => ({ q: JSON.stringify(__t.quiz()), text: document.getElementById("updateBarText").textContent, shown: !document.getElementById("updateBar").hidden }));
+        checked++;
+        if (after.q !== before) fails.push(f + ": a new round started although a newer version exists");
+        if (!after.shown || !/start a new round/.test(after.text)) fails.push(f + ": the lock did not say to reload (" + JSON.stringify(after.text) + ")");
+      } else fails.push(f + ": no Start the quiz button to test the lock");
+      // Reload goes to ?v=<new>.
+      await Promise.all([page.waitForNavigation({ timeout: 10000 }), page.click("#updateReloadBtn")]);
+      checked++; if (new URL(page.url()).searchParams.get("v") !== NEW) fails.push(f + ": Reload went to " + page.url());
+      await page.close();
+      // The address already asked for that version: no banner and no lock.
+      page = await open(f, "?v=" + NEW);
+      checked++; if (await barShown(page)) fails.push(f + ": banner shown again after a reload to ?v=");
+      await page.close();
+      versions[f] = orig;
+    }
+  } catch (e) { fails.push("the check stopped: " + String(e.message).split("\n")[0]); }
+  await browser.close(); srv.close();
+  report("reload prompt", fails, checked + " checks of the update banner, the new-round lock and the reload address");
+}
+
 (async () => {
   const decks = builtDecks();
   testBuildMatches(decks);
@@ -693,6 +789,7 @@ function testDeckVersions(decks) {
   testNoWorkingNotes(decks);
   testFrozenKeys(decks);
   await browserTests(decks);
+  await reloadPromptTests(decks);
   const failed = results.filter(r => r.failures.length);
   console.log(failed.length ? failed.length + " of " + results.length + " tests failed: do not publish" : "all " + results.length + " tests passed");
   process.exit(failed.length ? 1 : 0);
