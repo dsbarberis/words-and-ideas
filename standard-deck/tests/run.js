@@ -1053,6 +1053,16 @@ async function practiceTests(decks) {
     checked++;
     if (res.wrong.length) fails.push("Latin Roots did not apply the marks for " + res.wrong.join(", "));
     if (res.left) fails.push("Latin Roots left the list in place");
+    // An older practice mark never overrides a newer Latin Roots mark.
+    const stale = await lr.evaluate(([slug, list]) => {
+      const e = list.find(x => x.m === "learning" && __t.practice.KEY(x.k) >= 0);
+      if (!e) return "no card to try";
+      localStorage.setItem("latinroots_fromPractice_v2__" + slug, JSON.stringify([{ k: e.k, m: "known", t: Date.now() - 3600000 }]));
+      __t.practice.apply();
+      const i = __t.practice.KEY(e.k), st = __t.state();
+      return st.learning.indexOf(i) >= 0 && st.known.indexOf(i) < 0 ? "" : "an hour-old Know It overrode a newer Latin Roots mark on " + e.k;
+    }, [SLUG, list]);
+    checked++; if (stale) fails.push(stale);
     await lr.close();
   } catch (e) { fails.push("the check stopped: " + String(e.message).split("\n")[0]); }
   await browser.close();

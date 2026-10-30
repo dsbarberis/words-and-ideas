@@ -5000,7 +5000,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "4f2fafd83849";
+  const DECK_VERSION = "c6baee544405";
   const DECK_PAGE = "Lesson X Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -5871,7 +5871,7 @@
       const rawS = rec.marks;
       if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
         const m = rawS[k];
-        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) markSrc[+k] = { s: m.s, d: String(m.d || "") };
+        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t;
       });
       if (QUIZ_BY_SET) {
         quizzes = {};
@@ -6018,7 +6018,7 @@
 
   // Note where a card's mark came from; a Learn tap also counts toward the pass under way.
   function noteMark(idx, src) {
-    markSrc[idx] = { s: src, d: localDay() };
+    markSrc[idx] = { s: src, d: localDay(), t: Date.now() };
     saveMarkSrc();
     if (src === "learn" && learnPass && learnPass.marked.indexOf(idx) < 0) { learnPass.marked.push(idx); saveLearnPass(); }
   }
@@ -8073,7 +8073,8 @@
     try {
       const k = latinRootsKey("fromPractice");
       const was = JSON.parse(localStorage.getItem(k) || "[]");
-      localStorage.setItem(k, JSON.stringify((Array.isArray(was) ? was : []).concat(entries)));
+      const t = Date.now();
+      localStorage.setItem(k, JSON.stringify((Array.isArray(was) ? was : []).concat(entries.map(function (e) { return { k: e.k, m: e.m, t: t }; }))));
     } catch (e) { /* storage unavailable */ }
   }
   // A missed Exercise card: the elements of each wrong element box go to
@@ -8100,10 +8101,12 @@
     list.forEach(function (e) {
       const i = e ? fromKey(e.k) : -1;
       if (i < 0) return;
+      // A mark made in Latin Roots after this one stands (external review, Oct 30, 2026).
+      if (markSrc[i] && typeof markSrc[i].t === "number" && typeof e.t === "number" && markSrc[i].t > e.t) return;
       if (e.m === "known") { known.add(i); learningMarked.delete(i); }
       else if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
       else return;
-      markSrc[i] = { s: "learn", d: localDay() };
+      markSrc[i] = { s: "learn", d: localDay(), t: typeof e.t === "number" ? e.t : Date.now() };
     });
     saveKnown(); saveLearning(); saveMarkSrc();
     try { localStorage.removeItem(ID + "_fromPractice_v2__" + currentSlug); } catch (e) { /* ignore */ }
