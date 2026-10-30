@@ -32,14 +32,20 @@ const latinRootsKeys = {};
 const latinRootsCards = {};
 (require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
-  if (c.gloss) latinRootsCards[c.gloss] = c;
+  // A card for a spelling shared by two Latin words lists every gloss it covers
+  // (glosses: ["IN-not", "IN-into"]); each of them leads to that one card.
+  (Array.isArray(c.glosses) ? c.glosses : c.gloss ? [c.gloss] : []).forEach(function (g) { latinRootsCards[g] = c; });
 });
 // One element card as the Exercise deck shows it: the Latin Roots card's key
 // (its record name in Latin Roots), forms, meanings, examples, kind and lesson.
-function practiceCard(gloss) {
+// A joined card shows the meanings of each of its glosses taught by upTo.
+function practiceCard(gloss, upTo) {
   const c = latinRootsCards[gloss], e = glossary[gloss];
   if (!c || !e) return null;
-  return { k: c.id || gloss, word: c.forms || e.forms, meanings: e.meanings, origin: c.examples || e.examples || "",
+  const gs = Array.isArray(c.glosses) ? c.glosses : [gloss];
+  const taught = gs.filter(function (g) { return glossary[g] && (g === gloss || !upTo || (glossary[g].lessonNo || 0) <= upTo); });
+  const meanings = [].concat.apply([], taught.map(function (g) { return glossary[g].meanings || []; }));
+  return { k: c.id || c.gloss || gloss, word: c.forms || e.forms, meanings: meanings, origin: c.examples || e.examples || "",
            type: e.kind, lesson: c.lesson || e.lessonNo || 0 };
 }
 const UNCHECKED = "Claude, unchecked";
@@ -183,7 +189,7 @@ function resolveParts(card, file, deck) {
       const entry = glossary[pt.gloss];
       if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
       const o = { label: pt.label, meanings: entry.meanings, meaningGroups: groupsOf(entry, pt.gloss) };
-      if (deck.elementBoxes && latinRootsCards[pt.gloss]) { o.k = latinRootsCards[pt.gloss].id || pt.gloss; o.gloss = pt.gloss; }  // its Latin Roots card
+      if (deck.elementBoxes && latinRootsCards[pt.gloss]) { o.k = latinRootsCards[pt.gloss].id || latinRootsCards[pt.gloss].gloss || pt.gloss; o.gloss = pt.gloss; }  // its Latin Roots card
       if (pt.note || entry.note) o.note = pt.note || entry.note;
       const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
@@ -315,11 +321,15 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   if (deck.type === "exercise" && deck.elementBoxes) {
     const seen = {};
     data.practice = [];
+    // The deck's lesson: the latest lesson of any element its cards use.
+    let upTo = 0;
+    data.cards.forEach(function (c) { (c.parts || []).forEach(function (pt) {
+      const e = pt.gloss && glossary[pt.gloss]; if (e && e.lessonNo > upTo) upTo = e.lessonNo; }); });
     data.cards.forEach(function (c) {
       (c.parts || []).forEach(function (pt) {
         if (!pt.k || seen[pt.k]) return;
         seen[pt.k] = true;
-        const pc = practiceCard(pt.gloss);
+        const pc = practiceCard(pt.gloss, upTo);
         if (pc) data.practice.push(pc);
       });
     });
