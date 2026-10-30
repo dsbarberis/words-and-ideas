@@ -509,10 +509,10 @@ async function lessonChecks(page) {
     check(L.list().length === shown.length && L.list().every(i => C[i].lesson <= 5), "Learn shows cards after Lesson V");
     check(L.count("all") === shown.length, "the All tab counts hidden cards");
     const menu = [...document.getElementById("lessonMenu").options].map(o => o.textContent);
-    check(JSON.stringify(menu) === JSON.stringify(["Lessons II\u2013V", "Lesson V", "Lesson IV", "Lesson III", "Lesson II"]), "lesson menu: " + JSON.stringify(menu));
+    check(JSON.stringify(menu) === JSON.stringify(["Lessons II\u2013V", "Lessons II\u2013IV", "Lessons II\u2013III", "Lesson II"]), "lesson menu: " + JSON.stringify(menu));
     L.pick(3);
-    check(L.list().every(i => C[i].lesson === 3) && L.list().length === C.filter(c => c.lesson === 3).length, "picking Lesson III does not show just its cards");
-    check(L.tabs({ tab: "prefix", lesson: 3 }, "unfinished") === " (Prefixes, Lesson III, unfinished)", "Learn pass name with a lesson: " + L.tabs({ tab: "prefix", lesson: 3 }, "unfinished"));
+    check(L.list().every(i => C[i].lesson <= 3) && L.list().length === C.filter(c => c.lesson <= 3).length, "picking Lessons II\u2013III does not show just their cards");
+    check(L.tabs({ tab: "prefix", lesson: 3 }, "unfinished") === " (Prefixes, Lessons II\u2013III, unfinished)", "Learn pass name with a lesson: " + L.tabs({ tab: "prefix", lesson: 3 }, "unfinished"));
     check(L.tabs({ tab: "all" }, "") === "", "a whole Learn pass gained a bracket");
     L.pick(0);
     check(L.set("L4").length === C.filter(c => c.lesson === 4).length, "the Lesson IV quiz has the wrong cards");

@@ -1920,7 +1920,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "6e6682c859ec";
+  const DECK_VERSION = "6b3943a20089";
   const DECK_PAGE = "Greek History Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -1984,7 +1984,7 @@
     .filter(function (n, k, a) { return a.indexOf(n) === k; }).sort(function (a, b) { return a - b; }) : [];
   function shownLessons() { return ALL_LESSONS.filter(function (n) { return n <= currentLesson; }); }
   function visible(i) { return !LESSONS || CARDS[i].lesson <= currentLesson; }
-  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else one lesson
+  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else every lesson up to this one
   function roman(n) {
     const R = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
     let out = "";
@@ -3441,12 +3441,12 @@
   let showHint = true;
 
   // ---------- Learn mode (the Latin Roots behavior) ----------
-  // A card on Learn's screen: shown by the current lesson, and in the lesson
-  // picked on the lesson menu.
   // The break after a quiz round with misses: a Learn pass of those cards
   // ({ set, round, cards }), on Learn's "missed" list.
   let breakFor = null;
-  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson === lessonPick); }
+  // A card on Learn's screen: shown by the current lesson, and up to the
+  // lesson picked on the lesson menu (approved look, round 9: "Lessons II–VI").
+  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson <= lessonPick); }
   function onTab(i, key) {
     if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
     if (!inLearn(i)) return false;
@@ -3522,7 +3522,7 @@
       bits.push("missed cards");
       if (p.brk) { bits.push("quiz round " + p.brk.round); if (p.brk.set && p.brk.set !== "all") bits.push(setLabel(p.brk.set)); }
     } else if (p.tab !== "all") bits.push(setLabel(p.tab));
-    if (p.lesson) bits.push(lessonRange(p.lesson, p.lesson));
+    if (p.lesson) bits.push(lessonRange(ALL_LESSONS[0], p.lesson));
     if (tail) bits.push(tail);
     return bits.length ? " (" + bits.join(", ") + ")" : "";
   }
@@ -5022,22 +5022,20 @@
   let quizPicked = false;   // lessons decks: a quiz is open (else the Quiz tab lists them)
   let learnFilter = "all";  // lessons decks: Learn's tab, kept while the Quiz tab is open
 
-  // The lesson menu, newest lesson first, after "every lesson so far".
+  // The lesson menu: every lesson so far, then up to each earlier lesson,
+  // newest first ("Lessons II–XIII", "Lessons II–XII", … "Lesson II").
   function fillLessonMenu() {
     if (!LESSONS) return;
     const ls = shownLessons();
-    if (lessonPick && ls.indexOf(lessonPick) < 0) lessonPick = 0;
+    if (lessonPick && (ls.indexOf(lessonPick) < 0 || lessonPick === ls[ls.length - 1])) lessonPick = 0;
     lessonMenu.innerHTML = "";
-    const all = document.createElement("option");
-    all.value = "0";
-    all.textContent = ls.length ? lessonRange(ls[0], ls[ls.length - 1]) : "All";
-    lessonMenu.appendChild(all);
-    ls.slice().reverse().forEach(function (n) {
+    ls.slice().reverse().forEach(function (n, k) {
       const o = document.createElement("option");
-      o.value = String(n);
-      o.textContent = lessonRange(n, n);
+      o.value = k === 0 ? "0" : String(n);
+      o.textContent = lessonRange(ls[0], n);
       lessonMenu.appendChild(o);
     });
+    if (!ls.length) { const o = document.createElement("option"); o.value = "0"; o.textContent = "All"; lessonMenu.appendChild(o); }
     lessonMenu.value = String(lessonPick);
     lessonMenu.hidden = false;
   }
