@@ -68,7 +68,7 @@ function testCopy(tmp, f, s) {
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
-    "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
+    "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),send:()=>{quiz.sent=false;sendQuizRound();return quiz.misses;},dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
@@ -600,6 +600,11 @@ async function lessonChecks(page) {
     const sk = await page.evaluate(m => { const q = __t.quiz(); const had = q.order.indexOf(m) >= 0; q.pos = 0; const i = q.order[0]; const label = document.getElementById("quizNextBtn").textContent; __t.rules.next(); const a = q.answers[0]; return { had, label, skipped: !!(a && a.skipped && !a.ok), learning: __t.state().learning.indexOf(i) >= 0 || !!q.review[0] }; }, end.missed[0]);
     r.checked++;
     if (!sk.had || !sk.skipped || !sk.learning) r.fails.push("round 2 and skipping: " + JSON.stringify(sk));
+    // A card missed in three rounds of one attempt is counted toward "stuck" (review form, Oct 30).
+    const st = await page.evaluate(() => { const q = __t.quiz(); let k = q.order.findIndex((_, j) => !q.review[j]); const i = q.order[k];
+      q.answers[k] = { a: ["x"], ok: false }; let m; for (let n = 0; n < 3; n++) m = __t.rules.send(); return { i, n: m && m[i] }; });
+    r.checked++;
+    if (!(st.n >= 3)) r.fails.push("a card missed in three rounds is not counted as stuck: " + JSON.stringify(st));
   }
   // Back to the list; the lesson goes back to the built-in one, then to Learn.
   await page.click("button.tab[data-mode=quiz]");
