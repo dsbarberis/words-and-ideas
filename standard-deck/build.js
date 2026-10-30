@@ -19,6 +19,9 @@ const COURSE_SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8"));
   (s.required || []).forEach(function (r, k) {
     if (!Number.isInteger(r.from) || !Number.isInteger(r.to) || r.from > r.to) throw new Error("course-settings.json: required[" + k + "] needs whole numbers from <= to");
     if (r.due && isNaN(Date.parse(r.due))) throw new Error("course-settings.json: required[" + k + "].due is not a date");
+    // "set": when the instructor set or last changed this quiz (ISO time with offset); an
+    // attempt counts only if its last round came after it (Dashboard Desk, Oct 30, 2026).
+    if (r.set !== undefined && (typeof r.set !== "string" || !/[+-]\d\d:\d\d$|Z$/.test(r.set) || isNaN(Date.parse(r.set)))) throw new Error("course-settings.json: required[" + k + "].set must be a time with its offset");
     // "dirs": which directions the quiz asks, "le" and/or "el"; missing means "le" only (D, Oct 30, 2026).
     if (r.dirs !== undefined && (!Array.isArray(r.dirs) || !r.dirs.length || r.dirs.some(function (d) { return d !== "le" && d !== "el"; }))) throw new Error("course-settings.json: required[" + k + "].dirs must list \"le\" and/or \"el\"");
   });

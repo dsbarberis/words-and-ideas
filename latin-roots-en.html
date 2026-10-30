@@ -7274,7 +7274,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "3070b57d276c";
+  const DECK_VERSION = "00080a12f931";
   const DECK_PAGE = "latin-roots-en.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -7286,9 +7286,10 @@
   const CARDS = DECK.cards;
   const N = CARDS.length;
   const ID = DECK.id;
-  // Decks of glossary entries (Latin Roots) send each card's element key ("e")
-  // beside its position ("i") to the Sheet (release A, Oct 28, 2026).
-  const SEND_KEYS = DECK.answer === "meanings";
+  // Decks of glossary entries (Latin Roots, both directions) send each card's
+  // key ("e") beside its position ("i") to the Sheet (release A, Oct 28, 2026;
+  // English to Latin added at the Dashboard Desk's request, Oct 30).
+  const SEND_KEYS = DECK.answer === "meanings" || DECK.answer === "forms";
   // Touchscreens (phones and tablets) swipe between cards.
   const TOUCH = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   // Exercise Decks have Quiz mode only. Each card is a question: "choice"
