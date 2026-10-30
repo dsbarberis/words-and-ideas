@@ -28,6 +28,7 @@ function builtDecks() {
 function testBuildMatches(decks) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-build-"));
   fs.cpSync(path.join(repo, "standard-deck"), path.join(tmp, "standard-deck"), { recursive: true });
+  fs.copyFileSync(path.join(repo, "course-settings.json"), path.join(tmp, "course-settings.json"));
   execFileSync("node", [path.join(tmp, "standard-deck", "build.js")], { stdio: "pipe" });
   const fails = [];
   const rebuilt = fs.readdirSync(tmp).filter(x => x.endsWith(".html"));
@@ -67,6 +68,7 @@ function testCopy(tmp, f, s) {
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
+    "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
@@ -124,6 +126,13 @@ async function browserTests(decks) {
         const fc = await page.evaluate(flashcardChecks);
         flashCount += fc.checked;
         fc.fails.forEach(x => flashFails.push(f + ": " + x));
+        if (await page.evaluate(() => __t.LES())) {
+          let lc;
+          try { lc = await lessonChecks(page); }
+          catch (e) { lc = { checked: 0, fails: ["the lesson check stopped: " + String(e.message).split("\n")[0]] }; }
+          flashCount += lc.checked;
+          lc.fails.forEach(x => flashFails.push(f + ": " + x));
+        }
         let ui;
         try { ui = await flashcardUi(page); }
         catch (e) { ui = { checked: 0, fails: ["the in-deck check stopped: " + String(e.message).split("\n")[0]] }; }
@@ -471,11 +480,84 @@ function flashcardChecks() {
 // Through the deck itself (made-up learner): a miss keeps the back empty and
 // hidden, with no count on the page; a right answer shows the back, and on
 // Latin Roots the count and one pill per group.
-async function flashcardUi(page) {
-  const fails = []; let checked = 0;
+// Lessons decks (Lesson Filter release): cards shown by the current lesson,
+// the lesson menu newest first, lesson quizzes, the Quiz tab list and row names.
+async function lessonChecks(page) {
   await page.fill("#nameInput", "Test Student");
   await page.keyboard.press("Enter");
+  // The Quiz tab's list: nothing is open, so a change of lesson applies at once.
+  await page.click("button.tab[data-mode=quiz]");
+  const r = await page.evaluate(() => {
+    const fails = []; let checked = 0;
+    const L = __t.lessons, C = __t.CARDS;
+    function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+    check(C.every(c => Number.isInteger(c.lesson)), "a card has no lesson");
+    const early = C.filter(c => /\b(FAC|PULS|NOMIN|LOC|SPIR|LIMIN)-/.test(c.word));
+    check(early.length === 6 && early.every(c => c.lesson === 5), "the six early cards are not in Lesson V");
+    // Bad settings are ignored.
+    const was = L.cur();
+    L.apply({ currentLesson: "XIII" }); check(L.cur() === was, "settings with a bad lesson were used");
+    L.apply({ currentLesson: 5, required: [{ from: 2, to: 4, due: "2026-11-06T23:59:00-06:00" }], notice: "Lesson V starts Monday." });
+    check(L.cur() === 5, "the current lesson did not change to V");
+    const shown = C.map((_, i) => i).filter(i => C[i].lesson <= 5);
+    check(L.list().length === shown.length && L.list().every(i => C[i].lesson <= 5), "Learn shows cards after Lesson V");
+    check(L.count("all") === shown.length, "the All tab counts hidden cards");
+    const menu = [...document.getElementById("lessonMenu").options].map(o => o.textContent);
+    check(JSON.stringify(menu) === JSON.stringify(["Lessons II\u2013V", "Lesson V", "Lesson IV", "Lesson III", "Lesson II"]), "lesson menu: " + JSON.stringify(menu));
+    L.pick(3);
+    check(L.list().every(i => C[i].lesson === 3) && L.list().length === C.filter(c => c.lesson === 3).length, "picking Lesson III does not show just its cards");
+    check(L.tabs({ tab: "prefix", lesson: 3 }, "unfinished") === " (Prefixes, Lesson III, unfinished)", "Learn pass name with a lesson: " + L.tabs({ tab: "prefix", lesson: 3 }, "unfinished"));
+    check(L.tabs({ tab: "all" }, "") === "", "a whole Learn pass gained a bracket");
+    L.pick(0);
+    check(L.set("L4").length === C.filter(c => c.lesson === 4).length, "the Lesson IV quiz has the wrong cards");
+    check(L.set("R2-4").length === C.filter(c => c.lesson >= 2 && c.lesson <= 4).length, "the Lessons II\u2013IV quiz has the wrong cards");
+    check(L.set("all").length === shown.length, "the quiz on every lesson so far has hidden cards");
+    check(L.label("L6") === "Lesson VI" && L.label("R2-10") === "Lessons II\u2013X" && L.label("L13") === "Lesson XIII", "lesson labels");
+    check(L.title("all") === "Quiz: Lessons II\u2013V", "full quiz title: " + L.title("all"));
+    check(document.getElementById("courseNotice").textContent === "Lesson V starts Monday." && !document.getElementById("courseNotice").hidden, "the notice is not shown");
+    // A whole-deck quiz saved before the release carries over as the quiz on every lesson so far.
+    const ID = __t.ID(), sl = "carry-test";
+    localStorage.setItem(ID + "_quiz_v1__" + sl, JSON.stringify({ round: 2, order: [0, 1, 2], pos: 1, answers: [{ a: "x", ok: false }, null, null], phase: "card", sent: false }));
+    __t.load("Carry Test");
+    const st = __t.state();
+    check(st.quizzes.all && st.quizzes.all.set === "all" && st.quizzes.all.round === 2 && st.quizzes.all.order.length === 3 && st.quizzes.all.size === 3, "an old saved quiz did not carry over: " + JSON.stringify(st.quizzes));
+    check(!localStorage.getItem(ID + "_quiz_v2__" + sl), "the old quiz record was kept, so it could come back");
+    __t.load("Test Student");
+    return { checked, fails };
+  });
+  // The Quiz tab lists the due quiz, every lesson so far, then each lesson newest first.
+  const rows = await page.$$eval("#quizPanel .quiz-row", b => b.map(x => x.dataset.set));
+  r.checked++;
+  if (JSON.stringify(rows) !== JSON.stringify(["R2-4", "all", "L5", "L4", "L3", "L2"])) r.fails.push("Quiz tab rows: " + JSON.stringify(rows));
+  await page.click("#quizPanel .quiz-row[data-set=L4]");
+  const title = await page.$eval("#quizPanel .panel-title", x => x.textContent);
+  r.checked++;
+  if (title !== "Quiz: Lesson IV") r.fails.push("Lesson IV quiz page: " + title);
+  await page.click("#quizPanel button:has-text('Start the quiz')");
+  const q = await page.evaluate(() => { const q = __t.quiz(); return { set: q.set, n: q.order.length, lesson: q.lesson, all: q.order.every(i => __t.CARDS[i].lesson === 4) }; });
+  r.checked++;
+  if (q.set !== "L4" || !q.all || q.lesson !== 5) r.fails.push("Lesson IV quiz: " + JSON.stringify(q));
+  // Back to the list; the lesson goes back to the built-in one, then to Learn.
+  await page.click("button.tab[data-mode=quiz]");
+  r.checked++;
+  if (!(await page.locator("#quizPanel .quiz-row").count())) r.fails.push("tapping Quiz again does not list the quizzes");
+  const back = await page.evaluate(() => { __t.lessons.apply(__t.lessons.built()); return __t.lessons.cur(); });
+  r.checked++;
+  if (back !== 13) r.fails.push("the lesson did not go back to XIII from the quiz list: " + back);
+  await page.click("button.tab[data-mode=learn]");
+  return r;
+}
+
+async function flashcardUi(page) {
+  const fails = []; let checked = 0;
+  if (await page.isVisible("#nameInput")) {
+    await page.fill("#nameInput", "Test Student");
+    await page.keyboard.press("Enter");
+  }
   await page.click("button.mode-tab[data-mode=quiz], .mode-tab:has-text('Quiz'), button:has-text('Quiz')");
+  // A lessons deck lists its quizzes first: open the quiz on every lesson so far.
+  const allRow = page.locator("#quizPanel .quiz-row[data-set=all]");
+  if (await allRow.count()) await allRow.click();
   const start = page.locator("#quizPanel button", { hasText: "Start the quiz" });
   if (await start.count()) await start.first().click();
   const pick = await page.evaluate(() => {

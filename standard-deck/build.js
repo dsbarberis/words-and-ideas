@@ -8,6 +8,20 @@ const here = __dirname;
 const template = fs.readFileSync(path.join(here, "template.html"), "utf8");
 // The course's time zone, shown with the instructor's results (course.json).
 const COURSE_ZONE = JSON.parse(fs.readFileSync(path.join(here, "course.json"), "utf8")).timeZone;
+// The course settings (current lesson, required quizzes, notice) at the site
+// root. Decks with "lessons: true" fetch the file when they open, so a change
+// needs no rebuild; the copy built in is only for a first visit offline, and
+// is left out of the deck version, so changing it asks no one to reload.
+const SETTINGS_FILE = path.join(here, "..", "course-settings.json");
+const COURSE_SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8"));
+(function checkSettings(s) {
+  if (!Number.isInteger(s.currentLesson) || s.currentLesson < 2) throw new Error("course-settings.json: currentLesson must be a lesson number (2 or more)");
+  (s.required || []).forEach(function (r, k) {
+    if (!Number.isInteger(r.from) || !Number.isInteger(r.to) || r.from > r.to) throw new Error("course-settings.json: required[" + k + "] needs whole numbers from <= to");
+    if (r.due && isNaN(Date.parse(r.due))) throw new Error("course-settings.json: required[" + k + "].due is not a date");
+  });
+  if (s.notice != null && typeof s.notice !== "string") throw new Error("course-settings.json: notice must be text");
+})(COURSE_SETTINGS);
 const glossary = require(path.join(here, "glossary.js"));
 const vocabulary = require(path.join(here, "vocabulary.js"));
 // Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
@@ -273,6 +287,14 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     const out = splitExample(resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck), deck);
     delete out.id;
     out.k = cardKeys.keys[i];
+    // The lesson that teaches the card: the card's own "lesson" (the six
+    // cards the deck had before their lessons are shown from Lesson V), or
+    // its glossary entry's.
+    if (deck.lessons) {
+      const e = c.gloss ? glossary[c.gloss] : null;
+      out.lesson = c.lesson || (e && e.lessonNo);
+      if (!Number.isInteger(out.lesson)) throw new Error(file + ": card " + (i + 1) + " (" + (c.gloss || c.term) + ") has no lesson; give it \"lesson\": <number>");
+    }
     return out;
   });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
@@ -283,6 +305,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     .split("{{DECK_PAGE}}").join(JSON.stringify(output).slice(1, -1))
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
     .split("{{COURSE_ZONE}}").join(COURSE_ZONE)
+    .replace("{{COURSE_SETTINGS}}", () => JSON.stringify(COURSE_SETTINGS).replace(/<\//g, "<\\/"))
     .replace("{{DECK_JSON}}", () => json);
   fs.writeFileSync(path.join(here, "..", output), html);
   console.log("built " + output + " (" + deck.cards.length + " cards)");

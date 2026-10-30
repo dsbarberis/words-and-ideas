@@ -151,6 +151,37 @@
 
   .icon-btn:hover { background: rgba(0,0,0,0.04); }
 
+  /* Lessons decks: the lesson menu, the course notice and the quiz list */
+  .lesson-menu {
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    background: transparent;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    min-height: 32px;
+  }
+  .course-notice {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .quiz-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .quiz-list-head { font-size: 13px; color: var(--ink-soft); margin: 10px 0 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .quiz-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    width: 100%; text-align: left; min-height: 44px;
+    background: none; border: 1px solid var(--rule); border-radius: 8px;
+    padding: 8px 12px; font: inherit; color: var(--ink); cursor: pointer;
+  }
+  .quiz-row:hover { background: rgba(0,0,0,0.04); }
+  .quiz-row .qr-state { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+
   /* Progress bar */
   .progress-track {
     width: 100%;
@@ -919,12 +950,15 @@
   <div class="toolbar">
     <span id="statusText"></span>
     <div class="toolbar-right" id="learnTools">
+      <select class="lesson-menu" id="lessonMenu" aria-label="Lesson" hidden></select>
       <button class="icon-btn" id="shuffleBtn">Shuffle</button>
       <button class="icon-btn" id="resetBtn">Reset progress</button>
     </div>
   </div>
 
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="course-notice" id="courseNotice" role="status" hidden></div>
 
   <div class="quiz-panel" id="quizPanel" hidden></div>
 
@@ -1004,6 +1038,7 @@
   "title": "Latin Roots Flashcards",
   "heading": "Latin Roots",
   "answer": "meanings",
+  "lessons": true,
   "shufflePasses": true,
   "noun": "card",
   "backLabel": "Examples",
@@ -1056,7 +1091,8 @@
       "meanings": [
         "of another"
       ],
-      "k": "ALIEN"
+      "k": "ALIEN",
+      "lesson": 2
     },
     {
       "gloss": "ART",
@@ -1086,7 +1122,8 @@
       "meanings": [
         "art or skill"
       ],
-      "k": "ART"
+      "k": "ART",
+      "lesson": 2
     },
     {
       "gloss": "CED",
@@ -1125,7 +1162,8 @@
         "to go",
         "yield"
       ],
-      "k": "CED"
+      "k": "CED",
+      "lesson": 3
     },
     {
       "gloss": "CLUD",
@@ -1152,7 +1190,8 @@
       "meanings": [
         "to shut"
       ],
-      "k": "CLUD"
+      "k": "CLUD",
+      "lesson": 5
     },
     {
       "gloss": "CRUC",
@@ -1173,7 +1212,8 @@
       "meanings": [
         "cross"
       ],
-      "k": "CRUC"
+      "k": "CRUC",
+      "lesson": 4
     },
     {
       "gloss": "CUR",
@@ -1207,7 +1247,8 @@
         "to run",
         "go"
       ],
-      "k": "CUR"
+      "k": "CUR",
+      "lesson": 5
     },
     {
       "gloss": "DUC",
@@ -1231,10 +1272,12 @@
       "meanings": [
         "to lead"
       ],
-      "k": "DUC"
+      "k": "DUC",
+      "lesson": 3
     },
     {
       "gloss": "FAC",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -1289,7 +1332,8 @@
       "meanings": [
         "end or limit"
       ],
-      "k": "FIN"
+      "k": "FIN",
+      "lesson": 2
     },
     {
       "gloss": "FIRM",
@@ -1320,7 +1364,8 @@
       "meanings": [
         "strong or firm"
       ],
-      "k": "FIRM"
+      "k": "FIRM",
+      "lesson": 2
     },
     {
       "gloss": "FORT",
@@ -1351,7 +1396,8 @@
       "meanings": [
         "strong"
       ],
-      "k": "FORT"
+      "k": "FORT",
+      "lesson": 2
     },
     {
       "gloss": "GRAD",
@@ -1381,7 +1427,8 @@
       "meanings": [
         "to step or go"
       ],
-      "k": "GRAD"
+      "k": "GRAD",
+      "lesson": 5
     },
     {
       "gloss": "GRAND",
@@ -1407,7 +1454,8 @@
       "meanings": [
         "great"
       ],
-      "k": "GRAND"
+      "k": "GRAND",
+      "lesson": 2
     },
     {
       "gloss": "GRAV",
@@ -1431,7 +1479,8 @@
       "meanings": [
         "heavy"
       ],
-      "k": "GRAV"
+      "k": "GRAV",
+      "lesson": 2
     },
     {
       "gloss": "GREG",
@@ -1461,7 +1510,8 @@
       "meanings": [
         "flock or herd"
       ],
-      "k": "GREG"
+      "k": "GREG",
+      "lesson": 4
     },
     {
       "gloss": "HAB",
@@ -1498,7 +1548,8 @@
         "to have",
         "hold as customary"
       ],
-      "k": "HAB"
+      "k": "HAB",
+      "lesson": 4
     },
     {
       "gloss": "JUDIC",
@@ -1522,7 +1573,8 @@
       "meanings": [
         "judgment"
       ],
-      "k": "JUDIC"
+      "k": "JUDIC",
+      "lesson": 3
     },
     {
       "gloss": "JUR",
@@ -1573,7 +1625,8 @@
         "to take an oath",
         "form an opinion"
       ],
-      "k": "JUR"
+      "k": "JUR",
+      "lesson": 3
     },
     {
       "gloss": "LEV",
@@ -1606,7 +1659,8 @@
         "light (in weight)",
         "to lift"
       ],
-      "k": "LEV"
+      "k": "LEV",
+      "lesson": 3
     },
     {
       "gloss": "LINE",
@@ -1633,10 +1687,12 @@
       "meanings": [
         "line"
       ],
-      "k": "LINE"
+      "k": "LINE",
+      "lesson": 2
     },
     {
       "gloss": "LIMIN",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -1661,6 +1717,7 @@
     },
     {
       "gloss": "LOC",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -1708,7 +1765,8 @@
       "meanings": [
         "to speak"
       ],
-      "k": "LOQU"
+      "k": "LOQU",
+      "lesson": 3
     },
     {
       "gloss": "LUD",
@@ -1745,7 +1803,8 @@
         "to play",
         "mock"
       ],
-      "k": "LUD"
+      "k": "LUD",
+      "lesson": 3
     },
     {
       "gloss": "NIHIL",
@@ -1768,10 +1827,12 @@
       "meanings": [
         "nothing"
       ],
-      "k": "NIHIL"
+      "k": "NIHIL",
+      "lesson": 2
     },
     {
       "gloss": "NOMIN",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -1824,7 +1885,8 @@
       "meanings": [
         "nothing"
       ],
-      "k": "NUL"
+      "k": "NUL",
+      "lesson": 2
     },
     {
       "gloss": "PART",
@@ -1852,7 +1914,8 @@
       "meanings": [
         "part"
       ],
-      "k": "PART"
+      "k": "PART",
+      "lesson": 2
     },
     {
       "gloss": "PED",
@@ -1873,7 +1936,8 @@
       "meanings": [
         "foot"
       ],
-      "k": "PED"
+      "k": "PED",
+      "lesson": 4
     },
     {
       "gloss": "PEND",
@@ -1916,7 +1980,8 @@
         "weigh",
         "pay"
       ],
-      "k": "PEND"
+      "k": "PEND",
+      "lesson": 5
     },
     {
       "gloss": "PLE",
@@ -1950,7 +2015,8 @@
         "to fill",
         "full"
       ],
-      "k": "PLE"
+      "k": "PLE",
+      "lesson": 5
     },
     {
       "gloss": "PREC",
@@ -1985,10 +2051,12 @@
         "to request or beg",
         "prayer"
       ],
-      "k": "PREC"
+      "k": "PREC",
+      "lesson": 3
     },
     {
       "gloss": "PULS",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -2054,7 +2122,8 @@
         "to prick",
         "point"
       ],
-      "k": "PUNG"
+      "k": "PUNG",
+      "lesson": 4
     },
     {
       "gloss": "SACR",
@@ -2081,7 +2150,8 @@
       "meanings": [
         "sacred"
       ],
-      "k": "SACR"
+      "k": "SACR",
+      "lesson": 4
     },
     {
       "gloss": "SANCT",
@@ -2108,7 +2178,8 @@
       "meanings": [
         "holy"
       ],
-      "k": "SANCT"
+      "k": "SANCT",
+      "lesson": 4
     },
     {
       "gloss": "SED",
@@ -2141,7 +2212,8 @@
         "to sit",
         "settle"
       ],
-      "k": "SED"
+      "k": "SED",
+      "lesson": 10
     },
     {
       "gloss": "SENT",
@@ -2180,7 +2252,8 @@
         "to feel",
         "think"
       ],
-      "k": "SENT"
+      "k": "SENT",
+      "lesson": 4
     },
     {
       "gloss": "SPEC",
@@ -2207,10 +2280,12 @@
       "meanings": [
         "to look"
       ],
-      "k": "SPEC"
+      "k": "SPEC",
+      "lesson": 5
     },
     {
       "gloss": "SPIR",
+      "lesson": 5,
       "cat": "base",
       "keys": [
         [
@@ -2256,7 +2331,8 @@
       "meanings": [
         "to push or thrust"
       ],
-      "k": "TRUD"
+      "k": "TRUD",
+      "lesson": 3
     },
     {
       "gloss": "TURB",
@@ -2290,7 +2366,8 @@
       "meanings": [
         "to disturb"
       ],
-      "k": "TURB"
+      "k": "TURB",
+      "lesson": 4
     },
     {
       "gloss": "UND",
@@ -2313,7 +2390,8 @@
       "meanings": [
         "wave"
       ],
-      "k": "UND"
+      "k": "UND",
+      "lesson": 5
     },
     {
       "gloss": "VEN",
@@ -2336,7 +2414,8 @@
       "meanings": [
         "to come"
       ],
-      "k": "VEN"
+      "k": "VEN",
+      "lesson": 3
     },
     {
       "gloss": "VERB",
@@ -2365,7 +2444,8 @@
         "word",
         "verb"
       ],
-      "k": "VERB"
+      "k": "VERB",
+      "lesson": 2
     },
     {
       "gloss": "VERT",
@@ -2388,7 +2468,8 @@
       "meanings": [
         "to turn"
       ],
-      "k": "VERT"
+      "k": "VERT",
+      "lesson": 4
     },
     {
       "gloss": "VEST",
@@ -2415,7 +2496,8 @@
       "meanings": [
         "garment"
       ],
-      "k": "VEST"
+      "k": "VEST",
+      "lesson": 2
     },
     {
       "gloss": "VI",
@@ -2441,7 +2523,8 @@
       "meanings": [
         "way or road"
       ],
-      "k": "VI"
+      "k": "VI",
+      "lesson": 4
     },
     {
       "gloss": "VID",
@@ -2465,7 +2548,8 @@
       "meanings": [
         "to see"
       ],
-      "k": "VID"
+      "k": "VID",
+      "lesson": 5
     },
     {
       "gloss": "VOC",
@@ -2497,7 +2581,8 @@
         "to call",
         "voice"
       ],
-      "k": "VOC"
+      "k": "VOC",
+      "lesson": 5
     },
     {
       "gloss": "AB",
@@ -2521,7 +2606,8 @@
       "meanings": [
         "away or from"
       ],
-      "k": "AB"
+      "k": "AB",
+      "lesson": 3
     },
     {
       "gloss": "AD",
@@ -2546,7 +2632,8 @@
       "meanings": [
         "to or toward"
       ],
-      "k": "AD"
+      "k": "AD",
+      "lesson": 3
     },
     {
       "gloss": "AMBI",
@@ -2579,7 +2666,8 @@
         "both",
         "around"
       ],
-      "k": "AMBI"
+      "k": "AMBI",
+      "lesson": 3
     },
     {
       "gloss": "ANTE",
@@ -2614,7 +2702,8 @@
         "before",
         "in front of"
       ],
-      "k": "ANTE"
+      "k": "ANTE",
+      "lesson": 3
     },
     {
       "gloss": "CIRCUM",
@@ -2637,7 +2726,8 @@
       "meanings": [
         "around"
       ],
-      "k": "CIRCUM"
+      "k": "CIRCUM",
+      "lesson": 3
     },
     {
       "gloss": "CON",
@@ -2676,7 +2766,8 @@
         "with or together",
         "very"
       ],
-      "k": "CON"
+      "k": "CON",
+      "lesson": 3
     },
     {
       "gloss": "CONTRA",
@@ -2701,7 +2792,8 @@
       "meanings": [
         "against"
       ],
-      "k": "CONTRA"
+      "k": "CONTRA",
+      "lesson": 3
     },
     {
       "gloss": "DE",
@@ -2752,7 +2844,8 @@
         "off",
         "thoroughly"
       ],
-      "k": "DE"
+      "k": "DE",
+      "lesson": 3
     },
     {
       "gloss": "DIS",
@@ -2793,7 +2886,8 @@
         "apart or in different directions",
         "not"
       ],
-      "k": "DIS"
+      "k": "DIS",
+      "lesson": 3
     },
     {
       "gloss": "EX",
@@ -2834,7 +2928,8 @@
         "out or from",
         "completely"
       ],
-      "k": "EX"
+      "k": "EX",
+      "lesson": 4
     },
     {
       "gloss": "EXTRA",
@@ -2861,7 +2956,8 @@
       "meanings": [
         "outside or beyond"
       ],
-      "k": "EXTRA"
+      "k": "EXTRA",
+      "lesson": 4
     },
     {
       "gloss": "IN-not",
@@ -2887,7 +2983,8 @@
       "meanings": [
         "not"
       ],
-      "k": "IN-not"
+      "k": "IN-not",
+      "lesson": 4
     },
     {
       "gloss": "IN-into",
@@ -2930,7 +3027,8 @@
         "against",
         "upon"
       ],
-      "k": "IN-into"
+      "k": "IN-into",
+      "lesson": 4
     },
     {
       "gloss": "INFRA",
@@ -2955,7 +3053,8 @@
       "meanings": [
         "below or beneath"
       ],
-      "k": "INFRA"
+      "k": "INFRA",
+      "lesson": 4
     },
     {
       "gloss": "INTER",
@@ -2980,7 +3079,8 @@
       "meanings": [
         "between or among"
       ],
-      "k": "INTER"
+      "k": "INTER",
+      "lesson": 4
     },
     {
       "gloss": "INTRA",
@@ -3004,7 +3104,8 @@
       "meanings": [
         "within"
       ],
-      "k": "INTRA"
+      "k": "INTRA",
+      "lesson": 4
     },
     {
       "gloss": "NON",
@@ -3027,7 +3128,8 @@
       "meanings": [
         "not"
       ],
-      "k": "NON"
+      "k": "NON",
+      "lesson": 4
     },
     {
       "gloss": "OB",
@@ -3082,7 +3184,8 @@
         "against",
         "completely"
       ],
-      "k": "OB"
+      "k": "OB",
+      "lesson": 4
     },
     {
       "gloss": "PER",
@@ -3131,7 +3234,8 @@
         "wrongly",
         "completely"
       ],
-      "k": "PER"
+      "k": "PER",
+      "lesson": 4
     },
     {
       "gloss": "POST",
@@ -3164,7 +3268,8 @@
         "after",
         "behind"
       ],
-      "k": "POST"
+      "k": "POST",
+      "lesson": 5
     },
     {
       "gloss": "PRE",
@@ -3199,7 +3304,8 @@
         "before",
         "in front of"
       ],
-      "k": "PRE"
+      "k": "PRE",
+      "lesson": 5
     },
     {
       "gloss": "PRO",
@@ -3246,7 +3352,8 @@
         "in front of",
         "for"
       ],
-      "k": "PRO"
+      "k": "PRO",
+      "lesson": 5
     },
     {
       "gloss": "RE",
@@ -3277,7 +3384,8 @@
         "back",
         "again"
       ],
-      "k": "RE"
+      "k": "RE",
+      "lesson": 5
     },
     {
       "gloss": "RETRO",
@@ -3304,7 +3412,8 @@
       "meanings": [
         "backward or behind"
       ],
-      "k": "RETRO"
+      "k": "RETRO",
+      "lesson": 5
     },
     {
       "gloss": "SE",
@@ -3334,7 +3443,8 @@
       "meanings": [
         "aside or away"
       ],
-      "k": "SE"
+      "k": "SE",
+      "lesson": 5
     },
     {
       "gloss": "SUB",
@@ -3381,7 +3491,8 @@
         "up from under",
         "secretly"
       ],
-      "k": "SUB"
+      "k": "SUB",
+      "lesson": 5
     },
     {
       "gloss": "SUPER",
@@ -3406,7 +3517,8 @@
       "meanings": [
         "above or over"
       ],
-      "k": "SUPER"
+      "k": "SUPER",
+      "lesson": 5
     },
     {
       "gloss": "TRANS",
@@ -3436,7 +3548,8 @@
       "meanings": [
         "across or through"
       ],
-      "k": "TRANS"
+      "k": "TRANS",
+      "lesson": 5
     },
     {
       "gloss": "ULTRA",
@@ -3474,7 +3587,8 @@
         "beyond",
         "exceedingly"
       ],
-      "k": "ULTRA"
+      "k": "ULTRA",
+      "lesson": 5
     },
     {
       "gloss": "CUMB",
@@ -3502,7 +3616,8 @@
       "meanings": [
         "to lie down"
       ],
-      "k": "CUMB"
+      "k": "CUMB",
+      "lesson": 10
     },
     {
       "gloss": "FEDER",
@@ -3536,7 +3651,8 @@
       "meanings": [
         "league or treaty"
       ],
-      "k": "FEDER"
+      "k": "FEDER",
+      "lesson": 10
     },
     {
       "gloss": "FID",
@@ -3564,7 +3680,8 @@
       "meanings": [
         "faith"
       ],
-      "k": "FID"
+      "k": "FID",
+      "lesson": 10
     },
     {
       "gloss": "FIDEL",
@@ -3593,7 +3710,8 @@
       "meanings": [
         "faithful"
       ],
-      "k": "FIDEL"
+      "k": "FIDEL",
+      "lesson": 10
     },
     {
       "gloss": "HER",
@@ -3622,7 +3740,8 @@
       "meanings": [
         "to stick"
       ],
-      "k": "HER"
+      "k": "HER",
+      "lesson": 10
     },
     {
       "gloss": "ORD",
@@ -3655,7 +3774,8 @@
       "meanings": [
         "to put in order or arrange"
       ],
-      "k": "ORD"
+      "k": "ORD",
+      "lesson": 10
     },
     {
       "gloss": "POT",
@@ -3688,7 +3808,8 @@
       "meanings": [
         "to be able or have power"
       ],
-      "k": "POT"
+      "k": "POT",
+      "lesson": 10
     },
     {
       "gloss": "SAL",
@@ -3716,7 +3837,8 @@
       "meanings": [
         "to leap"
       ],
-      "k": "SAL"
+      "k": "SAL",
+      "lesson": 10
     },
     {
       "gloss": "TERR",
@@ -3746,7 +3868,8 @@
       "meanings": [
         "land or earth"
       ],
-      "k": "TERR"
+      "k": "TERR",
+      "lesson": 10
     },
     {
       "gloss": "-INE",
@@ -3786,7 +3909,8 @@
         "pertaining to or of",
         "like"
       ],
-      "k": "-INE"
+      "k": "-INE",
+      "lesson": 10
     },
     {
       "gloss": "-ATE-adj",
@@ -3825,7 +3949,8 @@
         "possessing",
         "being"
       ],
-      "k": "-ATE-adj"
+      "k": "-ATE-adj",
+      "lesson": 10
     },
     {
       "gloss": "-ANT",
@@ -3873,7 +3998,8 @@
         "person who",
         "that which"
       ],
-      "k": "-ANT"
+      "k": "-ANT",
+      "lesson": 10
     },
     {
       "gloss": "CRED",
@@ -3904,7 +4030,8 @@
       "meanings": [
         "to believe or trust"
       ],
-      "k": "CRED"
+      "k": "CRED",
+      "lesson": 11
     },
     {
       "gloss": "DOC",
@@ -3933,7 +4060,8 @@
       "meanings": [
         "to teach"
       ],
-      "k": "DOC"
+      "k": "DOC",
+      "lesson": 11
     },
     {
       "gloss": "FA",
@@ -3976,7 +4104,8 @@
         "to speak",
         "reveal"
       ],
-      "k": "FA"
+      "k": "FA",
+      "lesson": 11
     },
     {
       "gloss": "FALL",
@@ -4010,7 +4139,8 @@
       "meanings": [
         "to deceive"
       ],
-      "k": "FALL"
+      "k": "FALL",
+      "lesson": 11
     },
     {
       "gloss": "MOD",
@@ -4039,7 +4169,8 @@
       "meanings": [
         "measure"
       ],
-      "k": "MOD"
+      "k": "MOD",
+      "lesson": 11
     },
     {
       "gloss": "MUT",
@@ -4070,7 +4201,8 @@
       "meanings": [
         "to change"
       ],
-      "k": "MUT"
+      "k": "MUT",
+      "lesson": 11
     },
     {
       "gloss": "TANG",
@@ -4097,7 +4229,8 @@
       "meanings": [
         "to touch"
       ],
-      "k": "TANG"
+      "k": "TANG",
+      "lesson": 11
     },
     {
       "gloss": "TRACT",
@@ -4128,7 +4261,8 @@
       "meanings": [
         "to drag"
       ],
-      "k": "TRACT"
+      "k": "TRACT",
+      "lesson": 11
     },
     {
       "gloss": "-ABLE",
@@ -4176,7 +4310,8 @@
         "able to",
         "tending to"
       ],
-      "k": "-ABLE"
+      "k": "-ABLE",
+      "lesson": 11
     },
     {
       "gloss": "-ILE-able",
@@ -4224,7 +4359,8 @@
         "able to",
         "tending to"
       ],
-      "k": "-ILE-able"
+      "k": "-ILE-able",
+      "lesson": 11
     },
     {
       "gloss": "-ACIOUS",
@@ -4257,7 +4393,8 @@
       "meanings": [
         "tending to or inclined to"
       ],
-      "k": "-ACIOUS"
+      "k": "-ACIOUS",
+      "lesson": 11
     },
     {
       "gloss": "AC",
@@ -4296,7 +4433,8 @@
         "sharp",
         "bitter"
       ],
-      "k": "AC"
+      "k": "AC",
+      "lesson": 12
     },
     {
       "gloss": "CAD",
@@ -4337,7 +4475,8 @@
         "to fall",
         "befall"
       ],
-      "k": "CAD"
+      "k": "CAD",
+      "lesson": 12
     },
     {
       "gloss": "CAP",
@@ -4373,7 +4512,8 @@
       "meanings": [
         "to take or seize"
       ],
-      "k": "CAP"
+      "k": "CAP",
+      "lesson": 12
     },
     {
       "gloss": "FLOR",
@@ -4399,7 +4539,8 @@
       "meanings": [
         "flower"
       ],
-      "k": "FLOR"
+      "k": "FLOR",
+      "lesson": 12
     },
     {
       "gloss": "FLU",
@@ -4432,7 +4573,8 @@
       "meanings": [
         "to flow or a flow"
       ],
-      "k": "FLU"
+      "k": "FLU",
+      "lesson": 12
     },
     {
       "gloss": "FOLI",
@@ -4456,7 +4598,8 @@
       "meanings": [
         "leaf"
       ],
-      "k": "FOLI"
+      "k": "FOLI",
+      "lesson": 12
     },
     {
       "gloss": "NOC",
@@ -4497,7 +4640,8 @@
         "to harm",
         "kill"
       ],
-      "k": "NOC"
+      "k": "NOC",
+      "lesson": 12
     },
     {
       "gloss": "NOV",
@@ -4523,7 +4667,8 @@
       "meanings": [
         "new"
       ],
-      "k": "NOV"
+      "k": "NOV",
+      "lesson": 12
     },
     {
       "gloss": "-ITIOUS",
@@ -4561,7 +4706,8 @@
         "tending to",
         "characterized by"
       ],
-      "k": "-ITIOUS"
+      "k": "-ITIOUS",
+      "lesson": 12
     },
     {
       "gloss": "-ID",
@@ -4592,7 +4738,8 @@
       "meanings": [
         "tending to or inclined to"
       ],
-      "k": "-ID"
+      "k": "-ID",
+      "lesson": 12
     },
     {
       "gloss": "-ULOUS",
@@ -4624,7 +4771,8 @@
       "meanings": [
         "tending to or inclined to"
       ],
-      "k": "-ULOUS"
+      "k": "-ULOUS",
+      "lesson": 12
     },
     {
       "gloss": "CERN",
@@ -4656,7 +4804,8 @@
       "meanings": [
         "to separate or distinguish"
       ],
-      "k": "CERN"
+      "k": "CERN",
+      "lesson": 13
     },
     {
       "gloss": "DUR",
@@ -4693,7 +4842,8 @@
         "hard",
         "to last"
       ],
-      "k": "DUR"
+      "k": "DUR",
+      "lesson": 13
     },
     {
       "gloss": "FUND",
@@ -4729,7 +4879,8 @@
         "to pour",
         "melt"
       ],
-      "k": "FUND"
+      "k": "FUND",
+      "lesson": 13
     },
     {
       "gloss": "NASC",
@@ -4755,7 +4906,8 @@
       "meanings": [
         "to be born"
       ],
-      "k": "NASC"
+      "k": "NASC",
+      "lesson": 13
     },
     {
       "gloss": "PON",
@@ -4785,7 +4937,8 @@
       "meanings": [
         "to place or put"
       ],
-      "k": "PON"
+      "k": "PON",
+      "lesson": 13
     },
     {
       "gloss": "TORT",
@@ -4811,7 +4964,8 @@
       "meanings": [
         "to twist"
       ],
-      "k": "TORT"
+      "k": "TORT",
+      "lesson": 13
     },
     {
       "gloss": "-IVE",
@@ -4842,7 +4996,8 @@
       "meanings": [
         "tending to or inclined to"
       ],
-      "k": "-IVE"
+      "k": "-IVE",
+      "lesson": 13
     },
     {
       "gloss": "-UOUS",
@@ -4873,7 +5028,8 @@
       "meanings": [
         "tending to or inclined to"
       ],
-      "k": "-UOUS"
+      "k": "-UOUS",
+      "lesson": 13
     },
     {
       "gloss": "-ORY",
@@ -4911,14 +5067,15 @@
         "tending to",
         "serving for"
       ],
-      "k": "-ORY"
+      "k": "-ORY",
+      "lesson": 13
     }
   ],
   "frozenCount": 113
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "b1af4476f70c";
+  const DECK_VERSION = "301c6c8687fc";
   const DECK_PAGE = "index.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4941,7 +5098,9 @@
   // quiz resumes where it stopped.
   const EXERCISE = DECK.type === "exercise";
   // A Flashcard Deck can also quiz the selected tab (Latin Roots).
-  const QUIZ_BY_SET = EXERCISE || !!DECK.quizBySet;
+  // A lessons deck (Latin Roots, Lesson Filter release) keeps a quiz for each
+  // lesson, for each required range and for every lesson so far.
+  const QUIZ_BY_SET = EXERCISE || !!DECK.quizBySet || !!DECK.lessons;
   // Latin Roots: the answer is the card's list of meanings, typed one per
   // line, and every meaning is required.
   const MEANINGS = DECK.answer === "meanings";
@@ -4953,6 +5112,50 @@
   const NOUN = DECK.noun || "word";
   const CATS = {};
   (DECK.categories || []).forEach(function (c) { CATS[c.key] = c; });
+
+  // ---------- Lessons (Lesson Filter release) ----------
+  // A deck with "lessons: true" shows each card from its lesson on. The
+  // current lesson comes from course-settings.json at the site root, fetched
+  // when the deck opens and when the student comes back to it; the last good
+  // copy is kept on this device, and the copy built into the page is used only
+  // before any fetch has worked. A change of lesson waits while a Learn pass or
+  // a quiz round is open right now.
+  const LESSONS = !!DECK.lessons;
+  const SETTINGS_KEY = ID + "__settings";
+  const BUILT_SETTINGS = {"currentLesson":13,"required":[{"from":2,"to":10,"due":"2026-11-06T23:59:00-06:00"}],"notice":""};
+  function goodSettings(s) {
+    return !!s && typeof s === "object" && Number.isInteger(s.currentLesson) && s.currentLesson >= 2 &&
+      (s.required == null || Array.isArray(s.required)) && (s.notice == null || typeof s.notice === "string");
+  }
+  let settings = BUILT_SETTINGS;
+  try {
+    const kept = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
+    if (goodSettings(kept)) settings = kept;
+  } catch (e) { /* no storage: the built copy */ }
+  let pendingSettings = null;
+  let currentLesson = settings.currentLesson;
+  // The lessons that have cards, oldest first, and the shown ones.
+  const ALL_LESSONS = LESSONS ? CARDS.map(function (c) { return c.lesson; })
+    .filter(function (n, k, a) { return a.indexOf(n) === k; }).sort(function (a, b) { return a - b; }) : [];
+  function shownLessons() { return ALL_LESSONS.filter(function (n) { return n <= currentLesson; }); }
+  function visible(i) { return !LESSONS || CARDS[i].lesson <= currentLesson; }
+  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else one lesson
+  function roman(n) {
+    const R = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+    let out = "";
+    R.forEach(function (r) { while (n >= r[0]) { out += r[1]; n -= r[0]; } });
+    return out;
+  }
+  function lessonRange(from, to) { return from === to ? "Lesson " + roman(from) : "Lessons " + roman(from) + "–" + roman(to); }
+  // Quiz sets of a lessons deck: "all" (every lesson so far), "L<n>" (one
+  // lesson) and "R<from>-<to>" (a required quiz on a range of lessons).
+  function setRange(key) {
+    let m = /^L(\d+)$/.exec(key);
+    if (m) return { from: +m[1], to: +m[1] };
+    m = /^R(\d+)-(\d+)$/.exec(key);
+    if (m) return { from: +m[1], to: +m[2] };
+    return null;
+  }
 
   // ---------- Answer judging ----------
   // A typed answer is correct when, for at least one of the word's senses,
@@ -5751,6 +5954,13 @@
           const q = validQuiz(rawM[k]);
           if (q && q.set === k) quizzes[k] = q;
         });
+        // A lessons deck keeps the whole-deck quiz saved before the release
+        // as its quiz on every lesson so far; its cards stay as they were.
+        if (LESSONS && !quizzes.all && rec.quiz) {
+          const q = validQuiz(rec.quiz);
+          if (q) { q.set = "all"; q.size = q.size || q.order.length; if (!q.lesson) q.lesson = currentLesson; quizzes.all = q; }
+          if (!presenterMode) { writeStore("quizzes", quizzes); writeStore("quiz", null); }
+        }
       } else {
         if (rec.quiz) quiz = validQuiz(rec.quiz);
         // A deck that stopped quizzing by tab (Latin Roots, Oct 12, 2026) keeps an unfinished All quiz.
@@ -5797,6 +6007,7 @@
     p.list = p.list.filter(validIdx);
     p.seen = p.seen.filter(validIdx);
     p.marked = Array.isArray(p.marked) ? p.marked.filter(validIdx) : [];
+    if (!Number.isInteger(p.lesson)) delete p.lesson;
     p.last = +p.last || 0;
     p.start = p.start ? +p.start : null;
     return p.list.length ? p : null;
@@ -6377,15 +6588,33 @@
   let showHint = true;
 
   // ---------- Learn mode (the Latin Roots behavior) ----------
+  // A card on Learn's screen: shown by the current lesson, and in the lesson
+  // picked on the lesson menu.
+  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson === lessonPick); }
+  function onTab(i, key) {
+    if (!inLearn(i)) return false;
+    if (key === "learning") return learningMarked.has(i);
+    return key === "all" || CARDS[i].cat === key;
+  }
   function currentList() {
-    if (filter === "learning") return order.filter(function (i) { return learningMarked.has(i); });
-    return order.filter(function (i) { return filter === "all" || CARDS[i].cat === filter; });
+    return order.filter(function (i) { return onTab(i, filter); });
   }
 
   function tabCount(key) {
-    if (key === "all") return N;
-    if (key === "learning") return learningMarked.size;
-    return CARDS.filter(function (c) { return c.cat === key; }).length;
+    if (!LESSONS) {
+      if (key === "all") return N;
+      if (key === "learning") return learningMarked.size;
+      return CARDS.filter(function (c) { return c.cat === key; }).length;
+    }
+    return CARDS.filter(function (_, i) { return onTab(i, key); }).length;
+  }
+  // Cards shown so far, and how many of them are marked Know It.
+  function shownTotal() { return LESSONS ? CARDS.filter(function (_, i) { return visible(i); }).length : N; }
+  function knownShown() {
+    if (!LESSONS) return known.size;
+    let n = 0;
+    known.forEach(function (i) { if (visible(i)) n++; });
+    return n;
   }
 
   // A "pass" = the student has seen every card in the "All" list and then
@@ -6398,8 +6627,8 @@
     // While a Know it / Still learning tap moves on, the card briefly in view is not "seen".
     if (EXERCISE || list.length === 0 || advancing) return;
     const now = Date.now();
-    if (learnPass && learnPass.tab !== filter) endPassUnfinished();
-    if (!learnPass) learnPass = { tab: filter, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    if (learnPass && (learnPass.tab !== filter || (learnPass.lesson || 0) !== lessonPick)) endPassUnfinished();
+    if (!learnPass) learnPass = { tab: filter, lesson: lessonPick || undefined, start: now, last: now, list: list.slice(), seen: [], marked: [] };
     const idx = list[pos];
     if (learnPass.list.indexOf(idx) >= 0 && learnPass.seen.indexOf(idx) < 0) learnPass.seen.push(idx);
     learnPass.last = now;
@@ -6419,15 +6648,25 @@
 
   function maybeSendLearnPass() {
     const p = learnPass;
-    if (!p || p.tab !== filter || !passComplete(p)) return false;
+    if (!p || p.tab !== filter || (p.lesson || 0) !== lessonPick || !passComplete(p)) return false;
     learnPass = null;
     saveLearnPass();
     sendPass(p);
     return true;
   }
 
+  // The bracket of a Learn pass's row name: its tab, its lesson (lessons
+  // decks), and "unfinished"; for example "learn (Prefixes, Lesson VI)".
+  function passTabs(p, tail) {
+    const bits = [];
+    if (p.tab !== "all") bits.push(setLabel(p.tab));
+    if (p.lesson) bits.push(lessonRange(p.lesson, p.lesson));
+    if (tail) bits.push(tail);
+    return bits.length ? " (" + bits.join(", ") + ")" : "";
+  }
+
   function sendPass(p) {
-    const cards = p.tab === "all" ? CARDS.map(function (_, i) { return i; }) : p.list;
+    const cards = p.tab === "all" && !LESSONS ? CARDS.map(function (_, i) { return i; }) : p.list;
     const inPass = new Set(p.marked);
     const sparse = [];
     let right = 0;
@@ -6435,7 +6674,7 @@
       if (known.has(i)) { sparse.push(markItem(i, true, inPass)); right++; }
       else if (learningMarked.has(i)) sparse.push(markItem(i, false, inPass));
     });
-    reportPass({ passMode: "learn" + (p.tab === "all" ? "" : " (" + setLabel(p.tab) + ")"), passCorrect: right, passSize: cards.length, results: sparse, json: sparse });
+    reportPass({ passMode: "learn" + passTabs(p, ""), passCorrect: right, passSize: cards.length, results: sparse, json: sparse });
   }
 
   // An unfinished pass is reported once, as a fact: its marks are not sent. A pass of
@@ -6448,7 +6687,7 @@
     if (p && passComplete(p)) { sendPass(p); return; }
     if (!p || !p.start || p.seen.length < 2) return;
     const info = { tab: setLabel(p.tab), start: new Date(p.start).toISOString(), last: new Date(p.last).toISOString(), seen: p.seen.length, of: p.list.length };
-    reportPass({ passMode: "learn (" + (p.tab === "all" ? "" : setLabel(p.tab) + ", ") + "unfinished)", passCorrect: p.seen.length, passSize: p.list.length, results: [], json: info, unfinished: true });
+    reportPass({ passMode: "learn" + passTabs(p, "unfinished"), passCorrect: p.seen.length, passSize: p.list.length, results: [], json: info, unfinished: true });
   }
 
   function cardTag(item) { return item.cat ? item.cat : (DECK.cardTag || ""); }
@@ -6468,8 +6707,8 @@
     feedbackBox.hidden = true;
     originBox.hidden = false;
 
-    statusText.textContent = known.size + " of " + N + " known";
-    progressFill.style.width = (known.size / N) * 100 + "%";
+    statusText.textContent = knownShown() + " of " + shownTotal() + " known";
+    progressFill.style.width = (shownTotal() ? knownShown() / shownTotal() * 100 : 0) + "%";
 
     if (list.length === 0) {
       // Nothing matches the current filter (e.g. "Still Learning" with
@@ -6748,10 +6987,10 @@
   function reshuffleTab() {
     const list = shuffleArray(currentList());
     // write back shuffled positions into `order` for this filter, preserving others
-    if (filter === "all") {
+    if (filter === "all" && !LESSONS) {
       order = list;
     } else {
-      const inFilter = filter === "learning"
+      const inFilter = LESSONS ? function (i) { return onTab(i, filter); } : filter === "learning"
         ? function (i) { return learningMarked.has(i); }
         : function (i) { return CARDS[i].cat === filter; };
       let cursor = 0;
@@ -6769,6 +7008,8 @@
       round: round,
       set: filter,
       size: quiz && round > 1 ? quiz.size : indices.length,
+      // A lessons deck's quiz keeps the lesson it started at (its rows report it).
+      lesson: LESSONS ? (quiz && round > 1 && quiz.lesson ? quiz.lesson : currentLesson) : undefined,
       order: inBook ? indices.slice().sort(function (a, b) { return a - b; }) : shuffleArray(indices.slice()),
       pos: 0,
       answers: indices.map(function () { return null; }),
@@ -6855,12 +7096,15 @@
 
   // ---------- Exercise Decks: the question side of a card ----------
   function setLabel(key) {
+    const r = LESSONS && setRange(key);
+    if (r) return lessonRange(r.from, r.to);
     if (key === "all") return "All";
     if (key === "learning") return EXERCISE ? "Missed" : "Still Learning";
     return (CATS[key] && CATS[key].label) || key;
   }
 
   function setTitle(key) {
+    if (LESSONS && key === "all") { const ls = shownLessons(); return "Quiz: " + (ls.length ? lessonRange(ls[0], currentLesson) : "All"); }
     if (!EXERCISE) return "Quiz" + (key === "all" ? "" : ": " + setLabel(key));
     if (key === "all") return DECK.allTitle || "All exercises";
     if (key === "learning") return "Missed questions";
@@ -6869,6 +7113,15 @@
 
   // The cards a quiz on this tab covers.
   function setIndices(key) {
+    if (LESSONS) {
+      const r = setRange(key);
+      return CARDS.map(function (_, i) { return i; }).filter(function (i) {
+        if (!visible(i)) return false;
+        if (r) return CARDS[i].lesson >= r.from && CARDS[i].lesson <= r.to;
+        if (key === "learning") return learningMarked.has(i);
+        return key === "all" || CARDS[i].cat === key;
+      });
+    }
     return CARDS.map(function (_, i) { return i; }).filter(function (i) {
       if (key === "all") return true;
       if (key === "learning") return learningMarked.has(i);
@@ -7258,6 +7511,7 @@
   }
 
   function renderQuiz() {
+    if (LESSONS && !quizPicked) { renderQuizList(); return; }
     learnTabs.forEach(function (t) { t.textContent = t.dataset.label + " (" + tabCount(t.dataset.filter) + ")"; });
 
     if (!quiz || quiz.phase !== "card") {
@@ -7524,7 +7778,7 @@
 
     if (!quiz && QUIZ_BY_SET) {
       const size = setIndices(filter).length;
-      statusText.textContent = known.size + " of " + N + " known";
+      statusText.textContent = knownShown() + " of " + shownTotal() + " known";
       progressFill.style.width = "0%";
       title.textContent = setTitle(filter);
       quizPanel.appendChild(title);
@@ -7544,7 +7798,7 @@
     }
 
     if (!quiz) {
-      statusText.textContent = known.size + " of " + N + " known";
+      statusText.textContent = knownShown() + " of " + shownTotal() + " known";
       progressFill.style.width = "0%";
       title.textContent = "Quiz";
       copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " Round 1 covers all " + N +
@@ -7744,6 +7998,142 @@
     render();
   }
 
+  // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
+  const lessonMenu = document.getElementById("lessonMenu");
+  const courseNotice = document.getElementById("courseNotice");
+  let quizPicked = false;   // lessons decks: a quiz is open (else the Quiz tab lists them)
+  let learnFilter = "all";  // lessons decks: Learn's tab, kept while the Quiz tab is open
+
+  // The lesson menu, newest lesson first, after "every lesson so far".
+  function fillLessonMenu() {
+    if (!LESSONS) return;
+    const ls = shownLessons();
+    if (lessonPick && ls.indexOf(lessonPick) < 0) lessonPick = 0;
+    lessonMenu.innerHTML = "";
+    const all = document.createElement("option");
+    all.value = "0";
+    all.textContent = ls.length ? lessonRange(ls[0], ls[ls.length - 1]) : "All";
+    lessonMenu.appendChild(all);
+    ls.slice().reverse().forEach(function (n) {
+      const o = document.createElement("option");
+      o.value = String(n);
+      o.textContent = lessonRange(n, n);
+      lessonMenu.appendChild(o);
+    });
+    lessonMenu.value = String(lessonPick);
+    lessonMenu.hidden = false;
+  }
+  lessonMenu.addEventListener("change", function () {
+    cancelSlides();
+    lessonPick = +lessonMenu.value || 0;
+    if (learnPass) endPassUnfinished();
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses && mode === "learn") reshuffleTab();
+    render();
+  });
+
+  function showNotice() {
+    const t = LESSONS && typeof settings.notice === "string" ? settings.notice.trim() : "";
+    courseNotice.textContent = t;
+    courseNotice.hidden = !t;
+  }
+
+  // The required quizzes shown so far: { key, from, to, due }.
+  function requiredQuizzes() {
+    if (!LESSONS) return [];
+    return (settings.required || []).filter(function (r) {
+      return r && Number.isInteger(r.from) && Number.isInteger(r.to) && r.from <= r.to && r.from <= currentLesson;
+    }).map(function (r) { return { key: "R" + r.from + "-" + Math.min(r.to, currentLesson), from: r.from, to: Math.min(r.to, currentLesson), due: r.due }; });
+  }
+
+  function dueText(due) {
+    const d = new Date(due);
+    if (isNaN(d)) return "";
+    try {
+      return "due " + d.toLocaleString("en-US", { timeZone: COURSE_ZONE, weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+    } catch (e) { return "due " + d.toDateString(); }
+  }
+
+  function quizState(key) {
+    const q = quizzes[key];
+    if (!q) return "Not started";
+    if (q.phase === "done") return "Done";
+    return "Round " + q.round + (q.phase === "between" ? " finished" : " under way");
+  }
+
+  // The Quiz tab of a lessons deck: the required quizzes, the quiz on every
+  // lesson so far, then each lesson's quiz, newest first.
+  function renderQuizList() {
+    stage.hidden = true;
+    quizControls.hidden = true;
+    quizPanel.hidden = false;
+    quizPanel.innerHTML = "";
+    statusText.textContent = knownShown() + " of " + shownTotal() + " known";
+    progressFill.style.width = "0%";
+    quizPanel.appendChild(el("div", "panel-title", "Quizzes"));
+    const list = el("div", "quiz-list");
+    function row(key, label, extra) {
+      const b = el("button", "quiz-row");
+      b.type = "button";
+      b.dataset.set = key;
+      b.appendChild(el("span", "qr-name", label + (extra ? " \u00b7 " + extra : "")));
+      b.appendChild(el("span", "qr-state", quizState(key)));
+      b.addEventListener("click", function () { openQuizSet(key); });
+      list.appendChild(b);
+    }
+    const req = requiredQuizzes();
+    if (req.length) {
+      list.appendChild(el("div", "quiz-list-head", "Due"));
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due)); });
+    }
+    const ls = shownLessons();
+    list.appendChild(el("div", "quiz-list-head", "All lessons so far"));
+    if (ls.length) row("all", lessonRange(ls[0], currentLesson));
+    list.appendChild(el("div", "quiz-list-head", "One lesson"));
+    ls.slice().reverse().forEach(function (n) { row("L" + n, lessonRange(n, n)); });
+    quizPanel.appendChild(list);
+  }
+
+  function openQuizSet(key) {
+    cancelSlides();
+    filter = key;
+    quizPicked = true;
+    quiz = quizzes[key] || null;
+    inputFor = null;
+    flipped = false;
+    render();
+    if (quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
+  }
+
+  // course-settings.json: fetched when the deck opens and when the student
+  // comes back to it. A good copy is kept on this device; a change of lesson
+  // waits while a Learn pass or a quiz round is open.
+  function settingsBusy() {
+    return !deckScreen.hidden && ((mode === "learn" && !!learnPass) || (mode === "quiz" && !!quiz && quiz.phase === "card"));
+  }
+  function applySettings(s) {
+    if (!goodSettings(s)) return;
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (e) { /* ignore */ }
+    if (s.currentLesson !== currentLesson && settingsBusy()) { pendingSettings = s; settings.notice = s.notice; showNotice(); return; }
+    pendingSettings = null;
+    settings = s;
+    currentLesson = s.currentLesson;
+    fillLessonMenu();
+    showNotice();
+    if (!deckScreen.hidden) render();
+  }
+  function applyPendingSettings() { if (pendingSettings && !settingsBusy()) applySettings(pendingSettings); }
+  function checkSettings() {
+    if (!LESSONS) return;
+    try {
+      fetch("course-settings.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (s) { if (s) applySettings(s); })
+        .catch(function () { /* offline: keep the last good copy */ });
+    } catch (e) { /* no fetch */ }
+  }
+
   // ---------- Rendering & mode switching ----------
   function render() {
     modeTabs.forEach(function (t) {
@@ -7751,7 +8141,7 @@
       t.classList.toggle("active", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
-    learnTabsEl.hidden = mode !== "learn" && !QUIZ_BY_SET;
+    learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
@@ -7774,9 +8164,16 @@
   function setMode(m) {
     cancelSlides();
     if (mode === "learn" && m !== "learn" && learnPass) endPassUnfinished();
+    if (LESSONS) {
+      if (mode === "learn" && m !== "learn") learnFilter = filter;
+      if (m === "learn" && mode !== "learn") filter = learnFilter;
+      quiz = null; // the Quiz tab opens on its list; each quiz stays saved by set
+      quizPicked = false;
+    }
     mode = m;
     flipped = false;
     inputFor = null;
+    if (LESSONS) { applyPendingSettings(); render(); return; }
     if (QUIZ_BY_SET && !EXERCISE && mode === "quiz") quiz = quizzes[filter] || null;
     render();
     if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
@@ -8030,7 +8427,11 @@
   });
 
   modeTabs.forEach(function (tab) {
-    tab.addEventListener("click", function () { if (tab.dataset.mode !== mode) setMode(tab.dataset.mode); });
+    tab.addEventListener("click", function () {
+      if (tab.dataset.mode !== mode) setMode(tab.dataset.mode);
+      // On a lessons deck the Quiz tab, tapped again, goes back to the list of quizzes.
+      else if (LESSONS && mode === "quiz" && quizPicked) setMode("quiz");
+    });
   });
 
   learnTabs.forEach(function (tab) {
@@ -8043,7 +8444,7 @@
       pos = 0;
       flipped = false;
       if (DECK.shufflePasses && mode === "learn") reshuffleTab();
-      if (QUIZ_BY_SET) { quiz = quizzes[filter] || null; inputFor = null; }
+      if (QUIZ_BY_SET && !LESSONS) { quiz = quizzes[filter] || null; inputFor = null; }
       render();
       if (QUIZ_BY_SET && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
     });
@@ -8382,7 +8783,7 @@
     location.href = url.toString();
   });
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") checkDeckVersion();
+    if (document.visibilityState === "visible") { checkDeckVersion(); checkSettings(); }
   });
   window.addEventListener("pageshow", function (e) {
     if (e.persisted) { versionCheckedAt = 0; checkDeckVersion(); }
@@ -8391,6 +8792,9 @@
   window.addEventListener("hashchange", showScreen);
   showScreen();
   checkDeckVersion();
+  fillLessonMenu();
+  showNotice();
+  checkSettings();
 </script>
 
 </body>
