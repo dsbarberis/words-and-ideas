@@ -972,7 +972,7 @@
       <button class="icon-btn" id="resetBtn">Reset progress</button>
     </div>
     <div class="toolbar-right" id="practiceTools" hidden>
-      <button class="icon-btn" id="practiceBtn">Practice the elements</button>
+      <button class="icon-btn" id="practiceBtn">Practice the Elements</button>
     </div>
   </div>
 
@@ -1938,7 +1938,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "8261d7df2cc5";
+  const DECK_VERSION = "91a4dd82bf88";
   const DECK_PAGE = "Greek History Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4823,7 +4823,7 @@
         actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
       } else if (missed && PRACTICE_ON && !presenterMode && breakList().length) {
         // The practice break (Exercise Decks): the elements behind the missed puzzles, never their answers.
-        actions.appendChild(panelButton("nav-btn", "Practise the Elements", function () { openPractice("break"); }));
+        actions.appendChild(panelButton("nav-btn", "Practice Missed Elements", function () { openPractice("break"); }));
         actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
       } else actions.appendChild(panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
     } else {
