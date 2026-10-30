@@ -153,6 +153,56 @@
 
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
+
+  /* ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ---------- */
+  .lr-look #learnTabs, .lr-look #statusText, .lr-look #tagFront, .lr-look #tagBack, .lr-look #hintFront,
+  .lr-look #counter, .lr-look #quizCounter, .lr-look .sense-count, .lr-look #originLabel, .lr-look #footerHelp,
+  .lr-look #learnTools .icon-btn, .lr-look .toolbar { display: none !important; }
+  .lr-look .examples { font-size: 14px; }
+  .lr-row { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; position: relative; }
+  .lr-look .lesson-menu {
+    flex: 1 1 0; min-width: 0; min-height: 44px; font: 16px Georgia, serif; color: var(--ink);
+    border: 1.5px solid #8a7f68; border-radius: 6px; background: var(--card); padding: 0 10px;
+  }
+  .lr-chip {
+    flex: 1 1 0; min-width: 0; min-height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font: 16px Georgia, serif; padding: 0 4px; cursor: pointer;
+  }
+  .lr-chip[aria-pressed=true] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .lr-icon {
+    flex: none; width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--navy); font-size: 20px; line-height: 1; padding: 0; cursor: pointer;
+  }
+  .lr-icon.armed { background: #b3261e; border-color: #b3261e; color: #fff; }
+  .lr-tip { pointer-events: none; position: absolute; right: 0; top: 100%; margin-top: 4px; z-index: 5; background: #b3261e; color: #fff; font: 600 14px -apple-system, BlinkMacSystemFont, sans-serif; padding: 6px 10px; border-radius: 6px; }
+  .lr-meter { display: flex; width: 100%; min-height: 30px; align-items: center; padding: 0; border: 0; background: transparent; margin: 0 0 8px; position: relative; cursor: pointer; }
+  .lr-meter .lr-track { position: relative; display: flex; gap: 2px; width: 100%; height: 14px; border: 1px solid #8a7f68; border-radius: 7px; overflow: hidden; background: #efe7d8; }
+  .lr-meter .lr-track span { height: 12px; display: block; }
+  .lr-meter .l { background: #9a7a45; } .lr-meter .k { background: #5c6e4f; } .lr-meter .u { background: #e6dcc6; flex: 1; }
+  .lr-meter .lr-tick { position: absolute; top: 5px; width: 3px; height: 20px; margin-left: -1px; background: var(--navy); border-radius: 1px; }
+  .lr-meter[aria-pressed=true] .lr-track { outline: 2px solid #9a7a45; outline-offset: 2px; }
+  .lr-look .progress-track.lr-hide, .lr-hide { display: none !important; }
+  .lr-look .mastery-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lr-look .mastery-btn { width: 100%; max-width: none; margin: 0; min-height: 48px; }
+  .lr-look #learningBtn { border: 2px solid #9a7a45; }
+  .lr-look #deckScreen .name-line { display: none; }
+  .lr-open { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; padding-bottom: 16px; min-height: 100vh; min-height: 100svh; }
+  .lr-open h1 { margin: 0; text-align: center; }
+  .lr-open .lr-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .lr-open .lr-foot { display: flex; flex-direction: column; gap: 12px; }
+  .lr-update { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; background: var(--card); color: var(--navy); border: 2px solid var(--navy); border-radius: 8px; padding: 0 16px; font: 600 16px Georgia, serif; box-shadow: 0 2px 0 rgba(38,50,72,.35); cursor: pointer; }
+  .lr-notice { position: relative; border: 1px solid #8a6a36; background: #f6eedb; border-radius: 8px; padding: 10px 12px 10px 30px; font: 16px/1.45 Georgia, serif; color: var(--ink); }
+  .lr-notice .pin { position: absolute; left: 7px; top: 8px; font-size: 15px; }
+  .lr-info { font: 17px/1.4 Georgia, serif; color: var(--ink); text-align: center; margin: 0; }
+  .lr-who { display: flex; align-items: center; justify-content: center; gap: 10px; font: 16px Georgia, serif; color: var(--ink-soft); }
+  .lr-who button { position: relative; min-height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--rule); background: transparent; color: var(--navy); font: 15px Georgia, serif; cursor: pointer; }
+  .lr-who button::after { content: ""; position: absolute; inset: -7px -4px; }
+  .lr-start { min-height: 48px; border-radius: 8px; border: 0; background: var(--navy); color: #fff; font: 600 17px Georgia, serif; cursor: pointer; }
+  .lr-look .course-notice { display: none; }
+  .lr-back { display: block; width: 100%; min-height: 44px; margin: 0 0 8px; border-radius: 8px; border: 2px solid var(--navy); background: var(--card); color: var(--navy); font: 600 16px Georgia, serif; cursor: pointer; }
+  .lr-back[hidden] { display: none; }
+  .lr-look #knownBtn:not(:disabled) { background: #56684a; border-color: #56684a; }
+
   /* Lessons decks: the lesson menu, the course notice and the quiz list */
   .lesson-menu {
     border: 1px solid var(--rule);
@@ -5079,7 +5129,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "3731f2040a61";
+  const DECK_VERSION = "ef3bcb5e39e4";
   const DECK_PAGE = "index.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -6609,6 +6659,7 @@
   function onTab(i, key) {
     if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
     if (!inLearn(i)) return false;
+    if (catsOn && !catsOn.has(CARDS[i].cat)) return false;
     if (key === "learning") return learningMarked.has(i);
     return key === "all" || CARDS[i].cat === key;
   }
@@ -6730,6 +6781,7 @@
 
     statusText.textContent = knownShown() + " of " + shownTotal() + " known";
     progressFill.style.width = (shownTotal() ? knownShown() / shownTotal() * 100 : 0) + "%";
+    drawMeter(list);
 
     if (list.length === 0) {
       // Nothing matches the current filter (e.g. "Still Learning" with
@@ -8175,6 +8227,172 @@
     saveQuiz();
   }
 
+
+  // ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ----------
+  // One row with the lesson menu; one row of Prefix, Base and Suffix (each on
+  // or off) with Shuffle and Reset as icons; a bar of Still Learning, Know It
+  // and not yet sorted, with a tick at the place in the deck. Tapping the bar
+  // shows the Still Learning cards, and tapping it again goes back.
+  const LOOK = LESSONS;
+  let catsOn = null;        // the card types shown in Learn (all, at first)
+  let resetArmed = 0;
+  let lrMeter = null;
+  function buildLook() {
+    if (!LOOK) return;
+    document.documentElement.classList.add("lr-look");
+    catsOn = new Set(CATEGORIES.map(function (c) { return c.key; }));
+    const toolbar = document.querySelector("#deckScreen .toolbar");
+    const row1 = el("div", "lr-row lr-learn");
+    row1.appendChild(lessonMenu);
+    const row2 = el("div", "lr-row lr-learn");
+    row2.setAttribute("role", "group");
+    row2.setAttribute("aria-label", "Cards shown");
+    const ORDER = ["prefix", "base", "suffix"], NAMES = { prefix: "Prefix", base: "Base", suffix: "Suffix" };
+    CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).forEach(function (c) {
+      const b = el("button", "lr-chip", NAMES[c.key] || c.label);
+      b.type = "button";
+      b.dataset.cat = c.key;
+      b.setAttribute("aria-pressed", "true");
+      b.addEventListener("click", function () {
+        const on = catsOn.has(c.key);
+        if (on && catsOn.size === 1) return; // one type stays on
+        if (on) catsOn.delete(c.key); else catsOn.add(c.key);
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        learnViewChanged();
+      });
+      row2.appendChild(b);
+    });
+    const sh = el("button", "lr-icon", "⤮");
+    sh.type = "button"; sh.title = "Shuffle"; sh.setAttribute("aria-label", "Shuffle");
+    sh.addEventListener("click", shuffle);
+    const rs = el("button", "lr-icon", "↺");
+    rs.type = "button"; rs.title = "Reset progress"; rs.setAttribute("aria-label", "Reset progress");
+    let tip = null;
+    function disarm() { resetArmed = 0; rs.classList.remove("armed"); rs.setAttribute("aria-label", "Reset progress"); if (tip) { tip.remove(); tip = null; } }
+    rs.addEventListener("click", function () {
+      if (!resetArmed) {
+        resetArmed = setTimeout(disarm, 4000);
+        rs.classList.add("armed");
+        rs.setAttribute("aria-label", "Tap again to reset progress");
+        tip = el("div", "lr-tip", "Tap ↺ again to reset");
+        tip.setAttribute("role", "status");
+        row2.appendChild(tip);
+        return;
+      }
+      clearTimeout(resetArmed);
+      disarm();
+      resetBtn.click();
+    });
+    row2.appendChild(sh);
+    row2.appendChild(rs);
+    lrMeter = el("button", "lr-meter lr-learn");
+    lrMeter.type = "button";
+    lrMeter.setAttribute("aria-pressed", "false");
+    lrMeter.addEventListener("click", function () {
+      const going = filter !== "learning";
+      lrMeter.setAttribute("aria-pressed", going ? "true" : "false");
+      filter = going ? "learning" : "all";
+      learnViewChanged();
+    });
+    toolbar.parentNode.insertBefore(row1, toolbar);
+    toolbar.parentNode.insertBefore(row2, toolbar);
+    toolbar.parentNode.insertBefore(lrMeter, toolbar);
+    // The break's way back to the quiz sits above the bar.
+    const back = document.getElementById("breakBackBtn");
+    back.className = "lr-back";
+    toolbar.parentNode.insertBefore(back, row2);
+    learningBtn.textContent = "Still Learning";
+    knownBtn.textContent = "Know It";
+  }
+
+  // The opening page (approved look): the title, an Updated Version button when
+  // there is one, the instructor's notice, what the deck holds, the student's
+  // name with Switch, and Start. A student with no name on this device sees
+  // the name page instead.
+  let openScreen = null;
+  function buildOpen() {
+    if (!LOOK) return;
+    openScreen = el("div", "wrap lr-open");
+    openScreen.id = "openScreen";
+    openScreen.hidden = true;
+    gateScreen.parentNode.insertBefore(openScreen, gateScreen.nextSibling);
+  }
+  function deckInfoLines() {
+    const ls = shownLessons();
+    const ORDER = ["prefix", "base", "suffix"];
+    const kinds = CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).map(function (c) { return c.label.toLowerCase(); });
+    const lines = [];
+    if (kinds.length) lines.push(kinds.length > 1 ? kinds.slice(0, -1).join(", ") + " and " + kinds[kinds.length - 1] : kinds[0]);
+    if (lines.length) lines[0] = lines[0].charAt(0).toUpperCase() + lines[0].slice(1);
+    if (ls.length) lines.push(lessonRange(ls[0], ls[ls.length - 1]));
+    return lines;
+  }
+  function renderOpen() {
+    if (!openScreen || openScreen.hidden) return;
+    openScreen.innerHTML = "";
+    openScreen.appendChild(el("h1", "title-tap", DECK.heading || DECK.title));
+    if (newVersion) {
+      const u = el("button", "lr-update", '<span aria-hidden="true">↻</span> Updated Version Available');
+      u.type = "button";
+      u.setAttribute("aria-label", "Updated version available. Tap to load it");
+      u.addEventListener("click", function () { document.getElementById("updateReloadBtn").click(); });
+      openScreen.appendChild(u);
+    }
+    const t = typeof settings.notice === "string" ? settings.notice.trim() : "";
+    if (t) {
+      const n = el("div", "lr-notice");
+      n.appendChild(el("span", "pin", "📌")).setAttribute("aria-hidden", "true");
+      n.appendChild(el("span", "sr-only", "From your instructor: "));
+      n.appendChild(document.createTextNode(t));
+      openScreen.appendChild(n);
+    }
+    const mid = el("div", "lr-mid");
+    deckInfoLines().forEach(function (line) { mid.appendChild(el("p", "lr-info", line)); });
+    openScreen.appendChild(mid);
+    const foot = el("div", "lr-foot");
+    const who = el("div", "lr-who");
+    who.appendChild(el("span", "", nameInput.value.trim()));
+    const sw = el("button", "", "Switch");
+    sw.type = "button";
+    sw.setAttribute("aria-label", "Switch student");
+    sw.addEventListener("click", function () { openScreen.hidden = true; nameInput.value = ""; gateScreen.hidden = false; nameInput.focus(); });
+    who.appendChild(sw);
+    foot.appendChild(who);
+    const go = el("button", "lr-start", "Start");
+    go.type = "button";
+    go.addEventListener("click", function () { openScreen.hidden = true; startDeck(); });
+    foot.appendChild(go);
+    openScreen.appendChild(foot);
+  }
+  function showOpen() {
+    if (!openScreen || !nameInput.value.trim() || location.hash === "#teacher") return;
+    gateScreen.hidden = true;
+    openScreen.hidden = false;
+    renderOpen();
+  }
+
+  function learnViewChanged() {
+    cancelSlides();
+    if (learnPass) endPassUnfinished();
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses && mode === "learn") reshuffleTab();
+    render();
+  }
+  // The bar: shares of the cards in view, and the place in the list.
+  function drawMeter(list) {
+    if (!lrMeter) return;
+    const inView = CARDS.map(function (_, i) { return i; }).filter(function (i) { return onTab(i, "all"); });
+    const n = inView.length || 1;
+    const L = inView.filter(function (i) { return learningMarked.has(i); }).length;
+    const K = inView.filter(function (i) { return known.has(i); }).length;
+    const at = list.length ? (pos + 0.5) / list.length : 0;
+    lrMeter.innerHTML = '<span class="lr-track"><span class="l" style="width:' + (100 * L / n) + '%"></span><span class="k" style="width:' + (100 * K / n) +
+      '%"></span><span class="u"></span></span><span class="lr-tick" style="left:' + (100 * at) + '%"></span>';
+    lrMeter.setAttribute("aria-label", "Card " + (list.length ? pos + 1 : 0) + " of " + list.length + ". " + L + " still learning, " + K + " known, " + (inView.length - L - K) +
+      " not yet sorted. " + (filter === "learning" ? "Showing Still Learning cards; tap to show all." : "Tap to review the Still Learning cards."));
+  }
+
   // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
   const lessonMenu = document.getElementById("lessonMenu");
   const courseNotice = document.getElementById("courseNotice");
@@ -8296,6 +8514,7 @@
     currentLesson = s.currentLesson;
     fillLessonMenu();
     showNotice();
+    renderOpen();
     if (!deckScreen.hidden) render();
   }
   function applyPendingSettings() { if (pendingSettings && !settingsBusy()) applySettings(pendingSettings); }
@@ -8318,6 +8537,8 @@
     });
     learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
+    document.querySelectorAll(".lr-learn").forEach(function (n) { n.hidden = mode !== "learn"; });
+    if (LOOK) document.querySelector(".progress-track").classList.toggle("lr-hide", mode === "learn");
     document.getElementById("breakBackBtn").hidden = !(mode === "learn" && filter === "missed");
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
@@ -8927,6 +9148,7 @@
   }
 
   function showUpdateBar() {
+    if (typeof renderOpen === "function") renderOpen();
     if (!newVersion || !updateBar.hidden) return;
     if (!EXERCISE && roundUnderWay()) return;
     updateBar.hidden = false;
@@ -8968,7 +9190,10 @@
   window.addEventListener("hashchange", showScreen);
   showScreen();
   checkDeckVersion();
+  buildLook();
+  buildOpen();
   fillLessonMenu();
+  showOpen();
   showNotice();
   checkSettings();
 </script>

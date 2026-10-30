@@ -605,6 +605,25 @@ async function lessonChecks(page) {
   r.checked++;
   if (back !== 13) r.fails.push("the lesson did not go back to XIII from the quiz list: " + back);
   await page.click("button.tab[data-mode=learn]");
+  // The approved look: Prefix, Base and Suffix filter Learn; Reset needs a second tap.
+  const look = await page.evaluate(async () => {
+    const out = {};
+    const C = __t.CARDS, chip = k => document.querySelector(".lr-chip[data-cat=" + k + "]");
+    chip("prefix").click(); chip("suffix").click();
+    out.basesOnly = __t.lessons.list().every(i => C[i].cat === "base") && __t.lessons.list().length === __t.lessons.count("all");
+    chip("base").click();
+    out.lastStays = chip("base").getAttribute("aria-pressed") === "true";
+    chip("prefix").click(); chip("suffix").click();
+    const rs = document.querySelectorAll(".lr-icon")[1];
+    const before = __t.state().known.length + __t.state().learning.length;
+    rs.click();
+    out.armed = rs.classList.contains("armed") && (__t.state().known.length + __t.state().learning.length) === before;
+    rs.click();
+    out.reset = __t.state().known.length === 0 && __t.state().learning.length === 0;
+    return out;
+  });
+  r.checked++;
+  if (!look.basesOnly || !look.lastStays || !look.armed || !look.reset) r.fails.push("look: " + JSON.stringify(look));
   return r;
 }
 
