@@ -29,14 +29,12 @@ const vocabulary = require(path.join(here, "vocabulary.js"));
 // Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
 // The Bases box counts them, not shown (instructor's card "Bases, as described", Oct 29, 2026).
 const latinRootsKeys = {};
-(require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
+// The Exercise decks accept Latin Roots' key words as synonyms. Until the
+// instructor has reviewed the per-form cards' key words, they take them from
+// the cards as they were before the split (tools/latin-roots-old-cards.json),
+// so their marking does not change with this release.
+(require(path.join(here, "tools", "latin-roots-old-cards.json")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
-  // One card per form (Oct 30, 2026): the key words come with each meaning,
-  // under the glossary entry it belongs to (a joined card holds two entries).
-  (c.groups || []).forEach(function (g) {
-    const list = latinRootsKeys[g.gloss] = latinRootsKeys[g.gloss] || [];
-    (g.keys || []).forEach(function (w) { if (list.indexOf(w) < 0) list.push(w); });
-  });
 });
 const UNCHECKED = "Claude, unchecked";
 

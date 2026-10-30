@@ -218,6 +218,7 @@
   .lr-dir-none { visibility: hidden; }
   .en-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
   .en-dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid #6b6658; display: block; }
+  .en-new { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #f0d48a; text-align: center; }
   .en-back { display: flex; flex-direction: column; justify-content: space-evenly; min-height: 100%; width: 100%; gap: 14px; }
   .en-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .en-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
@@ -1569,8 +1570,26 @@
   function judgeLines(cardIdx, vals) { return FORMS ? judgeForms(cardIdx, vals) : judgeMeanings(cardIdx, vals); }
   // The back of an English to Latin card: its forms as pills, grouped by Latin
   // word with a line between groups, each group's examples beneath it.
+  // English to Latin (build plan, Oct 28, 2026): a Know It card that gains a
+  // form at a later lesson returns to Still Learning, with a note on the back
+  // naming the new form.
+  function growForms() {
+    if (!FORMS || !LESSONS) return;
+    let changed = false;
+    known.forEach(function (i) {
+      const m = markSrc[i];
+      if (!m || !Number.isInteger(m.l)) return;
+      const added = formsOn(CARDS[i]).filter(function (f) { return f.lesson > m.l; });
+      if (!added.length) return;
+      known.delete(i); learningMarked.add(i);
+      markSrc[i] = { s: m.s, d: localDay(), t: Date.now(), l: currentLesson, g: added.map(function (f) { return f.form; }).join(", ") };
+      changed = true;
+    });
+    if (changed) saveMarks();
+  }
   function fillForms(node, item) {
     node.innerHTML = "";
+    const gm = markSrc[CARDS.indexOf(item)];
     const groups = [];
     formsOn(item).forEach(function (f) {
       let g = groups.find(function (x) { return x.word === f.word; });
@@ -1578,6 +1597,7 @@
       g.forms.push(f.form);
     });
     const box = el("div", "en-back");
+    if (gm && gm.g && learningMarked.has(CARDS.indexOf(item))) box.appendChild(el("div", "en-new", "New form: " + gm.g));
     groups.forEach(function (g, k) {
       if (k) box.appendChild(el("hr", "en-rule"));
       const d = el("div", "en-group");
@@ -1615,7 +1635,9 @@
       let hits = ownHits(toks, false);
       let other = null;
       const onlyFiller = toTokens(p).every(function (w) { return FILLER.indexOf(w) >= 0; });
-      if (!hits.length && !onlyFiller) {
+      // A meaning of this card not yet taught is neither right nor a mix-up.
+      const later = !hits.length && card.keyTerms.some(function (list, m) { return !meaningOn(card, m) && listHit(list, toks, false); });
+      if (!hits.length && !onlyFiller && !later) {
         for (let j = 0; j < N && !other; j++) {
           if (j === cardIdx || !CARDS[j].keyTerms) continue;
           if (CARDS[j].keyTerms.some(function (list) { return listHit(list, toks, false); })) other = CARDS[j].word;
@@ -1951,6 +1973,7 @@
       // cannot be placed spoils the quiz (it is then dropped as invalid).
       if (Array.isArray(q.order)) r.order = q.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
       ["list", "right", "asked", "missedLast"].forEach(function (k) { if (Array.isArray(q[k])) r[k] = list(q[k]); });
+      if (q.misses && typeof q.misses === "object") r.misses = map(q.misses);
       if (q.next && typeof q.next === "object") {
         r.next = Object.assign({}, q.next);
         if (Array.isArray(q.next.order)) r.next.order = q.next.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
@@ -1995,10 +2018,27 @@
   const KEY_TABLE = DECK.keyTable || null, FROZEN_KEYS = DECK.frozenKeys || [];
   function v1Key(i) { i = +i; return Number.isInteger(i) && i >= 0 && i < FROZEN_KEYS.length ? FROZEN_KEYS[i] : null; }
   function asKey(k) { return typeof k === "string" && k ? k : null; }
-  function splitCopy(rec) {
+  // The card an old one becomes in a pass or quiz: the same key, else the one
+  // its key begins with (IN-not becomes IN), else the first.
+  function firstKey(k) {
+    const from = KEY_TABLE ? KEY_TABLE.from : {};
+    if (!Object.prototype.hasOwnProperty.call(from, k)) return k;
+    const to = from[k];
+    if (to.indexOf(k) >= 0) return k;
+    const pre = to.filter(function (t) { return k.indexOf(t + "-") === 0; });
+    return pre.length ? pre[0] : to[0];
+  }
+  // The cards a quiz on the whole deck covered before the split.
+  const OLD_CARDS = new Set(KEY_TABLE ? FROZEN_KEYS.map(firstKey).map(function (k) { return KEY_IDX[k]; }).filter(function (i) { return i != null; }) : []);
+  // full: the first copy for this student. Otherwise only keys that are no
+  // longer cards are copied (IN-not, written again by a tab still open on the
+  // earlier deck), so it is safe to run on every load: a key that is still a
+  // card (CUR, AB, CAD) is the student's own mark and is never recomputed,
+  // and a new card the student has marked keeps its mark.
+  function splitCopy(rec, full) {
     if (!KEY_TABLE) return false;
     const from = KEY_TABLE.from, needAll = KEY_TABLE.needAll || {};
-    const has = function (o, k) { return Object.prototype.hasOwnProperty.call(from, k) && o !== false; };
+    const has = function (o, k) { return Object.prototype.hasOwnProperty.call(from, k) && o !== false && (full || !Object.prototype.hasOwnProperty.call(KEY_IDX, k)); };
     let changed = false;
     const K = new Set(Array.isArray(rec.known) ? rec.known : []), L = new Set(Array.isArray(rec.learning) ? rec.learning : []);
     const oldK = new Set(), oldL = new Set();
@@ -2013,7 +2053,8 @@
         if (K.has(t) && !oldK.has(t) || L.has(t) && !oldL.has(t)) return; // the student's own mark on the new card stands
         const srcs = Object.keys(from).filter(function (o) { return from[o].indexOf(t) >= 0 && (oldK.has(o) || oldL.has(o)); });
         let knowIt;
-        if (needAll[t]) knowIt = needAll[t].every(function (o) { return o && oldK.has(o) && !oldL.has(o); });
+        if (needAll[t] && full) knowIt = needAll[t].every(function (o) { return o && oldK.has(o) && !oldL.has(o); });
+        else if (needAll[t]) knowIt = needAll[t].every(function (o) { return o && K.has(o) && !L.has(o); });
         else knowIt = srcs.every(function (o) { return oldK.has(o); });
         if (knowIt) { K.add(t); L.delete(t); } else { L.add(t); K.delete(t); }
       });
@@ -2035,15 +2076,10 @@
     const same = function (v) { return v && typeof v === "object" ? Object.assign({}, v) : v; };
     if (rec.marks) spread(rec.marks, same);
     if (rec.spacing && rec.spacing.miss) spread(rec.spacing.miss, same);
-    // The card an old one becomes in a pass or quiz: the same key, else the one
-    // its key begins with (IN-not becomes IN), else the first.
     function first(k) {
       if (!has(true, k)) return k;
       changed = true;
-      const to = from[k];
-      if (to.indexOf(k) >= 0) return k;
-      const pre = to.filter(function (t) { return k.indexOf(t + "-") === 0; });
-      return pre.length ? pre[0] : to[0];
+      return firstKey(k);
     }
     function uniq(a) { return Array.isArray(a) ? a.map(first).filter(function (x, i, arr) { return arr.indexOf(x) === i; }) : a; }
     if (rec.pass) ["list", "seen", "marked"].forEach(function (f) { rec.pass[f] = uniq(rec.pass[f]); });
@@ -2052,6 +2088,11 @@
       if (Array.isArray(q.order)) q.order = q.order.map(first);
       ["list", "right", "asked", "missedLast"].forEach(function (f) { q[f] = uniq(q[f]); });
       if (q.next && Array.isArray(q.next.order)) q.next.order = q.next.order.map(first);
+      if (q.misses && typeof q.misses === "object") {
+        const m = {};
+        Object.keys(q.misses).forEach(function (k) { const t = first(k); m[t] = Math.max(m[t] || 0, q.misses[k] || 0); });
+        q.misses = m;
+      }
     }
     quizKeys(rec.quiz);
     if (rec.quizzes) Object.keys(rec.quizzes).forEach(function (k) { quizKeys(rec.quizzes[k]); });
@@ -2123,33 +2164,58 @@
         else { rec[s] = convertStore(s, JSON.parse(raw1 || "null"), v1Key); moved[s] = h; }
       } catch (e) { rec[s] = null; }
     });
-    // The split copy runs once per student for each key table, so a mark the
-    // student makes later on a new card is never undone by it.
+    // The full split copy runs once per student. After that, only keys that
+    // are no longer cards are copied (see splitCopy), so a mark the student
+    // makes later is never undone, even when the key table changes.
     const doneKey = ID + "_splitDone_v2__" + sl, tableHash = rawHash(JSON.stringify(KEY_TABLE));
     let done = null;
     try { done = localStorage.getItem(doneKey); } catch (e) { done = null; }
-    const split = done === tableHash ? false : splitCopy(rec);
+    const split = splitCopy(rec, !done);
     const out = {};
     STORES.forEach(function (s) { out[s] = convertStore(s, rec[s], fromKey); });
-    if ((split || Object.keys(moved).length) && !presenterMode) {
+    if (!presenterMode && (split || Object.keys(moved).length || done !== tableHash)) {
       try {
         STORES.forEach(function (s) {
           if (!split && !(s in moved)) return;
-          if (out[s] == null) localStorage.removeItem(k2[s]);
-          else localStorage.setItem(k2[s], JSON.stringify(convertStore(s, out[s], toKey)));
+          // Keys this page does not know (a later lesson's cards) are kept as stored.
+          const v = out[s] == null ? null : keepUnknown(s, convertStore(s, out[s], toKey), rec[s], 0);
+          if (v == null) localStorage.removeItem(k2[s]);
+          else localStorage.setItem(k2[s], JSON.stringify(v));
         });
         localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
+        // Written last, so a copy that fails partway runs in full again.
+        localStorage.setItem(doneKey, tableHash);
       } catch (e) { /* storage full or blocked: carry on with what was read */ }
     }
-    if (done !== tableHash && !presenterMode) { try { localStorage.setItem(doneKey, tableHash); } catch (e) { /* blocked */ } }
     return out;
   }
 
+  // Marks on cards this page does not know (a later lesson's cards, saved by
+  // a tab on a newer deck; an old key a tab on the earlier deck wrote, which
+  // the next load copies) are kept as stored, so a save never erases them.
+  // A Reset drops those made before it. stored: the record as keys.
+  function keepUnknown(s, val, stored, reset) {
+    if (s !== "known" && s !== "learning" && s !== "marks") return val;
+    if (!stored || typeof stored !== "object") return val;
+    const own = function (k) { return Object.prototype.hasOwnProperty.call(KEY_IDX, k); };
+    let marks = null;
+    try { marks = s === "marks" ? stored : JSON.parse(localStorage.getItem(storageKeys(currentSlug).marks) || "null"); } catch (e) { marks = null; }
+    const live = function (k) { if (!reset) return true; const m = marks && marks[k]; return !!(m && m.t > reset); };
+    if (Array.isArray(stored)) {
+      const extra = stored.filter(function (k) { return typeof k === "string" && !own(k) && live(k) && val.indexOf(k) < 0; });
+      return extra.length ? val.concat(extra) : val;
+    }
+    const r = Object.assign({}, val);
+    Object.keys(stored).forEach(function (k) { if (!own(k) && live(k) && !(k in r)) r[k] = stored[k]; });
+    return r;
+  }
   // Write one record (in working form) to its v2 name, cards by key.
   function writeStore(s, val) {
     const k = storageKeys(currentSlug)[s];
-    if (val == null) localStorage.removeItem(k);
-    else localStorage.setItem(k, JSON.stringify(convertStore(s, val, toKey)));
+    if (val == null) { localStorage.removeItem(k); return; }
+    let stored = null;
+    if (s === "known" || s === "learning" || s === "marks") { try { stored = JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { stored = null; } }
+    localStorage.setItem(k, JSON.stringify(keepUnknown(s, convertStore(s, val, toKey), stored, resetAt)));
   }
 
   const LAST_NAME_KEY = ID + "_lastName";
@@ -2170,6 +2236,7 @@
   const PASS_IDLE_MS = 60 * 60000; // a pass left this long counts as unfinished when the deck next opens
   let quiz = null;             // the quiz in progress, or null
   let quizzes = {};            // Exercise Decks: the quiz for each tab
+  let quizSeenAt = 0;          // one-quiz decks: when the quiz this tab last saved or read was saved
 
   function validIdx(i) { return Number.isInteger(i) && i >= 0 && i < N; }
 
@@ -2183,6 +2250,7 @@
     markSrc = {};
     quiz = null;
     quizzes = {};
+    quizSeenAt = 0;
     spacing = { n: 0, miss: {} };
     try { resetAt = +localStorage.getItem(ID + "_resetAt_v2__" + currentSlug) || 0; } catch (e) { resetAt = 0; }
     let hadRecord = false;
@@ -2212,7 +2280,7 @@
       const rawS = rec.marks;
       if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
         const m = rawS[k];
-        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) { markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t; }
+        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) { markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t; if (Number.isInteger(m.l)) markSrc[+k].l = m.l; if (typeof m.g === "string") markSrc[+k].g = m.g; }
       });
       if (QUIZ_BY_SET) {
         quizzes = {};
@@ -2238,11 +2306,13 @@
       }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
+    quizSeenAt = quiz && quiz.savedAt || 0;
     SPLIT_HOOKS.forEach(function (fn) {
       try { fn({ sl: currentSlug, keyMap: KEY_TABLE ? KEY_TABLE.from : {}, state: { known: known, learning: learningMarked, marks: markSrc } }); }
       catch (e) { /* a hook that fails leaves the records as they are */ }
     });
     remarkSaved();
+    growForms();
     // A pass left unfinished on an earlier visit is reported now.
     if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
   }
@@ -2293,10 +2363,18 @@
     // per student under its own keys; they carry over as they are.
     if (DECK.legacy.knownPrefix) {
       try {
-        const k = JSON.parse(localStorage.getItem(DECK.legacy.knownPrefix + currentSlug) || "null");
-        const l = JSON.parse(localStorage.getItem(DECK.legacy.learningPrefix + currentSlug) || "null");
-        if (Array.isArray(k)) k.map(fromV1).filter(validIdx).forEach(function (i) { known.add(i); });
-        if (Array.isArray(l)) l.map(fromV1).filter(validIdx).forEach(function (i) { if (!known.has(i)) learningMarked.add(i); });
+        let k = JSON.parse(localStorage.getItem(DECK.legacy.knownPrefix + currentSlug) || "null");
+        let l = JSON.parse(localStorage.getItem(DECK.legacy.learningPrefix + currentSlug) || "null");
+        if (KEY_TABLE) {
+          // Positions on the earlier page go to their keys, then through the split copy.
+          const rec = { known: Array.isArray(k) ? k.map(v1Key).filter(Boolean) : [], learning: Array.isArray(l) ? l.map(v1Key).filter(Boolean) : [] };
+          splitCopy(rec, true);
+          k = rec.known.map(fromKey); l = rec.learning.map(fromKey);
+        } else {
+          k = Array.isArray(k) ? k.map(fromV1) : []; l = Array.isArray(l) ? l.map(fromV1) : [];
+        }
+        k.filter(validIdx).forEach(function (i) { known.add(i); });
+        l.filter(validIdx).forEach(function (i) { if (!known.has(i)) learningMarked.add(i); });
         if (known.size || learningMarked.size) { saveKnown(); saveLearning(); }
       } catch (e) { /* ignore */ }
       return;
@@ -2387,7 +2465,8 @@
         st.seen.forEach(function (i) { if (learnPass.seen.indexOf(i) < 0) learnPass.seen.push(i); });
         st.marked.forEach(function (i) { if (learnPass.marked.indexOf(i) < 0) learnPass.marked.push(i); });
         learnPass.last = Math.max(learnPass.last || 0, st.last || 0);
-      } else if (st && learnPass && (st.start || 0) > (learnPass.start || 0)) learnPass = st;
+      } else if (st && learnPass && (st.start || 0) > (learnPass.start || 0) && st.tab === learnPass.tab && st.lesson === learnPass.lesson) learnPass = st;
+      // A pass on another set, begun in another tab, is left to that tab.
       writeStore("pass", learnPass);
     } catch (e) { /* ignore */ }
   }
@@ -2408,6 +2487,8 @@
   // Note where a card's mark came from; a Learn tap also counts toward the pass under way.
   function noteMark(idx, src) {
     markSrc[idx] = { s: src, d: localDay(), t: Date.now() };
+    // English to Latin: the lesson it was marked at, so a card that gains a form later is asked again.
+    if (FORMS && LESSONS) markSrc[idx].l = currentLesson;
     saveMarkSrc();
     if (src === "learn" && learnPass && learnPass.marked.indexOf(idx) < 0) { learnPass.marked.push(idx); saveLearnPass(); }
   }
@@ -2428,7 +2509,10 @@
         quizzes[k] = q; took = true;
         if (quiz && quiz.set === k) quiz = q;
       });
-    } else if (newer(st, quiz)) {
+    } else if (newer(st, { savedAt: quizSeenAt })) {
+      // Newer than what this tab last saved or read, so another tab saved it.
+      // A quiz this tab has just begun, or closed, does not make it older.
+      quizSeenAt = st.savedAt;
       const q = validQuiz(st);
       if (q) { quiz = q; took = true; }
     }
@@ -2446,6 +2530,7 @@
       catch (e) { /* ignore */ }
       return;
     }
+    quizSeenAt = quiz ? quiz.savedAt : Date.now();
     try { writeStore("quiz", quiz); } catch (e) { /* ignore */ }
   }
 
@@ -3436,7 +3521,10 @@
   function upgradeQuiz(q) {
     if (!q || Array.isArray(q.list)) return q;
     const set = q.set || "all";
-    const list = QUIZ_BY_SET ? setIndices(set) : CARDS.map(function (_, i) { return i; });
+    let list = QUIZ_BY_SET ? setIndices(set) : CARDS.map(function (_, i) { return i; });
+    // After the split copy, only the cards the old quiz covered (each old card
+    // as its first new card): a per-form card it never asked is not counted.
+    if (KEY_TABLE) list = list.filter(function (i) { return OLD_CARDS.has(i); });
     const inRound = {};
     q.order.forEach(function (i, k) { if (!(q.review && q.review[k])) inRound[i] = k; });
     q.list = list.slice();
@@ -3473,7 +3561,7 @@
   // A round under the rules: the quiz's cards, what was asked and answered
   // right, and the attempt carry over from the round before.
   function rulesRound(round, prev, list) {
-    const base = prev ? { list: prev.list, right: prev.right.slice(), asked: prev.asked.slice(), attempt: prev.attempt, size: prev.size, lesson: prev.lesson }
+    const base = prev ? { list: prev.list, right: prev.right.slice(), asked: prev.asked.slice(), attempt: prev.attempt, size: prev.size, lesson: prev.lesson, misses: prev.misses ? Object.assign({}, prev.misses) : undefined }
       : { list: list.slice(), right: [], asked: [], attempt: Date.now().toString(36), size: list.length };
     const plan = planRound(base);
     const r = newRound(round, plan.order);
@@ -4864,7 +4952,7 @@
 
   function quizState(key) {
     const q = quizzes[key];
-    if (!q) return "Not started";
+    if (!q || staleAll(key, q)) return "Not started";
     if (q.phase === "done") return "Done";
     return "Round " + q.round + (q.phase === "between" ? " finished" : " under way");
   }
@@ -4892,10 +4980,13 @@
       return all && all[key] && typeof all[key] === "object" ? all[key] : null;
     } catch (e) { return null; }
   }
+  // The whole-deck quiz finished at an earlier lesson did not ask the cards
+  // added since: it counts as not yet taken.
+  function staleAll(key, q) { return LESSONS && key === "all" && !!q && q.phase === "done" && q.lesson !== currentLesson; }
   function markFor(key, other) {
     const q = other ? pairQuiz(key) : quizzes[key];
     const m = el("span", "lr-mark");
-    if (!q) return { m: m, state: "to do" };
+    if (!q || staleAll(key, q)) return { m: m, state: "to do" };
     if (q.phase === "done" || (Array.isArray(q.list) && Array.isArray(q.right) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }))) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
     const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
     m.classList.add("started");
@@ -4984,6 +5075,7 @@
     filter = key;
     quizPicked = true;
     quiz = quizzes[key] || null;
+    if (staleAll(key, quiz)) quiz = null;
     inputFor = null;
     flipped = false;
     render();
@@ -5379,7 +5471,11 @@
   });
 
   try {
-    const last = localStorage.getItem(LAST_NAME_KEY) || (DECK.pair && localStorage.getItem(DECK.pair.id + "_lastName")) || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
+    // Arriving from the other direction's page: the student there is the one
+    // signed in, so that page's name comes first (a shared computer).
+    const pairName = DECK.pair && localStorage.getItem(DECK.pair.id + "_lastName");
+    const fromPair = DECK.pair && new URLSearchParams(location.search).get("from") === DECK.pair.id;
+    const last = (fromPair && pairName) || localStorage.getItem(LAST_NAME_KEY) || pairName || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
     if (last) nameInput.value = last;
   } catch (e) { /* ignore */ }
 
