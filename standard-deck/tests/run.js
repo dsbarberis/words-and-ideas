@@ -67,10 +67,10 @@ function testCopy(tmp, f, s) {
     "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
-    "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m)}," +
+    "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click()}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
     "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),send:()=>{quiz.sent=false;sendQuizRound();return quiz.misses;},dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
-    "practice:{list:()=>breakList(),open:(k)=>openPractice(k),cur:()=>practice,P:()=>PRACTICE,wrong:(i,r)=>markWrongBoxes(i,r),apply:()=>applyFromPractice(),KEY:(k)=>fromKey(k)}," +
+    "practice:{list:()=>breakList(),open:(k)=>openPractice(k),cur:()=>practice,P:()=>PRACTICE,wrong:(i,r)=>markWrongBoxes(i,r),apply:()=>applyFromPractice(),KEY:(k)=>fromKey(k),M:(c)=>practiceMeanings(c),lesson:(n)=>{currentLesson=n;}}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { (window.__sent = window.__sent || []).push(payload); return;");
   const out = path.join(tmp, f);
@@ -784,6 +784,30 @@ function splitRecords() {
   check(T.judgeMeanings(cent, ["hundred"]).ok, "at Lesson VI, CENT- is not answered by \"hundred\" alone");
   T.lessons.apply(built);
   check(!T.judgeMeanings(cent, ["hundred"]).ok && T.judgeMeanings(cent, ["hundred", "sing"]).ok, "at Lesson XIII, CENT- does not need both meanings");
+  // 6. Saves merge (D, Oct 29): another tab's newer mark is kept, an older one is not,
+  // and marks from before a Reset in another tab don't come back.
+  localStorage.clear();
+  T.load("Merge A");
+  const a = idx("CAD"), b = idx("FAC"), c = idx("LOC");
+  T.known().add(a); T.split.note(a, "learn");
+  T.split.learning().add(c); T.split.note(c, "learn");
+  const later = Date.now() + 60000, earlier = Date.now() - 60000;
+  // The other tab: FAC Know It (newer), CAD Still Learning (older than this tab's mark).
+  localStorage.setItem(v2("known", "merge-a"), JSON.stringify(["FAC", "LOC"]));
+  localStorage.setItem(v2("learning", "merge-a"), JSON.stringify(["CAD"]));
+  localStorage.setItem(v2("markSrc", "merge-a"), JSON.stringify({ FAC: { s: "learn", d: "2026-10-30", t: later }, CAD: { s: "learn", d: "2026-10-30", t: earlier }, LOC: { s: "learn", d: "2026-10-30", t: later } }));
+  T.split.save();
+  st = T.state();
+  check(st.known.includes(b), "another tab's newer Know It (FAC) was lost");
+  check(st.known.includes(a) && !st.learning.includes(a), "another tab's older mark on CAD overwrote this tab's newer one");
+  check(st.known.includes(c) && !st.learning.includes(c), "another tab's newer Know It on LOC did not replace this tab's older Still Learning");
+  const kept = JSON.parse(localStorage.getItem(v2("known", "merge-a")));
+  check(kept.includes("FAC") && kept.includes("CAD"), "the stored record is not the merge: " + JSON.stringify(kept));
+  // Reset in the other tab, after both marks: this tab's marks go at its next save.
+  localStorage.setItem(ID + "_resetAt_v2__merge-a", String(Date.now() + 120000));
+  T.split.save();
+  st = T.state();
+  check(!st.known.length && !st.learning.length, "marks from before another tab's Reset came back: " + JSON.stringify([st.known, st.learning]));
   localStorage.clear();
   return { checked, fails };
 }
@@ -1051,6 +1075,21 @@ async function practiceTests(decks) {
   let chromium;
   try { ({ chromium } = require("playwright")); }
   catch (e) { report("practice cards", ["Playwright not found"], "not run"); return; }
+  // The build: element cards by printed spelling, meanings with their lessons,
+  // and the Bases box keeping its Latin Roots synonyms.
+  function practiceOf(f) {
+    const m = (decks[f] || "").match(/"practice": (\[[\s\S]*?\n  \])/);
+    return m ? JSON.parse(m[1]) : [];
+  }
+  const ex3 = practiceOf("Exercise III Flashcards.html").map(c => c.k), ex13 = practiceOf("Lesson XIII Exercise III Flashcards.html").map(c => c.k);
+  checked++;
+  if (ex3.indexOf("IN") < 0 || ex3.indexOf("TEN") < 0) fails.push("Exercise III element cards by spelling: " + ex3.join(" "));
+  if (ex13.indexOf("AD") < 0 || ex13.indexOf("AC") >= 0) fails.push("Lesson XIII Exercise III: \"as-\" should be AD: " + ex13.join(" "));
+  const ile = practiceOf("Exercise III Flashcards.html").find(c => c.k === "-ILE");
+  checked++;
+  if (!ile || !ile.meanings.some(m => m.l === 11) || !ile.meanings.some(m => m.l < 11)) fails.push("-ILE practice card meanings without their lessons: " + JSON.stringify(ile && ile.meanings));
+  checked++;
+  if (!/"alsoMeans": \[[^\]]*"(old|aged|elderly)"/.test(decks["Exercise III Flashcards.html"] || "")) fails.push("the Bases box lost its Latin Roots synonyms (SEN-: old, aged)");
   const browser = await chromium.launch();
   const ctx = await browser.newContext();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-practice-"));
@@ -1072,6 +1111,15 @@ async function practiceTests(decks) {
       return { n: P.length, v: v, parts: v >= 0 ? C[v].parts.map(pt => ({ k: pt.k, type: pt.type })) : [] };
     });
     checked++; if (!info.n) fails.push("the deck carries no element cards");
+    // Meanings show up to the current lesson.
+    const les = await page.evaluate(() => {
+      const c = __t.practice.P().find(x => x.meanings.some(m => m.l > 9) && x.meanings.some(m => m.l <= 9));
+      if (!c) return "";
+      __t.practice.lesson(9); const at9 = __t.practice.M(c).length;
+      __t.practice.lesson(13); const at13 = __t.practice.M(c).length;
+      return at9 < at13 ? "" : c.k + " shows " + at9 + " meanings at Lesson IX and " + at13 + " at XIII";
+    });
+    checked++; if (les) fails.push(les);
     checked++; if (info.v < 0) fails.push("VERSATILE not found");
     // A wrong Suffixes box: only the suffixes go to Latin Roots.
     const sent = await page.evaluate(([v, slug]) => {
@@ -1196,6 +1244,22 @@ async function practiceTests(decks) {
       return left.length === 1 && left[0].k === "NO-SUCH-CARD" ? "" : "unplaced entries: " + JSON.stringify(left);
     }, [SLUG, list]);
     checked++; if (kept) fails.push(kept);
+    // A key from before one card per form moves through the key table; a
+    // Know It from one old card never reaches a joined card.
+    const old = await lr.evaluate((slug) => {
+      const IN = __t.practice.KEY("IN"), IM = __t.practice.KEY("IM");
+      if (IN < 0 || IM < 0) return "no joined IN and IM cards";
+      localStorage.setItem("latinroots_fromPractice_v2__" + slug, JSON.stringify([{ k: "IN-not", m: "known", t: Date.now() }]));
+      __t.practice.apply();
+      let st = __t.state();
+      if (st.known.indexOf(IN) >= 0) return "an old IN-not Know It marked the joined IN card known";
+      localStorage.setItem("latinroots_fromPractice_v2__" + slug, JSON.stringify([{ k: "IN-not", m: "learning", t: Date.now() }]));
+      __t.practice.apply();
+      st = __t.state();
+      if (st.learning.indexOf(IN) < 0 || st.learning.indexOf(IM) < 0) return "an old IN-not Still Learning did not reach IN and IM";
+      return localStorage.getItem("latinroots_fromPractice_v2__" + slug) ? "old keys left in the list" : "";
+    }, SLUG);
+    checked++; if (old) fails.push(old);
     await lr.close();
   } catch (e) { fails.push("the check stopped: " + String(e.message).split("\n")[0]); }
   await browser.close();

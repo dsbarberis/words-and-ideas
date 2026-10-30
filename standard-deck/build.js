@@ -39,6 +39,12 @@ const latinRootsCards = {};  // glossary key -> every Latin Roots card it feeds
   (Array.isArray(c.glosses) ? c.glosses : c.gloss ? [c.gloss] : []).forEach(function (g) {
     (latinRootsCards[g] = latinRootsCards[g] || []).push(c);
   });
+  // One card per form (Oct 30, 2026): the key words come with each meaning,
+  // under the glossary entry it belongs to (a joined card holds two entries).
+  (c.groups || []).forEach(function (g) {
+    const list = latinRootsKeys[g.gloss] = latinRootsKeys[g.gloss] || [];
+    (g.keys || []).forEach(function (w) { if (list.indexOf(w) < 0) list.push(w); });
+  });
 });
 // The Latin Roots card for an element as printed on an Exercise card: the
 // entry's card whose spellings hold the printed form, else its first card.
