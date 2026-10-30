@@ -64,7 +64,7 @@ function testNoWorkingNotes(decks) {
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
   s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE," +
-    "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
+    "judge:(...x)=>judge(...x),FORMS:()=>FORMS,judgeForms:(...x)=>judgeForms(...x),formsOn:(c)=>formsOn(c),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
     "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click()}," +
@@ -123,7 +123,14 @@ async function browserTests(decks) {
       effort.checked += ef.checked;
       ef.fails.forEach(x => effortFails.push(f + ": " + x));
       const isEx = await page.evaluate(() => __t.EX());
-      if (!isEx) {
+      const isForms = await page.evaluate(() => __t.FORMS());
+      if (isForms) {
+        let fc;
+        try { fc = await formsChecks(page); }
+        catch (e) { fc = { checked: 0, fails: ["the English to Latin check stopped: " + String(e.message).split("\n")[0]] }; }
+        flashCount += fc.checked;
+        fc.fails.forEach(x => flashFails.push(f + ": " + x));
+      } else if (!isEx) {
         const fc = await page.evaluate(flashcardChecks);
         flashCount += fc.checked;
         fc.fails.forEach(x => flashFails.push(f + ": " + x));
@@ -634,6 +641,60 @@ async function lessonChecks(page) {
   });
   r.checked++;
   if (!look.basesOnly || !look.lastStays || !look.armed || !look.reset) r.fails.push("look: " + JSON.stringify(look));
+  return r;
+}
+
+// English to Latin (Lesson Filter release, Oct 30, 2026): every card takes its
+// forms in any order; a missing or wrong form fails it and the boxes say which;
+// optional letters count either way; forms of later lessons are not asked; the
+// quiz shows one box per form; the Quiz tab has a column for each direction.
+async function formsChecks(page) {
+  const r = await page.evaluate(() => {
+    const fails = []; let checked = 0;
+    const T = __t, C = T.CARDS;
+    function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+    C.forEach((c, i) => {
+      const want = T.formsOn(c);
+      if (!want.length) return;
+      const typed = want.map(f => f.form.toLowerCase()).reverse();
+      check(T.judgeForms(i, typed).ok, c.word + ": its own forms, in another order, were not accepted: " + typed.join(", "));
+      check(T.judgeForms(i, want.map(f => f.spellings[f.spellings.length - 1])).ok, c.word + ": the forms with their optional letters were not accepted");
+      if (want.length > 1) {
+        const res = T.judgeForms(i, typed.slice(1));
+        check(!res.ok && res.got.filter(Boolean).length === want.length - 1, c.word + ": one form missing still passed");
+      }
+      const wrong = T.judgeForms(i, ["zzzq"].concat(typed.slice(1)));
+      check(!wrong.ok && wrong.rows[0].ok === false, c.word + ": a wrong form was not marked wrong");
+    });
+    const speak = C.findIndex(c => c.k === "speak");
+    check(speak >= 0, "no \"to speak\" card");
+    if (speak >= 0) {
+      const built = T.lessons.built();
+      T.lessons.apply(Object.assign({}, built, { currentLesson: 3 }));
+      check(T.formsOn(C[speak]).length === 2 && T.judgeForms(speak, ["loqu", "locut"]).ok, "at Lesson III, \"to speak\" does not ask just LOQU- and LOCUT-");
+      T.lessons.apply(built);
+      check(T.formsOn(C[speak]).length === 6 && !T.judgeForms(speak, ["loqu", "locut"]).ok, "at Lesson XIII, \"to speak\" does not ask all six forms");
+    }
+    return { checked, fails };
+  });
+  if (await page.isVisible("#nameInput")) { await page.fill("#nameInput", "Test Student"); await page.keyboard.press("Enter"); }
+  else if (await page.isVisible("#openScreen .lr-start")) await page.click("#openScreen .lr-start");
+  await page.waitForTimeout(200);
+  const sw = await page.$eval(".lr-dirsw", b => b.textContent).catch(() => "");
+  r.checked++;
+  if (!/English\s*\u21c4\s*Latin/.test(sw)) r.fails.push("the direction switch reads " + JSON.stringify(sw));
+  await page.click("button.tab[data-mode=quiz]");
+  const cols = await page.evaluate(() => ({ own: document.querySelectorAll("#quizPanel [data-set]").length, pair: document.querySelectorAll("#quizPanel [data-pair-set]").length }));
+  r.checked++;
+  if (!cols.own || !cols.pair) r.fails.push("the Quiz tab lacks a column for each direction: " + JSON.stringify(cols));
+  await page.click("#quizPanel [data-set=L3]");
+  await page.click("#quizPanel button:has-text('Start')");
+  await page.waitForTimeout(500);
+  await page.evaluate(() => __t.rules.next());
+  await page.waitForTimeout(500);
+  const boxes = await page.evaluate(() => { const q = __t.quiz(); const i = q.order[q.pos]; return { want: __t.formsOn(__t.CARDS[i]).length, shown: [...document.querySelectorAll("#card .quiz-form input")].filter(x => x.offsetParent).length }; });
+  r.checked++;
+  if (boxes.want !== boxes.shown) r.fails.push("the quiz card shows " + boxes.shown + " boxes for " + boxes.want + " forms");
   return r;
 }
 

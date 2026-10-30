@@ -30,6 +30,8 @@ module.exports = {
   title: "Latin Roots Flashcards", // deck name sent to the Sheet
   heading: "Latin Roots",
   answer: "meanings",
+  direction: "le",
+  pair: { id: "latinroots-en", page: "latin-roots-en.html" }, // English to Latin, behind the direction switch
   lessons: true, // each card shows from its lesson on (course-settings.json); lesson menu and lesson quizzes (Lesson Filter release)
   shufflePasses: true, // every Learn pass starts in a new random order (instructor, Oct 12, 2026)
   noun: "card",

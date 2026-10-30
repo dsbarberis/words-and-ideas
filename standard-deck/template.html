@@ -211,6 +211,27 @@
   .lr-qhead b { width: 44px; text-align: center; font: 400 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink-soft); white-space: nowrap; display: flex; justify-content: center; }
   .lr-look .quiz-list-head { text-align: center; font-weight: 700; }
 
+  /* English to Latin (approved look, round 9): dots for the forms asked on the
+     front; on the back, pills grouped by Latin word with a line between. */
+  .lr-dirsw { flex: 0 0 auto; min-height: 44px; padding: 0 12px; border: 1px solid #6b6658; border-radius: 8px; background: var(--card); font: 700 17px Georgia, serif; color: var(--navy); cursor: pointer; white-space: nowrap; }
+  .lr-dirsw span { color: #9a7a45; margin: 0 4px; }
+  .lr-dir-none { visibility: hidden; }
+  .en-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .en-dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid #6b6658; display: block; }
+  .en-back { display: flex; flex-direction: column; justify-content: space-evenly; min-height: 100%; width: 100%; gap: 14px; }
+  .en-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .en-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
+  .en-pill { font: italic 400 22px Georgia, serif; color: #f5ecd8; border: 1px solid #9a8a6a; border-radius: 999px; padding: 2px 14px; }
+  .en-eg { font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #d8d2c4; text-align: center; }
+  .en-rule { width: 100%; border: 0; border-top: 1px solid #8a7a5a; margin: 0; }
+  .forms .line-remove, .forms #addLineBtn { display: none !important; }
+  /* One full-width box per form, then a full-width Check (approved look). */
+  .forms #quizForm .quiz-row { display: block; border: 0; padding: 0; background: none; min-height: 0; }
+  .forms #quizForm .quiz-input { width: 100%; font-size: 18px; padding: 12px 14px; }
+  .forms #quizForm .more-lines .line-row { margin-top: 12px; }
+  .forms #quizForm #checkBtn { display: block; width: 100%; min-height: 48px; margin-top: 18px; }
+  .forms #quizForm .quiz-input.in-ok { background: #eef3e8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M3 10l5 5 9-10' stroke='%234f6b4a' stroke-width='3' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; }
+  .forms #quizForm .quiz-input.in-no { background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M3 3l12 12M15 3L3 15' stroke='%23b0322a' stroke-width='3'/%3E%3C/svg%3E") no-repeat right 14px center; }
   .lr-instr { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); text-align: left; width: 100%; max-width: 34em; margin: 0 auto; }
   .phone .lr-instr { grid-template-columns: 32px 1fr; }
   .lr-instr p { margin: 0; }
@@ -1164,6 +1185,10 @@
   // Latin Roots: the answer is the card's list of meanings, typed one per
   // line, and every meaning is required.
   const MEANINGS = DECK.answer === "meanings";
+  // English to Latin (Lesson Filter release): the card shows a meaning and the
+  // student types each Latin form taught so far, one box per form, any order.
+  const FORMS = DECK.answer === "forms";
+  const LINES = MEANINGS || FORMS;
   // The answer-effort rules (a real attempt before Check, the back hidden
   // until right, a missed card back only after 3 others) hold in every
   // deck's quiz: Exercise Decks since Oct 21, 2026, and Latin Roots, Greek
@@ -1520,6 +1545,52 @@
   function meaningOn(card, m) {
     return !LESSONS || !card.meaningLessons || !(card.meaningLessons[m] > currentLesson);
   }
+  // The forms a card asks for: those taught up to the current lesson.
+  function formsOn(card) {
+    return (card.forms || []).filter(function (f) { return !LESSONS || !(f.lesson > currentLesson); });
+  }
+  // Each box is matched to one wanted form, in any order. Capitals, hyphens
+  // and brackets are ignored; optional letters count either way (DECI(M)-:
+  // deci or decim). Every form taught so far is required.
+  function judgeForms(cardIdx, vals) {
+    const want = formsOn(CARDS[cardIdx]);
+    const v = (Array.isArray(vals) ? vals : [vals]).map(function (x) { return String(x || ""); });
+    if (!v.some(function (x) { return x.trim(); })) return { empty: true };
+    const used = want.map(function () { return false; });
+    const rows = v.map(function (x) {
+      const t = x.toUpperCase().replace(/[^A-Z]/g, "");
+      if (!t) return { text: x, ok: false, blank: true };
+      const k = want.findIndex(function (f, i) { return !used[i] && f.spellings.indexOf(t) >= 0; });
+      if (k >= 0) { used[k] = true; return { text: x, ok: true, form: k }; }
+      return { text: x, ok: false };
+    });
+    return { ok: used.every(Boolean), got: used, rows: rows };
+  }
+  function judgeLines(cardIdx, vals) { return FORMS ? judgeForms(cardIdx, vals) : judgeMeanings(cardIdx, vals); }
+  // The back of an English to Latin card: its forms as pills, grouped by Latin
+  // word with a line between groups, each group's examples beneath it.
+  function fillForms(node, item) {
+    node.innerHTML = "";
+    const groups = [];
+    formsOn(item).forEach(function (f) {
+      let g = groups.find(function (x) { return x.word === f.word; });
+      if (!g) { g = { word: f.word, forms: [], examples: f.examples }; groups.push(g); }
+      g.forms.push(f.form);
+    });
+    const box = el("div", "en-back");
+    groups.forEach(function (g, k) {
+      if (k) box.appendChild(el("hr", "en-rule"));
+      const d = el("div", "en-group");
+      const pills = el("div", "en-pills");
+      g.forms.forEach(function (f) { pills.appendChild(el("span", "en-pill", f)); });
+      d.appendChild(pills);
+      if (g.examples) d.appendChild(el("div", "en-eg", g.examples));
+      box.appendChild(d);
+    });
+    node.appendChild(box);
+  }
+  function fillBack(node, item, res) { if (FORMS) fillForms(node, item); else fillMeanings(node, item, res); }
+
   function judgeMeanings(cardIdx, lines) {
     const card = CARDS[cardIdx];
     const pieces = meaningPieces(lines);
@@ -2572,6 +2643,7 @@
     // of its own, not only little words and not only the root's own forms
     // (unless that is a meaning, as ART "art"), and copies no five words of a
     // note. How many lines is not checked: the count shows on the back only.
+    if (FORMS) return "";
     if (MEANINGS) {
       // The root's forms, with and without optional letters: CUR(R)- gives cur and curr.
       const own = [];
@@ -2710,6 +2782,14 @@
     addLineBtn.hidden = false;
     answerInput.placeholder = "Type a meaning";
   }
+  if (FORMS) {
+    document.documentElement.classList.add("meanings", "forms");
+    // Check goes below the boxes.
+    quizForm.insertBefore(checkBtn, addLineBtn);
+    addLineBtn.hidden = true;
+    answerInput.placeholder = "";
+    answerInput.setAttribute("aria-label", "Latin form 1");
+  }
 
   // ---------- Meaning lines (Latin Roots) ----------
   // Every card opens with one line and the same "+ Add another meaning"
@@ -2776,7 +2856,15 @@
     const all = lineInputs();
     const k = all.indexOf(inp);
     if (k < all.length - 1) all[k + 1].focus();
+    else if (FORMS) checkAnswer();
     else addLine("", true);
+  }
+  // English to Latin: one box per form asked, all shown at once.
+  function allLineValues() { return lineInputs().map(function (i) { return i.value.trim(); }); }
+  function fitFormBoxes(card) {
+    const n = Math.max(1, formsOn(card).length);
+    while (lineInputs().length < n) addLine("", false);
+    lineInputs().forEach(function (inp, k) { inp.setAttribute("aria-label", "Latin form " + (k + 1) + " of " + n); inp.placeholder = ""; });
   }
 
   function wireLine(inp) {
@@ -3034,9 +3122,16 @@
     const item = CARDS[idx];
 
     termFront.textContent = item.word;
+    if (FORMS) {
+      // One dot per form asked, so the student knows how many to recall.
+      const dots = el("span", "en-dots");
+      dots.setAttribute("aria-label", formsOn(item).length + " forms");
+      formsOn(item).forEach(function () { dots.appendChild(el("i")); });
+      termFront.appendChild(dots);
+    }
     tagFront.textContent = cardTag(item);
     tagBack.textContent = cardTag(item);
-    if (MEANINGS) fillMeanings(meaningBack, item, null);
+    if (LINES) fillBack(meaningBack, item, null);
     else meaningBack.textContent = item.defn;
     originBack.textContent = item.origin;
 
@@ -3127,7 +3222,7 @@
     el.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = info.tag; });
     el.querySelector(".term").textContent = info.item.word;
     el.querySelector(".hint").hidden = true;
-    if (MEANINGS) fillMeanings(el.querySelector(".meaning"), info.item, null);
+    if (LINES) fillBack(el.querySelector(".meaning"), info.item, null);
     else el.querySelector(".meaning").textContent = info.item.defn;
     el.querySelectorAll(".more-lines").forEach(function (n) { n.innerHTML = ""; });
     const origin = el.querySelector(".examples span:last-child");
@@ -3933,7 +4028,8 @@
     const key = quiz.round + ":" + quiz.pos;
     if (inputFor !== key) {
       inputFor = key;
-      if (MEANINGS) resetLines(shownAns ? shownAns.a : null);
+      if (LINES) resetLines(shownAns ? shownAns.a : null);
+      if (FORMS) fitFormBoxes(item);
       else if (EXERCISE && (hasBoxes(item) || item.kind === "order")) answerInput.value = shownAns && hasBoxes(item) && Array.isArray(shownAns.a) ? shownAns.a[0] : "";
       else answerInput.value = shownAns ? shownAns.a : "";
       orderPick = [];
@@ -3970,14 +4066,14 @@
     quizForm.hidden = false;
     answerInput.disabled = !!ans;
     checkBtn.disabled = !!ans;
-    if (MEANINGS) setLinesDisabled(!!ans);
+    if (LINES) setLinesDisabled(!!ans);
 
-    const res = MEANINGS && ans ? judgeMeanings(idx, ans.a) : null;
+    const res = LINES && ans ? judgeLines(idx, ans.a) : null;
     // The back is filled only when it may be seen, so a missed card's
     // answer is not on the page (every quiz, Oct 23, 2026).
     const showBack = presenterMode || backShown(ans);
     if (!showBack) { meaningBack.innerHTML = ""; originBack.textContent = ""; }
-    else if (MEANINGS) fillMeanings(meaningBack, item, res);
+    else if (LINES) fillBack(meaningBack, item, res);
     else meaningBack.textContent = item.defn;
     originBox.hidden = !showBack;
     if (showBack) originBack.textContent = item.origin;
@@ -4047,6 +4143,13 @@
         lab.insertBefore(el("span", "box-mark " + (parts[k] ? "ok" : "no"), parts[k] ? "\u2713" : "\u2717"), lab.firstChild);
         if (inputs[k]) inputs[k].classList.add(parts[k] ? "in-ok" : "in-no");
       });
+    } else if (FORMS && Array.isArray(ans.a)) {
+      // Each box marked right or not; the count in words, without the answer.
+      const res = judgeForms(CARDS.indexOf(item), ans.a);
+      const inputs = lineInputs();
+      (res.rows || []).forEach(function (r, k) { if (inputs[k]) inputs[k].classList.add(r.ok ? "in-ok" : "in-no"); });
+      const got = (res.got || []).filter(Boolean).length;
+      lineNote = got + " of " + (res.got || []).length + " right.";
     } else if (MEANINGS && Array.isArray(ans.a)) {
       // Each line marked: a line that counted for a meaning, or one that did not.
       const res = judgeMeanings(CARDS.indexOf(item), ans.a);
@@ -4353,14 +4456,14 @@
     const isChoice = EXERCISE && CARDS[idx].kind === "choice";
     if (isChoice && typeof choice !== "number") return;
     const kind = EXERCISE ? CARDS[idx].kind : "";
-    const text = isChoice ? choice : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
+    const text = isChoice ? choice : FORMS ? allLineValues() : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     if (Array.isArray(text) && typedEg(text)) { egPop.hidden = false; document.getElementById("egPopOk").focus(); return; }
     // Teacher mode skips the good-faith gate (Answer Effort plan, Oct 19, 2026).
     if (EFFORT && !presenterMode && !isChoice && kind !== "order") {
       const gf = goodFaith(CARDS[idx], text);
       if (gf) { quizNote.textContent = gf; answerInput.focus(); return; }
     }
-    const result = EXERCISE ? judgeExercise(idx, text) : MEANINGS ? judgeMeanings(idx, text) : judge(idx, text);
+    const result = EXERCISE ? judgeExercise(idx, text) : LINES ? judgeLines(idx, text) : judge(idx, text);
     if (result.empty) {
       quizNote.textContent = result.order ? "Tap every stage first." : "Type your answer first.";
       if (!result.order) answerInput.focus();
@@ -4436,7 +4539,7 @@
       // card's front is hidden, so clearing the box early is not seen).
       answerInput.disabled = false;
       answerInput.value = "";
-      if (MEANINGS) { moreLines.innerHTML = ""; setLinesDisabled(false); }
+      if (LINES) { moreLines.innerHTML = ""; setLinesDisabled(false); }
       if (!EXERCISE || (nextKind !== "choice" && nextKind !== "order")) answerInput.focus();
       return;
     }
@@ -4482,7 +4585,7 @@
 
   function skipCard() {
     const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
-    const blank = MEANINGS || (EXERCISE && hasBoxes(CARDS[idx])) ? [] : "";
+    const blank = LINES || (EXERCISE && hasBoxes(CARDS[idx])) ? [] : "";
     quiz.answers[k] = { a: first ? first.a : blank, ok: false, mixed: null, skipped: 1 };
     if (!isReview(k)) {
       known.delete(idx); learningMarked.add(idx);
@@ -4511,6 +4614,15 @@
     const toolbar = document.querySelector("#deckScreen .toolbar");
     const row1 = el("div", "lr-row lr-learn");
     row1.appendChild(lessonMenu);
+    if (DECK.pair) {
+      // Latin ⇄ English: the other direction is its own page with its own records.
+      const sw = el("button", "lr-dirsw");
+      sw.type = "button";
+      sw.innerHTML = DECK.direction === "el" ? "English <span>\u21c4</span> Latin" : "Latin <span>\u21c4</span> English";
+      sw.setAttribute("aria-label", DECK.direction === "el" ? "English to Latin; switch to Latin to English" : "Latin to English; switch to English to Latin");
+      sw.addEventListener("click", function () { goPair({ mode: mode }); });
+      row1.appendChild(sw);
+    }
     const row2 = el("div", "lr-row lr-learn");
     row2.setAttribute("role", "group");
     row2.setAttribute("aria-label", "Cards shown");
@@ -4653,7 +4765,7 @@
           ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Click the bar to review Still Learning cards."]]);
   }
   function quizIntro() {
-    return steps([["box", "", MEANINGS ? "Type each meaning on its own line." : "Type your answer."],
+    return steps([["box", "", FORMS ? "Type each Latin form in its own box." : MEANINGS ? "Type each meaning on its own line." : "Type your answer."],
       ["ck", "✓", (TOUCH ? "Tap" : "Click") + " Check. You have two tries."],
       ["sw", TOUCH ? "⇠" : "→", TOUCH ? "Swipe on to skip; the card counts as missed." : "Press → or Skip to skip; the card counts as missed."]])
       + "<p style=\"grid-column:1/-1;text-align:center;margin-top:8px\">" + (TOUCH ? "Tap" : "Click") + " to begin.</p>";
@@ -4739,7 +4851,7 @@
     if (!LESSONS) return [];
     return (settings.required || []).filter(function (r) {
       return r && Number.isInteger(r.from) && Number.isInteger(r.to) && r.from <= r.to && r.from <= currentLesson;
-    }).map(function (r) { return { key: "R" + r.from + "-" + Math.min(r.to, currentLesson), from: r.from, to: Math.min(r.to, currentLesson), due: r.due }; });
+    }).map(function (r) { return { key: "R" + r.from + "-" + Math.min(r.to, currentLesson), from: r.from, to: Math.min(r.to, currentLesson), due: r.due, dirs: Array.isArray(r.dirs) && r.dirs.length ? r.dirs : ["le"] }; });
   }
 
   function dueText(due) {
@@ -4762,12 +4874,29 @@
   // The Quiz tab in the approved look: a column per direction, headed once;
   // each circle is its own button (empty, part filled as cards are answered
   // right, or ticked when done); the due quiz first, with its date.
-  const DIRS = [{ key: "", label: "Latin \u2192<br>English", name: "Latin to English" }];
-  function markFor(key) {
-    const q = quizzes[key];
+  const DIRS = [{ key: "le", label: "Latin \u2192<br>English", name: "Latin to English" }];
+  if (DECK.pair) DIRS.push({ key: "el", label: "English<br>\u2192 Latin", name: "English to Latin" });
+  // The other direction's page, opened with the student, lesson and quiz.
+  function goPair(o) {
+    const p = new URLSearchParams();
+    p.set("from", ID);
+    if (lessonPick) p.set("lesson", String(lessonPick));
+    if (o && o.quiz) p.set("quiz", o.quiz);
+    else if (o && o.mode === "quiz") p.set("mode", "quiz");
+    location.href = DECK.pair.page + "?" + p.toString();
+  }
+  // A quiz on the other direction's page: read from its own saved record.
+  function pairQuiz(key) {
+    try {
+      const all = JSON.parse(localStorage.getItem(DECK.pair.id + "_quizzes_v2__" + currentSlug) || "null");
+      return all && all[key] && typeof all[key] === "object" ? all[key] : null;
+    } catch (e) { return null; }
+  }
+  function markFor(key, other) {
+    const q = other ? pairQuiz(key) : quizzes[key];
     const m = el("span", "lr-mark");
     if (!q) return { m: m, state: "to do" };
-    if (q.phase === "done" || quizAllRight(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
+    if (q.phase === "done" || (Array.isArray(q.list) && Array.isArray(q.right) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }))) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
     const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
     m.classList.add("started");
     m.style.background = "conic-gradient(var(--navy) " + Math.round(share * 360) + "deg, transparent 0)";
@@ -4785,20 +4914,23 @@
     head.appendChild(hd);
     quizPanel.appendChild(head);
     const list = el("div", "quiz-list");
-    function row(key, label, due) {
+    function row(key, label, due, only) {
       const r = el("div", "lr-qrow" + (due ? " due" : ""));
       const name = el("span", "lr-qname", label);
       if (due) name.appendChild(el("span", "lr-due", due));
       r.appendChild(name);
       const dirs = el("span", "lr-dirs");
       DIRS.forEach(function (d) {
-        const mk = markFor(key + d.key);
+        // A required quiz asks only the directions the settings name (Latin to English unless both).
+        if (only && only.indexOf(d.key) < 0) { dirs.appendChild(el("span", "lr-dir lr-dir-none")); return; }
+        const here = !DECK.pair || d.key === (DECK.direction || "le");
+        const mk = markFor(key, !here);
         const b = el("button", "lr-dir");
         b.type = "button";
-        b.dataset.set = key + d.key;
+        if (here) b.dataset.set = key; else b.dataset.pairSet = key;
         b.setAttribute("aria-label", label + ", " + d.name + ", " + mk.state);
         b.appendChild(mk.m);
-        b.addEventListener("click", function () { openQuizSet(key + d.key); });
+        b.addEventListener("click", function () { if (here) openQuizSet(key); else goPair({ quiz: key }); });
         dirs.appendChild(b);
       });
       r.appendChild(dirs);
@@ -4807,7 +4939,7 @@
     const req = requiredQuizzes();
     if (req.length) {
       list.appendChild(el("div", "quiz-list-head", "Due"));
-      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, "")); });
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, ""), r.dirs); });
     }
     const ls = shownLessons();
     if (ls.length) row("all", lessonRange(ls[0], currentLesson));
@@ -4906,6 +5038,7 @@
       renderLearn();
     } else {
       footerHelp.textContent = EXERCISE ? DECK.help || (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
+        FORMS ? "One Latin form per box, in any order \u00b7 Enter moves to the next box \u00b7 Enter in the last box, or Check, checks the answer" :
         MEANINGS ? "One meaning per line \u00b7 Enter starts a new line \u00b7 Enter on an empty line, or Check, checks the answer" :
         "Type the meaning and press Enter to check";
       if (presenterMode) footerHelp.textContent = "Teacher mode: \u2190 \u2192 move \u00b7 Space or a click on the card flips it \u00b7 Esc leaves an answer box \u00b7 type an answer and Check to see how it is judged";
@@ -4996,7 +5129,7 @@
   answerInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (MEANINGS) lineEnter(answerInput);
+      if (LINES) lineEnter(answerInput);
       else if (EXERCISE && quiz && hasBoxes(CARDS[quiz.order[quiz.pos]])) boxEnter(answerInput);
       else checkAnswer();
     }
@@ -5246,7 +5379,7 @@
   });
 
   try {
-    const last = localStorage.getItem(LAST_NAME_KEY) || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
+    const last = localStorage.getItem(LAST_NAME_KEY) || (DECK.pair && localStorage.getItem(DECK.pair.id + "_lastName")) || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
     if (last) nameInput.value = last;
   } catch (e) { /* ignore */ }
 
@@ -5555,7 +5688,21 @@
   buildLook();
   buildOpen();
   fillLessonMenu();
-  showOpen();
+  // Arriving from the other direction's page (the direction switch, or its
+  // column on the Quiz tab): the student is already known, so the deck opens
+  // at once, in the same lesson, on the quiz asked for.
+  if (DECK.pair && /[?&]from=/.test(location.search) && nameInput.value.trim()) {
+    const arrive = new URLSearchParams(location.search);
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* ignore */ }
+    startDeck();
+    const l = +arrive.get("lesson");
+    if (l && LESSONS && lessonMenu.querySelector('option[value="' + l + '"]')) { lessonMenu.value = String(l); lessonMenu.dispatchEvent(new Event("change")); }
+    const q = arrive.get("quiz");
+    if (q || arrive.get("mode") === "quiz") {
+      setMode("quiz");
+      if (q && setIndices(q).length) openQuizSet(q);
+    }
+  } else showOpen();
   showNotice();
   checkSettings();
 </script>

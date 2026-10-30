@@ -72,7 +72,7 @@ function groupsOf(entry, key) {
 // A Flashcard Deck card's word is its key; an Exercise Deck card gives it as
 // "vocab". Anything the card sets itself is kept (an override). A card may
 // name one sense ("sense": 2); otherwise every sense counts.
-function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" ? null : card.word); }
+function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" || deck.answer === "forms" ? null : card.word); }
 function resolveVocab(card, file, deck) {
   const key = vocabKey(card, deck);
   const out = Object.assign({}, card);
