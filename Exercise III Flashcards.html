@@ -3679,7 +3679,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "dd6ea7b057f0";
+  const DECK_VERSION = "30f8cd1d2c08";
   const DECK_PAGE = "Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3743,7 +3743,7 @@
     .filter(function (n, k, a) { return a.indexOf(n) === k; }).sort(function (a, b) { return a - b; }) : [];
   function shownLessons() { return ALL_LESSONS.filter(function (n) { return n <= currentLesson; }); }
   function visible(i) { return !LESSONS || CARDS[i].lesson <= currentLesson; }
-  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else one lesson
+  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else every lesson up to this one
   function roman(n) {
     const R = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
     let out = "";
@@ -4809,7 +4809,10 @@
       passSize: row.passSize,
       cumCorrect: known.size,
       cumTotal: N,
-      resultsJson: JSON.stringify(row.json)
+      resultsJson: JSON.stringify(row.json),
+      // The tenth Form question, "Current Lesson" (sent once its entry code is
+      // in GFORM_FIELDS): a quiz round gives the lesson its quiz started at.
+      currentLesson: LESSONS ? roman(row.lesson || currentLesson) : ""
     });
     recordAttempt(row);
   }
@@ -5198,12 +5201,12 @@
   let showHint = true;
 
   // ---------- Learn mode (the Latin Roots behavior) ----------
-  // A card on Learn's screen: shown by the current lesson, and in the lesson
-  // picked on the lesson menu.
   // The break after a quiz round with misses: a Learn pass of those cards
   // ({ set, round, cards }), on Learn's "missed" list.
   let breakFor = null;
-  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson === lessonPick); }
+  // A card on Learn's screen: shown by the current lesson, and up to the
+  // lesson picked on the lesson menu (approved look, round 9: "Lessons II–VI").
+  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson <= lessonPick); }
   function onTab(i, key) {
     if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
     if (!inLearn(i)) return false;
@@ -5279,7 +5282,7 @@
       bits.push("missed cards");
       if (p.brk) { bits.push("quiz round " + p.brk.round); if (p.brk.set && p.brk.set !== "all") bits.push(setLabel(p.brk.set)); }
     } else if (p.tab !== "all") bits.push(setLabel(p.tab));
-    if (p.lesson) bits.push(lessonRange(p.lesson, p.lesson));
+    if (p.lesson) bits.push(lessonRange(ALL_LESSONS[0], p.lesson));
     if (tail) bits.push(tail);
     return bits.length ? " (" + bits.join(", ") + ")" : "";
   }
@@ -5782,6 +5785,9 @@
       if (a.mixed) row.mixed = a.mixed;
       if (isReview(k)) row.pad = 1;
       if (a.t === 2) row.t = 2;
+      // The attempt and the quiz's full size, so the dashboard can tell when
+      // every card has been answered right across rounds (Dashboard Desk, Oct 30).
+      if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
       return row;
     }).filter(Boolean);
     const counted = answers.filter(function (x) { return !x.pad; });
@@ -5791,6 +5797,7 @@
       passSize: counted.length,
       results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; return o; }),
       attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
+      lesson: quiz.lesson,
       answers: answers,
       json: answers
     });
@@ -6409,8 +6416,10 @@
       teacherGoto.value = String(quiz.pos);
       return;
     }
-    quizNextBtn.disabled = !ans;
-    quizNextBtn.innerHTML = last ? "Finish round &rarr;" : "Next &rarr;";
+    // Under the quiz rules a card not yet answered can be skipped (it counts as missed).
+    const skip = !ans && rulesOn() && Array.isArray(quiz.list);
+    quizNextBtn.disabled = !ans && !skip;
+    quizNextBtn.innerHTML = skip ? "Skip &rarr;" : last ? "Finish round &rarr;" : "Next &rarr;";
   }
 
   function teacherCanLeaf() { return presenterMode && mode !== "learn" && quiz && quiz.phase === "card"; }
@@ -6697,7 +6706,12 @@
     if (presenterMode) {
       if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
       if (!allAnswered()) return;
-    } else if (!quiz.answers[quiz.pos]) return;
+    } else if (!quiz.answers[quiz.pos]) {
+      // Moving on from a card not yet answered skips it: it counts as missed
+      // (approved first quiz card, round 9: "Swipe on to skip").
+      if (!rulesOn() || !Array.isArray(quiz.list)) return;
+      skipCard();
+    }
     if (quiz.pos < quiz.order.length - 1) {
       // Read the next card before sliding: with reduced motion the slide's
       // change runs at once and moves quiz.pos on.
@@ -6991,28 +7005,39 @@
     setTimeout(function () { n.textContent = t; }, 50);
   }
 
+  function skipCard() {
+    const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
+    quiz.answers[k] = { a: first ? first.a : "", ok: false, mixed: null, skipped: 1 };
+    if (!isReview(k)) {
+      known.delete(idx); learningMarked.add(idx);
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
+    }
+    if (quiz.answers.every(Boolean)) sendQuizRound();
+    saveQuiz();
+  }
+
   // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
   const lessonMenu = document.getElementById("lessonMenu");
   const courseNotice = document.getElementById("courseNotice");
   let quizPicked = false;   // lessons decks: a quiz is open (else the Quiz tab lists them)
   let learnFilter = "all";  // lessons decks: Learn's tab, kept while the Quiz tab is open
 
-  // The lesson menu, newest lesson first, after "every lesson so far".
+  // The lesson menu: every lesson so far, then up to each earlier lesson,
+  // newest first ("Lessons II–XIII", "Lessons II–XII", … "Lesson II").
   function fillLessonMenu() {
     if (!LESSONS) return;
     const ls = shownLessons();
-    if (lessonPick && ls.indexOf(lessonPick) < 0) lessonPick = 0;
+    if (lessonPick && (ls.indexOf(lessonPick) < 0 || lessonPick === ls[ls.length - 1])) lessonPick = 0;
     lessonMenu.innerHTML = "";
-    const all = document.createElement("option");
-    all.value = "0";
-    all.textContent = ls.length ? lessonRange(ls[0], ls[ls.length - 1]) : "All";
-    lessonMenu.appendChild(all);
-    ls.slice().reverse().forEach(function (n) {
+    ls.slice().reverse().forEach(function (n, k) {
       const o = document.createElement("option");
-      o.value = String(n);
-      o.textContent = lessonRange(n, n);
+      o.value = k === 0 ? "0" : String(n);
+      o.textContent = lessonRange(ls[0], n);
       lessonMenu.appendChild(o);
     });
+    if (!ls.length) { const o = document.createElement("option"); o.value = "0"; o.textContent = "All"; lessonMenu.appendChild(o); }
     lessonMenu.value = String(lessonPick);
     lessonMenu.hidden = false;
   }
@@ -7301,7 +7326,7 @@
       return true;
     }
     // In a quiz each card must be checked first, so swipes are not queued.
-    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && quiz.answers[quiz.pos]) { quizNext(speed); return true; }
+    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && (quiz.answers[quiz.pos] || (rulesOn() && Array.isArray(quiz.list)))) { quizNext(speed); return true; }
     return false;
   }
 
