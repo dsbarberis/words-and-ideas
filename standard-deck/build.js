@@ -8,12 +8,35 @@ const here = __dirname;
 const template = fs.readFileSync(path.join(here, "template.html"), "utf8");
 // The course's time zone, shown with the instructor's results (course.json).
 const COURSE_ZONE = JSON.parse(fs.readFileSync(path.join(here, "course.json"), "utf8")).timeZone;
+// The course settings (current lesson, required quizzes, notice) at the site
+// root. Decks with "lessons: true" fetch the file when they open, so a change
+// needs no rebuild; the copy built in is only for a first visit offline, and
+// is left out of the deck version, so changing it asks no one to reload.
+const SETTINGS_FILE = path.join(here, "..", "course-settings.json");
+const COURSE_SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8"));
+(function checkSettings(s) {
+  if (!Number.isInteger(s.currentLesson) || s.currentLesson < 2) throw new Error("course-settings.json: currentLesson must be a lesson number (2 or more)");
+  (s.required || []).forEach(function (r, k) {
+    if (!Number.isInteger(r.from) || !Number.isInteger(r.to) || r.from > r.to) throw new Error("course-settings.json: required[" + k + "] needs whole numbers from <= to");
+    if (r.due && isNaN(Date.parse(r.due))) throw new Error("course-settings.json: required[" + k + "].due is not a date");
+    // "set": when the instructor set or last changed this quiz (ISO time with offset); an
+    // attempt counts only if its last round came after it (Dashboard Desk, Oct 30, 2026).
+    if (r.set !== undefined && (typeof r.set !== "string" || !/[+-]\d\d:\d\d$|Z$/.test(r.set) || isNaN(Date.parse(r.set)))) throw new Error("course-settings.json: required[" + k + "].set must be a time with its offset");
+    // "dirs": which directions the quiz asks, "le" and/or "el"; missing means "le" only (D, Oct 30, 2026).
+    if (r.dirs !== undefined && (!Array.isArray(r.dirs) || !r.dirs.length || r.dirs.some(function (d) { return d !== "le" && d !== "el"; }))) throw new Error("course-settings.json: required[" + k + "].dirs must list \"le\" and/or \"el\"");
+  });
+  if (s.notice != null && typeof s.notice !== "string") throw new Error("course-settings.json: notice must be text");
+})(COURSE_SETTINGS);
 const glossary = require(path.join(here, "glossary.js"));
 const vocabulary = require(path.join(here, "vocabulary.js"));
 // Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
 // The Bases box counts them, not shown (instructor's card "Bases, as described", Oct 29, 2026).
 const latinRootsKeys = {};
-(require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
+// The Exercise decks accept Latin Roots' key words as synonyms. Until the
+// instructor has reviewed the per-form cards' key words, they take them from
+// the cards as they were before the split (tools/latin-roots-old-cards.json),
+// so their marking does not change with this release.
+(require(path.join(here, "tools", "latin-roots-old-cards.json")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
 });
 const UNCHECKED = "Claude, unchecked";
@@ -50,7 +73,7 @@ function groupsOf(entry, key) {
 // A Flashcard Deck card's word is its key; an Exercise Deck card gives it as
 // "vocab". Anything the card sets itself is kept (an override). A card may
 // name one sense ("sense": 2); otherwise every sense counts.
-function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" ? null : card.word); }
+function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" || deck.answer === "forms" ? null : card.word); }
 function resolveVocab(card, file, deck) {
   const key = vocabKey(card, deck);
   const out = Object.assign({}, card);
@@ -115,6 +138,20 @@ function resolveGlossary(card, file, deck) {
     out.word = card.forms || entry.forms;
     out.origin = card.examples || entry.examples || "";
     delete out.forms; delete out.examples;
+    if (card.groups) {
+      // A card made from the key-word review (Latin Roots, one card per form):
+      // its distinct meanings come with their key words and the lesson that
+      // teaches each, which may differ on a card joining two Latin words.
+      out.meaningGroups = card.groups.map(function (g) { return g.parts; });
+      out.meanings = card.groups.map(function (g) { return g.parts.join(" or "); });
+      out.keys = card.groups.map(function (g) {
+        if (!g.keys || !g.keys.length) throw new Error(file + ": \"" + card.id + "\" has a meaning with no key words");
+        return g.keys.slice();
+      });
+      out.meaningLessons = card.groups.map(function (g) { return g.lesson; });
+      delete out.groups; delete out.glossForms; delete out.glossMeanings; delete out.answerText;
+      return out;
+    }
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }
@@ -230,6 +267,7 @@ function splitExample(card, deck) {
 // end. If a key has to change (a label corrected), give the card "id" with
 // its old key.
 const FROZEN_KEYS = JSON.parse(fs.readFileSync(path.join(here, "card-keys.json"), "utf8"));
+const KEY_TABLE = JSON.parse(fs.readFileSync(path.join(here, "key-table.json"), "utf8"));
 function cardKey(c) { return c.id || c.gloss || c.vocab || c.word || c.label; }
 function checkKeys(deck, file) {
   const keys = deck.cards.map(cardKey);
@@ -238,6 +276,21 @@ function checkKeys(deck, file) {
     if (keys.indexOf(k) !== i) throw new Error(file + ": two cards share the key \"" + k + "\" (give one an \"id\")");
   });
   const frozen = FROZEN_KEYS[deck.id] || [];
+  // A deck with a key table (Latin Roots, one card per form) may split or join
+  // its frozen cards: each frozen key must still be a card, or lead through the
+  // table to cards that exist. Records by position then go through the frozen
+  // keys, so the order no longer matters.
+  const table = KEY_TABLE[deck.id];
+  if (table) {
+    frozen.forEach(function (k) {
+      const to = table.from[k] || [k];
+      to.forEach(function (t) { if (keys.indexOf(t) < 0) throw new Error(file + ": the frozen key \"" + k + "\" leads to \"" + t + "\", which is no card (key-table.json)"); });
+    });
+    Object.keys(table.from).forEach(function (k) {
+      if (keys.indexOf(k) >= 0 && table.from[k].indexOf(k) < 0) throw new Error(file + ": key-table.json moves \"" + k + "\" away, but it is still a card");
+    });
+    return { keys: keys, frozenCount: 0, frozenKeys: frozen, table: table };
+  }
   frozen.forEach(function (k, i) {
     if (keys[i] !== k) throw new Error(file + ": card " + (i + 1) + " must keep the key \"" + k + "\" (card-keys.json); new cards go at the end, and a changed label needs \"id\": \"" + k + "\"");
   });
@@ -264,6 +317,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   const { output, ...data } = deck;
   const cardKeys = checkKeys(deck, file);
   data.frozenCount = cardKeys.frozenCount;
+  if (cardKeys.table) { data.frozenKeys = cardKeys.frozenKeys; data.keyTable = cardKeys.table; }
   deck.cards.forEach(function (c) {
     const key = vocabKey(c, deck);
     if (!key) return;
@@ -273,6 +327,14 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     const out = splitExample(resolveParts(resolveGlossary(resolveVocab(c, file, deck), file, deck), file, deck), deck);
     delete out.id;
     out.k = cardKeys.keys[i];
+    // The lesson that teaches the card: the card's own "lesson" (the six
+    // cards the deck had before their lessons are shown from Lesson V), or
+    // its glossary entry's.
+    if (deck.lessons) {
+      const e = c.gloss ? glossary[c.gloss] : null;
+      out.lesson = c.lesson || (e && e.lessonNo);
+      if (!Number.isInteger(out.lesson)) throw new Error(file + ": card " + (i + 1) + " (" + (c.gloss || c.term) + ") has no lesson; give it \"lesson\": <number>");
+    }
     return out;
   });
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
@@ -283,6 +345,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     .split("{{DECK_PAGE}}").join(JSON.stringify(output).slice(1, -1))
     .split("{{TITLE}}").join(escHtml(deck.heading || deck.title))
     .split("{{COURSE_ZONE}}").join(COURSE_ZONE)
+    .replace("{{COURSE_SETTINGS}}", () => JSON.stringify(COURSE_SETTINGS).replace(/<\//g, "<\\/"))
     .replace("{{DECK_JSON}}", () => json);
   fs.writeFileSync(path.join(here, "..", output), html);
   console.log("built " + output + " (" + deck.cards.length + " cards)");

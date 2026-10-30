@@ -151,6 +151,148 @@
 
   .icon-btn:hover { background: rgba(0,0,0,0.04); }
 
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+
+  /* ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ---------- */
+  .lr-look #learnTabs, .lr-look #statusText, .lr-look #tagFront, .lr-look #tagBack, .lr-look #hintFront,
+  .lr-look #counter, .lr-look #quizCounter, .lr-look .sense-count, .lr-look #originLabel, .lr-look #footerHelp,
+  .lr-look #learnTools .icon-btn, .lr-look .toolbar { display: none !important; }
+  .lr-look .examples { font-size: 14px; }
+  .lr-row { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; position: relative; }
+  .lr-look .lesson-menu {
+    flex: 1 1 0; min-width: 0; min-height: 44px; font: 16px Georgia, serif; color: var(--ink);
+    border: 1.5px solid #8a7f68; border-radius: 6px; background: var(--card); padding: 0 10px;
+  }
+  .lr-chip {
+    flex: 1 1 0; min-width: 0; min-height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font: 16px Georgia, serif; padding: 0 4px; cursor: pointer;
+  }
+  .lr-chip[aria-pressed=true] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .lr-icon {
+    flex: none; width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--navy); font-size: 20px; line-height: 1; padding: 0; cursor: pointer;
+  }
+  .lr-icon.armed { background: #b3261e; border-color: #b3261e; color: #fff; }
+  .lr-tip { pointer-events: none; position: absolute; right: 0; top: 100%; margin-top: 4px; z-index: 5; background: #b3261e; color: #fff; font: 600 14px -apple-system, BlinkMacSystemFont, sans-serif; padding: 6px 10px; border-radius: 6px; }
+  .lr-meter { display: flex; width: 100%; min-height: 30px; align-items: center; padding: 0; border: 0; background: transparent; margin: 0 0 8px; position: relative; cursor: pointer; }
+  .lr-meter .lr-track { position: relative; display: flex; gap: 2px; width: 100%; height: 14px; border: 1px solid #8a7f68; border-radius: 7px; overflow: hidden; background: #efe7d8; }
+  .lr-meter .lr-track span { height: 12px; display: block; }
+  .lr-meter .l { background: #9a7a45; } .lr-meter .k { background: #5c6e4f; } .lr-meter .u { background: #e6dcc6; flex: 1; }
+  .lr-meter .lr-tick { position: absolute; top: 5px; width: 3px; height: 20px; margin-left: -1px; background: var(--navy); border-radius: 1px; }
+  .lr-meter[aria-pressed=true] .lr-track { outline: 2px solid #9a7a45; outline-offset: 2px; }
+  .lr-look .progress-track.lr-hide, .lr-hide { display: none !important; }
+  .lr-look .mastery-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lr-look .mastery-btn { width: 100%; max-width: none; margin: 0; min-height: 48px; }
+  .lr-look #learningBtn { border: 2px solid #9a7a45; }
+  .lr-look #deckScreen .name-line { display: none; }
+  .lr-open { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; padding-bottom: 16px; min-height: 100vh; min-height: 100svh; }
+  .lr-open h1 { margin: 0; text-align: center; }
+  .lr-open .lr-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .lr-open .lr-foot { display: flex; flex-direction: column; gap: 12px; }
+  .lr-update { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; background: var(--card); color: var(--navy); border: 2px solid var(--navy); border-radius: 8px; padding: 0 16px; font: 600 16px Georgia, serif; box-shadow: 0 2px 0 rgba(38,50,72,.35); cursor: pointer; }
+  .lr-notice { position: relative; border: 1px solid #8a6a36; background: #f6eedb; border-radius: 8px; padding: 10px 12px 10px 30px; font: 16px/1.45 Georgia, serif; color: var(--ink); }
+  .lr-notice .pin { position: absolute; left: 7px; top: 8px; font-size: 15px; }
+  .lr-info { font: 17px/1.4 Georgia, serif; color: var(--ink); text-align: center; margin: 0; }
+  .lr-who { display: flex; align-items: center; justify-content: center; gap: 10px; font: 16px Georgia, serif; color: var(--ink-soft); }
+  .lr-who button { position: relative; min-height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--rule); background: transparent; color: var(--navy); font: 15px Georgia, serif; cursor: pointer; }
+  .lr-who button::after { content: ""; position: absolute; inset: -7px -4px; }
+  .lr-start { min-height: 48px; border-radius: 8px; border: 0; background: var(--navy); color: #fff; font: 600 17px Georgia, serif; cursor: pointer; }
+  .lr-look .course-notice { display: none; }
+  .lr-qrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; padding: 6px 8px 6px 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); font: 17px Georgia, serif; color: var(--ink); }
+  .lr-qrow.due { border: 2px solid var(--burgundy); padding-top: 10px; padding-bottom: 10px; }
+  .lr-qrow .lr-due { display: block; font-size: 14px; color: var(--burgundy); margin-top: 4px; }
+  .lr-qrow .lr-dirs, .lr-qhead .lr-dirs { display: flex; gap: 28px; }
+  .lr-dir { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; padding: 0; border-radius: 22px; cursor: pointer; }
+  .lr-mark { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #6b6658; display: inline-flex; align-items: center; justify-content: center; }
+  .lr-mark.started { border-color: var(--navy); }
+  .lr-mark.done { background: #4f6b4a; border-color: #4f6b4a; color: #fff; font: 700 13px sans-serif; }
+  .lr-qhead { display: flex; justify-content: flex-end; padding: 0 8px; }
+  .lr-qhead b { width: 44px; text-align: center; font: 400 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink-soft); white-space: nowrap; display: flex; justify-content: center; }
+  .lr-look .quiz-list-head { text-align: center; font-weight: 700; }
+
+  /* English to Latin (approved look, round 9): dots for the forms asked on the
+     front; on the back, pills grouped by Latin word with a line between. */
+  .lr-dirsw { flex: 0 0 auto; min-height: 44px; padding: 0 12px; border: 1px solid #6b6658; border-radius: 8px; background: var(--card); font: 700 17px Georgia, serif; color: var(--navy); cursor: pointer; white-space: nowrap; }
+  .lr-dirsw span { color: #9a7a45; margin: 0 4px; }
+  .lr-dir-none { visibility: hidden; }
+  .en-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .en-dots i { width: 9px; height: 9px; border-radius: 50%; border: 2px solid #6b6658; display: block; }
+  .en-new { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #f0d48a; text-align: center; }
+  .en-back { display: flex; flex-direction: column; justify-content: space-evenly; min-height: 100%; width: 100%; gap: 14px; }
+  .en-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .en-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
+  .en-pill { font: italic 400 22px Georgia, serif; color: #f5ecd8; border: 1px solid #9a8a6a; border-radius: 999px; padding: 2px 14px; }
+  .en-eg { font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #d8d2c4; text-align: center; }
+  .en-rule { width: 100%; border: 0; border-top: 1px solid #8a7a5a; margin: 0; }
+  .forms .line-remove, .forms #addLineBtn { display: none !important; }
+  /* One full-width box per form, then a full-width Check (approved look). */
+  .forms #quizForm .quiz-row { display: block; border: 0; padding: 0; background: none; min-height: 0; }
+  .forms #quizForm .quiz-input { width: 100%; font-size: 18px; padding: 12px 14px; }
+  .forms #quizForm .more-lines .line-row { margin-top: 12px; }
+  .forms #quizForm #checkBtn { display: block; width: 100%; min-height: 48px; margin-top: 18px; }
+  .forms #quizForm .quiz-input.in-ok { background: #eef3e8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpath d='M3 10l5 5 9-10' stroke='%234f6b4a' stroke-width='3' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; }
+  .forms #quizForm .quiz-input.in-no { background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M3 3l12 12M15 3L3 15' stroke='%23b0322a' stroke-width='3'/%3E%3C/svg%3E") no-repeat right 14px center; }
+  .lr-instr { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); text-align: left; width: 100%; max-width: 34em; margin: 0 auto; }
+  .phone .lr-instr { grid-template-columns: 32px 1fr; }
+  .lr-instr p { margin: 0; }
+  #card #termFront.lr-instr { font: 400 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .lr-instr .ic { display: flex; align-items: center; justify-content: center; height: 28px; color: var(--navy); }
+  .lr-instr .ic.card { width: 22px; border: 2px solid var(--navy); border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.sw { font: 20px sans-serif; white-space: nowrap; letter-spacing: -2px; }
+  .lr-instr .ic.key { font: 600 15px sans-serif; border: 1.5px solid var(--navy); border-radius: 4px; width: 28px; height: 24px; margin: 0 auto; }
+  .lr-instr .ic.box { width: 28px; height: 18px; border: 1.5px solid #8a7f68; border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.ck { font: 700 18px sans-serif; color: #4f6b4a; }
+  .lr-instr .ic.sort { gap: 3px; } .lr-instr .ic.sort i { width: 14px; height: 14px; border-radius: 4px; border: 2px solid #9a7a45; } .lr-instr .ic.sort i + i { background: #5c6e4f; border-color: #5c6e4f; }
+  .lr-instr .ic.bar { gap: 2px; } .lr-instr .ic.bar i { height: 8px; border-radius: 2px; } .lr-instr .ic.bar i:nth-child(1) { width: 8px; background: #9a7a45; } .lr-instr .ic.bar i:nth-child(2) { width: 9px; background: #5c6e4f; } .lr-instr .ic.bar i:nth-child(3) { width: 12px; background: #e6dcc6; outline: 1px solid #8a7f68; }
+  .lr-look #card.lr-first .face-back { display: none; }
+  .lr-look #card.lr-first #quizForm { display: none; }
+  .lr-look .quiz-input.in-ok, .lr-look .line-input.in-ok { border: 2px solid #4f6b4a; background-color: #eef4ea; }
+  .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { border: 2px solid #b3261e; animation: lrshake .3s; }
+  @media (prefers-reduced-motion: reduce) { .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { animation: none; } }
+  @keyframes lrshake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  .lr-look #card.lr-locked .face-front { background: #ece8df; }
+  .lr-look #card.lr-locked #checkBtn { display: none; }
+  .lr-end { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 340px; padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; }
+  .lr-end-dots { margin: auto 0; display: grid; grid-template-columns: repeat(10, 16px); justify-content: center; gap: 10px; }
+  .lr-end-dots i { width: 16px; height: 16px; border-radius: 50%; } .lr-end-dots i.ok { background: #5c6e4f; } .lr-end-dots i.miss { border: 3px solid #9a7a45; }
+  .lr-end .lr-skip { background: none; border: 0; color: var(--navy); text-decoration: underline; font: 15px Georgia, serif; min-height: 44px; cursor: pointer; }
+
+  .lr-back { display: block; width: 100%; min-height: 44px; margin: 0 0 8px; border-radius: 8px; border: 2px solid var(--navy); background: var(--card); color: var(--navy); font: 600 16px Georgia, serif; cursor: pointer; }
+  .lr-back[hidden] { display: none; }
+  .lr-look #knownBtn:not(:disabled) { background: #56684a; border-color: #56684a; }
+
+  /* Lessons decks: the lesson menu, the course notice and the quiz list */
+  .lesson-menu {
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    background: transparent;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    min-height: 32px;
+  }
+  .course-notice {
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .quiz-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .quiz-list-head { font-size: 13px; color: var(--ink-soft); margin: 10px 0 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .quiz-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    width: 100%; text-align: left; min-height: 44px;
+    background: none; border: 1px solid var(--rule); border-radius: 8px;
+    padding: 8px 12px; font: inherit; color: var(--ink); cursor: pointer;
+  }
+  .quiz-row:hover { background: rgba(0,0,0,0.04); }
+  .quiz-row .qr-state { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+
   /* Progress bar */
   .progress-track {
     width: 100%;
@@ -727,6 +869,14 @@
   .phone #deckScreen { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
   .phone #deckScreen footer { margin-top: 0; }
   .phone.typing #quizControls { display: none; }
+  /* The approved look: phones move on by swipe, and the Next control stays
+     for screen readers, switches and keyboards only, not drawn on screen
+     (external review form, Oct 30, 2026). */
+  .phone.lr-look #quizControls, .phone.lr-look.typing #quizControls {
+    display: flex; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; box-shadow: none;
+  }
+  .phone.lr-look #quizControls[hidden] { display: none; }
 
   /* Exercise Decks (Quiz only): the exercise's instruction, the question,
      tappable answer options, and the answer on the back. */
@@ -919,12 +1069,17 @@
   <div class="toolbar">
     <span id="statusText"></span>
     <div class="toolbar-right" id="learnTools">
+      <select class="lesson-menu" id="lessonMenu" aria-label="Lesson" hidden></select>
+      <button class="icon-btn" id="breakBackBtn" hidden>Back to the Quiz</button>
       <button class="icon-btn" id="shuffleBtn">Shuffle</button>
       <button class="icon-btn" id="resetBtn">Reset progress</button>
     </div>
   </div>
 
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="course-notice" id="courseNotice" role="status" hidden></div>
+  <div class="sr-only" id="liveNote" aria-live="polite"></div>
 
   <div class="quiz-panel" id="quizPanel" hidden></div>
 
@@ -1602,7 +1757,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "8a37ea822890";
+  const DECK_VERSION = "89ffb7df3535";
   const DECK_PAGE = "Greek Lesson III Exercise.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -1614,9 +1769,10 @@
   const CARDS = DECK.cards;
   const N = CARDS.length;
   const ID = DECK.id;
-  // Decks of glossary entries (Latin Roots) send each card's element key ("e")
-  // beside its position ("i") to the Sheet (release A, Oct 28, 2026).
-  const SEND_KEYS = DECK.answer === "meanings";
+  // Decks of glossary entries (Latin Roots, both directions) send each card's
+  // key ("e") beside its position ("i") to the Sheet (release A, Oct 28, 2026;
+  // English to Latin added at the Dashboard Desk's request, Oct 30).
+  const SEND_KEYS = DECK.answer === "meanings" || DECK.answer === "forms";
   // Touchscreens (phones and tablets) swipe between cards.
   const TOUCH = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   // Exercise Decks have Quiz mode only. Each card is a question: "choice"
@@ -1625,10 +1781,16 @@
   // quiz resumes where it stopped.
   const EXERCISE = DECK.type === "exercise";
   // A Flashcard Deck can also quiz the selected tab (Latin Roots).
-  const QUIZ_BY_SET = EXERCISE || !!DECK.quizBySet;
+  // A lessons deck (Latin Roots, Lesson Filter release) keeps a quiz for each
+  // lesson, for each required range and for every lesson so far.
+  const QUIZ_BY_SET = EXERCISE || !!DECK.quizBySet || !!DECK.lessons;
   // Latin Roots: the answer is the card's list of meanings, typed one per
   // line, and every meaning is required.
   const MEANINGS = DECK.answer === "meanings";
+  // English to Latin (Lesson Filter release): the card shows a meaning and the
+  // student types each Latin form taught so far, one box per form, any order.
+  const FORMS = DECK.answer === "forms";
+  const LINES = MEANINGS || FORMS;
   // The answer-effort rules (a real attempt before Check, the back hidden
   // until right, a missed card back only after 3 others) hold in every
   // deck's quiz: Exercise Decks since Oct 21, 2026, and Latin Roots, Greek
@@ -1637,6 +1799,50 @@
   const NOUN = DECK.noun || "word";
   const CATS = {};
   (DECK.categories || []).forEach(function (c) { CATS[c.key] = c; });
+
+  // ---------- Lessons (Lesson Filter release) ----------
+  // A deck with "lessons: true" shows each card from its lesson on. The
+  // current lesson comes from course-settings.json at the site root, fetched
+  // when the deck opens and when the student comes back to it; the last good
+  // copy is kept on this device, and the copy built into the page is used only
+  // before any fetch has worked. A change of lesson waits while a Learn pass or
+  // a quiz round is open right now.
+  const LESSONS = !!DECK.lessons;
+  const SETTINGS_KEY = ID + "__settings";
+  const BUILT_SETTINGS = {"currentLesson":13,"required":[{"from":2,"to":10,"due":"2026-11-06T23:59:00-06:00"}],"notice":""};
+  function goodSettings(s) {
+    return !!s && typeof s === "object" && Number.isInteger(s.currentLesson) && s.currentLesson >= 2 &&
+      (s.required == null || Array.isArray(s.required)) && (s.notice == null || typeof s.notice === "string");
+  }
+  let settings = BUILT_SETTINGS;
+  try {
+    const kept = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
+    if (goodSettings(kept)) settings = kept;
+  } catch (e) { /* no storage: the built copy */ }
+  let pendingSettings = null;
+  let currentLesson = settings.currentLesson;
+  // The lessons that have cards, oldest first, and the shown ones.
+  const ALL_LESSONS = LESSONS ? CARDS.map(function (c) { return c.lesson; })
+    .filter(function (n, k, a) { return a.indexOf(n) === k; }).sort(function (a, b) { return a - b; }) : [];
+  function shownLessons() { return ALL_LESSONS.filter(function (n) { return n <= currentLesson; }); }
+  function visible(i) { return !LESSONS || CARDS[i].lesson <= currentLesson; }
+  let lessonPick = 0; // Learn's lesson menu: 0 = every lesson so far, else every lesson up to this one
+  function roman(n) {
+    const R = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+    let out = "";
+    R.forEach(function (r) { while (n >= r[0]) { out += r[1]; n -= r[0]; } });
+    return out;
+  }
+  function lessonRange(from, to) { return from === to ? "Lesson " + roman(from) : "Lessons " + roman(from) + "–" + roman(to); }
+  // Quiz sets of a lessons deck: "all" (every lesson so far), "L<n>" (one
+  // lesson) and "R<from>-<to>" (a required quiz on a range of lessons).
+  function setRange(key) {
+    let m = /^L(\d+)$/.exec(key);
+    if (m) return { from: +m[1], to: +m[1] };
+    m = /^R(\d+)-(\d+)$/.exec(key);
+    if (m) return { from: +m[1], to: +m[2] };
+    return null;
+  }
 
   // ---------- Answer judging ----------
   // A typed answer is correct when, for at least one of the word's senses,
@@ -1936,6 +2142,76 @@
     return out;
   }
 
+  // A meaning is asked once its lesson is taught: a card joining two Latin
+  // words asks the later word's meanings from its lesson on (D, Oct 30, 2026).
+  function meaningOn(card, m) {
+    return !LESSONS || !card.meaningLessons || !(card.meaningLessons[m] > currentLesson);
+  }
+  // The forms a card asks for: those taught up to the current lesson.
+  function formsOn(card) {
+    return (card.forms || []).filter(function (f) { return !LESSONS || !(f.lesson > currentLesson); });
+  }
+  // Each box is matched to one wanted form, in any order. Capitals, hyphens
+  // and brackets are ignored; optional letters count either way (DECI(M)-:
+  // deci or decim). Every form taught so far is required.
+  function judgeForms(cardIdx, vals) {
+    const want = formsOn(CARDS[cardIdx]);
+    const v = (Array.isArray(vals) ? vals : [vals]).map(function (x) { return String(x || ""); });
+    if (!v.some(function (x) { return x.trim(); })) return { empty: true };
+    const used = want.map(function () { return false; });
+    const rows = v.map(function (x) {
+      const t = x.toUpperCase().replace(/[^A-Z]/g, "");
+      if (!t) return { text: x, ok: false, blank: true };
+      const k = want.findIndex(function (f, i) { return !used[i] && f.spellings.indexOf(t) >= 0; });
+      if (k >= 0) { used[k] = true; return { text: x, ok: true, form: k }; }
+      return { text: x, ok: false };
+    });
+    return { ok: used.every(Boolean), got: used, rows: rows };
+  }
+  function judgeLines(cardIdx, vals) { return FORMS ? judgeForms(cardIdx, vals) : judgeMeanings(cardIdx, vals); }
+  // The back of an English to Latin card: its forms as pills, grouped by Latin
+  // word with a line between groups, each group's examples beneath it.
+  // English to Latin (build plan, Oct 28, 2026): a Know It card that gains a
+  // form at a later lesson returns to Still Learning, with a note on the back
+  // naming the new form.
+  function growForms() {
+    if (!FORMS || !LESSONS) return;
+    let changed = false;
+    known.forEach(function (i) {
+      const m = markSrc[i];
+      if (!m || !Number.isInteger(m.l)) return;
+      const added = formsOn(CARDS[i]).filter(function (f) { return f.lesson > m.l; });
+      if (!added.length) return;
+      known.delete(i); learningMarked.add(i);
+      markSrc[i] = { s: m.s, d: localDay(), t: Date.now(), l: currentLesson, g: added.map(function (f) { return f.form; }).join(", ") };
+      changed = true;
+    });
+    if (changed) saveMarks();
+  }
+  function fillForms(node, item) {
+    node.innerHTML = "";
+    const gm = markSrc[CARDS.indexOf(item)];
+    const groups = [];
+    formsOn(item).forEach(function (f) {
+      let g = groups.find(function (x) { return x.word === f.word; });
+      if (!g) { g = { word: f.word, forms: [], examples: f.examples }; groups.push(g); }
+      g.forms.push(f.form);
+    });
+    const box = el("div", "en-back");
+    if (gm && gm.g && learningMarked.has(CARDS.indexOf(item))) box.appendChild(el("div", "en-new", "New form: " + gm.g));
+    groups.forEach(function (g, k) {
+      if (k) box.appendChild(el("hr", "en-rule"));
+      const d = el("div", "en-group");
+      const pills = el("div", "en-pills");
+      g.forms.forEach(function (f) { pills.appendChild(el("span", "en-pill", f)); });
+      d.appendChild(pills);
+      if (g.examples) d.appendChild(el("div", "en-eg", g.examples));
+      box.appendChild(d);
+    });
+    node.appendChild(box);
+  }
+  function fillBack(node, item, res) { if (FORMS) fillForms(node, item); else fillMeanings(node, item, res); }
+
   function judgeMeanings(cardIdx, lines) {
     const card = CARDS[cardIdx];
     const pieces = meaningPieces(lines);
@@ -1952,7 +2228,7 @@
     }
     function ownHits(toks, loose) {
       const hits = [];
-      card.keyTerms.forEach(function (list, m) { if (listHit(list, toks, loose)) hits.push(m); });
+      card.keyTerms.forEach(function (list, m) { if (meaningOn(card, m) && listHit(list, toks, loose)) hits.push(m); });
       return hits;
     }
     const rows = pieces.map(function (p) {
@@ -1960,7 +2236,9 @@
       let hits = ownHits(toks, false);
       let other = null;
       const onlyFiller = toTokens(p).every(function (w) { return FILLER.indexOf(w) >= 0; });
-      if (!hits.length && !onlyFiller) {
+      // A meaning of this card not yet taught is neither right nor a mix-up.
+      const later = !hits.length && card.keyTerms.some(function (list, m) { return !meaningOn(card, m) && listHit(list, toks, false); });
+      if (!hits.length && !onlyFiller && !later) {
         for (let j = 0; j < N && !other; j++) {
           if (j === cardIdx || !CARDS[j].keyTerms) continue;
           if (CARDS[j].keyTerms.some(function (list) { return listHit(list, toks, false); })) other = CARDS[j].word;
@@ -1986,7 +2264,7 @@
     const got = owner.map(function (r) { return r >= 0; });
     const mixedRow = rows.find(function (r) { return r.other; });
     const mixed = mixedRow ? mixedRow.other : null;
-    return { ok: got.every(Boolean) && !mixed, mixed: mixed, got: got, rows: rows };
+    return { ok: got.every(function (g, m) { return g || !meaningOn(card, m); }) && !mixed, mixed: mixed, got: got, rows: rows };
   }
 
   // Exercise Decks: a tapped option is right when it is the answer; a typed
@@ -2295,6 +2573,8 @@
       // A quiz keeps its positions in step with its answers: a card that
       // cannot be placed spoils the quiz (it is then dropped as invalid).
       if (Array.isArray(q.order)) r.order = q.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
+      ["list", "right", "asked", "missedLast"].forEach(function (k) { if (Array.isArray(q[k])) r[k] = list(q[k]); });
+      if (q.misses && typeof q.misses === "object") r.misses = map(q.misses);
       if (q.next && typeof q.next === "object") {
         r.next = Object.assign({}, q.next);
         if (Array.isArray(q.next.order)) r.next.order = q.next.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
@@ -2329,8 +2609,117 @@
   // that v1 record is newer and is moved again. Records moved are written
   // to v2 at once; "from" is written last, so a move that fails partway is
   // simply run again next time.
+  // One card per form (Lesson Filter release, Oct 30, 2026): a deck with a key
+  // table moves each record through card keys. An old position goes to the key
+  // it had (card-keys.json, frozen when records moved to keys); an old key goes
+  // to its new cards (key-table.json), once, filling only cards the student
+  // has no record of. A joined card starts as Know It only when every card it
+  // joins was Know It. A Learn pass or quiz under way keeps its length: each
+  // old card becomes its first new card there.
+  const KEY_TABLE = DECK.keyTable || null, FROZEN_KEYS = DECK.frozenKeys || [];
+  function v1Key(i) { i = +i; return Number.isInteger(i) && i >= 0 && i < FROZEN_KEYS.length ? FROZEN_KEYS[i] : null; }
+  function asKey(k) { return typeof k === "string" && k ? k : null; }
+  // The card an old one becomes in a pass or quiz: the same key, else the one
+  // its key begins with (IN-not becomes IN), else the first.
+  function firstKey(k) {
+    const from = KEY_TABLE ? KEY_TABLE.from : {};
+    if (!Object.prototype.hasOwnProperty.call(from, k)) return k;
+    const to = from[k];
+    if (to.indexOf(k) >= 0) return k;
+    const pre = to.filter(function (t) { return k.indexOf(t + "-") === 0; });
+    return pre.length ? pre[0] : to[0];
+  }
+  // The cards a quiz on the whole deck covered before the split.
+  const OLD_CARDS = new Set(KEY_TABLE ? FROZEN_KEYS.map(firstKey).map(function (k) { return KEY_IDX[k]; }).filter(function (i) { return i != null; }) : []);
+  // full: the first copy for this student. Otherwise only keys that are no
+  // longer cards are copied (IN-not, written again by a tab still open on the
+  // earlier deck), so it is safe to run on every load: a key that is still a
+  // card (CUR, AB, CAD) is the student's own mark and is never recomputed,
+  // and a new card the student has marked keeps its mark.
+  function splitCopy(rec, full) {
+    if (!KEY_TABLE) return false;
+    const from = KEY_TABLE.from, needAll = KEY_TABLE.needAll || {};
+    const has = function (o, k) { return Object.prototype.hasOwnProperty.call(from, k) && o !== false && (full || !Object.prototype.hasOwnProperty.call(KEY_IDX, k)); };
+    let changed = false;
+    const K = new Set(Array.isArray(rec.known) ? rec.known : []), L = new Set(Array.isArray(rec.learning) ? rec.learning : []);
+    const oldK = new Set(), oldL = new Set();
+    K.forEach(function (k) { if (has(true, k)) oldK.add(k); });
+    L.forEach(function (k) { if (has(true, k)) oldL.add(k); });
+    if (oldK.size || oldL.size) {
+      changed = true;
+      const targets = new Set();
+      oldK.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      oldL.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      targets.forEach(function (t) {
+        if (K.has(t) && !oldK.has(t) || L.has(t) && !oldL.has(t)) return; // the student's own mark on the new card stands
+        const srcs = Object.keys(from).filter(function (o) { return from[o].indexOf(t) >= 0 && (oldK.has(o) || oldL.has(o)); });
+        let knowIt;
+        if (needAll[t] && full) knowIt = needAll[t].every(function (o) { return o && oldK.has(o) && !oldL.has(o); });
+        else if (needAll[t]) knowIt = needAll[t].every(function (o) { return o && K.has(o) && !L.has(o); });
+        else knowIt = srcs.every(function (o) { return oldK.has(o); });
+        if (knowIt) { K.add(t); L.delete(t); } else { L.add(t); K.delete(t); }
+      });
+      oldK.forEach(function (k) { if (from[k].indexOf(k) < 0) K.delete(k); });
+      oldL.forEach(function (k) { if (from[k].indexOf(k) < 0) L.delete(k); });
+      // An old key that is also a new card (CAD stays CAD) keeps its own mark.
+      rec.known = Array.from(K); rec.learning = Array.from(L);
+    }
+    function spread(o, copy) {
+      if (!o || typeof o !== "object") return o;
+      Object.keys(o).forEach(function (k) {
+        if (!has(true, k)) return;
+        from[k].forEach(function (t) { if (t !== k && !Object.prototype.hasOwnProperty.call(o, t)) o[t] = copy(o[k]); });
+        if (from[k].indexOf(k) < 0) delete o[k];
+        changed = true;
+      });
+      return o;
+    }
+    const same = function (v) { return v && typeof v === "object" ? Object.assign({}, v) : v; };
+    if (rec.marks) spread(rec.marks, same);
+    if (rec.spacing && rec.spacing.miss) spread(rec.spacing.miss, same);
+    function first(k) {
+      if (!has(true, k)) return k;
+      changed = true;
+      return firstKey(k);
+    }
+    function uniq(a) { return Array.isArray(a) ? a.map(first).filter(function (x, i, arr) { return arr.indexOf(x) === i; }) : a; }
+    if (rec.pass) ["list", "seen", "marked"].forEach(function (f) { rec.pass[f] = uniq(rec.pass[f]); });
+    function quizKeys(q) {
+      if (!q || typeof q !== "object") return;
+      if (Array.isArray(q.order)) q.order = q.order.map(first);
+      ["list", "right", "asked", "missedLast"].forEach(function (f) { q[f] = uniq(q[f]); });
+      if (q.next && Array.isArray(q.next.order)) q.next.order = q.next.order.map(first);
+      if (q.misses && typeof q.misses === "object") {
+        const m = {};
+        Object.keys(q.misses).forEach(function (k) { const t = first(k); m[t] = Math.max(m[t] || 0, q.misses[k] || 0); });
+        q.misses = m;
+      }
+    }
+    quizKeys(rec.quiz);
+    if (rec.quizzes) Object.keys(rec.quizzes).forEach(function (k) { quizKeys(rec.quizzes[k]); });
+    return changed;
+  }
+  // Code added later (the Practice Cards build) registers here to run once per
+  // load, after the split copy: fn({ sl, keyMap, state }).
+  const SPLIT_HOOKS = [];
+  function afterSplitCopy(fn) { if (typeof fn === "function") SPLIT_HOOKS.push(fn); }
+  // An element in an answer box (CID-, "cid") to its card, and every card of a
+  // glossary entry: shared by Latin Roots and, later, the Exercise decks.
+  const CARD_BY_SPELLING = {};
+  CARDS.forEach(function (c, i) { (c.spellings || []).forEach(function (sp) { const k = sp.toUpperCase(); if (!(k in CARD_BY_SPELLING)) CARD_BY_SPELLING[k] = i; }); });
+  function cardFor(element) {
+    const k = String(element || "").toUpperCase().replace(/[^A-Z]/g, "");
+    return Object.prototype.hasOwnProperty.call(CARD_BY_SPELLING, k) ? CARD_BY_SPELLING[k] : -1;
+  }
+  function cardsForEntry(gloss) {
+    const out = [];
+    CARDS.forEach(function (c, i) { if (c.gloss === gloss || (c.glosses || []).indexOf(gloss) >= 0) out.push(i); });
+    return out;
+  }
+
   function readStores(sl) {
     const k1 = storageKeys(sl, "v1"), k2 = storageKeys(sl, "v2");
+    if (KEY_TABLE) return readStoresByKey(sl, k1, k2);
     let from = null;
     try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
     if (!from || typeof from !== "object") from = null;
@@ -2360,11 +2749,74 @@
     return out;
   }
 
+  // readStores for a deck with a key table: every record is read as keys, the
+  // split copy runs, and records changed are written back to v2 at once.
+  function readStoresByKey(sl, k1, k2) {
+    let from = null;
+    try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
+    if (!from || typeof from !== "object") from = null;
+    const rec = {}, moved = {};
+    STORES.forEach(function (s) {
+      let raw1 = null;
+      try { raw1 = localStorage.getItem(k1[s]); } catch (e) { raw1 = null; }
+      const h = rawHash(raw1);
+      try {
+        if (from && from[s] === h) rec[s] = convertStore(s, JSON.parse(localStorage.getItem(k2[s]) || "null"), asKey);
+        else { rec[s] = convertStore(s, JSON.parse(raw1 || "null"), v1Key); moved[s] = h; }
+      } catch (e) { rec[s] = null; }
+    });
+    // The full split copy runs once per student. After that, only keys that
+    // are no longer cards are copied (see splitCopy), so a mark the student
+    // makes later is never undone, even when the key table changes.
+    const doneKey = ID + "_splitDone_v2__" + sl, tableHash = rawHash(JSON.stringify(KEY_TABLE));
+    let done = null;
+    try { done = localStorage.getItem(doneKey); } catch (e) { done = null; }
+    const split = splitCopy(rec, !done);
+    const out = {};
+    STORES.forEach(function (s) { out[s] = convertStore(s, rec[s], fromKey); });
+    if (!presenterMode && (split || Object.keys(moved).length || done !== tableHash)) {
+      try {
+        STORES.forEach(function (s) {
+          if (!split && !(s in moved)) return;
+          // Keys this page does not know (a later lesson's cards) are kept as stored.
+          const v = out[s] == null ? null : keepUnknown(s, convertStore(s, out[s], toKey), rec[s], 0);
+          if (v == null) localStorage.removeItem(k2[s]);
+          else localStorage.setItem(k2[s], JSON.stringify(v));
+        });
+        localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
+        // Written last, so a copy that fails partway runs in full again.
+        localStorage.setItem(doneKey, tableHash);
+      } catch (e) { /* storage full or blocked: carry on with what was read */ }
+    }
+    return out;
+  }
+
+  // Marks on cards this page does not know (a later lesson's cards, saved by
+  // a tab on a newer deck; an old key a tab on the earlier deck wrote, which
+  // the next load copies) are kept as stored, so a save never erases them.
+  // A Reset drops those made before it. stored: the record as keys.
+  function keepUnknown(s, val, stored, reset) {
+    if (s !== "known" && s !== "learning" && s !== "marks") return val;
+    if (!stored || typeof stored !== "object") return val;
+    const own = function (k) { return Object.prototype.hasOwnProperty.call(KEY_IDX, k); };
+    let marks = null;
+    try { marks = s === "marks" ? stored : JSON.parse(localStorage.getItem(storageKeys(currentSlug).marks) || "null"); } catch (e) { marks = null; }
+    const live = function (k) { if (!reset) return true; const m = marks && marks[k]; return !!(m && m.t > reset); };
+    if (Array.isArray(stored)) {
+      const extra = stored.filter(function (k) { return typeof k === "string" && !own(k) && live(k) && val.indexOf(k) < 0; });
+      return extra.length ? val.concat(extra) : val;
+    }
+    const r = Object.assign({}, val);
+    Object.keys(stored).forEach(function (k) { if (!own(k) && live(k) && !(k in r)) r[k] = stored[k]; });
+    return r;
+  }
   // Write one record (in working form) to its v2 name, cards by key.
   function writeStore(s, val) {
     const k = storageKeys(currentSlug)[s];
-    if (val == null) localStorage.removeItem(k);
-    else localStorage.setItem(k, JSON.stringify(convertStore(s, val, toKey)));
+    if (val == null) { localStorage.removeItem(k); return; }
+    let stored = null;
+    if (s === "known" || s === "learning" || s === "marks") { try { stored = JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { stored = null; } }
+    localStorage.setItem(k, JSON.stringify(keepUnknown(s, convertStore(s, val, toKey), stored, resetAt)));
   }
 
   const LAST_NAME_KEY = ID + "_lastName";
@@ -2385,6 +2837,7 @@
   const PASS_IDLE_MS = 60 * 60000; // a pass left this long counts as unfinished when the deck next opens
   let quiz = null;             // the quiz in progress, or null
   let quizzes = {};            // Exercise Decks: the quiz for each tab
+  let quizSeenAt = 0;          // one-quiz decks: when the quiz this tab last saved or read was saved
 
   function validIdx(i) { return Number.isInteger(i) && i >= 0 && i < N; }
 
@@ -2398,7 +2851,9 @@
     markSrc = {};
     quiz = null;
     quizzes = {};
+    quizSeenAt = 0;
     spacing = { n: 0, miss: {} };
+    try { resetAt = +localStorage.getItem(ID + "_resetAt_v2__" + currentSlug) || 0; } catch (e) { resetAt = 0; }
     let hadRecord = false;
     try {
       const rec = readStores(currentSlug);
@@ -2426,7 +2881,7 @@
       const rawS = rec.marks;
       if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
         const m = rawS[k];
-        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) markSrc[+k] = { s: m.s, d: String(m.d || "") };
+        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) { markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t; if (Number.isInteger(m.l)) markSrc[+k].l = m.l; if (typeof m.g === "string") markSrc[+k].g = m.g; }
       });
       if (QUIZ_BY_SET) {
         quizzes = {};
@@ -2435,6 +2890,13 @@
           const q = validQuiz(rawM[k]);
           if (q && q.set === k) quizzes[k] = q;
         });
+        // A lessons deck keeps the whole-deck quiz saved before the release
+        // as its quiz on every lesson so far; its cards stay as they were.
+        if (LESSONS && !quizzes.all && rec.quiz) {
+          const q = validQuiz(rec.quiz);
+          if (q) { q.set = "all"; q.size = q.size || q.order.length; if (!q.lesson) q.lesson = currentLesson; quizzes.all = q; }
+          if (!presenterMode) { writeStore("quizzes", quizzes); writeStore("quiz", null); }
+        }
       } else {
         if (rec.quiz) quiz = validQuiz(rec.quiz);
         // A deck that stopped quizzing by tab (Latin Roots, Oct 12, 2026) keeps an unfinished All quiz.
@@ -2445,7 +2907,13 @@
       }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
+    quizSeenAt = quiz && quiz.savedAt || 0;
+    SPLIT_HOOKS.forEach(function (fn) {
+      try { fn({ sl: currentSlug, keyMap: KEY_TABLE ? KEY_TABLE.from : {}, state: { known: known, learning: learningMarked, marks: markSrc } }); }
+      catch (e) { /* a hook that fails leaves the records as they are */ }
+    });
     remarkSaved();
+    growForms();
     // A pass left unfinished on an earlier visit is reported now.
     if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
   }
@@ -2469,6 +2937,7 @@
         const r = judgeExercise(idx, ans.a);
         if (!r.ok) return;
         ans.ok = true; ans.mixed = null;
+        if (Array.isArray(q.right) && q.right.indexOf(idx) < 0) q.right.push(idx);
         known.add(idx); learningMarked.delete(idx);
         changed = true;
       });
@@ -2481,6 +2950,7 @@
     p.list = p.list.filter(validIdx);
     p.seen = p.seen.filter(validIdx);
     p.marked = Array.isArray(p.marked) ? p.marked.filter(validIdx) : [];
+    if (!Number.isInteger(p.lesson)) delete p.lesson;
     p.last = +p.last || 0;
     p.start = p.start ? +p.start : null;
     return p.list.length ? p : null;
@@ -2494,10 +2964,18 @@
     // per student under its own keys; they carry over as they are.
     if (DECK.legacy.knownPrefix) {
       try {
-        const k = JSON.parse(localStorage.getItem(DECK.legacy.knownPrefix + currentSlug) || "null");
-        const l = JSON.parse(localStorage.getItem(DECK.legacy.learningPrefix + currentSlug) || "null");
-        if (Array.isArray(k)) k.map(fromV1).filter(validIdx).forEach(function (i) { known.add(i); });
-        if (Array.isArray(l)) l.map(fromV1).filter(validIdx).forEach(function (i) { if (!known.has(i)) learningMarked.add(i); });
+        let k = JSON.parse(localStorage.getItem(DECK.legacy.knownPrefix + currentSlug) || "null");
+        let l = JSON.parse(localStorage.getItem(DECK.legacy.learningPrefix + currentSlug) || "null");
+        if (KEY_TABLE) {
+          // Positions on the earlier page go to their keys, then through the split copy.
+          const rec = { known: Array.isArray(k) ? k.map(v1Key).filter(Boolean) : [], learning: Array.isArray(l) ? l.map(v1Key).filter(Boolean) : [] };
+          splitCopy(rec, true);
+          k = rec.known.map(fromKey); l = rec.learning.map(fromKey);
+        } else {
+          k = Array.isArray(k) ? k.map(fromV1) : []; l = Array.isArray(l) ? l.map(fromV1) : [];
+        }
+        k.filter(validIdx).forEach(function (i) { known.add(i); });
+        l.filter(validIdx).forEach(function (i) { if (!known.has(i)) learningMarked.add(i); });
         if (known.size || learningMarked.size) { saveKnown(); saveLearning(); }
       } catch (e) { /* ignore */ }
       return;
@@ -2520,25 +2998,78 @@
     q.pos = Math.min(Math.max(0, q.pos | 0), q.order.length - 1);
     q.round = Math.max(1, q.round | 0);
     if (q.review && !(Array.isArray(q.review) && q.review.length === q.order.length)) delete q.review;
+    ["list", "right", "asked", "missedLast"].forEach(function (k) { if (q[k] != null) q[k] = Array.isArray(q[k]) ? q[k].filter(validIdx) : null; if (!q[k]) delete q[k]; });
+    if (!Array.isArray(q.tries) || q.tries.length !== q.order.length) q.tries = q.order.map(function () { return 0; });
+    if (!Array.isArray(q.first) || q.first.length !== q.order.length) q.first = q.order.map(function () { return null; });
     const nx = q.next;
     if (nx && !(Array.isArray(nx.order) && nx.order.length && nx.order.every(validIdx) && Array.isArray(nx.review) && nx.review.length === nx.order.length)) delete q.next;
-    return q;
+    return upgradeQuiz(q);
   }
 
-  function saveKnown() {
+  // Saves merge, never replace (D, Oct 29, 2026): before writing, a tab reads
+  // what is stored, and for each card the newer mark wins (each mark carries
+  // its time, t). A mark from before times were kept counts as older than any
+  // timed one. A Reset is kept with its time, so marks made before it in
+  // another tab don't come back.
+  let resetAt = 0;
+  function resetKey() { return ID + "_resetAt_v2__" + currentSlug; }
+  function readKeyed(s) {
+    try { return convertStore(s, JSON.parse(localStorage.getItem(storageKeys(currentSlug)[s]) || "null"), fromKey); }
+    catch (e) { return null; }
+  }
+  function syncMarks() {
+    let stReset = 0;
+    try { stReset = +localStorage.getItem(resetKey()) || 0; } catch (e) { stReset = 0; }
+    if (stReset > resetAt) {
+      // Another tab reset after this one read: marks here from before it go.
+      Object.keys(markSrc).forEach(function (k) { if (!(markSrc[k].t > stReset)) { known.delete(+k); learningMarked.delete(+k); delete markSrc[k]; } });
+      known.forEach(function (i) { if (!markSrc[i]) known.delete(i); });
+      learningMarked.forEach(function (i) { if (!markSrc[i]) learningMarked.delete(i); });
+      resetAt = stReset;
+    }
+    const sk = readKeyed("known"), sl = readKeyed("learning"), sm = readKeyed("marks") || {};
+    if (!Array.isArray(sk) && !Array.isArray(sl)) return;
+    const K = new Set((sk || []).filter(validIdx)), L = new Set((sl || []).filter(validIdx));
+    const cards = new Set([].concat(Array.from(K), Array.from(L), Object.keys(sm).map(Number)));
+    cards.forEach(function (i) {
+      if (!validIdx(i)) return;
+      const st = sm[i] && typeof sm[i].t === "number" ? sm[i].t : 0;
+      const mt = markSrc[i] && typeof markSrc[i].t === "number" ? markSrc[i].t : 0;
+      const mine = known.has(i) || learningMarked.has(i);
+      if (st > mt || (!st && !mt && !mine && !resetAt)) {
+        if (st && st <= resetAt) return;
+        known.delete(i); learningMarked.delete(i);
+        if (K.has(i)) known.add(i); else if (L.has(i)) learningMarked.add(i);
+        if (sm[i]) markSrc[i] = Object.assign({}, sm[i]);
+      }
+    });
+  }
+  function saveMarks() {
     if (presenterMode) return;  // teacher mode stores nothing
-    try { writeStore("known", [...known]); }
-    catch (e) { /* ignore */ }
+    try {
+      syncMarks();
+      writeStore("known", [...known]);
+      writeStore("learning", [...learningMarked]);
+      writeStore("marks", markSrc);
+    } catch (e) { /* ignore */ }
   }
+  function saveKnown() { saveMarks(); }
+  function saveLearning() { saveMarks(); }
 
-  function saveLearning() {
-    if (presenterMode) return;  // teacher mode stores nothing
-    try { writeStore("learning", [...learningMarked]); }
-    catch (e) { /* ignore */ }
-  }
-
+  // A Learn pass: the same pass open in two tabs keeps the cards seen and
+  // marked in both; a newer pass begun in another tab is taken up.
   function saveLearnPass() {
-    try { writeStore("pass", learnPass); } catch (e) { /* ignore */ }
+    if (presenterMode) return;
+    try {
+      const st = validPass(readKeyed("pass"));
+      if (st && learnPass && st.start === learnPass.start) {
+        st.seen.forEach(function (i) { if (learnPass.seen.indexOf(i) < 0) learnPass.seen.push(i); });
+        st.marked.forEach(function (i) { if (learnPass.marked.indexOf(i) < 0) learnPass.marked.push(i); });
+        learnPass.last = Math.max(learnPass.last || 0, st.last || 0);
+      } else if (st && learnPass && (st.start || 0) > (learnPass.start || 0) && st.tab === learnPass.tab && st.lesson === learnPass.lesson) learnPass = st;
+      // A pass on another set, begun in another tab, is left to that tab.
+      writeStore("pass", learnPass);
+    } catch (e) { /* ignore */ }
   }
 
   function saveSpacing() {
@@ -2547,11 +3078,7 @@
     catch (e) { /* ignore */ }
   }
 
-  function saveMarkSrc() {
-    if (presenterMode) return;  // teacher mode stores nothing
-    try { writeStore("marks", markSrc); }
-    catch (e) { /* ignore */ }
-  }
+  function saveMarkSrc() { saveMarks(); }
 
   function localDay() {
     const d = new Date();
@@ -2560,19 +3087,51 @@
 
   // Note where a card's mark came from; a Learn tap also counts toward the pass under way.
   function noteMark(idx, src) {
-    markSrc[idx] = { s: src, d: localDay() };
+    markSrc[idx] = { s: src, d: localDay(), t: Date.now() };
+    // English to Latin: the lesson it was marked at, so a card that gains a form later is asked again.
+    if (FORMS && LESSONS) markSrc[idx].l = currentLesson;
     saveMarkSrc();
     if (src === "learn" && learnPass && learnPass.marked.indexOf(idx) < 0) { learnPass.marked.push(idx); saveLearnPass(); }
   }
 
+  // Quizzes: each carries the time it was last saved. Before writing, a tab
+  // takes up any quiz another tab saved since (its own quiz under way too:
+  // the other tab's answers stand), so neither tab's work is lost.
+  function takeUpQuizzes() {
+    const st = readKeyed(QUIZ_BY_SET ? "quizzes" : "quiz");
+    if (!st || typeof st !== "object") return false;
+    let took = false;
+    function newer(a, b) { return a && (a.savedAt || 0) > ((b && b.savedAt) || 0); }
+    if (QUIZ_BY_SET) {
+      Object.keys(st).forEach(function (k) {
+        if (!newer(st[k], quizzes[k])) return;
+        const q = validQuiz(st[k]);
+        if (!q) return;
+        quizzes[k] = q; took = true;
+        if (quiz && quiz.set === k) quiz = q;
+      });
+    } else if (newer(st, { savedAt: quizSeenAt })) {
+      // Newer than what this tab last saved or read, so another tab saved it.
+      // A quiz this tab has just begun, or closed, does not make it older.
+      quizSeenAt = st.savedAt;
+      const q = validQuiz(st);
+      if (q) { quiz = q; took = true; }
+    }
+    return took;
+  }
   function saveQuiz() {
     if (presenterMode) return;  // teacher mode stores nothing
+    let took = false;
+    try { took = takeUpQuizzes(); } catch (e) { took = false; }
+    if (took) { inputFor = null; setTimeout(render, 0); }
+    if (quiz) quiz.savedAt = Date.now();
     if (QUIZ_BY_SET) {
       if (quiz) quizzes[quiz.set] = quiz;
       try { writeStore("quizzes", quizzes); }
       catch (e) { /* ignore */ }
       return;
     }
+    quizSeenAt = quiz ? quiz.savedAt : Date.now();
     try { writeStore("quiz", quiz); } catch (e) { /* ignore */ }
   }
 
@@ -2672,7 +3231,10 @@
       passSize: row.passSize,
       cumCorrect: known.size,
       cumTotal: N,
-      resultsJson: JSON.stringify(row.json)
+      resultsJson: JSON.stringify(row.json),
+      // The tenth Form question, "Current Lesson" (sent once its entry code is
+      // in GFORM_FIELDS): a quiz round gives the lesson its quiz started at.
+      currentLesson: LESSONS ? roman(row.lesson || currentLesson) : ""
     });
     recordAttempt(row);
   }
@@ -2767,6 +3329,7 @@
     // of its own, not only little words and not only the root's own forms
     // (unless that is a meaning, as ART "art"), and copies no five words of a
     // note. How many lines is not checked: the count shows on the back only.
+    if (FORMS) return "";
     if (MEANINGS) {
       // The root's forms, with and without optional letters: CUR(R)- gives cur and curr.
       const own = [];
@@ -2905,6 +3468,14 @@
     addLineBtn.hidden = false;
     answerInput.placeholder = "Type a meaning";
   }
+  if (FORMS) {
+    document.documentElement.classList.add("meanings", "forms");
+    // Check goes below the boxes.
+    quizForm.insertBefore(checkBtn, addLineBtn);
+    addLineBtn.hidden = true;
+    answerInput.placeholder = "";
+    answerInput.setAttribute("aria-label", "Latin form 1");
+  }
 
   // ---------- Meaning lines (Latin Roots) ----------
   // Every card opens with one line and the same "+ Add another meaning"
@@ -2953,7 +3524,7 @@
 
   function resetLines(values) {
     moreLines.innerHTML = "";
-    const v = values && values.length ? values : [""];
+    const v = Array.isArray(values) && values.length ? values : typeof values === "string" && values ? [values] : [""];
     answerInput.value = v[0];
     v.slice(1).forEach(function (x) { addLine(x, false); });
   }
@@ -2971,7 +3542,15 @@
     const all = lineInputs();
     const k = all.indexOf(inp);
     if (k < all.length - 1) all[k + 1].focus();
+    else if (FORMS) checkAnswer();
     else addLine("", true);
+  }
+  // English to Latin: one box per form asked, all shown at once.
+  function allLineValues() { return lineInputs().map(function (i) { return i.value.trim(); }); }
+  function fitFormBoxes(card) {
+    const n = Math.max(1, formsOn(card).length);
+    while (lineInputs().length < n) addLine("", false);
+    lineInputs().forEach(function (inp, k) { inp.setAttribute("aria-label", "Latin form " + (k + 1) + " of " + n); inp.placeholder = ""; });
   }
 
   function wireLine(inp) {
@@ -3005,7 +3584,11 @@
   // the answer is checked.
   function fillMeanings(node, item, res) {
     node.innerHTML = "";
-    const groups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    const allGroups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    // Only the meanings taught so far (a joined card's later meanings wait for their lesson).
+    const shown = allGroups.map(function (_, k) { return k; }).filter(function (k) { return meaningOn(item, k); });
+    const groups = shown.map(function (k) { return allGroups[k]; });
+    if (res && res.got) res = Object.assign({}, res, { got: shown.map(function (k) { return res.got[k]; }) });
     const n = groups.length;
     const got = res && res.got ? res.got.filter(Boolean).length : 0;
     node.appendChild(el("div", "sense-count", (res && res.got ? got + " of " + n : n) + " meaning" + (n === 1 ? "" : "s")));
@@ -3061,15 +3644,38 @@
   let showHint = true;
 
   // ---------- Learn mode (the Latin Roots behavior) ----------
+  // The break after a quiz round with misses: a Learn pass of those cards
+  // ({ set, round, cards }), on Learn's "missed" list.
+  let breakFor = null;
+  // A card on Learn's screen: shown by the current lesson, and up to the
+  // lesson picked on the lesson menu (approved look, round 9: "Lessons II–VI").
+  function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson <= lessonPick); }
+  function onTab(i, key) {
+    if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
+    if (!inLearn(i)) return false;
+    if (catsOn && !catsOn.has(CARDS[i].cat)) return false;
+    if (key === "learning") return learningMarked.has(i);
+    return key === "all" || CARDS[i].cat === key;
+  }
   function currentList() {
-    if (filter === "learning") return order.filter(function (i) { return learningMarked.has(i); });
-    return order.filter(function (i) { return filter === "all" || CARDS[i].cat === filter; });
+    return order.filter(function (i) { return onTab(i, filter); });
   }
 
   function tabCount(key) {
-    if (key === "all") return N;
-    if (key === "learning") return learningMarked.size;
-    return CARDS.filter(function (c) { return c.cat === key; }).length;
+    if (!LESSONS) {
+      if (key === "all") return N;
+      if (key === "learning") return learningMarked.size;
+      return CARDS.filter(function (c) { return c.cat === key; }).length;
+    }
+    return CARDS.filter(function (_, i) { return onTab(i, key); }).length;
+  }
+  // Cards shown so far, and how many of them are marked Know It.
+  function shownTotal() { return LESSONS ? CARDS.filter(function (_, i) { return visible(i); }).length : N; }
+  function knownShown() {
+    if (!LESSONS) return known.size;
+    let n = 0;
+    known.forEach(function (i) { if (visible(i)) n++; });
+    return n;
   }
 
   // A "pass" = the student has seen every card in the "All" list and then
@@ -3082,8 +3688,9 @@
     // While a Know it / Still learning tap moves on, the card briefly in view is not "seen".
     if (EXERCISE || list.length === 0 || advancing) return;
     const now = Date.now();
-    if (learnPass && learnPass.tab !== filter) endPassUnfinished();
-    if (!learnPass) learnPass = { tab: filter, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    if (learnPass && (learnPass.tab !== filter || (learnPass.lesson || 0) !== lessonPick)) endPassUnfinished();
+    if (!learnPass) learnPass = { tab: filter, lesson: filter !== "missed" && lessonPick || undefined, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    if (filter === "missed" && breakFor && !learnPass.brk) learnPass.brk = { round: breakFor.round, set: breakFor.set };
     const idx = list[pos];
     if (learnPass.list.indexOf(idx) >= 0 && learnPass.seen.indexOf(idx) < 0) learnPass.seen.push(idx);
     learnPass.last = now;
@@ -3103,15 +3710,29 @@
 
   function maybeSendLearnPass() {
     const p = learnPass;
-    if (!p || p.tab !== filter || !passComplete(p)) return false;
+    if (!p || p.tab !== filter || (p.lesson || 0) !== lessonPick || !passComplete(p)) return false;
     learnPass = null;
     saveLearnPass();
     sendPass(p);
     return true;
   }
 
+  // The bracket of a Learn pass's row name: its tab, its lesson (lessons
+  // decks), and "unfinished"; for example "learn (Prefixes, Lesson VI)".
+  function passTabs(p, tail) {
+    const bits = [];
+    if (p.tab === "missed") {
+      // The break: "learn (missed cards, quiz round 3, Lesson VI)".
+      bits.push("missed cards");
+      if (p.brk) { bits.push("quiz round " + p.brk.round); if (p.brk.set && p.brk.set !== "all") bits.push(setLabel(p.brk.set)); }
+    } else if (p.tab !== "all") bits.push(setLabel(p.tab));
+    if (p.lesson) bits.push(lessonRange(ALL_LESSONS[0], p.lesson));
+    if (tail) bits.push(tail);
+    return bits.length ? " (" + bits.join(", ") + ")" : "";
+  }
+
   function sendPass(p) {
-    const cards = p.tab === "all" ? CARDS.map(function (_, i) { return i; }) : p.list;
+    const cards = p.tab === "all" && !LESSONS ? CARDS.map(function (_, i) { return i; }) : p.list;
     const inPass = new Set(p.marked);
     const sparse = [];
     let right = 0;
@@ -3119,7 +3740,7 @@
       if (known.has(i)) { sparse.push(markItem(i, true, inPass)); right++; }
       else if (learningMarked.has(i)) sparse.push(markItem(i, false, inPass));
     });
-    reportPass({ passMode: "learn" + (p.tab === "all" ? "" : " (" + setLabel(p.tab) + ")"), passCorrect: right, passSize: cards.length, results: sparse, json: sparse });
+    reportPass({ passMode: "learn" + passTabs(p, ""), passCorrect: right, passSize: cards.length, results: sparse, json: sparse });
   }
 
   // An unfinished pass is reported once, as a fact: its marks are not sent. A pass of
@@ -3132,7 +3753,7 @@
     if (p && passComplete(p)) { sendPass(p); return; }
     if (!p || !p.start || p.seen.length < 2) return;
     const info = { tab: setLabel(p.tab), start: new Date(p.start).toISOString(), last: new Date(p.last).toISOString(), seen: p.seen.length, of: p.list.length };
-    reportPass({ passMode: "learn (" + (p.tab === "all" ? "" : setLabel(p.tab) + ", ") + "unfinished)", passCorrect: p.seen.length, passSize: p.list.length, results: [], json: info, unfinished: true });
+    reportPass({ passMode: "learn" + passTabs(p, "unfinished"), passCorrect: p.seen.length, passSize: p.list.length, results: [], json: info, unfinished: true });
   }
 
   function cardTag(item) { return item.cat ? item.cat : (DECK.cardTag || ""); }
@@ -3152,8 +3773,9 @@
     feedbackBox.hidden = true;
     originBox.hidden = false;
 
-    statusText.textContent = known.size + " of " + N + " known";
-    progressFill.style.width = (known.size / N) * 100 + "%";
+    statusText.textContent = knownShown() + " of " + shownTotal() + " known";
+    progressFill.style.width = (shownTotal() ? knownShown() / shownTotal() * 100 : 0) + "%";
+    drawMeter(list);
 
     if (list.length === 0) {
       // Nothing matches the current filter (e.g. "Still Learning" with
@@ -3178,6 +3800,7 @@
 
     knownBtn.disabled = false;
     learningBtn.disabled = false;
+    clearIntro();
 
     if (pos >= list.length) pos = 0;
     if (pos < 0) pos = list.length - 1;
@@ -3185,9 +3808,16 @@
     const item = CARDS[idx];
 
     termFront.textContent = item.word;
+    if (FORMS) {
+      // One dot per form asked, so the student knows how many to recall.
+      const dots = el("span", "en-dots");
+      dots.setAttribute("aria-label", formsOn(item).length + " forms");
+      formsOn(item).forEach(function () { dots.appendChild(el("i")); });
+      termFront.appendChild(dots);
+    }
     tagFront.textContent = cardTag(item);
     tagBack.textContent = cardTag(item);
-    if (MEANINGS) fillMeanings(meaningBack, item, null);
+    if (LINES) fillBack(meaningBack, item, null);
     else meaningBack.textContent = item.defn;
     originBack.textContent = item.origin;
 
@@ -3200,11 +3830,19 @@
 
     prevBtn.disabled = list.length <= 1;
     nextBtn.disabled = list.length <= 1;
+    if (LOOK && introPending) {
+      showIntro(learnIntro());
+      knownBtn.disabled = true;
+      learningBtn.disabled = true;
+      cardEl.classList.remove("flipped");
+      return;
+    }
 
     notePassVisit(list);
   }
 
   function flip() {
+    if (dismissIntro()) return;
     if (mode !== "learn" || currentList().length === 0) return;
     flipped = !flipped;
     cardEl.classList.toggle("flipped", flipped);
@@ -3270,7 +3908,7 @@
     el.querySelectorAll(".category-tag").forEach(function (n) { n.textContent = info.tag; });
     el.querySelector(".term").textContent = info.item.word;
     el.querySelector(".hint").hidden = true;
-    if (MEANINGS) fillMeanings(el.querySelector(".meaning"), info.item, null);
+    if (LINES) fillBack(el.querySelector(".meaning"), info.item, null);
     else el.querySelector(".meaning").textContent = info.item.defn;
     el.querySelectorAll(".more-lines").forEach(function (n) { n.innerHTML = ""; });
     const origin = el.querySelector(".examples span:last-child");
@@ -3362,6 +4000,7 @@
   }
 
   function goNext(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn") return;
     if (list.length === 0) { maybeSendLearnPass(); return; }  // the last card left Still Learning
@@ -3376,6 +4015,7 @@
   }
 
   function goPrev(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn" || list.length === 0) return;
     slideCard(-1, function () {
@@ -3432,12 +4072,10 @@
   function reshuffleTab() {
     const list = shuffleArray(currentList());
     // write back shuffled positions into `order` for this filter, preserving others
-    if (filter === "all") {
+    if (filter === "all" && !LESSONS) {
       order = list;
     } else {
-      const inFilter = filter === "learning"
-        ? function (i) { return learningMarked.has(i); }
-        : function (i) { return CARDS[i].cat === filter; };
+      const inFilter = function (i) { return onTab(i, filter); };
       let cursor = 0;
       order = order.map(function (i) { return inFilter(i) ? list[cursor++] : i; });
     }
@@ -3447,19 +4085,99 @@
   // ---------- Quiz mode ----------
   // Round 1 = every card, shuffled. Each later round = the cards missed in
   // the round before, until every card has been answered correctly.
+  // The quiz rules (instructor, Oct 30, 2026), in every deck outside teacher
+  // mode: rounds of about ROUND_SIZE cards; two tries at a card in a round,
+  // with no answer shown on a miss; a missed card comes back in a later round,
+  // with cards not yet asked; a round short of cards is padded with cards
+  // already answered right, which count toward nothing; the quiz is done when
+  // every card has been answered right. Teacher mode keeps the earlier rounds
+  // (round 1 every card, then the cards missed).
+  const ROUND_SIZE = 20, TRIES = 2;
+  function rulesOn() { return !presenterMode; }
+
+  // The next round of a quiz under the rules: cards missed and not yet right
+  // first, then cards not yet asked, up to ROUND_SIZE, in a new order; then
+  // padding from cards already right, at random places.
+  function planRound(q) {
+    const right = new Set(q.right), asked = new Set(q.asked);
+    const due = shuffleArray(q.list.filter(function (i) { return asked.has(i) && !right.has(i); }));
+    const fresh = q.list.filter(function (i) { return !asked.has(i); });
+    const freshOrder = DECK.round1 === "book" ? fresh : shuffleArray(fresh);
+    const cards = due.slice(0, ROUND_SIZE);
+    freshOrder.forEach(function (i) { if (cards.length < ROUND_SIZE) cards.push(i); });
+    const order = DECK.round1 === "book" && !due.length ? cards : shuffleArray(cards);
+    const review = order.map(function () { return false; });
+    const pads = shuffleArray(q.list.filter(function (i) { return right.has(i) && order.indexOf(i) < 0; }));
+    while (order.length < ROUND_SIZE && pads.length) {
+      const at = Math.floor(Math.random() * (order.length + 1));
+      order.splice(at, 0, pads.shift());
+      review.splice(at, 0, true);
+    }
+    return { order: order, review: review };
+  }
+
+  // A quiz saved under the earlier rules (before the Lesson Filter release):
+  // its round under way finishes as it is; what it needs from now on is
+  // worked out from its cards (round 1 asked every card).
+  function upgradeQuiz(q) {
+    if (!q || Array.isArray(q.list)) return q;
+    const set = q.set || "all";
+    let list = QUIZ_BY_SET ? setIndices(set) : CARDS.map(function (_, i) { return i; });
+    // After the split copy, only the cards the old quiz covered (each old card
+    // as its first new card): a per-form card it never asked is not counted.
+    if (KEY_TABLE) list = list.filter(function (i) { return OLD_CARDS.has(i); });
+    const inRound = {};
+    q.order.forEach(function (i, k) { if (!(q.review && q.review[k])) inRound[i] = k; });
+    q.list = list.slice();
+    q.asked = list.slice();
+    q.right = list.filter(function (i) {
+      if (!(i in inRound)) return q.round > 1;
+      const a = q.answers[inRound[i]];
+      return !!(a && a.ok);
+    });
+    if (q.round === 1 && q.phase === "card") q.asked = list.filter(function (i) { return !(i in inRound) || q.answers[inRound[i]]; });
+    delete q.next;
+    q.attempt = q.attempt || Date.now().toString(36);
+    return q;
+  }
+
   function newRound(round, indices) {
     const inBook = (DECK.round1 === "book" && round === 1) || presenterMode;
     return {
       round: round,
       set: filter,
       size: quiz && round > 1 ? quiz.size : indices.length,
+      // A lessons deck's quiz keeps the lesson it started at (its rows report it).
+      lesson: LESSONS ? (quiz && round > 1 && quiz.lesson ? quiz.lesson : currentLesson) : undefined,
       order: inBook ? indices.slice().sort(function (a, b) { return a - b; }) : shuffleArray(indices.slice()),
       pos: 0,
       answers: indices.map(function () { return null; }),
+      tries: indices.map(function () { return 0; }),
+      first: indices.map(function () { return null; }),
       phase: "card",
       sent: false
     };
   }
+
+  // A round under the rules: the quiz's cards, what was asked and answered
+  // right, and the attempt carry over from the round before.
+  function rulesRound(round, prev, list) {
+    const base = prev ? { list: prev.list, right: prev.right.slice(), asked: prev.asked.slice(), attempt: prev.attempt, size: prev.size, lesson: prev.lesson, misses: prev.misses ? Object.assign({}, prev.misses) : undefined }
+      : { list: list.slice(), right: [], asked: [], attempt: Date.now().toString(36), size: list.length };
+    const plan = planRound(base);
+    const r = newRound(round, plan.order);
+    r.order = plan.order;
+    r.review = plan.review;
+    r.answers = plan.order.map(function () { return null; });
+    r.tries = plan.order.map(function () { return 0; });
+    r.first = plan.order.map(function () { return null; });
+    Object.keys(base).forEach(function (k) { if (base[k] !== undefined) r[k] = base[k]; });
+    plan.order.forEach(function (i, k) { if (!plan.review[k] && r.asked.indexOf(i) < 0) r.asked.push(i); });
+    return r;
+  }
+
+  // Every card of the quiz answered right: the quiz is done.
+  function quizAllRight(q) { return !!q && Array.isArray(q.list) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }); }
 
   // Review questions (a review break) never count toward the round.
   function roundScore() {
@@ -3468,6 +4186,11 @@
 
   function roundMissed() {
     return quiz.order.filter(function (_, k) { return !isReview(k) && !(quiz.answers[k] && quiz.answers[k].ok); });
+  }
+  // How a round ends: "done" once every card has been answered right.
+  function roundEnd() {
+    if (rulesOn() && Array.isArray(quiz.list)) return quizAllRight(quiz) ? "done" : "between";
+    return roundMissed().length ? "between" : "done";
   }
 
   // Space the retry (Answer Effort form and the instructor's "review break",
@@ -3516,20 +4239,42 @@
   function sendQuizRound() {
     if (quiz.sent) return;
     quiz.sent = true;
+    // Padding cards are sent marked "pad": 1, and count toward nothing; a
+    // card answered on the second try carries "t": 2 (quiz rules, Oct 30, 2026).
+    const rules = Array.isArray(quiz.list);
     const answers = quiz.order.map(function (i, k) {
-      if (isReview(k)) return null;
+      if (isReview(k) && !rules) return null;
       const a = quiz.answers[k] || {};
       const shown = a.a == null ? "" : (EXERCISE ? answerText(CARDS[i], a.a) : Array.isArray(a.a) ? a.a.join("; ") : a.a);
       const row = { i: i, w: cardLabel(CARDS[i]), a: shown, r: !!a.ok };
       if (SEND_KEYS) row.e = toKey(i);
       if (a.mixed) row.mixed = a.mixed;
+      if (isReview(k)) row.pad = 1;
+      if (a.t === 2) row.t = 2;
+      // The attempt and the quiz's full size, so the dashboard can tell when
+      // every card has been answered right across rounds (Dashboard Desk, Oct 30).
+      if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
+      // The round that finishes the attempt marks its entries "fin": 1, so the
+      // dashboard need not rebuild the count from every round's rows.
+      if (rules && quizAllRight(quiz)) row.fin = 1;
+      // A card missed in three rounds of one attempt is marked "stuck": 1, so
+      // the dashboard alerts the teacher, whose re-mark lets the attempt finish
+      // (external review form, Oct 30, 2026).
+      if (rules && !row.pad && !row.r) {
+        quiz.misses = quiz.misses || {};
+        quiz.misses[i] = (quiz.misses[i] || 0) + 1;
+        if (quiz.misses[i] >= 3) row.stuck = 1;
+      }
       return row;
     }).filter(Boolean);
+    const counted = answers.filter(function (x) { return !x.pad; });
     reportPass({
       passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
-      passSize: answers.length,
-      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; return o; }),
+      passSize: counted.length,
+      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; if (x.stuck) o.stuck = 1; if (x.fin) o.fin = 1; return o; }),
+      attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
+      lesson: quiz.lesson,
       answers: answers,
       json: answers
     });
@@ -3539,12 +4284,15 @@
 
   // ---------- Exercise Decks: the question side of a card ----------
   function setLabel(key) {
+    const r = LESSONS && setRange(key);
+    if (r) return lessonRange(r.from, r.to);
     if (key === "all") return "All";
     if (key === "learning") return EXERCISE ? "Missed" : "Still Learning";
     return (CATS[key] && CATS[key].label) || key;
   }
 
   function setTitle(key) {
+    if (LESSONS && key === "all") { const ls = shownLessons(); return "Quiz: " + (ls.length ? lessonRange(ls[0], currentLesson) : "All"); }
     if (!EXERCISE) return "Quiz" + (key === "all" ? "" : ": " + setLabel(key));
     if (key === "all") return DECK.allTitle || "All exercises";
     if (key === "learning") return "Missed questions";
@@ -3553,6 +4301,15 @@
 
   // The cards a quiz on this tab covers.
   function setIndices(key) {
+    if (LESSONS) {
+      const r = setRange(key);
+      return CARDS.map(function (_, i) { return i; }).filter(function (i) {
+        if (!visible(i)) return false;
+        if (r) return CARDS[i].lesson >= r.from && CARDS[i].lesson <= r.to;
+        if (key === "learning") return learningMarked.has(i);
+        return key === "all" || CARDS[i].cat === key;
+      });
+    }
     return CARDS.map(function (_, i) { return i; }).filter(function (i) {
       if (key === "all") return true;
       if (key === "learning") return learningMarked.has(i);
@@ -3942,6 +4699,7 @@
   }
 
   function renderQuiz() {
+    if (LESSONS && !quizPicked) { renderQuizList(); return; }
     learnTabs.forEach(function (t) { t.textContent = t.dataset.label + " (" + tabCount(t.dataset.filter) + ")"; });
 
     if (!quiz || quiz.phase !== "card") {
@@ -3956,12 +4714,16 @@
     const idx = quiz.order[quiz.pos];
     const item = CARDS[idx];
     const ans = quiz.answers[quiz.pos];
+    // A card tried once and missed: its first answer stays, marked.
+    const first = !ans && quiz.first ? quiz.first[quiz.pos] : null;
+    const shownAns = ans || first;
     const key = quiz.round + ":" + quiz.pos;
     if (inputFor !== key) {
       inputFor = key;
-      if (MEANINGS) resetLines(ans ? ans.a : null);
-      else if (EXERCISE && (hasBoxes(item) || item.kind === "order")) answerInput.value = ans && hasBoxes(item) && Array.isArray(ans.a) ? ans.a[0] : "";
-      else answerInput.value = ans ? ans.a : "";
+      if (LINES) resetLines(shownAns ? shownAns.a : null);
+      if (FORMS) fitFormBoxes(item);
+      else if (EXERCISE && (hasBoxes(item) || item.kind === "order")) answerInput.value = shownAns && hasBoxes(item) && Array.isArray(shownAns.a) ? shownAns.a[0] : "";
+      else answerInput.value = shownAns ? shownAns.a : "";
       orderPick = [];
       quizNote.textContent = "";
     }
@@ -3978,6 +4740,7 @@
       if (presenterMode || backShown(ans)) fillExerciseBack(item, ans);
       else { meaningBack.innerHTML = ""; originBack.innerHTML = ""; originLabel.textContent = ""; feedbackBox.hidden = true; }
       fillMissMarks(item, ans);
+      if (first) fillMissMarks(item, first, true);
       cardEl.classList.toggle("flipped", backShown(ans));
       const counted = countedPositions();
       const done = counted.filter(function (k) { return quiz.answers[k]; }).length;
@@ -3995,19 +4758,20 @@
     quizForm.hidden = false;
     answerInput.disabled = !!ans;
     checkBtn.disabled = !!ans;
-    if (MEANINGS) setLinesDisabled(!!ans);
+    if (LINES) setLinesDisabled(!!ans);
 
-    const res = MEANINGS && ans ? judgeMeanings(idx, ans.a) : null;
+    const res = LINES && ans ? judgeLines(idx, ans.a) : null;
     // The back is filled only when it may be seen, so a missed card's
     // answer is not on the page (every quiz, Oct 23, 2026).
     const showBack = presenterMode || backShown(ans);
     if (!showBack) { meaningBack.innerHTML = ""; originBack.textContent = ""; }
-    else if (MEANINGS) fillMeanings(meaningBack, item, res);
+    else if (LINES) fillBack(meaningBack, item, res);
     else meaningBack.textContent = item.defn;
     originBox.hidden = !showBack;
     if (showBack) originBack.textContent = item.origin;
     feedbackBox.hidden = !ans || !showBack;
     fillMissMarks(item, ans);
+    if (first) fillMissMarks(item, first, true);
     if (ans && showBack) {
       if (res && res.rows) fillYourLines(item, res);
       else yourAnswer.textContent = ans.a;
@@ -4025,6 +4789,11 @@
     quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
     if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
     setQuizNav(ans);
+    if (LOOK) {
+      cardEl.classList.toggle("lr-locked", !!ans && !ans.ok && !presenterMode);
+      if (quizIntroPending && quiz.round === 1 && quiz.pos === 0 && !ans && !first && !presenterMode) showIntro(quizIntro());
+      else clearIntro();
+    }
   }
 
   // ---------- Teacher mode in a quiz: leaf, flip, jump, try an answer ----------
@@ -4048,7 +4817,7 @@
 
   // The marks on the front of a missed question: a ✓ or ✗ for each box (or
   // the option tapped, or each stage), with no answer, hint or note.
-  function fillMissMarks(item, ans) {
+  function fillMissMarks(item, ans, firstTry) {
     const form = cardEl.querySelector(".quiz-form");
     form.querySelectorAll(".box-mark").forEach(function (n) { n.remove(); });
     form.querySelectorAll(".quiz-input").forEach(function (n) { n.classList.remove("in-ok", "in-no"); });
@@ -4066,6 +4835,13 @@
         lab.insertBefore(el("span", "box-mark " + (parts[k] ? "ok" : "no"), parts[k] ? "\u2713" : "\u2717"), lab.firstChild);
         if (inputs[k]) inputs[k].classList.add(parts[k] ? "in-ok" : "in-no");
       });
+    } else if (FORMS && Array.isArray(ans.a)) {
+      // Each box marked right or not; the count in words, without the answer.
+      const res = judgeForms(CARDS.indexOf(item), ans.a);
+      const inputs = lineInputs();
+      (res.rows || []).forEach(function (r, k) { if (inputs[k]) inputs[k].classList.add(r.ok ? "in-ok" : "in-no"); });
+      const got = (res.got || []).filter(Boolean).length;
+      lineNote = got + " of " + (res.got || []).length + " right.";
     } else if (MEANINGS && Array.isArray(ans.a)) {
       // Each line marked: a line that counted for a meaning, or one that did not.
       const res = judgeMeanings(CARDS.indexOf(item), ans.a);
@@ -4093,7 +4869,10 @@
     }
     const v = el("span", "verdict no", "Not quite");
     missNote.appendChild(v);
-    missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review " + (EXERCISE ? "question" : NOUN) + "; it does not count." : "This " + (EXERCISE ? "question" : NOUN) + " comes back later in the quiz."));
+    const noun = EXERCISE ? "question" : NOUN;
+    missNote.appendChild(document.createTextNode(firstTry ? "You have one more try." :
+      isReview(quiz.pos) ? "This was a review " + noun + "; it does not count." :
+      Array.isArray(quiz.list) ? "This " + noun + " comes back in a later round." : "This " + noun + " comes back later in the quiz."));
     if (lineNote) missNote.appendChild(el("span", "miss-lines", lineNote));
     const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     if (why) missNote.appendChild(el("span", "miss-reason", why));
@@ -4127,8 +4906,10 @@
       teacherGoto.value = String(quiz.pos);
       return;
     }
-    quizNextBtn.disabled = !ans;
-    quizNextBtn.innerHTML = last ? "Finish round &rarr;" : "Next &rarr;";
+    // Under the quiz rules a card not yet answered can be skipped (it counts as missed).
+    const skip = !ans && rulesOn() && Array.isArray(quiz.list);
+    quizNextBtn.disabled = !ans && !skip;
+    quizNextBtn.innerHTML = skip ? "Skip &rarr;" : last ? "Finish round &rarr;" : "Next &rarr;";
   }
 
   function teacherCanLeaf() { return presenterMode && mode !== "learn" && quiz && quiz.phase === "card"; }
@@ -4166,6 +4947,14 @@
     return b;
   }
 
+  // How a quiz runs, on its opening panel.
+  function roundsCopy(size, noun, how) {
+    const nouns = noun + (size === 1 ? "" : "s");
+    if (presenterMode) return "Round 1 covers all " + size + " " + nouns + how + ". Any you miss come back in the next round, until you have answered every one correctly.";
+    return size + " " + nouns + how + ", in rounds of up to " + ROUND_SIZE + ". You have two tries at each " + noun +
+      ". One you miss comes back in a later round, until you have answered every " + noun + " correctly.";
+  }
+
   function renderQuizPanel() {
     stage.hidden = true;
     quizControls.hidden = true;
@@ -4191,8 +4980,7 @@
         return;
       }
       copy.textContent = ((cat.instruction || DECK.instruction) ? (cat.instruction || DECK.instruction) + " " : "") +
-        "Round 1 covers all " + size + " question" + (size === 1 ? "" : "s") + (DECK.round1 === "book" && DECK.orderNote !== false ? ", in the workbook\u2019s order" : "") +
-        ". Any you miss come back in the next round, until you have answered every one correctly.";
+        roundsCopy(size, "question", DECK.round1 === "book" && DECK.orderNote !== false ? ", in the workbook\u2019s order" : "");
       quizPanel.appendChild(copy);
       if (cat.example) {
         const ex = copy.cloneNode(false);
@@ -4201,14 +4989,13 @@
       }
       const startBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startBtn);
-      if (!presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
 
     if (!quiz && QUIZ_BY_SET) {
       const size = setIndices(filter).length;
-      statusText.textContent = known.size + " of " + N + " known";
+      statusText.textContent = knownShown() + " of " + shownTotal() + " known";
       progressFill.style.width = "0%";
       title.textContent = setTitle(filter);
       quizPanel.appendChild(title);
@@ -4217,27 +5004,23 @@
         quizPanel.appendChild(copy);
         return;
       }
-      copy.textContent = (DECK.quizIntro ? DECK.quizIntro + " " : "") + "Round 1 covers all " + size + " " + NOUN + (size === 1 ? "" : "s") +
-        ". Any you miss come back in the next round, until you have answered every one correctly.";
+      copy.textContent = (DECK.quizIntro ? DECK.quizIntro + " " : "") + roundsCopy(size, NOUN, "");
       quizPanel.appendChild(copy);
       const startSetBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startSetBtn);
-      if (EFFORT && !presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startSetBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
 
     if (!quiz) {
-      statusText.textContent = known.size + " of " + N + " known";
+      statusText.textContent = knownShown() + " of " + shownTotal() + " known";
       progressFill.style.width = "0%";
       title.textContent = "Quiz";
-      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " Round 1 covers all " + N +
-        " " + NOUN + "s. Any you miss come back in the next round, until you have answered every " + NOUN + " correctly.";
+      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " " + roundsCopy(N, NOUN, "");
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
       const startAllBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startAllBtn);
-      if (EFFORT && !presenterMode) waitFor(spaceOrder(CARDS.map(function (_, i) { return i; })).opensAt, copy, startAllBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -4249,33 +5032,57 @@
     scoreEl.className = "panel-score";
     scoreEl.textContent = score + " / " + size;
 
+    if (quiz.phase === "between" && LOOK && !presenterMode && Array.isArray(quiz.list)) {
+      const missedN = size - score;
+      statusText.textContent = "Round " + quiz.round + " complete";
+      const end = el("div", "lr-end");
+      const dots = el("div", "lr-end-dots");
+      dots.setAttribute("role", "img");
+      dots.setAttribute("aria-label", "Round " + quiz.round + ": " + score + " of " + size + " right");
+      countedPositions().forEach(function (k) { const a = quiz.answers[k]; dots.appendChild(el("i", a && a.ok ? "ok" : "miss")); });
+      end.appendChild(dots);
+      const next = "Start Round " + (quiz.round + 1);
+      if (missedN && !quiz.breakDone && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
+        end.appendChild(panelButton("lr-start", "Learn Missed Cards", startBreak));
+        end.appendChild(panelButton("lr-skip", next + " without it", startNextRound));
+      } else end.appendChild(panelButton("lr-start", next, startNextRound));
+      quizPanel.appendChild(end);
+      const b = end.querySelector("button");
+      if (b) b.focus();
+      return;
+    }
     if (quiz.phase === "between") {
       const missed = size - score;
       statusText.textContent = "Round " + quiz.round + " complete";
       title.textContent = "Round " + quiz.round + " complete";
       const noun = EXERCISE ? "question" : NOUN;
-      const plan = quiz.next;
-      const reviews = plan ? plan.review.filter(Boolean).length : 0;
-      copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") +
-        " you missed, in a new order." + (reviews ? " " + reviews + " " + noun + (reviews === 1 ? "" : "s") +
-        " you already got right " + (reviews === 1 ? "is" : "are") + " mixed in for review; " + (reviews === 1 ? "it does" : "they do") + " not count." : "");
+      if (Array.isArray(quiz.list)) {
+        const left = quiz.list.length - quiz.right.length;
+        copy.textContent = quiz.right.length + " of " + quiz.list.length + " " + noun + "s answered correctly so far. " +
+          (missed ? "The " + missed + " you missed come" + (missed === 1 ? "s" : "") + " back in a later round. " : "") +
+          left + " to go.";
+      } else {
+        copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") + " you missed, in a new order.";
+      }
       quizPanel.appendChild(title);
       quizPanel.appendChild(scoreEl);
       quizPanel.appendChild(copy);
-      const startBtn = panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound);
-      actions.appendChild(startBtn);
-      if (plan) waitFor(plan.opensAt, copy, startBtn, "Round " + (quiz.round + 1), startNextRound);
+      // The break: a Learn pass of the cards just missed (Flashcard Decks).
+      if (missed && !EXERCISE && !presenterMode && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
+        actions.appendChild(panelButton("nav-btn", "Learn Missed Cards", startBreak));
+        actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
+      } else actions.appendChild(panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
     } else {
       statusText.textContent = "Quiz complete";
       title.textContent = "Quiz complete";
-      const total = QUIZ_BY_SET ? quiz.size : N;
+      const total = Array.isArray(quiz.list) ? quiz.list.length : QUIZ_BY_SET ? quiz.size : N;
       copy.textContent = "You have answered all " + total + " " + (EXERCISE ? "question" : NOUN) + (total === 1 ? "" : "s") + " correctly" +
         (quiz.round > 1 ? ", in " + quiz.round + " rounds." : " in a single round.");
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
       actions.appendChild(panelButton("nav-btn", "Take the quiz again", startQuiz));
       if (!EXERCISE) actions.appendChild(panelButton("secondary-btn", "Back to Learn", function () {
-        if (QUIZ_BY_SET) delete quizzes[quiz.set];
+        if (QUIZ_BY_SET && !LESSONS) delete quizzes[quiz.set];
         quiz = null;
         saveQuiz();
         setMode("learn");
@@ -4315,16 +5122,7 @@
       return;
     }
     quiz = null;
-    quiz = newRound(1, indices);
-    // A question missed moments ago, on this tab or another, waits its turn here too.
-    if (EFFORT && !presenterMode) {
-      const plan = spaceOrder(quiz.order);
-      if (plan.opensAt > Date.now()) { quiz = null; render(); return; }
-      quiz.order = plan.order;
-      quiz.review = plan.review;
-      quiz.answers = plan.order.map(function () { return null; });
-      quiz.size = indices.length;
-    }
+    quiz = rulesOn() ? rulesRound(1, null, indices) : newRound(1, indices);
     inputFor = null;
     saveQuiz();
     render();
@@ -4334,15 +5132,8 @@
 
   function startNextRound() {
     if (lockedForUpdate()) return;
-    // A quiz saved before the rules reached this deck has no plan yet.
-    const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
-    if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
-    if (plan) {
-      const r = newRound(quiz.round + 1, plan.order);
-      r.order = plan.order.slice();
-      r.review = plan.review.slice();
-      quiz = r;
-    } else quiz = newRound(quiz.round + 1, roundMissed());
+    if (rulesOn()) quiz = rulesRound(quiz.round + 1, upgradeQuiz(quiz));
+    else quiz = newRound(quiz.round + 1, roundMissed());
     inputFor = null;
     saveQuiz();
     render();
@@ -4357,14 +5148,14 @@
     const isChoice = EXERCISE && CARDS[idx].kind === "choice";
     if (isChoice && typeof choice !== "number") return;
     const kind = EXERCISE ? CARDS[idx].kind : "";
-    const text = isChoice ? choice : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
+    const text = isChoice ? choice : FORMS ? allLineValues() : MEANINGS ? lineValues() : EXERCISE && hasBoxes(CARDS[idx]) ? boxValues() : kind === "order" ? orderPick.slice() : answerInput.value.trim();
     if (Array.isArray(text) && typedEg(text)) { egPop.hidden = false; document.getElementById("egPopOk").focus(); return; }
     // Teacher mode skips the good-faith gate (Answer Effort plan, Oct 19, 2026).
     if (EFFORT && !presenterMode && !isChoice && kind !== "order") {
       const gf = goodFaith(CARDS[idx], text);
       if (gf) { quizNote.textContent = gf; answerInput.focus(); return; }
     }
-    const result = EXERCISE ? judgeExercise(idx, text) : MEANINGS ? judgeMeanings(idx, text) : judge(idx, text);
+    const result = EXERCISE ? judgeExercise(idx, text) : LINES ? judgeLines(idx, text) : judge(idx, text);
     if (result.empty) {
       quizNote.textContent = result.order ? "Tap every stage first." : "Type your answer first.";
       if (!result.order) answerInput.focus();
@@ -4376,21 +5167,38 @@
       return;
     }
     quizNote.textContent = "";
-    quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
-    if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
-    if (EFFORT && !presenterMode) {
-      spacing.n++;
-      if (result.ok) delete spacing.miss[idx];
-      else if (!isReview(quiz.pos)) spacing.miss[idx] = { n: spacing.n, t: Date.now() };
-      saveSpacing();
+    // A first wrong try: the lines or boxes are marked, with no answer, and
+    // the card stays for one more try (tries are kept by the round, so moving
+    // away and back gives none back).
+    const k = quiz.pos;
+    if (rulesOn() && !result.ok && Array.isArray(quiz.tries) && (quiz.tries[k] || 0) < TRIES - 1) {
+      quiz.tries[k] = (quiz.tries[k] || 0) + 1;
+      quiz.first[k] = { a: text, ok: false, mixed: result.mixed || null };
+      if (result.echo) quiz.first[k].echo = result.echo;
+      saveQuiz();
+      fillMissMarks(CARDS[idx], quiz.first[k], true);
+      announce(missNote.textContent);
+      if (!(EXERCISE && (isChoice || kind === "order"))) answerInput.focus();
+      return;
     }
-    if (!isReview(quiz.pos)) {
+    quiz.answers[k] = { a: text, ok: result.ok, mixed: result.mixed || null };
+    if (result.echo) quiz.answers[k].echo = result.echo;
+    if (rulesOn() && quiz.tries && quiz.tries[k]) quiz.answers[k].t = 2;
+    if (!isReview(k)) {
       if (result.ok) { known.add(idx); learningMarked.delete(idx); }
       else { known.delete(idx); learningMarked.add(idx); }
       noteMark(idx, "quiz");
       saveKnown();
       saveLearning();
+      if (result.ok && Array.isArray(quiz.right) && quiz.right.indexOf(idx) < 0) quiz.right.push(idx);
+    } else if (rulesOn() && !result.ok) {
+      // A padding card answered wrong goes back to Still Learning, and nothing else.
+      known.delete(idx); learningMarked.add(idx);
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
     }
+    announce(result.ok ? "Correct." : "Not quite. This card is locked for this round; go to the next card.");
     if (quiz.answers.every(Boolean)) sendQuizRound();
     teacherFlip = null;
     saveQuiz();
@@ -4399,11 +5207,17 @@
   }
 
   function quizNext(speed) {
+    if (dismissIntro()) return;
     if (!quiz || quiz.phase !== "card" || sliding) return;
     if (presenterMode) {
       if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
       if (!allAnswered()) return;
-    } else if (!quiz.answers[quiz.pos]) return;
+    } else if (!quiz.answers[quiz.pos]) {
+      // Moving on from a card not yet answered skips it: it counts as missed
+      // (approved first quiz card, round 9: "Swipe on to skip").
+      if (!rulesOn() || !Array.isArray(quiz.list)) return;
+      skipCard();
+    }
     if (quiz.pos < quiz.order.length - 1) {
       // Read the next card before sliding: with reduced motion the slide's
       // change runs at once and moves quiz.pos on.
@@ -4417,15 +5231,502 @@
       // card's front is hidden, so clearing the box early is not seen).
       answerInput.disabled = false;
       answerInput.value = "";
-      if (MEANINGS) { moreLines.innerHTML = ""; setLinesDisabled(false); }
+      if (LINES) { moreLines.innerHTML = ""; setLinesDisabled(false); }
       if (!EXERCISE || (nextKind !== "choice" && nextKind !== "order")) answerInput.focus();
       return;
     }
     if (!quiz.sent) sendQuizRound();
-    quiz.phase = roundMissed().length ? "between" : "done";
-    if (quiz.phase === "between" && EFFORT && !presenterMode) quiz.next = planNextRound();
+    quiz.phase = roundEnd();
+    if (quiz.phase === "between" && rulesOn()) quiz.missedLast = roundMissed();
     saveQuiz();
     render();
+  }
+
+  // What a check found, read aloud by screen readers (the card is not flipped on a miss).
+  function startBreak() {
+    if (!quiz || !Array.isArray(quiz.missedLast) || !quiz.missedLast.length) return;
+    breakFor = { set: quiz.set || "all", round: quiz.round, cards: quiz.missedLast.slice() };
+    quiz.breakDone = true;
+    saveQuiz();
+    setMode("learn");
+    if (learnPass) endPassUnfinished();
+    filter = "missed";
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses) reshuffleTab();
+    learnTabs.forEach(function (t) { t.classList.remove("active"); t.setAttribute("aria-selected", "false"); });
+    render();
+  }
+  function endBreak() {
+    const b = breakFor;
+    filter = "all";
+    learnTabs.forEach(function (t) { const on = t.dataset.filter === "all"; t.classList.toggle("active", on); t.setAttribute("aria-selected", on ? "true" : "false"); });
+    setMode("quiz");
+    breakFor = null;
+    if (LESSONS && b) openQuizSet(b.set);
+    else if (QUIZ_BY_SET && b) { filter = b.set; quiz = quizzes[b.set] || null; render(); }
+  }
+  document.getElementById("breakBackBtn").addEventListener("click", endBreak);
+
+  function announce(t) {
+    const n = document.getElementById("liveNote");
+    if (!n) return;
+    n.textContent = "";
+    setTimeout(function () { n.textContent = t; }, 50);
+  }
+
+  function skipCard() {
+    const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
+    const blank = LINES || (EXERCISE && hasBoxes(CARDS[idx])) ? [] : "";
+    quiz.answers[k] = { a: first ? first.a : blank, ok: false, mixed: null, skipped: 1 };
+    if (!isReview(k)) {
+      known.delete(idx); learningMarked.add(idx);
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
+    }
+    if (quiz.answers.every(Boolean)) sendQuizRound();
+    saveQuiz();
+  }
+
+
+  // ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ----------
+  // One row with the lesson menu; one row of Prefix, Base and Suffix (each on
+  // or off) with Shuffle and Reset as icons; a bar of Still Learning, Know It
+  // and not yet sorted, with a tick at the place in the deck. Tapping the bar
+  // shows the Still Learning cards, and tapping it again goes back.
+  const LOOK = LESSONS;
+  let catsOn = null;        // the card types shown in Learn (all, at first)
+  let resetArmed = 0;
+  let lrMeter = null;
+  function buildLook() {
+    if (!LOOK) return;
+    document.documentElement.classList.add("lr-look");
+    catsOn = new Set(CATEGORIES.map(function (c) { return c.key; }));
+    const toolbar = document.querySelector("#deckScreen .toolbar");
+    const row1 = el("div", "lr-row lr-learn");
+    row1.appendChild(lessonMenu);
+    if (DECK.pair) {
+      // Latin ⇄ English: the other direction is its own page with its own records.
+      const sw = el("button", "lr-dirsw");
+      sw.type = "button";
+      sw.innerHTML = DECK.direction === "el" ? "English <span>\u21c4</span> Latin" : "Latin <span>\u21c4</span> English";
+      sw.setAttribute("aria-label", DECK.direction === "el" ? "English to Latin; switch to Latin to English" : "Latin to English; switch to English to Latin");
+      sw.addEventListener("click", function () { goPair({ mode: mode }); });
+      row1.appendChild(sw);
+    }
+    const row2 = el("div", "lr-row lr-learn");
+    row2.setAttribute("role", "group");
+    row2.setAttribute("aria-label", "Cards shown");
+    const ORDER = ["prefix", "base", "suffix"], NAMES = { prefix: "Prefix", base: "Base", suffix: "Suffix" };
+    CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).forEach(function (c) {
+      const b = el("button", "lr-chip", NAMES[c.key] || c.label);
+      b.type = "button";
+      b.dataset.cat = c.key;
+      b.setAttribute("aria-pressed", "true");
+      b.addEventListener("click", function () {
+        const on = catsOn.has(c.key);
+        if (on && catsOn.size === 1) return; // one type stays on
+        if (on) catsOn.delete(c.key); else catsOn.add(c.key);
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        learnViewChanged();
+      });
+      row2.appendChild(b);
+    });
+    const sh = el("button", "lr-icon", "⤮");
+    sh.type = "button"; sh.title = "Shuffle"; sh.setAttribute("aria-label", "Shuffle");
+    sh.addEventListener("click", shuffle);
+    const rs = el("button", "lr-icon", "↺");
+    rs.type = "button"; rs.title = "Reset progress"; rs.setAttribute("aria-label", "Reset progress");
+    let tip = null;
+    function disarm() { resetArmed = 0; rs.classList.remove("armed"); rs.setAttribute("aria-label", "Reset progress"); if (tip) { tip.remove(); tip = null; } }
+    rs.addEventListener("click", function () {
+      if (!resetArmed) {
+        resetArmed = setTimeout(disarm, 4000);
+        rs.classList.add("armed");
+        rs.setAttribute("aria-label", "Tap again to reset progress");
+        tip = el("div", "lr-tip", "Tap ↺ again to reset");
+        tip.setAttribute("role", "status");
+        row2.appendChild(tip);
+        return;
+      }
+      clearTimeout(resetArmed);
+      disarm();
+      resetBtn.click();
+    });
+    row2.appendChild(sh);
+    row2.appendChild(rs);
+    lrMeter = el("button", "lr-meter lr-learn");
+    lrMeter.type = "button";
+    lrMeter.setAttribute("aria-pressed", "false");
+    lrMeter.addEventListener("click", function () {
+      const going = filter !== "learning";
+      lrMeter.setAttribute("aria-pressed", going ? "true" : "false");
+      filter = going ? "learning" : "all";
+      learnViewChanged();
+    });
+    toolbar.parentNode.insertBefore(row1, toolbar);
+    toolbar.parentNode.insertBefore(row2, toolbar);
+    toolbar.parentNode.insertBefore(lrMeter, toolbar);
+    // The break's way back to the quiz sits above the bar.
+    const back = document.getElementById("breakBackBtn");
+    back.className = "lr-back";
+    toolbar.parentNode.insertBefore(back, row2);
+    learningBtn.textContent = "Still Learning";
+    knownBtn.textContent = "Know It";
+  }
+
+  // The opening page (approved look): the title, an Updated Version button when
+  // there is one, the instructor's notice, what the deck holds, the student's
+  // name with Switch, and Start. A student with no name on this device sees
+  // the name page instead.
+  let openScreen = null;
+  function buildOpen() {
+    if (!LOOK) return;
+    openScreen = el("div", "wrap lr-open");
+    openScreen.id = "openScreen";
+    openScreen.hidden = true;
+    gateScreen.parentNode.insertBefore(openScreen, gateScreen.nextSibling);
+  }
+  function deckInfoLines() {
+    const ls = shownLessons();
+    const ORDER = ["prefix", "base", "suffix"];
+    const kinds = CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).map(function (c) { return c.label.toLowerCase(); });
+    const lines = [];
+    if (kinds.length) lines.push(kinds.length > 1 ? kinds.slice(0, -1).join(", ") + " and " + kinds[kinds.length - 1] : kinds[0]);
+    if (lines.length) lines[0] = lines[0].charAt(0).toUpperCase() + lines[0].slice(1);
+    if (ls.length) lines.push(lessonRange(ls[0], ls[ls.length - 1]));
+    return lines;
+  }
+  function renderOpen() {
+    if (!openScreen || openScreen.hidden) return;
+    openScreen.innerHTML = "";
+    openScreen.appendChild(el("h1", "title-tap", DECK.heading || DECK.title));
+    if (newVersion) {
+      const u = el("button", "lr-update", '<span aria-hidden="true">↻</span> Updated Version Available');
+      u.type = "button";
+      u.setAttribute("aria-label", "Updated version available. Tap to load it");
+      u.addEventListener("click", function () { document.getElementById("updateReloadBtn").click(); });
+      openScreen.appendChild(u);
+    }
+    const t = typeof settings.notice === "string" ? settings.notice.trim() : "";
+    if (t) {
+      const n = el("div", "lr-notice");
+      n.appendChild(el("span", "pin", "📌")).setAttribute("aria-hidden", "true");
+      n.appendChild(el("span", "sr-only", "From your instructor: "));
+      n.appendChild(document.createTextNode(t));
+      openScreen.appendChild(n);
+    }
+    const mid = el("div", "lr-mid");
+    deckInfoLines().forEach(function (line) { mid.appendChild(el("p", "lr-info", line)); });
+    openScreen.appendChild(mid);
+    const foot = el("div", "lr-foot");
+    const who = el("div", "lr-who");
+    who.appendChild(el("span", "", nameInput.value.trim()));
+    const sw = el("button", "", "Switch");
+    sw.type = "button";
+    sw.setAttribute("aria-label", "Switch student");
+    sw.addEventListener("click", function () { openScreen.hidden = true; nameInput.value = ""; gateScreen.hidden = false; nameInput.focus(); });
+    who.appendChild(sw);
+    foot.appendChild(who);
+    const go = el("button", "lr-start", "Start");
+    go.type = "button";
+    go.addEventListener("click", function () { openScreen.hidden = true; startDeck(); });
+    foot.appendChild(go);
+    openScreen.appendChild(foot);
+  }
+  function showOpen() {
+    if (!openScreen || !nameInput.value.trim() || location.hash === "#teacher") return;
+    gateScreen.hidden = true;
+    openScreen.hidden = false;
+    renderOpen();
+  }
+
+
+  // The instruction card (approved look): the first card after Start in Learn,
+  // and the first card of a quiz, show how the deck works instead of a word.
+  let introPending = false, quizIntroPending = false;
+  function steps(list) {
+    return list.map(function (x) { return '<span class="ic ' + x[0] + '" aria-hidden="true">' + (x[1] || "") + "</span><p>" + x[2] + "</p>"; }).join("");
+  }
+  function learnIntro() {
+    return TOUCH
+      ? steps([["card", "", "Tap a card to turn it over."], ["sw", "⇠", "Swipe left for the next card."], ["sw", "⇢", "Swipe right to go back."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Tap the bar to review Still Learning cards."]])
+      : steps([["key", "␣", "Click a card or press Space to turn it over."], ["sw", "← →", "Use the arrow keys, or Prev and Next, to move."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Click the bar to review Still Learning cards."]]);
+  }
+  function quizIntro() {
+    return steps([["box", "", FORMS ? "Type each Latin form in its own box." : MEANINGS ? "Type each meaning on its own line." : "Type your answer."],
+      ["ck", "✓", (TOUCH ? "Tap" : "Click") + " Check. You have two tries."],
+      ["sw", TOUCH ? "⇠" : "→", TOUCH ? "Swipe on to skip; the card counts as missed." : "Press → or Skip to skip; the card counts as missed."]])
+      + "<p style=\"grid-column:1/-1;text-align:center;margin-top:8px\">" + (TOUCH ? "Tap" : "Click") + " to begin.</p>";
+  }
+  function showIntro(html) {
+    termFront.className = "lr-instr";
+    termFront.innerHTML = html;
+    cardEl.classList.add("lr-first");
+  }
+  function clearIntro() {
+    cardEl.classList.remove("lr-first");
+    termFront.className = termFront.dataset.cls || "term";
+  }
+  function dismissIntro() {
+    if (mode === "learn" && introPending) { introPending = false; clearIntro(); render(); return true; }
+    if (mode === "quiz" && quizIntroPending && cardEl.classList.contains("lr-first")) { quizIntroPending = false; clearIntro(); render(); if (needsTyping()) answerInput.focus(); return true; }
+    return false;
+  }
+
+  function learnViewChanged() {
+    cancelSlides();
+    if (learnPass) endPassUnfinished();
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses && mode === "learn") reshuffleTab();
+    render();
+  }
+  // The bar: shares of the cards in view, and the place in the list.
+  function drawMeter(list) {
+    if (!lrMeter) return;
+    const inView = CARDS.map(function (_, i) { return i; }).filter(function (i) { return onTab(i, "all"); });
+    const n = inView.length || 1;
+    const L = inView.filter(function (i) { return learningMarked.has(i); }).length;
+    const K = inView.filter(function (i) { return known.has(i); }).length;
+    const at = list.length ? (pos + 0.5) / list.length : 0;
+    lrMeter.innerHTML = '<span class="lr-track"><span class="l" style="width:' + (100 * L / n) + '%"></span><span class="k" style="width:' + (100 * K / n) +
+      '%"></span><span class="u"></span></span><span class="lr-tick" style="left:' + (100 * at) + '%"></span>';
+    lrMeter.setAttribute("aria-label", "Card " + (list.length ? pos + 1 : 0) + " of " + list.length + ". " + L + " still learning, " + K + " known, " + (inView.length - L - K) +
+      " not yet sorted. " + (filter === "learning" ? "Showing Still Learning cards; tap to show all." : "Tap to review the Still Learning cards."));
+  }
+
+  // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
+  const lessonMenu = document.getElementById("lessonMenu");
+  const courseNotice = document.getElementById("courseNotice");
+  let quizPicked = false;   // lessons decks: a quiz is open (else the Quiz tab lists them)
+  let learnFilter = "all";  // lessons decks: Learn's tab, kept while the Quiz tab is open
+
+  // The lesson menu: every lesson so far, then up to each earlier lesson,
+  // newest first ("Lessons II–XIII", "Lessons II–XII", … "Lesson II").
+  function fillLessonMenu() {
+    if (!LESSONS) return;
+    const ls = shownLessons();
+    if (lessonPick && (ls.indexOf(lessonPick) < 0 || lessonPick === ls[ls.length - 1])) lessonPick = 0;
+    lessonMenu.innerHTML = "";
+    ls.slice().reverse().forEach(function (n, k) {
+      const o = document.createElement("option");
+      o.value = k === 0 ? "0" : String(n);
+      o.textContent = lessonRange(ls[0], n);
+      lessonMenu.appendChild(o);
+    });
+    if (!ls.length) { const o = document.createElement("option"); o.value = "0"; o.textContent = "All"; lessonMenu.appendChild(o); }
+    lessonMenu.value = String(lessonPick);
+    lessonMenu.hidden = false;
+  }
+  lessonMenu.addEventListener("change", function () {
+    cancelSlides();
+    lessonPick = +lessonMenu.value || 0;
+    if (learnPass) endPassUnfinished();
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses && mode === "learn") reshuffleTab();
+    render();
+  });
+
+  function showNotice() {
+    const t = LESSONS && typeof settings.notice === "string" ? settings.notice.trim() : "";
+    courseNotice.textContent = t;
+    courseNotice.hidden = !t;
+  }
+
+  // The required quizzes shown so far: { key, from, to, due }.
+  function requiredQuizzes() {
+    if (!LESSONS) return [];
+    return (settings.required || []).filter(function (r) {
+      // A range running past the current lesson is not yet open: its later
+      // cards aren't taught, so it shows once its last lesson arrives (as the dashboard does).
+      return r && Number.isInteger(r.from) && Number.isInteger(r.to) && r.from <= r.to && r.to <= currentLesson;
+    }).map(function (r) { return { key: "R" + r.from + "-" + r.to, from: r.from, to: r.to, due: r.due, set: r.set, dirs: Array.isArray(r.dirs) && r.dirs.length ? r.dirs : ["le"] }; });
+  }
+
+  function dueText(due) {
+    const d = new Date(due);
+    if (isNaN(d)) return "";
+    try {
+      return "due " + d.toLocaleString("en-US", { timeZone: COURSE_ZONE, weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+    } catch (e) { return "due " + d.toDateString(); }
+  }
+
+  function quizState(key) {
+    const q = quizzes[key];
+    if (!q || staleAll(key, q)) return "Not started";
+    if (q.phase === "done") return "Done";
+    return "Round " + q.round + (q.phase === "between" ? " finished" : " under way");
+  }
+
+  // The Quiz tab of a lessons deck: the required quizzes, the quiz on every
+  // lesson so far, then each lesson's quiz, newest first.
+  // The Quiz tab in the approved look: a column per direction, headed once;
+  // each circle is its own button (empty, part filled as cards are answered
+  // right, or ticked when done); the due quiz first, with its date.
+  const DIRS = [{ key: "le", label: "Latin \u2192<br>English", name: "Latin to English" }];
+  if (DECK.pair) DIRS.push({ key: "el", label: "English<br>\u2192 Latin", name: "English to Latin" });
+  // The other direction's page, opened with the student, lesson and quiz.
+  function goPair(o) {
+    const p = new URLSearchParams();
+    p.set("from", ID);
+    if (lessonPick) p.set("lesson", String(lessonPick));
+    if (o && o.quiz) p.set("quiz", o.quiz);
+    else if (o && o.mode === "quiz") p.set("mode", "quiz");
+    location.href = DECK.pair.page + "?" + p.toString();
+  }
+  // A quiz on the other direction's page: read from its own saved record.
+  function pairQuiz(key) {
+    try {
+      const all = JSON.parse(localStorage.getItem(DECK.pair.id + "_quizzes_v2__" + currentSlug) || "null");
+      return all && all[key] && typeof all[key] === "object" ? all[key] : null;
+    } catch (e) { return null; }
+  }
+  // The whole-deck quiz finished at an earlier lesson did not ask the cards
+  // added since: it counts as not yet taken.
+  function staleAll(key, q) { return LESSONS && key === "all" && !!q && q.phase === "done" && q.lesson !== currentLesson; }
+  function quizDone(q) { return !!q && (q.phase === "done" || (Array.isArray(q.list) && Array.isArray(q.right) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }))); }
+  // A required quiz also counts as done when the quiz on every lesson so far
+  // was finished at or past its last lesson, after it was set (the dashboard's
+  // rule, Dashboard Desk review, Oct 30).
+  function fullCovers(req, other) {
+    if (!req) return false;
+    const a = other ? pairQuiz("all") : quizzes.all;
+    if (!quizDone(a) || !(a.lesson >= req.to)) return false;
+    const set = req.set ? Date.parse(req.set) : 0;
+    return !set || (a.savedAt || 0) > set;
+  }
+  function markFor(key, other, req) {
+    const q = other ? pairQuiz(key) : quizzes[key];
+    const m = el("span", "lr-mark");
+    if (fullCovers(req, other) && !quizDone(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done, by the quiz on every lesson" }; }
+    if (!q || staleAll(key, q)) return { m: m, state: "to do" };
+    if (quizDone(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
+    const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
+    m.classList.add("started");
+    m.style.background = "conic-gradient(var(--navy) " + Math.round(share * 360) + "deg, transparent 0)";
+    return { m: m, state: "started, " + Math.round(share * 100) + "% right" };
+  }
+  function renderQuizLook() {
+    stage.hidden = true;
+    quizControls.hidden = true;
+    quizPanel.hidden = false;
+    quizPanel.innerHTML = "";
+    const head = el("div", "lr-qhead");
+    head.setAttribute("aria-hidden", "true");
+    const hd = el("span", "lr-dirs");
+    DIRS.forEach(function (d) { const b = el("b"); b.innerHTML = d.label; hd.appendChild(b); });
+    head.appendChild(hd);
+    quizPanel.appendChild(head);
+    const list = el("div", "quiz-list");
+    function row(key, label, due, only, req) {
+      const r = el("div", "lr-qrow" + (due ? " due" : ""));
+      const name = el("span", "lr-qname", label);
+      if (due) name.appendChild(el("span", "lr-due", due));
+      r.appendChild(name);
+      const dirs = el("span", "lr-dirs");
+      DIRS.forEach(function (d) {
+        // A required quiz asks only the directions the settings name (Latin to English unless both).
+        if (only && only.indexOf(d.key) < 0) { dirs.appendChild(el("span", "lr-dir lr-dir-none")); return; }
+        const here = !DECK.pair || d.key === (DECK.direction || "le");
+        const mk = markFor(key, !here, req);
+        const b = el("button", "lr-dir");
+        b.type = "button";
+        if (here) b.dataset.set = key; else b.dataset.pairSet = key;
+        b.setAttribute("aria-label", label + ", " + d.name + ", " + mk.state);
+        b.appendChild(mk.m);
+        b.addEventListener("click", function () { if (here) openQuizSet(key); else goPair({ quiz: key }); });
+        dirs.appendChild(b);
+      });
+      r.appendChild(dirs);
+      list.appendChild(r);
+    }
+    const req = requiredQuizzes();
+    if (req.length) {
+      list.appendChild(el("div", "quiz-list-head", "Due"));
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, ""), r.dirs, r); });
+    }
+    const ls = shownLessons();
+    if (ls.length) row("all", lessonRange(ls[0], currentLesson));
+    ls.slice().reverse().forEach(function (n) { row("L" + n, lessonRange(n, n)); });
+    quizPanel.appendChild(list);
+  }
+
+  function renderQuizList() {
+    if (LOOK) { renderQuizLook(); return; }
+    stage.hidden = true;
+    quizControls.hidden = true;
+    quizPanel.hidden = false;
+    quizPanel.innerHTML = "";
+    statusText.textContent = knownShown() + " of " + shownTotal() + " known";
+    progressFill.style.width = "0%";
+    quizPanel.appendChild(el("div", "panel-title", "Quizzes"));
+    const list = el("div", "quiz-list");
+    function row(key, label, extra) {
+      const b = el("button", "quiz-row");
+      b.type = "button";
+      b.dataset.set = key;
+      b.appendChild(el("span", "qr-name", label + (extra ? " \u00b7 " + extra : "")));
+      b.appendChild(el("span", "qr-state", quizState(key)));
+      b.addEventListener("click", function () { openQuizSet(key); });
+      list.appendChild(b);
+    }
+    const req = requiredQuizzes();
+    if (req.length) {
+      list.appendChild(el("div", "quiz-list-head", "Due"));
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due)); });
+    }
+    const ls = shownLessons();
+    list.appendChild(el("div", "quiz-list-head", "All lessons so far"));
+    if (ls.length) row("all", lessonRange(ls[0], currentLesson));
+    list.appendChild(el("div", "quiz-list-head", "One lesson"));
+    ls.slice().reverse().forEach(function (n) { row("L" + n, lessonRange(n, n)); });
+    quizPanel.appendChild(list);
+  }
+
+  function openQuizSet(key) {
+    cancelSlides();
+    filter = key;
+    quizPicked = true;
+    quiz = quizzes[key] || null;
+    if (staleAll(key, quiz)) quiz = null;
+    inputFor = null;
+    flipped = false;
+    render();
+    if (quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
+  }
+
+  // course-settings.json: fetched when the deck opens and when the student
+  // comes back to it. A good copy is kept on this device; a change of lesson
+  // waits while a Learn pass or a quiz round is open.
+  function settingsBusy() {
+    return !deckScreen.hidden && ((mode === "learn" && !!learnPass) || (mode === "quiz" && !!quiz && quiz.phase === "card"));
+  }
+  function applySettings(s) {
+    if (!goodSettings(s)) return;
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (e) { /* ignore */ }
+    if (s.currentLesson !== currentLesson && settingsBusy()) { pendingSettings = s; settings.notice = s.notice; showNotice(); return; }
+    pendingSettings = null;
+    settings = s;
+    currentLesson = s.currentLesson;
+    fillLessonMenu();
+    showNotice();
+    renderOpen();
+    if (!deckScreen.hidden) render();
+  }
+  function applyPendingSettings() { if (pendingSettings && !settingsBusy()) applySettings(pendingSettings); }
+  function checkSettings() {
+    if (!LESSONS) return;
+    try {
+      fetch("course-settings.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (s) { if (s) applySettings(s); })
+        .catch(function () { /* offline: keep the last good copy */ });
+    } catch (e) { /* no fetch */ }
   }
 
   // ---------- Rendering & mode switching ----------
@@ -4435,8 +5736,11 @@
       t.classList.toggle("active", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
-    learnTabsEl.hidden = mode !== "learn" && !QUIZ_BY_SET;
+    learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
+    document.querySelectorAll(".lr-learn").forEach(function (n) { n.hidden = mode !== "learn"; });
+    if (LOOK) document.querySelector(".progress-track").classList.toggle("lr-hide", mode === "learn");
+    document.getElementById("breakBackBtn").hidden = !(mode === "learn" && filter === "missed");
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
       quizControls.hidden = true;
@@ -4444,6 +5748,7 @@
       renderLearn();
     } else {
       footerHelp.textContent = EXERCISE ? DECK.help || (CARDS.some(function (c) { return c.kind === "choice"; }) ? "Tap an answer, or type it and press Enter to check" : "Type the meaning and press Enter to check") :
+        FORMS ? "One Latin form per box, in any order \u00b7 Enter moves to the next box \u00b7 Enter in the last box, or Check, checks the answer" :
         MEANINGS ? "One meaning per line \u00b7 Enter starts a new line \u00b7 Enter on an empty line, or Check, checks the answer" :
         "Type the meaning and press Enter to check";
       if (presenterMode) footerHelp.textContent = "Teacher mode: \u2190 \u2192 move \u00b7 Space or a click on the card flips it \u00b7 Esc leaves an answer box \u00b7 type an answer and Check to see how it is judged";
@@ -4458,9 +5763,16 @@
   function setMode(m) {
     cancelSlides();
     if (mode === "learn" && m !== "learn" && learnPass) endPassUnfinished();
+    if (LESSONS) {
+      if (mode === "learn" && m !== "learn") learnFilter = filter === "missed" ? "all" : filter;
+      if (m === "learn" && mode !== "learn") filter = learnFilter;
+      quiz = null; // the Quiz tab opens on its list; each quiz stays saved by set
+      quizPicked = false;
+    }
     mode = m;
     flipped = false;
     inputFor = null;
+    if (LESSONS) { applyPendingSettings(); render(); return; }
     if (QUIZ_BY_SET && !EXERCISE && mode === "quiz") quiz = quizzes[filter] || null;
     render();
     if (mode === "quiz" && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
@@ -4473,7 +5785,7 @@
       teacherFlipCard();
       return;
     }
-    if (mode !== "learn") return;
+    if (mode !== "learn") { if (!(e.target.closest && e.target.closest("input, textarea, button"))) dismissIntro(); return; }
     if (Date.now() - swipeHandledAt < 500) return;
     flip();
   });
@@ -4527,7 +5839,7 @@
   answerInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (MEANINGS) lineEnter(answerInput);
+      if (LINES) lineEnter(answerInput);
       else if (EXERCISE && quiz && hasBoxes(CARDS[quiz.order[quiz.pos]])) boxEnter(answerInput);
       else checkAnswer();
     }
@@ -4593,7 +5905,7 @@
       return true;
     }
     // In a quiz each card must be checked first, so swipes are not queued.
-    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && quiz.answers[quiz.pos]) { quizNext(speed); return true; }
+    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && (quiz.answers[quiz.pos] || (rulesOn() && Array.isArray(quiz.list)))) { quizNext(speed); return true; }
     return false;
   }
 
@@ -4706,6 +6018,8 @@
     learningMarked = new Set();
     learnPass = null;
     markSrc = {};
+    resetAt = Date.now();
+    if (!presenterMode) { try { localStorage.setItem(resetKey(), String(resetAt)); } catch (e) { /* blocked */ } }
     saveKnown();
     saveLearning();
     saveLearnPass();
@@ -4714,7 +6028,11 @@
   });
 
   modeTabs.forEach(function (tab) {
-    tab.addEventListener("click", function () { if (tab.dataset.mode !== mode) setMode(tab.dataset.mode); });
+    tab.addEventListener("click", function () {
+      if (tab.dataset.mode !== mode) setMode(tab.dataset.mode);
+      // On a lessons deck the Quiz tab, tapped again, goes back to the list of quizzes.
+      else if (LESSONS && mode === "quiz" && quizPicked) setMode("quiz");
+    });
   });
 
   learnTabs.forEach(function (tab) {
@@ -4727,7 +6045,7 @@
       pos = 0;
       flipped = false;
       if (DECK.shufflePasses && mode === "learn") reshuffleTab();
-      if (QUIZ_BY_SET) { quiz = quizzes[filter] || null; inputFor = null; }
+      if (QUIZ_BY_SET && !LESSONS) { quiz = quizzes[filter] || null; inputFor = null; }
       render();
       if (QUIZ_BY_SET && quiz && quiz.phase === "card" && !quiz.answers[quiz.pos] && needsTyping() && !presenterMode) answerInput.focus();
     });
@@ -4756,6 +6074,7 @@
     // Always open in Learn; an unfinished quiz resumes where it stopped
     // when the Quiz tab is tapped. Exercise Decks open the quiz on All.
     showHint = true;
+    introPending = quizIntroPending = LOOK;
     if (EXERCISE) { quiz = quizzes.all || null; setMode("quiz"); return; }
     setMode("learn");
   }
@@ -4770,7 +6089,11 @@
   });
 
   try {
-    const last = localStorage.getItem(LAST_NAME_KEY) || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
+    // Arriving from the other direction's page: the student there is the one
+    // signed in, so that page's name comes first (a shared computer).
+    const pairName = DECK.pair && localStorage.getItem(DECK.pair.id + "_lastName");
+    const fromPair = DECK.pair && new URLSearchParams(location.search).get("from") === DECK.pair.id;
+    const last = (fromPair && pairName) || localStorage.getItem(LAST_NAME_KEY) || pairName || (DECK.legacy && localStorage.getItem(DECK.legacy.nameKey));
     if (last) nameInput.value = last;
   } catch (e) { /* ignore */ }
 
@@ -5034,6 +6357,7 @@
   }
 
   function showUpdateBar() {
+    if (typeof renderOpen === "function") renderOpen();
     if (!newVersion || !updateBar.hidden) return;
     if (!EXERCISE && roundUnderWay()) return;
     updateBar.hidden = false;
@@ -5066,7 +6390,7 @@
     location.href = url.toString();
   });
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") checkDeckVersion();
+    if (document.visibilityState === "visible") { checkDeckVersion(); checkSettings(); }
   });
   window.addEventListener("pageshow", function (e) {
     if (e.persisted) { versionCheckedAt = 0; checkDeckVersion(); }
@@ -5075,6 +6399,26 @@
   window.addEventListener("hashchange", showScreen);
   showScreen();
   checkDeckVersion();
+  buildLook();
+  buildOpen();
+  fillLessonMenu();
+  // Arriving from the other direction's page (the direction switch, or its
+  // column on the Quiz tab): the student is already known, so the deck opens
+  // at once, in the same lesson, on the quiz asked for.
+  if (DECK.pair && /[?&]from=/.test(location.search) && nameInput.value.trim()) {
+    const arrive = new URLSearchParams(location.search);
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* ignore */ }
+    startDeck();
+    const l = +arrive.get("lesson");
+    if (l && LESSONS && lessonMenu.querySelector('option[value="' + l + '"]')) { lessonMenu.value = String(l); lessonMenu.dispatchEvent(new Event("change")); }
+    const q = arrive.get("quiz");
+    if (q || arrive.get("mode") === "quiz") {
+      setMode("quiz");
+      if (q && setIndices(q).length) openQuizSet(q);
+    }
+  } else showOpen();
+  showNotice();
+  checkSettings();
 </script>
 
 </body>

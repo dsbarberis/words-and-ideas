@@ -28,6 +28,7 @@ function builtDecks() {
 function testBuildMatches(decks) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-build-"));
   fs.cpSync(path.join(repo, "standard-deck"), path.join(tmp, "standard-deck"), { recursive: true });
+  fs.copyFileSync(path.join(repo, "course-settings.json"), path.join(tmp, "course-settings.json"));
   execFileSync("node", [path.join(tmp, "standard-deck", "build.js")], { stdio: "pipe" });
   const fails = [];
   const rebuilt = fs.readdirSync(tmp).filter(x => x.endsWith(".html"));
@@ -63,10 +64,12 @@ function testNoWorkingNotes(decks) {
 function testCopy(tmp, f, s) {
   const a = "const CARDS = DECK.cards;";
   s = s.replace(a, a + " window.__t={judgeExercise:(...x)=>judgeExercise(...x),goodFaith:(...x)=>goodFaith(...x),CARDS:CARDS,EX:()=>EXERCISE," +
-    "judge:(...x)=>judge(...x),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
+    "judge:(...x)=>judge(...x),FORMS:()=>FORMS,judgeForms:(...x)=>judgeForms(...x),formsOn:(c)=>formsOn(c),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
-    "goTo:(i)=>{quiz.pos=quiz.order.indexOf(i);inputFor=null;render();}," +
+    "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
+    "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click(),upgrade:(q)=>upgradeQuiz(q),setQuizzes:(k,q)=>{quizzes[k]=q;},markFor:(k,r)=>markFor(k,false,r).state,setPass:(p)=>{learnPass=p;},savePass:()=>saveLearnPass(),grow:()=>growForms(),name:()=>currentName}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
+    "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),start:()=>startQuiz(),nextRound:()=>startNextRound(),save:()=>saveQuiz(),send:()=>{quiz.sent=false;sendQuizRound();return quiz.misses;},dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
   const out = path.join(tmp, f);
@@ -109,21 +112,42 @@ async function browserTests(decks) {
     // one deck that quizzes by tab move every record from positions to keys.
     if (!errors.length && (f === "index.html" || f === "Lesson X Exercise III Flashcards.html")) {
       let kr;
-      try { kr = await page.evaluate(keyedRecords); }
+      try { kr = await page.evaluate(f === "index.html" ? splitRecords : keyedRecords); }
       catch (e) { kr = { checked: 0, fails: ["the check stopped: " + String(e.message).split("\n")[0]] }; }
       keyCount += kr.checked;
       kr.fails.forEach(x => keyFails.push(f + ": " + x));
       await page.evaluate(() => localStorage.clear());
+    }
+    if (!errors.length && /^Greek (History|Mythology) Flashcards\.html$/.test(f)) {
+      let oq;
+      try { oq = await page.evaluate(oneQuizChecks); }
+      catch (e) { oq = { checked: 0, fails: ["the one-quiz check stopped: " + String(e.message).split("\n")[0]] }; }
+      keyCount += oq.checked;
+      oq.fails.forEach(x => keyFails.push(f + ": " + x));
     }
     if (!errors.length) {
       const ef = await page.evaluate(effortChecks);
       effort.checked += ef.checked;
       ef.fails.forEach(x => effortFails.push(f + ": " + x));
       const isEx = await page.evaluate(() => __t.EX());
-      if (!isEx) {
+      const isForms = await page.evaluate(() => __t.FORMS());
+      if (isForms) {
+        let fc;
+        try { fc = await formsChecks(page); }
+        catch (e) { fc = { checked: 0, fails: ["the English to Latin check stopped: " + String(e.message).split("\n")[0]] }; }
+        flashCount += fc.checked;
+        fc.fails.forEach(x => flashFails.push(f + ": " + x));
+      } else if (!isEx) {
         const fc = await page.evaluate(flashcardChecks);
         flashCount += fc.checked;
         fc.fails.forEach(x => flashFails.push(f + ": " + x));
+        if (await page.evaluate(() => __t.LES())) {
+          let lc;
+          try { lc = await lessonChecks(page); }
+          catch (e) { lc = { checked: 0, fails: ["the lesson check stopped: " + String(e.message).split("\n")[0]] }; }
+          flashCount += lc.checked;
+          lc.fails.forEach(x => flashFails.push(f + ": " + x));
+        }
         let ui;
         try { ui = await flashcardUi(page); }
         catch (e) { ui = { checked: 0, fails: ["the in-deck check stopped: " + String(e.message).split("\n")[0]] }; }
@@ -366,14 +390,20 @@ async function uiChecks(page) {
     const vals = await page.evaluate(i => { const c = __t.CARDS[i]; return c.boxes ? c.boxes.map(b => b.check === "parts" ? c.parts.map(p => p.accept[0]).join(" ") : /^el:/.test(b.check || "") ? (c.parts.filter(p => p.type === b.check.slice(3)).map(p => p.accept[0]).join(" ") || "none") : b.check === "explain" || (b.senses && b.noPenalty) ? "zebra quartz violin harbor mango" : b.check === "names" ? "Zanzibar" : b.check === "greek" ? "zzzqqq" : b.check === "deriv" ? (/^base$/i.test(b.label) ? c.word.slice(0, 3) : "zebra") : "zebra quartz violin") : ["zzzq"]; }, t.i);
     await typeInto(vals);
     await page.click("#checkBtn");
-    const res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok }, note: document.getElementById("quizNote").textContent, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent, marks: document.querySelectorAll(".face-front .box-mark, .face-front .in-no").length }; }, t.i);
+    // The first wrong try: marked, not locked, the back hidden, one more try.
+    const one = await page.evaluate(i => { const q = __t.quiz(); const k = q.order.indexOf(i); return { a: !!q.answers[k], tries: q.tries[k], flipped: document.getElementById("card").classList.contains("flipped"), miss: document.getElementById("missNote").textContent, off: document.getElementById("checkBtn").disabled }; }, t.i);
+    checked++;
+    if (one.a || one.tries !== 1 || one.flipped || one.off || !/one more try/.test(one.miss)) fails.push("first try: " + JSON.stringify(one));
+    await page.click("#checkBtn");
+    const res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok, t: a.t }, note: document.getElementById("quizNote").textContent, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent, marks: document.querySelectorAll(".face-front .box-mark, .face-front .in-no").length }; }, t.i);
     checked++;
     if (!res.a) fails.push("miss: the wrong answer was not checked (" + res.note + ")");
     else if (res.a.ok) fails.push("miss: the wrong answer was marked right");
     else {
       if (res.flipped) fails.push("miss: the back was shown");
       if (res.back) fails.push("miss: the answer is on the page (" + res.back.slice(0, 40) + ")");
-      if (!/comes back later/.test(res.miss) || !/To study it/.test(res.miss)) fails.push("miss: no miss line or study line on the front");
+      if (!/comes back in a later round/.test(res.miss) || !/To study it/.test(res.miss)) fails.push("miss: no miss line or study line on the front");
+      if (res.a.t !== 2) fails.push("miss: the second try is not recorded");
       if (!res.marks) fails.push("miss: no marks on the front");
     }
   }
@@ -471,11 +501,273 @@ function flashcardChecks() {
 // Through the deck itself (made-up learner): a miss keeps the back empty and
 // hidden, with no count on the page; a right answer shows the back, and on
 // Latin Roots the count and one pill per group.
-async function flashcardUi(page) {
-  const fails = []; let checked = 0;
+// Lessons decks (Lesson Filter release): cards shown by the current lesson,
+// the lesson menu newest first, lesson quizzes, the Quiz tab list and row names.
+async function lessonChecks(page) {
   await page.fill("#nameInput", "Test Student");
   await page.keyboard.press("Enter");
+  // The Quiz tab's list: nothing is open, so a change of lesson applies at once.
+  await page.click("button.tab[data-mode=quiz]");
+  const r = await page.evaluate(() => {
+    const fails = []; let checked = 0;
+    const L = __t.lessons, C = __t.CARDS;
+    function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+    check(C.every(c => Number.isInteger(c.lesson)), "a card has no lesson");
+    const early = C.filter(c => /\b(FAC|PULS|NOMIN|LOC|SPIR|LIMIN)-/.test(c.word));
+    check(early.length === 6 && early.every(c => c.lesson === 5), "the six early cards are not in Lesson V");
+    // Bad settings are ignored.
+    const was = L.cur();
+    L.apply({ currentLesson: "XIII" }); check(L.cur() === was, "settings with a bad lesson were used");
+    L.apply({ currentLesson: 5, required: [{ from: 2, to: 4, due: "2026-11-06T23:59:00-06:00" }], notice: "Lesson V starts Monday." });
+    check(L.cur() === 5, "the current lesson did not change to V");
+    const shown = C.map((_, i) => i).filter(i => C[i].lesson <= 5);
+    check(L.list().length === shown.length && L.list().every(i => C[i].lesson <= 5), "Learn shows cards after Lesson V");
+    check(L.count("all") === shown.length, "the All tab counts hidden cards");
+    const menu = [...document.getElementById("lessonMenu").options].map(o => o.textContent);
+    check(JSON.stringify(menu) === JSON.stringify(["Lessons II\u2013V", "Lessons II\u2013IV", "Lessons II\u2013III", "Lesson II"]), "lesson menu: " + JSON.stringify(menu));
+    L.pick(3);
+    check(L.list().every(i => C[i].lesson <= 3) && L.list().length === C.filter(c => c.lesson <= 3).length, "picking Lessons II\u2013III does not show just their cards");
+    check(L.tabs({ tab: "prefix", lesson: 3 }, "unfinished") === " (Prefixes, Lessons II\u2013III, unfinished)", "Learn pass name with a lesson: " + L.tabs({ tab: "prefix", lesson: 3 }, "unfinished"));
+    check(L.tabs({ tab: "all" }, "") === "", "a whole Learn pass gained a bracket");
+    L.pick(0);
+    check(L.set("L4").length === C.filter(c => c.lesson === 4).length, "the Lesson IV quiz has the wrong cards");
+    check(L.set("R2-4").length === C.filter(c => c.lesson >= 2 && c.lesson <= 4).length, "the Lessons II\u2013IV quiz has the wrong cards");
+    check(L.set("all").length === shown.length, "the quiz on every lesson so far has hidden cards");
+    check(L.label("L6") === "Lesson VI" && L.label("R2-10") === "Lessons II\u2013X" && L.label("L13") === "Lesson XIII", "lesson labels");
+    check(L.title("all") === "Quiz: Lessons II\u2013V", "full quiz title: " + L.title("all"));
+    check(document.getElementById("courseNotice").textContent === "Lesson V starts Monday." && !document.getElementById("courseNotice").hidden, "the notice is not shown");
+    // A whole-deck quiz saved before the release carries over as the quiz on every lesson so far.
+    const ID = __t.ID(), sl = "carry-test";
+    localStorage.setItem(ID + "_quiz_v1__" + sl, JSON.stringify({ round: 2, order: [0, 1, 2], pos: 1, answers: [{ a: "x", ok: false }, null, null], phase: "card", sent: false }));
+    __t.load("Carry Test");
+    const st = __t.state();
+    check(st.quizzes.all && st.quizzes.all.set === "all" && st.quizzes.all.round === 2 && st.quizzes.all.order.length === 3 && st.quizzes.all.size === 3, "an old saved quiz did not carry over: " + JSON.stringify(st.quizzes));
+    check(!localStorage.getItem(ID + "_quiz_v2__" + sl), "the old quiz record was kept, so it could come back");
+    __t.load("Test Student");
+    // The quiz rules (Oct 30, 2026): rounds of about 20, a missed card back in a
+    // later round with new cards, padding from cards already right, done only
+    // when every card has been answered right.
+    const R = __t.rules, SIZE = R.SIZE();
+    check(SIZE === 20 && R.TRIES() === 2, "round size or tries changed");
+    const list = C.map((_, i) => i).slice(0, 45);
+    let q = R.round(1, null, list);
+    check(q.order.length === SIZE && q.review.every(x => !x) && q.order.every(i => list.indexOf(i) >= 0), "round 1 is not 20 new cards");
+    check(q.asked.length === SIZE && q.right.length === 0 && q.size === 45 && q.attempt, "round 1 bookkeeping");
+    const missed1 = q.order.slice(0, 3);
+    q.order.forEach(i => { if (missed1.indexOf(i) < 0) q.right.push(i); });
+    let q2 = R.round(2, q);
+    check(missed1.every(i => q2.order.indexOf(i) >= 0), "a card missed in round 1 is not in round 2 (after the break)");
+    check(q2.order.length === SIZE && q2.review.filter(Boolean).length === 0 && q2.order.filter(i => q.asked.indexOf(i) < 0).length === 17, "round 2 is not the 3 missed and 17 new cards");
+    check(q2.attempt === q.attempt, "the attempt changed between rounds");
+    // Round 3: the 8 cards not yet asked, nothing missed: padded to 20 with cards already right.
+    q2.order.forEach(i => q2.right.indexOf(i) < 0 && q2.right.push(i));
+    const q3 = R.round(3, q2);
+    const counted3 = q3.order.filter((_, k) => !q3.review[k]);
+    check(counted3.length === 8 && q3.order.length === SIZE && q3.order.filter((_, k) => q3.review[k]).every(i => q2.right.indexOf(i) >= 0), "round 3 is not 8 new cards padded to 20 with cards already right: " + counted3.length + "/" + q3.order.length);
+    check(!R.allRight(q3), "the quiz counted as done before every card was right");
+    counted3.forEach(i => q3.right.push(i));
+    check(R.allRight(q3), "the quiz is not done when every card is right");
+    // A short quiz: as many cards as there are.
+    const small = R.round(1, null, list.slice(0, 7));
+    check(small.order.length === 7, "a 7-card quiz did not ask its 7 cards");
+    return { checked, fails };
+  });
+  // The Quiz tab lists the due quiz, every lesson so far, then each lesson newest first.
+  const rows = await page.$$eval("#quizPanel [data-set]", b => b.map(x => x.dataset.set));
+  r.checked++;
+  if (JSON.stringify(rows) !== JSON.stringify(["R2-4", "all", "L5", "L4", "L3", "L2"])) r.fails.push("Quiz tab rows: " + JSON.stringify(rows));
+  await page.click("#quizPanel [data-set=L4]");
+  const title = await page.$eval("#quizPanel .panel-title", x => x.textContent);
+  r.checked++;
+  if (title !== "Quiz: Lesson IV") r.fails.push("Lesson IV quiz page: " + title);
+  await page.click("#quizPanel button:has-text('Start the quiz')");
+  const q = await page.evaluate(() => { const q = __t.quiz(); return { set: q.set, n: q.order.length, lesson: q.lesson, all: q.order.every(i => __t.CARDS[i].lesson === 4) }; });
+  r.checked++;
+  if (q.set !== "L4" || !q.all || q.lesson !== 5) r.fails.push("Lesson IV quiz: " + JSON.stringify(q));
+  // A round with a miss ends with the break: Learn Missed Cards, a Learn pass named
+  // for the round, then back to the same quiz.
+  await page.evaluate(() => {
+    const q = __t.quiz();
+    q.order.forEach((i, k) => { q.answers[k] = { a: ["x"], ok: k !== 0 }; if (k !== 0 && !q.review[k] && q.right.indexOf(i) < 0) q.right.push(i); });
+    q.pos = q.order.length - 1;
+  });
+  await page.waitForTimeout(600);
+  // The quiz's first card shows the instructions; moving on first closes them.
+  const intro = await page.evaluate(() => document.getElementById("card").classList.contains("lr-first") && /two tries/.test(document.getElementById("termFront").textContent));
+  r.checked++;
+  if (!intro) r.fails.push("the first quiz card does not show the instructions");
+  const dbg = await page.evaluate(() => { __t.rules.next(); __t.rules.next(); return __t.rules.dbg(); });
+  const end = await page.evaluate(d => { const q = __t.quiz(); return { d: d, phase: q.phase, missed: q.missedLast, btns: [...document.querySelectorAll("#quizPanel button")].map(b => b.textContent) }; }, dbg);
+  r.checked++;
+  if (end.phase !== "between" || !end.missed || end.missed.length !== 1 || end.btns[0] !== "Learn Missed Cards") r.fails.push("round end: " + JSON.stringify(end));
+  else {
+    await page.click("#quizPanel button:has-text('Learn Missed Cards')");
+    const brk = await page.evaluate(() => ({ list: __t.lessons.list(), back: !document.getElementById("breakBackBtn").hidden, name: __t.lessons.tabs({ tab: "missed", brk: { round: 1, set: "L4" } }, "") }));
+    r.checked++;
+    if (brk.list.length !== 1 || brk.list[0] !== end.missed[0] || !brk.back || brk.name !== " (missed cards, quiz round 1, Lesson IV)") r.fails.push("break: " + JSON.stringify(brk));
+    await page.click("#breakBackBtn");
+    const after = await page.evaluate(() => ({ set: __t.quiz() && __t.quiz().set, phase: __t.quiz() && __t.quiz().phase }));
+    r.checked++;
+    if (after.set !== "L4" || after.phase !== "between") r.fails.push("back from the break: " + JSON.stringify(after));
+    // Round 2 holds the missed card; moving on without answering skips it, as a miss.
+    await page.click("#quizPanel button:has-text('Start Round 2')");
+    await page.waitForTimeout(600);
+    const sk = await page.evaluate(m => { const q = __t.quiz(); const had = q.order.indexOf(m) >= 0; q.pos = 0; const i = q.order[0]; const label = document.getElementById("quizNextBtn").textContent; __t.rules.next(); const a = q.answers[0]; return { had, label, skipped: !!(a && a.skipped && !a.ok), learning: __t.state().learning.indexOf(i) >= 0 || !!q.review[0] }; }, end.missed[0]);
+    r.checked++;
+    if (!sk.had || !sk.skipped || !sk.learning) r.fails.push("round 2 and skipping: " + JSON.stringify(sk));
+    // The misses counted in round 1 carry into round 2 (code review, Oct 30: they were lost each round).
+    const carried = await page.evaluate(m => { const q = __t.quiz(); return q.misses ? q.misses[m] : null; }, end.missed[0]);
+    r.checked++;
+    if (!(carried >= 1)) r.fails.push("round 1's miss count did not carry into round 2: " + JSON.stringify(carried));
+    // A card missed in three rounds of one attempt is counted toward "stuck" (review form, Oct 30).
+    const st = await page.evaluate(() => { const q = __t.quiz(); let k = q.order.findIndex((_, j) => !q.review[j]); const i = q.order[k];
+      q.answers[k] = { a: ["x"], ok: false }; let m; for (let n = 0; n < 3; n++) m = __t.rules.send(); return { i, n: m && m[i] }; });
+    r.checked++;
+    if (!(st.n >= 3)) r.fails.push("a card missed in three rounds is not counted as stuck: " + JSON.stringify(st));
+  }
+  // Back to the list; the lesson goes back to the built-in one, then to Learn.
+  await page.click("button.tab[data-mode=quiz]");
+  r.checked++;
+  if (!(await page.locator("#quizPanel [data-set]").count())) r.fails.push("tapping Quiz again does not list the quizzes");
+  const back = await page.evaluate(() => { __t.lessons.apply(__t.lessons.built()); return __t.lessons.cur(); });
+  r.checked++;
+  if (back !== 13) r.fails.push("the lesson did not go back to XIII from the quiz list: " + back);
+  await page.click("button.tab[data-mode=learn]");
+  // The approved look: Prefix, Base and Suffix filter Learn; Reset needs a second tap.
+  const look = await page.evaluate(async () => {
+    const out = {};
+    const C = __t.CARDS, chip = k => document.querySelector(".lr-chip[data-cat=" + k + "]");
+    chip("prefix").click(); chip("suffix").click();
+    out.basesOnly = __t.lessons.list().every(i => C[i].cat === "base") && __t.lessons.list().length === __t.lessons.count("all");
+    chip("base").click();
+    out.lastStays = chip("base").getAttribute("aria-pressed") === "true";
+    chip("prefix").click(); chip("suffix").click();
+    const rs = document.querySelectorAll(".lr-icon")[1];
+    const before = __t.state().known.length + __t.state().learning.length;
+    rs.click();
+    out.armed = rs.classList.contains("armed") && (__t.state().known.length + __t.state().learning.length) === before;
+    rs.click();
+    out.reset = __t.state().known.length === 0 && __t.state().learning.length === 0;
+    return out;
+  });
+  r.checked++;
+  if (!look.basesOnly || !look.lastStays || !look.armed || !look.reset) r.fails.push("look: " + JSON.stringify(look));
+  return r;
+}
+
+// English to Latin (Lesson Filter release, Oct 30, 2026): every card takes its
+// forms in any order; a missing or wrong form fails it and the boxes say which;
+// optional letters count either way; forms of later lessons are not asked; the
+// quiz shows one box per form; the Quiz tab has a column for each direction.
+async function formsChecks(page) {
+  const r = await page.evaluate(() => {
+    const fails = []; let checked = 0;
+    const T = __t, C = T.CARDS;
+    function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+    C.forEach((c, i) => {
+      const want = T.formsOn(c);
+      if (!want.length) return;
+      const typed = want.map(f => f.form.toLowerCase()).reverse();
+      check(T.judgeForms(i, typed).ok, c.word + ": its own forms, in another order, were not accepted: " + typed.join(", "));
+      check(T.judgeForms(i, want.map(f => f.spellings[f.spellings.length - 1])).ok, c.word + ": the forms with their optional letters were not accepted");
+      if (want.length > 1) {
+        const res = T.judgeForms(i, typed.slice(1));
+        check(!res.ok && res.got.filter(Boolean).length === want.length - 1, c.word + ": one form missing still passed");
+      }
+      const wrong = T.judgeForms(i, ["zzzq"].concat(typed.slice(1)));
+      check(!wrong.ok && wrong.rows[0].ok === false, c.word + ": a wrong form was not marked wrong");
+    });
+    const speak = C.findIndex(c => c.k === "speak");
+    check(speak >= 0, "no \"to speak\" card");
+    if (speak >= 0) {
+      const built = T.lessons.built();
+      T.lessons.apply(Object.assign({}, built, { currentLesson: 3 }));
+      check(T.formsOn(C[speak]).length === 2 && T.judgeForms(speak, ["loqu", "locut"]).ok, "at Lesson III, \"to speak\" does not ask just LOQU- and LOCUT-");
+      T.lessons.apply(built);
+      check(T.formsOn(C[speak]).length === 6 && !T.judgeForms(speak, ["loqu", "locut"]).ok, "at Lesson XIII, \"to speak\" does not ask all six forms");
+    }
+    return { checked, fails };
+  });
+  if (await page.isVisible("#nameInput")) { await page.fill("#nameInput", "Test Student"); await page.keyboard.press("Enter"); }
+  else if (await page.isVisible("#openScreen .lr-start")) await page.click("#openScreen .lr-start");
+  await page.waitForTimeout(200);
+  const sw = await page.$eval(".lr-dirsw", b => b.textContent).catch(() => "");
+  r.checked++;
+  if (!/English\s*\u21c4\s*Latin/.test(sw)) r.fails.push("the direction switch reads " + JSON.stringify(sw));
+  await page.click("button.tab[data-mode=quiz]");
+  const cols = await page.evaluate(() => ({ own: document.querySelectorAll("#quizPanel [data-set]").length, pair: document.querySelectorAll("#quizPanel [data-pair-set]").length }));
+  r.checked++;
+  if (!cols.own || !cols.pair) r.fails.push("the Quiz tab lacks a column for each direction: " + JSON.stringify(cols));
+  await page.click("#quizPanel [data-set=L3]");
+  await page.click("#quizPanel button:has-text('Start')");
+  await page.waitForTimeout(500);
+  await page.evaluate(() => __t.rules.next());
+  await page.waitForTimeout(500);
+  const boxes = await page.evaluate(() => { const q = __t.quiz(); const i = q.order[q.pos]; return { want: __t.formsOn(__t.CARDS[i]).length, shown: [...document.querySelectorAll("#card .quiz-form input")].filter(x => x.offsetParent).length }; });
+  r.checked++;
+  if (boxes.want !== boxes.shown) r.fails.push("the quiz card shows " + boxes.shown + " boxes for " + boxes.want + " forms");
+  // A Know It card that gains a form at a later lesson returns to Still Learning,
+  // with a note naming the new form (build plan; code review, Oct 30).
+  const grow = await page.evaluate(() => {
+    const T = __t, C = T.CARDS, speak = C.findIndex(c => c.k === "speak"), built = T.lessons.built();
+    T.load("Grow Test");
+    T.lessons.apply(Object.assign({}, built, { currentLesson: 3 }));
+    T.known().add(speak); T.split.note(speak, "learn");
+    T.lessons.apply(built);
+    T.split.grow();
+    const st = T.state();
+    return { learning: st.learning.includes(speak), known: st.known.includes(speak), note: st.marks[speak] && st.marks[speak].g };
+  });
+  r.checked++;
+  if (!grow.learning || grow.known || !/[A-Z]/.test(grow.note || "")) r.fails.push("a card that gained forms did not return to Still Learning with a note: " + JSON.stringify(grow));
+  // Arriving from the other direction's page signs in that page's student (a shared computer).
+  const url = page.url().split("?")[0];
+  const pairId = await page.evaluate(() => { localStorage.setItem(__t.ID() + "_lastName", "Earlier Student"); return "latinroots"; });
+  await page.evaluate(id => localStorage.setItem(id + "_lastName", "Current Student"), pairId);
+  await page.goto(url + "?from=" + pairId);
+  await page.waitForFunction(() => window.__t, null, { timeout: 10000 });
+  await page.waitForTimeout(300);
+  const who = await page.evaluate(() => __t.split.name() || document.getElementById("nameInput").value);
+  r.checked++;
+  if (who !== "Current Student") r.fails.push("arriving from the other page signed in " + JSON.stringify(who) + ", not that page's student");
+  return r;
+}
+
+// Greek History and Greek Mythology keep one quiz: "Start Round 2" and "Take
+// the quiz again" move on (code review, Oct 30: the saved quiz came back).
+function oneQuizChecks() {
+  const fails = []; let checked = 0;
+  const T = __t;
+  function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+  localStorage.clear();
+  T.load("One Quiz");
+  T.rules.start();
+  let q = T.quiz();
+  check(q && q.round === 1 && q.phase === "card", "the quiz did not start");
+  q.phase = "between"; T.rules.save();
+  T.rules.nextRound();
+  q = T.quiz();
+  check(q && q.round === 2, "Start Round 2 stayed on round " + (q && q.round));
+  q.phase = "done"; T.rules.save();
+  T.rules.start();
+  q = T.quiz();
+  check(q && q.round === 1 && q.phase === "card", "Take the quiz again brought back the finished quiz: " + JSON.stringify(q && { round: q.round, phase: q.phase }));
+  T.setQuiz(null); T.rules.save();
+  check(T.quiz() === null, "closing the quiz brought it back");
+  localStorage.clear();
+  return { checked, fails };
+}
+
+async function flashcardUi(page) {
+  const fails = []; let checked = 0;
+  if (await page.isVisible("#nameInput")) {
+    await page.fill("#nameInput", "Test Student");
+    await page.keyboard.press("Enter");
+  }
   await page.click("button.mode-tab[data-mode=quiz], .mode-tab:has-text('Quiz'), button:has-text('Quiz')");
+  // A lessons deck lists its quizzes first: open the quiz on every lesson so far.
+  const allRow = page.locator("#quizPanel [data-set=all]");
+  if (await allRow.count()) await allRow.click();
   const start = page.locator("#quizPanel button", { hasText: "Start the quiz" });
   if (await start.count()) await start.first().click();
   const pick = await page.evaluate(() => {
@@ -488,6 +780,10 @@ async function flashcardUi(page) {
   const missVal = await page.evaluate(p => p.M ? __t.CARDS[p.miss].meaningGroups[0][0] : "zebra quartz violin", pick);
   await page.fill("#answerInput", missVal);
   await page.click("#checkBtn");
+  const one = await page.evaluate(i => { const q = __t.quiz(); const k = q.order.indexOf(i); return { a: !!q.answers[k], tries: q.tries[k], flipped: document.getElementById("card").classList.contains("flipped"), miss: document.getElementById("missNote").textContent }; }, pick.miss);
+  checked++;
+  if (one.a || one.tries !== 1 || one.flipped || !/one more try/.test(one.miss)) fails.push("first try: " + JSON.stringify(one));
+  await page.click("#checkBtn");
   let res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok }, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), origin: document.getElementById("originBack").textContent.trim(), count: document.querySelectorAll(".sense-count, .sense-pill").length, miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent }; }, pick.miss);
   checked++;
   if (!res.a) fails.push("miss: the answer was not checked");
@@ -495,7 +791,7 @@ async function flashcardUi(page) {
   else {
     if (res.flipped) fails.push("miss: the back was shown");
     if (res.back || res.origin || res.count) fails.push("miss: the answer or the count is on the page");
-    if (!/comes back later/.test(res.miss)) fails.push("miss: no \"comes back later\" line on the front");
+    if (!/comes back in a later round/.test(res.miss)) fails.push("miss: no \"comes back in a later round\" line on the front");
   }
   // A right answer.
   await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); }, pick.right);
@@ -525,8 +821,17 @@ function testFrozenKeys(decks) {
     const deck = JSON.parse(m[1].replace(/<\\\//g, "</"));
     const want = frozen[deck.id];
     if (!want) { fails.push(f + ": deck \"" + deck.id + "\" is not in card-keys.json"); continue; }
+    if (deck.keyTable) {
+      // One card per form (Lesson Filter release): a frozen key is still a card,
+      // or key-table.json leads it to cards that exist; old positions go through
+      // the frozen keys the page carries.
+      const ks = new Set(deck.cards.map(c => c.k));
+      if (JSON.stringify(deck.frozenKeys) !== JSON.stringify(want)) fails.push(f + ": the page's frozen keys differ from card-keys.json");
+      want.forEach(k => { n++; (deck.keyTable.from[k] || [k]).forEach(t => { if (!ks.has(t)) fails.push(f + ": frozen key " + k + " leads to " + t + ", which is no card"); }); });
+    } else {
     if (deck.frozenCount !== want.length) fails.push(f + ": frozenCount " + deck.frozenCount + ", card-keys.json lists " + want.length);
     want.forEach((k, i) => { n++; if (!deck.cards[i] || deck.cards[i].k !== k) fails.push(f + ": card " + (i + 1) + " should have key " + JSON.stringify(k) + ", has " + JSON.stringify(deck.cards[i] && deck.cards[i].k)); });
+    }
     const ks = deck.cards.map(c => c.k);
     ks.forEach((k, i) => { if (!k || ks.indexOf(k) !== i) fails.push(f + ": card " + (i + 1) + " key " + JSON.stringify(k) + " missing or repeated"); });
   }
@@ -539,6 +844,151 @@ function testFrozenKeys(decks) {
 // old records untouched, can run the move twice, takes a newer old record
 // from a tab still open on the earlier deck, and survives storage failing
 // partway through the move.
+// One card per form (Lesson Filter release, Oct 30, 2026): marks under the old
+// cards' keys or positions go to the new cards once; a joined card is Know It only
+// when every card it joins was; the student's later marks are never undone; an
+// old open tab can't bring an old card back; a pass or quiz keeps its length.
+function splitRecords() {
+  const fails = []; let checked = 0;
+  const T = __t, ID = T.ID(), FK = T.split.frozenKeys(), C = T.CARDS;
+  function check(ok, msg) { checked++; if (!ok) fails.push(msg); }
+  const pos = k => FK.indexOf(k), idx = k => C.findIndex(c => c.k === k), keysOf = a => a.map(i => C[i].k).sort();
+  let K2;
+  const v1 = (s, sl) => ID + "_" + s + "_v1__" + sl, v2 = (s, sl) => ID + "_" + s + "_v2__" + sl;
+  check(T.split.table() && FK.length > 100, "the page has no key table or frozen keys");
+  // 1. Old positions (a student who has not opened the deck since Oct 28).
+  localStorage.clear();
+  const now = Date.now();
+  localStorage.setItem(v1("known", "split-a"), JSON.stringify([pos("IN-not"), pos("IN-into"), pos("CAD"), pos("HAB")]));
+  localStorage.setItem(v1("learning", "split-a"), JSON.stringify([pos("AB")]));
+  localStorage.setItem(v1("markSrc", "split-a"), JSON.stringify({ [pos("CAD")]: { s: "learn", d: "2026-10-20" } }));
+  localStorage.setItem(v1("quizzes", "split-a"), JSON.stringify({ all: { round: 1, set: "all", order: [pos("CAD"), pos("IN-not"), pos("SED")], pos: 0, answers: [null, null, null], phase: "card", sent: false } }));
+  T.load("Split A");
+  let st = T.state();
+  const K = keysOf(st.known), L = keysOf(st.learning);
+  ["IN", "IM", "CAD", "CID", "CAS", "HAB"].forEach(k => check(K.includes(k), "old positions: " + k + " is not Know It: " + JSON.stringify(K)));
+  ["A", "ABS", "AB"].forEach(k => check(L.includes(k), "old positions: " + k + " is not Still Learning: " + JSON.stringify(L)));
+  check(!K.includes("IN-not") && !L.includes("IN-into"), "an old card survived");
+  check(st.marks[idx("CID")] && st.marks[idx("CID")].d === "2026-10-20", "where the CAD mark came from was not copied to CID");
+  const q = st.quizzes.all;
+  check(q && q.order.length === 3 && keysOf([q.order[0]])[0] === "CAD" && C[q.order[1]].k === "IN", "the quiz under way did not keep its length with each old card's first new card: " + JSON.stringify(q && q.order.map(i => C[i] && C[i].k)));
+  // 2. Old keys (a student since Oct 28): one old IN card Know It, the other Still Learning.
+  // (Moved to keys on an earlier visit: no old record left to move.)
+  localStorage.setItem(ID + "_movedFrom_v2__split-b", JSON.stringify({ known: "", learning: "", pass: "", marks: "", quiz: "", quizzes: "", spacing: "" }));
+  localStorage.setItem(v2("known", "split-b"), JSON.stringify(["IN-not", "CENT"]));
+  localStorage.setItem(v2("learning", "split-b"), JSON.stringify(["IN-into"]));
+  T.load("Split B");
+  st = T.state();
+  check(keysOf(st.learning).includes("IN") && !keysOf(st.known).includes("IN"), "a joined card with one old card Still Learning is not Still Learning");
+  check(keysOf(st.known).includes("CENT"), "a card with the same key lost its mark");
+  // 3. The student's later choice stands, and an old tab can't bring IN-not back.
+  const raw = JSON.parse(localStorage.getItem(v2("known", "split-b")));
+  check(raw.includes("IN") === false && !raw.includes("IN-not"), "the record was not rewritten to new keys: " + JSON.stringify(raw));
+  localStorage.setItem(v2("known", "split-b"), JSON.stringify(raw.concat(["IN"])));
+  localStorage.setItem(v2("learning", "split-b"), JSON.stringify(JSON.parse(localStorage.getItem(v2("learning", "split-b"))).filter(k => k !== "IN").concat(["IN-into"])));
+  T.load("Split B");
+  st = T.state();
+  check(keysOf(st.known).includes("IN") && !keysOf(st.learning).includes("IN"), "the student's own later Know It on IN was undone");
+  // 4. A hook runs after the copy, with the key map.
+  let seen = null;
+  T.split.hook(a => { seen = { sl: a.sl, map: a.keyMap["IN-not"], n: a.state.known.size }; });
+  T.load("Split B");
+  check(seen && seen.sl === "split-b" && JSON.stringify(seen.map) === JSON.stringify(["IM", "IN"]) && seen.n > 0, "the hook did not run with the key map: " + JSON.stringify(seen));
+  // 5. Lookups and meanings by lesson.
+  check(C[T.split.cardFor("CID-")] && C[T.split.cardFor("CID-")].k === "CID" && T.split.cardFor("(cid)") === T.split.cardFor("CID-"), "cardFor CID- does not give the CID card");
+  check(T.split.cardFor("QQQ") === -1, "cardFor an unknown element is not -1");
+  check(keysOf(T.split.entry("CAD")).join() === "CAD", "cardsForEntry CAD: " + keysOf(T.split.entry("CAD")));
+  check(keysOf(T.split.entry("IN-into")).join() === "IM,IN", "cardsForEntry IN-into: " + keysOf(T.split.entry("IN-into")));
+  const cent = idx("CENT");
+  const built = T.lessons.built();
+  T.lessons.apply(Object.assign({}, built, { currentLesson: 6 }));
+  check(T.judgeMeanings(cent, ["hundred"]).ok, "at Lesson VI, CENT- is not answered by \"hundred\" alone");
+  T.lessons.apply(built);
+  check(!T.judgeMeanings(cent, ["hundred"]).ok && T.judgeMeanings(cent, ["hundred", "sing"]).ok, "at Lesson XIII, CENT- does not need both meanings");
+  // 6. Saves merge (D, Oct 29): another tab's newer mark is kept, an older one is not,
+  // and marks from before a Reset in another tab don't come back.
+  localStorage.clear();
+  T.load("Merge A");
+  const a = idx("CAD"), b = idx("FAC"), c = idx("LOC");
+  T.known().add(a); T.split.note(a, "learn");
+  T.split.learning().add(c); T.split.note(c, "learn");
+  const later = Date.now() + 60000, earlier = Date.now() - 60000;
+  // The other tab: FAC Know It (newer), CAD Still Learning (older than this tab's mark).
+  localStorage.setItem(v2("known", "merge-a"), JSON.stringify(["FAC", "LOC"]));
+  localStorage.setItem(v2("learning", "merge-a"), JSON.stringify(["CAD"]));
+  localStorage.setItem(v2("markSrc", "merge-a"), JSON.stringify({ FAC: { s: "learn", d: "2026-10-30", t: later }, CAD: { s: "learn", d: "2026-10-30", t: earlier }, LOC: { s: "learn", d: "2026-10-30", t: later } }));
+  T.split.save();
+  st = T.state();
+  check(st.known.includes(b), "another tab's newer Know It (FAC) was lost");
+  check(st.known.includes(a) && !st.learning.includes(a), "another tab's older mark on CAD overwrote this tab's newer one");
+  check(st.known.includes(c) && !st.learning.includes(c), "another tab's newer Know It on LOC did not replace this tab's older Still Learning");
+  const kept = JSON.parse(localStorage.getItem(v2("known", "merge-a")));
+  check(kept.includes("FAC") && kept.includes("CAD"), "the stored record is not the merge: " + JSON.stringify(kept));
+  // Reset in the other tab, after both marks: this tab's marks go at its next save.
+  localStorage.setItem(ID + "_resetAt_v2__merge-a", String(Date.now() + 120000));
+  T.split.save();
+  st = T.state();
+  check(!st.known.length && !st.learning.length, "marks from before another tab's Reset came back: " + JSON.stringify([st.known, st.learning]));
+  // 7. A changed key table does not undo the student's own marks on joined cards
+  // (code review, Oct 30: CUR, AB, SED and AC went to Still Learning).
+  localStorage.clear();
+  T.load("Twice");
+  ["CUR", "AB", "SED", "AC"].forEach(k => { T.known().add(idx(k)); T.split.note(idx(k), "learn"); });
+  localStorage.setItem(ID + "_splitDone_v2__twice", "an-earlier-table");
+  T.load("Twice");
+  K2 = keysOf(T.state().known);
+  ["CUR", "AB", "SED", "AC"].forEach(k => check(K2.includes(k), "after the key table changed, " + k + " is no longer Know It: " + JSON.stringify(K2)));
+  // 8. A save keeps marks on cards this page does not know (a later lesson's card),
+  // and old keys an old tab writes are copied at the next load.
+  const t8 = Date.now();
+  localStorage.setItem(v2("known", "twice"), JSON.stringify(JSON.parse(localStorage.getItem(v2("known", "twice"))).concat(["NEWCARD-XIV"])));
+  localStorage.setItem(v2("markSrc", "twice"), JSON.stringify(Object.assign(JSON.parse(localStorage.getItem(v2("markSrc", "twice"))), { "NEWCARD-XIV": { s: "learn", d: "2026-11-02", t: t8 } })));
+  T.known().add(idx("FAC")); T.split.note(idx("FAC"), "learn");
+  const k8 = JSON.parse(localStorage.getItem(v2("known", "twice"))), m8 = JSON.parse(localStorage.getItem(v2("markSrc", "twice")));
+  check(k8.includes("NEWCARD-XIV") && k8.includes("FAC") && m8["NEWCARD-XIV"], "a save erased a mark on a card this page does not know: " + JSON.stringify(k8));
+  localStorage.setItem(v2("known", "twice"), JSON.stringify(k8.concat(["IN-not", "IN-into"])));
+  T.load("Twice");
+  K2 = keysOf(T.state().known);
+  check(K2.includes("IM") && K2.includes("IN") && K2.includes("CUR"), "an old key written by an old tab was not copied at the next load: " + JSON.stringify(K2));
+  check(!JSON.parse(localStorage.getItem(v2("known", "twice"))).includes("IN-not") && JSON.parse(localStorage.getItem(v2("known", "twice"))).includes("NEWCARD-XIV"), "after the copy, the stored record is wrong: " + localStorage.getItem(v2("known", "twice")));
+  // 9. Records from the earlier Latin Roots page (positions) go through the split copy.
+  localStorage.clear();
+  localStorage.setItem("latinFlashcards_known_v2__legacy-a", JSON.stringify([pos("CAD"), pos("IN-not"), pos("IN-into")]));
+  localStorage.setItem("latinFlashcards_learning_v2__legacy-a", JSON.stringify([pos("LOC")]));
+  T.load("Legacy A");
+  K2 = keysOf(T.state().known);
+  ["CAD", "CID", "CAS", "IM", "IN"].forEach(k => check(K2.includes(k), "the earlier page's Know It did not reach " + k + ": " + JSON.stringify(K2)));
+  check(keysOf(T.state().learning).includes("LOC"), "the earlier page's Still Learning was lost");
+  // 10. A quiz saved before the release in round 2 or later counts only the cards it covered.
+  const up = T.split.upgrade({ round: 3, set: "all", order: [idx("CAD")], answers: [null], phase: "card", pos: 0 });
+  check(!up.right.includes(idx("CID")) && !up.right.includes(idx("IM")) && up.list.includes(idx("CAD")) && !up.list.includes(idx("CID")), "an old quiz got credit for per-form cards it never asked: " + JSON.stringify({ n: up.list.length, CID: up.right.includes(idx("CID")) }));
+  // 11. A later meaning of a joined card, typed early, is not a mix-up.
+  T.lessons.apply(Object.assign({}, built, { currentLesson: 6 }));
+  const r11 = T.judgeMeanings(cent, ["hundred", "sing"]);
+  check(r11.ok && !r11.mixed, "at Lesson VI, \"hundred; sing\" on CENT- is marked wrong: " + JSON.stringify({ ok: r11.ok, mixed: r11.mixed }));
+  T.lessons.apply(built);
+  // 12. The whole-deck quiz finished at an earlier lesson is not shown as done.
+  T.load("Stale");
+  T.split.setQuizzes("all", { set: "all", phase: "done", lesson: 12, round: 1, order: [0], answers: [{ ok: true }], list: [0], right: [0], asked: [0] });
+  check(T.split.markFor("all") === "to do", "the whole-deck quiz from Lesson XII shows as " + T.split.markFor("all") + " at Lesson XIII");
+  T.split.setQuizzes("all", { set: "all", phase: "done", lesson: 13, round: 1, order: [0], answers: [{ ok: true }], list: [0], right: [0], asked: [0] });
+  check(T.split.markFor("all") === "done", "the whole-deck quiz finished at this lesson is not done");
+  // A finished quiz on every lesson so far also completes a required quiz it covers, if finished after it was set.
+  T.split.setQuizzes("all", { set: "all", phase: "done", lesson: 13, round: 1, order: [0], answers: [{ ok: true }], list: [0], right: [0], asked: [0], savedAt: Date.now() });
+  check(/^done/.test(T.split.markFor("R2-10", { from: 2, to: 10, set: new Date(Date.now() - 3600000).toISOString() })), "a finished full quiz does not complete the required quiz it covers");
+  check(T.split.markFor("R2-10", { from: 2, to: 10, set: new Date(Date.now() + 3600000).toISOString() }) === "to do", "a full quiz finished before the required quiz was set completes it");
+  // 13. A pass on another set, begun in another tab, does not replace this tab's pass.
+  localStorage.clear();
+  T.load("Pass A");
+  const t13 = Date.now();
+  T.split.setPass({ tab: "prefix", start: t13 - 1000, last: t13, list: [0, 1, 2], seen: [0], marked: [] });
+  localStorage.setItem(v2("learnPass", "pass-a"), JSON.stringify({ tab: "all", start: t13, last: t13, list: ["CAD", "FAC"], seen: ["CAD"], marked: [] }));
+  T.split.savePass();
+  check(T.state().pass && T.state().pass.tab === "prefix", "another tab's pass on another set replaced this tab's pass: " + JSON.stringify(T.state().pass && T.state().pass.tab));
+  localStorage.clear();
+  return { checked, fails };
+}
+
 function keyedRecords() {
   const fails = []; let checked = 0;
   const T = __t, ID = T.ID(), N = T.N(), sl = "move-test", K = i => T.CARDS[i].k;
@@ -569,7 +1019,11 @@ function keyedRecords() {
     check(st.spacing.n === 10 && st.spacing.miss[c] && st.spacing.miss[c].n === 8, label + ": spacing");
     const qq = T.BYSET() ? st.quizzes.all : st.quiz;
     check(qq && JSON.stringify(qq.order) === JSON.stringify(order) && qq.round === 2 && qq.pos === 1 && JSON.stringify(qq.review) === JSON.stringify(review) &&
-      qq.next && JSON.stringify(qq.next.order) === JSON.stringify([b, c]) && qq.answers[0] && qq.answers[0].a === "x", label + ": the quiz in round 2, with review and next round");
+      qq.answers[0] && qq.answers[0].a === "x", label + ": the quiz in round 2, with review");
+    // Under the quiz rules (Oct 30, 2026) a quiz saved before them keeps its round, drops its old
+    // plan for the next round, and knows its cards: those in this round are not yet right.
+    check(qq && !qq.next && Array.isArray(qq.list) && qq.list.length && [c, b, d].every(x => qq.right.indexOf(x) < 0) && qq.list.filter(x => [c, b, d].indexOf(x) < 0).every(x => qq.right.indexOf(x) >= 0),
+      label + ": the saved quiz moved to the quiz rules");
   }
   // 1. The move.
   T.load("Move Test");
