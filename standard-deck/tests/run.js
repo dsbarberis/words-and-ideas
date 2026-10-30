@@ -558,10 +558,10 @@ async function lessonChecks(page) {
     return { checked, fails };
   });
   // The Quiz tab lists the due quiz, every lesson so far, then each lesson newest first.
-  const rows = await page.$$eval("#quizPanel .quiz-row", b => b.map(x => x.dataset.set));
+  const rows = await page.$$eval("#quizPanel [data-set]", b => b.map(x => x.dataset.set));
   r.checked++;
   if (JSON.stringify(rows) !== JSON.stringify(["R2-4", "all", "L5", "L4", "L3", "L2"])) r.fails.push("Quiz tab rows: " + JSON.stringify(rows));
-  await page.click("#quizPanel .quiz-row[data-set=L4]");
+  await page.click("#quizPanel [data-set=L4]");
   const title = await page.$eval("#quizPanel .panel-title", x => x.textContent);
   r.checked++;
   if (title !== "Quiz: Lesson IV") r.fails.push("Lesson IV quiz page: " + title);
@@ -604,7 +604,7 @@ async function lessonChecks(page) {
   // Back to the list; the lesson goes back to the built-in one, then to Learn.
   await page.click("button.tab[data-mode=quiz]");
   r.checked++;
-  if (!(await page.locator("#quizPanel .quiz-row").count())) r.fails.push("tapping Quiz again does not list the quizzes");
+  if (!(await page.locator("#quizPanel [data-set]").count())) r.fails.push("tapping Quiz again does not list the quizzes");
   const back = await page.evaluate(() => { __t.lessons.apply(__t.lessons.built()); return __t.lessons.cur(); });
   r.checked++;
   if (back !== 13) r.fails.push("the lesson did not go back to XIII from the quiz list: " + back);
@@ -639,7 +639,7 @@ async function flashcardUi(page) {
   }
   await page.click("button.mode-tab[data-mode=quiz], .mode-tab:has-text('Quiz'), button:has-text('Quiz')");
   // A lessons deck lists its quizzes first: open the quiz on every lesson so far.
-  const allRow = page.locator("#quizPanel .quiz-row[data-set=all]");
+  const allRow = page.locator("#quizPanel [data-set=all]");
   if (await allRow.count()) await allRow.click();
   const start = page.locator("#quizPanel button", { hasText: "Start the quiz" });
   if (await start.count()) await start.first().click();

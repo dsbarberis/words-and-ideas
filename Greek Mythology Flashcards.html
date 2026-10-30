@@ -199,6 +199,18 @@
   .lr-who button::after { content: ""; position: absolute; inset: -7px -4px; }
   .lr-start { min-height: 48px; border-radius: 8px; border: 0; background: var(--navy); color: #fff; font: 600 17px Georgia, serif; cursor: pointer; }
   .lr-look .course-notice { display: none; }
+  .lr-qrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; padding: 6px 8px 6px 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); font: 17px Georgia, serif; color: var(--ink); }
+  .lr-qrow.due { border: 2px solid var(--burgundy); padding-top: 10px; padding-bottom: 10px; }
+  .lr-qrow .lr-due { display: block; font-size: 14px; color: var(--burgundy); margin-top: 4px; }
+  .lr-qrow .lr-dirs, .lr-qhead .lr-dirs { display: flex; gap: 28px; }
+  .lr-dir { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; padding: 0; border-radius: 22px; cursor: pointer; }
+  .lr-mark { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #6b6658; display: inline-flex; align-items: center; justify-content: center; }
+  .lr-mark.started { border-color: var(--navy); }
+  .lr-mark.done { background: #4f6b4a; border-color: #4f6b4a; color: #fff; font: 700 13px sans-serif; }
+  .lr-qhead { display: flex; justify-content: flex-end; padding: 0 8px; }
+  .lr-qhead b { width: 44px; text-align: center; font: 400 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink-soft); white-space: nowrap; display: flex; justify-content: center; }
+  .lr-look .quiz-list-head { text-align: center; font-weight: 700; }
+
   .lr-instr { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); text-align: left; width: 100%; max-width: 34em; margin: 0 auto; }
   .phone .lr-instr { grid-template-columns: 32px 1fr; }
   .lr-instr p { margin: 0; }
@@ -1573,7 +1585,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "faa0c51f641f";
+  const DECK_VERSION = "a2c44f79095e";
   const DECK_PAGE = "Greek Mythology Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4453,6 +4465,25 @@
     scoreEl.className = "panel-score";
     scoreEl.textContent = score + " / " + size;
 
+    if (quiz.phase === "between" && LOOK && !presenterMode && Array.isArray(quiz.list)) {
+      const missedN = size - score;
+      statusText.textContent = "Round " + quiz.round + " complete";
+      const end = el("div", "lr-end");
+      const dots = el("div", "lr-end-dots");
+      dots.setAttribute("role", "img");
+      dots.setAttribute("aria-label", "Round " + quiz.round + ": " + score + " of " + size + " right");
+      countedPositions().forEach(function (k) { const a = quiz.answers[k]; dots.appendChild(el("i", a && a.ok ? "ok" : "miss")); });
+      end.appendChild(dots);
+      const next = "Start Round " + (quiz.round + 1);
+      if (missedN && !quiz.breakDone && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
+        end.appendChild(panelButton("lr-start", "Learn Missed Cards", startBreak));
+        end.appendChild(panelButton("lr-skip", next + " without it", startNextRound));
+      } else end.appendChild(panelButton("lr-start", next, startNextRound));
+      quizPanel.appendChild(end);
+      const b = end.querySelector("button");
+      if (b) b.focus();
+      return;
+    }
     if (quiz.phase === "between") {
       const missed = size - score;
       statusText.textContent = "Round " + quiz.round + " complete";
@@ -4484,7 +4515,7 @@
       quizPanel.appendChild(copy);
       actions.appendChild(panelButton("nav-btn", "Take the quiz again", startQuiz));
       if (!EXERCISE) actions.appendChild(panelButton("secondary-btn", "Back to Learn", function () {
-        if (QUIZ_BY_SET) delete quizzes[quiz.set];
+        if (QUIZ_BY_SET && !LESSONS) delete quizzes[quiz.set];
         quiz = null;
         saveQuiz();
         setMode("learn");
@@ -4648,6 +4679,8 @@
   function startBreak() {
     if (!quiz || !Array.isArray(quiz.missedLast) || !quiz.missedLast.length) return;
     breakFor = { set: quiz.set || "all", round: quiz.round, cards: quiz.missedLast.slice() };
+    quiz.breakDone = true;
+    saveQuiz();
     setMode("learn");
     if (learnPass) endPassUnfinished();
     filter = "missed";
@@ -4954,7 +4987,64 @@
 
   // The Quiz tab of a lessons deck: the required quizzes, the quiz on every
   // lesson so far, then each lesson's quiz, newest first.
+  // The Quiz tab in the approved look: a column per direction, headed once;
+  // each circle is its own button (empty, part filled as cards are answered
+  // right, or ticked when done); the due quiz first, with its date.
+  const DIRS = [{ key: "", label: "Latin \u2192<br>English", name: "Latin to English" }];
+  function markFor(key) {
+    const q = quizzes[key];
+    const m = el("span", "lr-mark");
+    if (!q) return { m: m, state: "to do" };
+    if (q.phase === "done" || quizAllRight(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
+    const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
+    m.classList.add("started");
+    m.style.background = "conic-gradient(var(--navy) " + Math.round(share * 360) + "deg, transparent 0)";
+    return { m: m, state: "started, " + Math.round(share * 100) + "% right" };
+  }
+  function renderQuizLook() {
+    stage.hidden = true;
+    quizControls.hidden = true;
+    quizPanel.hidden = false;
+    quizPanel.innerHTML = "";
+    const head = el("div", "lr-qhead");
+    head.setAttribute("aria-hidden", "true");
+    const hd = el("span", "lr-dirs");
+    DIRS.forEach(function (d) { const b = el("b"); b.innerHTML = d.label; hd.appendChild(b); });
+    head.appendChild(hd);
+    quizPanel.appendChild(head);
+    const list = el("div", "quiz-list");
+    function row(key, label, due) {
+      const r = el("div", "lr-qrow" + (due ? " due" : ""));
+      const name = el("span", "lr-qname", label);
+      if (due) name.appendChild(el("span", "lr-due", due));
+      r.appendChild(name);
+      const dirs = el("span", "lr-dirs");
+      DIRS.forEach(function (d) {
+        const mk = markFor(key + d.key);
+        const b = el("button", "lr-dir");
+        b.type = "button";
+        b.dataset.set = key + d.key;
+        b.setAttribute("aria-label", label + ", " + d.name + ", " + mk.state);
+        b.appendChild(mk.m);
+        b.addEventListener("click", function () { openQuizSet(key + d.key); });
+        dirs.appendChild(b);
+      });
+      r.appendChild(dirs);
+      list.appendChild(r);
+    }
+    const req = requiredQuizzes();
+    if (req.length) {
+      list.appendChild(el("div", "quiz-list-head", "Due"));
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, "")); });
+    }
+    const ls = shownLessons();
+    if (ls.length) row("all", lessonRange(ls[0], currentLesson));
+    ls.slice().reverse().forEach(function (n) { row("L" + n, lessonRange(n, n)); });
+    quizPanel.appendChild(list);
+  }
+
   function renderQuizList() {
+    if (LOOK) { renderQuizLook(); return; }
     stage.hidden = true;
     quizControls.hidden = true;
     quizPanel.hidden = false;
