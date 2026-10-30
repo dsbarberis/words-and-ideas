@@ -445,6 +445,20 @@
     margin: 0 auto 22px;
   }
 
+  /* Practice mode and the practice break (Exercise Decks): one element card
+     at a time, Learn-style, in a panel that takes the card's place. */
+  .practicing > :not(header):not(.rule):not(.toolbar):not(#practiceView):not(footer):not(.progress-track) { display: none !important; }
+  .practicing #learnTools, .practicing #practiceTools { display: none !important; }
+  .practice-view { text-align: center; }
+  .practice-view .category-tag { color: var(--ink-soft); margin-bottom: 6px; }
+  .practice-form { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; font-size: clamp(26px, 7vw, 38px);
+    font-weight: 700; color: var(--navy); margin-bottom: 14px; overflow-wrap: anywhere; }
+  .practice-back { margin: 0 auto 18px; max-width: 440px; }
+  .practice-back .meaning { font-size: 17px; line-height: 1.5; color: var(--ink); margin-bottom: 8px; }
+  .practice-back .examples { font-size: 14px; color: var(--ink-soft); }
+  .practice-count { font-size: 13px; color: var(--ink-soft); margin-top: 14px; }
+  .practice-view .mastery-row { margin-bottom: 0; flex-wrap: wrap; }
+
   .panel-actions {
     display: flex;
     justify-content: center;
@@ -957,6 +971,9 @@
       <button class="icon-btn" id="shuffleBtn">Shuffle</button>
       <button class="icon-btn" id="resetBtn">Reset progress</button>
     </div>
+    <div class="toolbar-right" id="practiceTools" hidden>
+      <button class="icon-btn" id="practiceBtn">Practice the elements</button>
+    </div>
   </div>
 
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -965,6 +982,7 @@
   <div class="sr-only" id="liveNote" aria-live="polite"></div>
 
   <div class="quiz-panel" id="quizPanel" hidden></div>
+  <div class="quiz-panel practice-view" id="practiceView" hidden></div>
 
   <div class="stage" id="stage">
     <div class="card" id="card" tabindex="0" role="button" aria-label="Flashcard, tap or press Enter to flip">
@@ -1920,7 +1938,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "e38514153daa";
+  const DECK_VERSION = "8c3767b61081";
   const DECK_PAGE = "Greek History Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -2818,6 +2836,7 @@
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
     remarkSaved();
+    applyFromPractice();
     // A pass left unfinished on an earlier visit is reported now.
     if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
   }
@@ -4793,6 +4812,10 @@
       if (missed && !EXERCISE && !presenterMode && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
         actions.appendChild(panelButton("nav-btn", "Learn Missed Cards", startBreak));
         actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
+      } else if (missed && PRACTICE_ON && !presenterMode && breakList().length) {
+        // The practice break (Exercise Decks): the elements behind the missed puzzles, never their answers.
+        actions.appendChild(panelButton("nav-btn", "Practise the Elements", function () { openPractice("break"); }));
+        actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
       } else actions.appendChild(panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
     } else {
       statusText.textContent = "Quiz complete";
@@ -4908,7 +4931,7 @@
     if (rulesOn() && quiz.tries && quiz.tries[k]) quiz.answers[k].t = 2;
     if (!isReview(k)) {
       if (result.ok) { known.add(idx); learningMarked.delete(idx); }
-      else { known.delete(idx); learningMarked.add(idx); }
+      else { known.delete(idx); learningMarked.add(idx); markWrongBoxes(idx, result); }
       noteMark(idx, "quiz");
       saveKnown();
       saveLearning();
@@ -4957,6 +4980,241 @@
     saveQuiz();
     render();
   }
+
+  // ---------- Practice mode and the practice break (Exercise Decks) ----------
+  // Practice Cards plan, confirmed by the instructor on Oct 30, 2026. An
+  // Exercise deck with answer boxes carries the Latin Roots cards for its
+  // elements (DECK.practice, from build.js). The student goes through them
+  // Learn-style, at any time (Practice mode) or after a quiz round with misses
+  // (the practice break). They are never the puzzle's answer: only the
+  // elements the puzzles need. Marks reach Latin Roots through a small
+  // "from practice" list that Latin Roots applies when it next opens or comes
+  // back into view. Nothing here counts toward the quiz.
+  const PRACTICE = Array.isArray(DECK.practice) ? DECK.practice : [];
+  const PRACTICE_IDX = {};
+  PRACTICE.forEach(function (c, i) { PRACTICE_IDX[c.k] = i; });
+  const PRACTICE_ON = EXERCISE && PRACTICE.length > 0;
+  const BREAK_SIZE = 20;       // a break holds at most about 20 cards (instructor, Oct 30, 2026)
+  const LATIN_ROOTS_ID = "latinroots";
+  const practiceView = document.getElementById("practiceView");
+  const practiceTools = document.getElementById("practiceTools");
+  let practice = null;         // { kind: "mode" | "break", round, list: [practice index], pos, shown, marks: { key: "known" | "learning" } }
+
+  function latinRootsKey(store) { return LATIN_ROOTS_ID + "_" + store + "_v2__" + currentSlug; }
+  function latinRootsList(store) {
+    try { const v = JSON.parse(localStorage.getItem(latinRootsKey(store)) || "null"); return Array.isArray(v) ? v : []; }
+    catch (e) { return []; }
+  }
+  // Add marks to the "from practice" list; Latin Roots applies them in order.
+  function addFromPractice(entries) {
+    if (presenterMode || !entries.length) return;
+    try {
+      const k = latinRootsKey("fromPractice");
+      const was = JSON.parse(localStorage.getItem(k) || "[]");
+      localStorage.setItem(k, JSON.stringify((Array.isArray(was) ? was : []).concat(entries)));
+    } catch (e) { /* storage unavailable */ }
+  }
+  // A missed Exercise card: the elements of each wrong element box go to
+  // Latin Roots' Still Learning (instructor, Oct 30, 2026: for VERSATILE
+  // without -at-, the Suffixes box was wrong, so -AT- and -ILE, not VERS-).
+  function markWrongBoxes(idx, result) {
+    const card = CARDS[idx];
+    if (!PRACTICE_ON || !hasBoxes(card) || !result || !Array.isArray(result.parts)) return;
+    const out = [];
+    card.boxes.forEach(function (b, j) {
+      if (result.parts[j] || !/^el:/.test(b.check || "")) return;
+      (card.parts || []).forEach(function (pt) {
+        if (pt.type === b.check.slice(3) && pt.k && PRACTICE_IDX[pt.k] != null) out.push({ k: pt.k, m: "learning" });
+      });
+    });
+    addFromPractice(out);
+  }
+  // Latin Roots: apply the list, then clear it. Returns true if anything changed.
+  function applyFromPractice() {
+    if (ID !== LATIN_ROOTS_ID || presenterMode) return false;
+    let list;
+    try { list = JSON.parse(localStorage.getItem(ID + "_fromPractice_v2__" + currentSlug) || "[]"); } catch (e) { return false; }
+    if (!Array.isArray(list) || !list.length) return false;
+    list.forEach(function (e) {
+      const i = e ? fromKey(e.k) : -1;
+      if (i < 0) return;
+      if (e.m === "known") { known.add(i); learningMarked.delete(i); }
+      else if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
+      else return;
+      markSrc[i] = { s: "learn", d: localDay() };
+    });
+    saveKnown(); saveLearning(); saveMarkSrc();
+    try { localStorage.removeItem(ID + "_fromPractice_v2__" + currentSlug); } catch (e) { /* ignore */ }
+    return true;
+  }
+
+  // The elements of each missed card, in the order missed, without repeats.
+  function missedGroups() {
+    const seen = {}, groups = [];
+    ((quiz && quiz.missedLast) || []).forEach(function (idx) {
+      const g = [];
+      ((CARDS[idx] && CARDS[idx].parts) || []).forEach(function (pt) {
+        const p = pt.k != null ? PRACTICE_IDX[pt.k] : null;
+        if (p != null && !seen[p]) { seen[p] = true; g.push(p); }
+      });
+      if (g.length) groups.push(g);
+    });
+    return groups;
+  }
+  // The break: every element of the missed cards (cards missed earliest first,
+  // at most half the break, the rest wait for the next break), spread out so
+  // one card's elements are never side by side, among padding: the student's
+  // Latin Roots Still Learning cards first, then cards from the same lessons,
+  // then any. A small deck uses what it has.
+  function breakList() {
+    const groups = missedGroups();
+    const targets = [], taken = [];
+    groups.forEach(function (g) {
+      if (taken.length && targets.length + g.length > BREAK_SIZE / 2) return;
+      taken.push(g.slice());
+      g.forEach(function (p) { targets.push(p); });
+    });
+    if (!targets.length) return [];
+    // Round-robin across the missed cards, so one card's elements sit apart.
+    const spread = [];
+    while (taken.some(function (g) { return g.length; })) taken.forEach(function (g) { if (g.length) spread.push(g.shift()); });
+    const isTarget = {};
+    targets.forEach(function (p) { isTarget[p] = true; });
+    const lessons = {};
+    targets.forEach(function (p) { lessons[PRACTICE[p].lesson] = true; });
+    const still = latinRootsList("learning");
+    const pool = [], inPool = {};
+    function add(p) { if (!isTarget[p] && !inPool[p]) { inPool[p] = true; pool.push(p); } }
+    still.forEach(function (k) { if (PRACTICE_IDX[k] != null) add(PRACTICE_IDX[k]); });
+    PRACTICE.forEach(function (c, p) { if (lessons[c.lesson]) add(p); });
+    PRACTICE.forEach(function (_, p) { add(p); });
+    const size = Math.min(BREAK_SIZE, spread.length + pool.length);
+    const out = new Array(size);
+    spread.forEach(function (p, i) { out[Math.floor(i * size / spread.length)] = p; });
+    let next = 0;
+    for (let i = 0; i < size; i++) if (out[i] == null) out[i] = pool[next++];
+    return out;
+  }
+
+  function openPractice(kind) {
+    if (!PRACTICE_ON) return;
+    let list;
+    if (kind === "break") list = breakList();
+    else {
+      // Practice mode: the student's Latin Roots Still Learning cards first, then the rest in the deck's order.
+      const still = {};
+      latinRootsList("learning").forEach(function (k) { if (PRACTICE_IDX[k] != null) still[PRACTICE_IDX[k]] = true; });
+      list = PRACTICE.map(function (_, p) { return p; });
+      list = list.filter(function (p) { return still[p]; }).concat(list.filter(function (p) { return !still[p]; }));
+    }
+    if (!list.length) return;
+    practice = { kind: kind, round: quiz ? quiz.round : 0, list: list, pos: 0, shown: false, marks: {} };
+    deckScreen.classList.add("practicing");
+    practiceView.hidden = false;
+    renderPractice();
+  }
+
+  function practiceRow(unfinished) {
+    const p = practice;
+    const seen = p.list.slice(0, unfinished ? p.pos : p.list.length);
+    const knownN = seen.filter(function (i) { return p.marks[PRACTICE[i].k] === "known"; }).length;
+    if (presenterMode || !seen.length) return;
+    sendToSheet({
+      deck: DECK.title,
+      name: currentName.trim(),
+      passMode: "learn (practice" + (p.kind === "break" ? ", quiz round " + p.round : "") + (unfinished ? ", unfinished" : "") + ")",
+      passScore: knownN + "/" + seen.length,
+      passSize: seen.length,
+      cumCorrect: known.size,
+      cumTotal: N,
+      resultsJson: JSON.stringify(seen.map(function (i) {
+        const m = p.marks[PRACTICE[i].k];
+        return { deck: LATIN_ROOTS_ID, e: PRACTICE[i].k, m: m === "known" ? "k" : m === "learning" ? "l" : "" };
+      }))
+    });
+  }
+
+  function closePractice(then) {
+    if (!practice) return;
+    if (!practice.sent) practiceRow(practice.pos < practice.list.length);
+    practice = null;
+    deckScreen.classList.remove("practicing");
+    practiceView.hidden = true;
+    practiceView.innerHTML = "";
+    if (then) then(); else render();
+  }
+
+  function markPractice(m) {
+    const p = practice;
+    const c = PRACTICE[p.list[p.pos]];
+    p.marks[c.k] = m;
+    addFromPractice([{ k: c.k, m: m }]);
+    p.pos++;
+    p.shown = false;
+    if (p.pos >= p.list.length) { practiceRow(false); p.sent = true; }
+    renderPractice();
+  }
+
+  const PRACTICE_KIND = { prefix: "Prefix", base: "Base", suffix: "Suffix" };
+  function renderPractice() {
+    const p = practice;
+    practiceView.innerHTML = "";
+    const title = document.createElement("div");
+    title.className = "panel-title";
+    const actions = document.createElement("div");
+    actions.className = "panel-actions";
+    const nextRound = p.kind === "break" && quiz && quiz.phase === "between";
+    const leave = function () { closePractice(); };
+    const goOn = function () { closePractice(nextRound ? startNextRound : null); };
+    if (p.pos >= p.list.length) {
+      statusText.textContent = p.kind === "break" ? "Practice break done" : "Practice done";
+      title.textContent = p.kind === "break" ? "Practice break done" : "Practice done";
+      const copy = document.createElement("div");
+      copy.className = "panel-copy";
+      const still = p.list.filter(function (i) { return p.marks[PRACTICE[i].k] === "learning"; }).length;
+      copy.textContent = "You went through " + p.list.length + " element card" + (p.list.length === 1 ? "" : "s") + "." +
+        (still ? " The " + still + " you marked Still learning are now on your Still Learning list in Latin Roots." : "") +
+        " Practice doesn't count toward the quiz.";
+      practiceView.appendChild(title);
+      practiceView.appendChild(copy);
+      actions.appendChild(panelButton("nav-btn", nextRound ? "Start Round " + (quiz.round + 1) + " &rarr;" : "Back to the Quiz", goOn));
+      practiceView.appendChild(actions);
+      actions.querySelector("button").focus();
+      return;
+    }
+    const c = PRACTICE[p.list[p.pos]];
+    statusText.textContent = (p.kind === "break" ? "Practice break" : "Practice") + " · card " + (p.pos + 1) + " of " + p.list.length;
+    progressFill.style.width = Math.round(100 * p.pos / p.list.length) + "%";
+    const tag = document.createElement("div");
+    tag.className = "category-tag";
+    tag.textContent = PRACTICE_KIND[c.type] || "Element";
+    const form = document.createElement("div");
+    form.className = "practice-form";
+    form.textContent = c.word;
+    practiceView.appendChild(tag);
+    practiceView.appendChild(form);
+    if (!p.shown) {
+      actions.appendChild(panelButton("nav-btn", "Show the meaning", function () { p.shown = true; renderPractice(); }));
+    } else {
+      const back = document.createElement("div");
+      back.className = "practice-back";
+      back.innerHTML = '<div class="meaning">' + (c.meanings || []).map(esc).join("<br>") + "</div>" +
+        (c.origin ? '<div class="examples"><span class="examples-label">Examples </span>' + esc(c.origin) + "</div>" : "");
+      practiceView.appendChild(back);
+      const row = document.createElement("div");
+      row.className = "mastery-row";
+      row.appendChild(panelButton("mastery-btn btn-learning", "Still learning", function () { markPractice("learning"); }));
+      row.appendChild(panelButton("mastery-btn btn-known", "Know it", function () { markPractice("known"); }));
+      actions.appendChild(row);
+    }
+    practiceView.appendChild(actions);
+    const count = document.createElement("div");
+    count.className = "practice-count";
+    count.appendChild(panelButton("secondary-btn", nextRound ? "Skip to Round " + (quiz.round + 1) : "Back to the Quiz", goOn));
+    practiceView.appendChild(count);
+    actions.querySelector("button").focus();
+  }
+  document.getElementById("practiceBtn").addEventListener("click", function () { openPractice("mode"); });
 
   // What a check found, read aloud by screen readers (the card is not flipped on a miss).
   function startBreak() {
@@ -5134,6 +5392,7 @@
     });
     learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
+    practiceTools.hidden = !(PRACTICE_ON && !presenterMode && mode === "quiz");
     document.getElementById("breakBackBtn").hidden = !(mode === "learn" && filter === "missed");
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
@@ -5775,7 +6034,10 @@
     location.href = url.toString();
   });
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") { checkDeckVersion(); checkSettings(); }
+    if (document.visibilityState === "visible") {
+      checkDeckVersion(); checkSettings();
+      if (currentName && applyFromPractice() && !deckScreen.hidden) render();
+    }
   });
   window.addEventListener("pageshow", function (e) {
     if (e.persisted) { versionCheckedAt = 0; checkDeckVersion(); }

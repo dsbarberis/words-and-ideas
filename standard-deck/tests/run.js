@@ -69,8 +69,9 @@ function testCopy(tmp, f, s) {
     "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
     "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
+    "practice:{list:()=>breakList(),open:(k)=>openPractice(k),cur:()=>practice,P:()=>PRACTICE,wrong:(i,r)=>markWrongBoxes(i,r),apply:()=>applyFromPractice(),KEY:(k)=>fromKey(k)}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
-  s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { return;");
+  s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { (window.__sent = window.__sent || []).push(payload); return;");
   const out = path.join(tmp, f);
   fs.writeFileSync(out, s);
   return out;
@@ -928,6 +929,136 @@ async function reloadPromptTests(decks) {
   report("reload prompt", fails, checked + " checks of the update banner, the new-round lock and the reload address");
 }
 
+// 12. Practice mode and the practice break (Practice Cards plan, confirmed
+// Oct 30, 2026). In Lesson XII Exercise III: a wrong element box sends only
+// that box's elements to Latin Roots' Still Learning; the break holds every
+// element of the missed cards, at most 20 cards, never one card's elements
+// side by side; it shows no puzzle's answer, never touches the quiz's
+// record, and sends one "learn (practice, quiz round N)" row; Latin Roots
+// then applies the marks and clears the list.
+async function practiceTests(decks) {
+  const fails = []; let checked = 0;
+  const EX = "Lesson XII Exercise III Flashcards.html";
+  if (!decks[EX] || !decks["index.html"]) { report("practice cards", ["test decks missing"], "not run"); return; }
+  let chromium;
+  try { ({ chromium } = require("playwright")); }
+  catch (e) { report("practice cards", ["Playwright not found"], "not run"); return; }
+  const browser = await chromium.launch();
+  const ctx = await browser.newContext();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-practice-"));
+  const exPath = testCopy(tmp, EX, decks[EX]), lrPath = testCopy(tmp, "index.html", decks["index.html"]);
+  const NAME = "Practice Tester", SLUG = "practice-tester";
+  try {
+    const page = await ctx.newPage();
+    const errors = [];
+    page.on("pageerror", e => errors.push(e.message));
+    await page.route(/^https?:/, r => r.abort());
+    await page.goto("file://" + exPath);
+    await page.waitForFunction(() => window.__t, null, { timeout: 10000 });
+    await page.evaluate(() => localStorage.clear());
+    await page.fill("#nameInput", NAME);
+    await page.keyboard.press("Enter");
+    const info = await page.evaluate(() => {
+      const C = __t.CARDS, P = __t.practice.P();
+      const v = C.findIndex(c => /versatile/i.test(c.word || c.term || ""));
+      return { n: P.length, v: v, parts: v >= 0 ? C[v].parts.map(pt => ({ k: pt.k, type: pt.type })) : [] };
+    });
+    checked++; if (!info.n) fails.push("the deck carries no element cards");
+    checked++; if (info.v < 0) fails.push("VERSATILE not found");
+    // A wrong Suffixes box: only the suffixes go to Latin Roots.
+    const sent = await page.evaluate(([v, slug]) => {
+      const c = __t.CARDS[v];
+      __t.practice.wrong(v, { ok: false, parts: c.boxes.map(b => b.check !== "el:suffix") });
+      return JSON.parse(localStorage.getItem("latinroots_fromPractice_v2__" + slug) || "[]");
+    }, [info.v, SLUG]);
+    const suffixKeys = info.parts.filter(p => p.type === "suffix" && p.k).map(p => p.k);
+    checked++;
+    if (!sent.length || sent.some(e => suffixKeys.indexOf(e.k) < 0 || e.m !== "learning")) fails.push("wrong Suffixes box sent " + JSON.stringify(sent) + ", expected only " + JSON.stringify(suffixKeys));
+    if (suffixKeys.some(k => !sent.some(e => e.k === k))) fails.push("a suffix of VERSATILE was not sent: " + JSON.stringify(sent));
+    // The break after a round that missed three cards.
+    const brk = await page.evaluate((v) => {
+      const C = __t.CARDS, others = C.map((_, i) => i).filter(i => i !== v && C[i].parts && C[i].parts.some(pt => pt.k)).slice(0, 2);
+      const missed = [v].concat(others);
+      const q = __t.quiz() || {};
+      const quiz = Object.assign({}, q, { phase: "between", round: 1, missedLast: missed });
+      if (!Array.isArray(quiz.list)) { quiz.list = C.map((_, i) => i); quiz.right = []; }
+      if (!quiz.order) { quiz.order = missed.slice(); quiz.answers = missed.map(() => ({ a: [], ok: false })); quiz.review = missed.map(() => false); }
+      __t.setQuiz(quiz);
+      const P = __t.practice.P(), list = __t.practice.list();
+      const groups = missed.map(i => C[i].parts.map(pt => pt.k).filter(k => P.some(c => c.k === k)));
+      return { list: list.map(i => P[i].k), groups: groups, right: JSON.stringify(quiz.right) };
+    }, info.v);
+    checked++;
+    if (!brk.list.length || brk.list.length > 20) fails.push("break size " + brk.list.length);
+    const firstGroup = brk.groups[0];
+    if (firstGroup.some(k => brk.list.indexOf(k) < 0)) fails.push("break leaves out an element of the first missed card: " + JSON.stringify(firstGroup));
+    brk.groups.forEach(g => {
+      const at = g.map(k => brk.list.indexOf(k)).filter(i => i >= 0).sort((a, b) => a - b);
+      for (let j = 1; j < at.length; j++) {
+        checked++;
+        const need = brk.list.length >= 15 ? 5 : 2;
+        if (at[j] - at[j - 1] < need) fails.push("one card's elements " + (at[j] - at[j - 1]) + " apart in the break: " + JSON.stringify(g));
+      }
+    });
+    // Open the break, as the round's end panel does.
+    await page.evaluate(() => { window.__sent = []; });
+    await page.evaluate(() => __t.practice.open("break"));
+    const view = await page.evaluate((v) => ({
+      shown: !document.getElementById("practiceView").hidden,
+      stage: getComputedStyle(document.getElementById("stage")).display,
+      text: document.getElementById("practiceView").textContent,
+      word: (__t.CARDS[v].word || __t.CARDS[v].term || "")
+    }), info.v);
+    checked++;
+    if (!view.shown) fails.push("the break did not open");
+    if (view.stage !== "none") fails.push("the quiz card stays on screen during the break");
+    if (view.word && view.text.toLowerCase().indexOf(view.word.toLowerCase()) >= 0) fails.push("the break shows the puzzle word " + view.word);
+    // Go through it: the first card Know it, the rest Still learning.
+    const n = brk.list.length;
+    for (let j = 0; j < n; j++) {
+      await page.click("#practiceView button:has-text('Show the meaning')");
+      await page.click(j === 0 ? "#practiceView button:has-text('Know it')" : "#practiceView button:has-text('Still learning')");
+    }
+    const after = await page.evaluate(() => ({ sent: window.__sent || [], right: JSON.stringify(__t.quiz().right), done: document.getElementById("practiceView").textContent }));
+    checked++;
+    const row = after.sent.filter(r => /^learn \(practice/.test(r.passMode));
+    if (row.length !== 1) fails.push(row.length + " practice rows sent, expected 1");
+    else {
+      if (row[0].passMode !== "learn (practice, quiz round 1)") fails.push("practice row named " + row[0].passMode);
+      const res = JSON.parse(row[0].resultsJson);
+      if (res.length !== n || res.some(e => e.deck !== "latinroots" || !e.e || "kl".indexOf(e.m) < 0 || !e.m)) fails.push("practice row results " + row[0].resultsJson.slice(0, 200));
+    }
+    checked++; if (after.right !== brk.right) fails.push("the break changed the quiz's right answers");
+    checked++; if (!/Practice break done/.test(after.done)) fails.push("no end panel after the break");
+    const list = await page.evaluate(slug => JSON.parse(localStorage.getItem("latinroots_fromPractice_v2__" + slug) || "[]"), SLUG);
+    errors.forEach(m => fails.push("script error: " + m));
+    await page.close();
+    // Latin Roots applies the list and clears it.
+    const lr = await ctx.newPage();
+    lr.on("pageerror", e => fails.push("Latin Roots script error: " + e.message));
+    await lr.route(/^https?:/, r => r.abort());
+    await lr.goto("file://" + lrPath);
+    await lr.waitForFunction(() => window.__t, null, { timeout: 10000 });
+    const res = await lr.evaluate(([name, slug, list]) => {
+      __t.load(name);
+      const st = __t.state(), want = {};
+      list.forEach(e => { want[e.k] = e.m; });
+      const wrong = Object.keys(want).filter(k => {
+        const i = __t.practice.KEY(k);
+        if (i < 0) return false;
+        return want[k] === "known" ? st.known.indexOf(i) < 0 || st.learning.indexOf(i) >= 0 : st.learning.indexOf(i) < 0 || st.known.indexOf(i) >= 0;
+      });
+      return { wrong: wrong, left: localStorage.getItem("latinroots_fromPractice_v2__" + slug) };
+    }, [NAME, SLUG, list]);
+    checked++;
+    if (res.wrong.length) fails.push("Latin Roots did not apply the marks for " + res.wrong.join(", "));
+    if (res.left) fails.push("Latin Roots left the list in place");
+    await lr.close();
+  } catch (e) { fails.push("the check stopped: " + String(e.message).split("\n")[0]); }
+  await browser.close();
+  report("practice cards", fails, checked + " checks of Practice mode, the practice break and the marks sent to Latin Roots");
+}
+
 (async () => {
   const decks = builtDecks();
   testBuildMatches(decks);
@@ -936,6 +1067,7 @@ async function reloadPromptTests(decks) {
   testFrozenKeys(decks);
   await browserTests(decks);
   await reloadPromptTests(decks);
+  await practiceTests(decks);
   const failed = results.filter(r => r.failures.length);
   console.log(failed.length ? failed.length + " of " + results.length + " tests failed: do not publish" : "all " + results.length + " tests passed");
   process.exit(failed.length ? 1 : 0);

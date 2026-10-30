@@ -27,9 +27,21 @@ const vocabulary = require(path.join(here, "vocabulary.js"));
 // Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
 // The Bases box counts them, not shown (instructor's card "Bases, as described", Oct 29, 2026).
 const latinRootsKeys = {};
+// Latin Roots cards by glossary key, for the element cards an Exercise deck's
+// Practice mode and practice break show (Practice Cards plan, confirmed Oct 30, 2026).
+const latinRootsCards = {};
 (require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
+  if (c.gloss) latinRootsCards[c.gloss] = c;
 });
+// One element card as the Exercise deck shows it: the Latin Roots card's key
+// (its record name in Latin Roots), forms, meanings, examples, kind and lesson.
+function practiceCard(gloss) {
+  const c = latinRootsCards[gloss], e = glossary[gloss];
+  if (!c || !e) return null;
+  return { k: c.id || gloss, word: c.forms || e.forms, meanings: e.meanings, origin: c.examples || e.examples || "",
+           type: e.kind, lesson: c.lesson || e.lessonNo || 0 };
+}
 const UNCHECKED = "Claude, unchecked";
 
 function escHtml(s) {
@@ -171,6 +183,7 @@ function resolveParts(card, file, deck) {
       const entry = glossary[pt.gloss];
       if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
       const o = { label: pt.label, meanings: entry.meanings, meaningGroups: groupsOf(entry, pt.gloss) };
+      if (deck.elementBoxes && latinRootsCards[pt.gloss]) { o.k = latinRootsCards[pt.gloss].id || pt.gloss; o.gloss = pt.gloss; }  // its Latin Roots card
       if (pt.note || entry.note) o.note = pt.note || entry.note;
       const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
@@ -297,6 +310,21 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
     }
     return out;
   });
+  // Element cards for Practice mode and the practice break: every element of
+  // the deck's cards that has a Latin Roots card, in the order first met.
+  if (deck.type === "exercise" && deck.elementBoxes) {
+    const seen = {};
+    data.practice = [];
+    data.cards.forEach(function (c) {
+      (c.parts || []).forEach(function (pt) {
+        if (!pt.k || seen[pt.k]) return;
+        seen[pt.k] = true;
+        const pc = practiceCard(pt.gloss);
+        if (pc) data.practice.push(pc);
+      });
+    });
+    data.cards.forEach(function (c) { (c.parts || []).forEach(function (pt) { delete pt.gloss; }); });
+  }
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const version = deckVersion(json);
   versions[output] = version;
