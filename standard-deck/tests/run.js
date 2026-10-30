@@ -70,7 +70,7 @@ function testCopy(tmp, f, s) {
     "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click(),upgrade:(q)=>upgradeQuiz(q),setQuizzes:(k,q)=>{quizzes[k]=q;},markFor:(k)=>markFor(k).state,setPass:(p)=>{learnPass=p;},savePass:()=>saveLearnPass(),grow:()=>growForms(),name:()=>currentName}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
     "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),start:()=>startQuiz(),nextRound:()=>startNextRound(),save:()=>saveQuiz(),send:()=>{quiz.sent=false;sendQuizRound();return quiz.misses;},dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
-    "practice:{list:()=>breakList(),open:(k)=>openPractice(k),cur:()=>practice,P:()=>PRACTICE,wrong:(i,r)=>markWrongBoxes(i,r),apply:()=>applyFromPractice(),KEY:(k)=>fromKey(k),M:(c)=>practiceMeanings(c),lesson:(n)=>{currentLesson=n;}}," +
+    "practice:{list:()=>breakList(),open:(k)=>openPractice(k),cur:()=>practice,P:()=>PRACTICE,wrong:(i,r)=>markWrongBoxes(i,r),apply:()=>applyFromPractice(),KEY:(k)=>fromKey(k),M:(c)=>practiceMeanings(c),lesson:(n)=>{currentLesson=n;},know:(i)=>{known.add(i);learningMarked.delete(i);noteMark(i,'learn');}}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
   s = s.replace("function sendToSheet(payload) {", "function sendToSheet(payload) { (window.__sent = window.__sent || []).push(payload); return;");
   const out = path.join(tmp, f);
@@ -1361,6 +1361,9 @@ async function practiceTests(decks) {
     checked++; if (after.right !== brk.right) fails.push("the break changed the quiz's right answers");
     checked++; if (!/Practice break done/.test(after.done)) fails.push("no end panel after the break");
     const list = await page.evaluate(slug => JSON.parse(localStorage.getItem("latinroots_fromPractice_v2__" + slug) || "[]"), SLUG);
+    checked++;
+    if (list.some(e => e.m !== "learning")) fails.push("a Know It from practice was sent to Latin Roots: " + JSON.stringify(list.filter(e => e.m !== "learning")));
+    if (!list.length) fails.push("no Still Learning marks reached the list");
     errors.forEach(m => fails.push("script error: " + m));
     await page.close();
     // Latin Roots applies the list and clears it.
@@ -1383,14 +1386,20 @@ async function practiceTests(decks) {
     checked++;
     if (res.wrong.length) fails.push("Latin Roots did not apply the marks for " + res.wrong.join(", "));
     if (res.left) fails.push("Latin Roots left the list in place");
-    // An older practice mark never overrides a newer Latin Roots mark.
+    // An older practice mark never overrides a newer Latin Roots mark; a newer one does.
     const stale = await lr.evaluate(([slug, list]) => {
-      const e = list.find(x => x.m === "learning" && __t.practice.KEY(x.k) >= 0);
+      const e = list.find(x => __t.practice.KEY(x.k) >= 0);
       if (!e) return "no card to try";
-      localStorage.setItem("latinroots_fromPractice_v2__" + slug, JSON.stringify([{ k: e.k, m: "known", t: Date.now() - 3600000 }]));
+      const i = __t.practice.KEY(e.k), key = "latinroots_fromPractice_v2__" + slug;
+      __t.practice.know(i);
+      localStorage.setItem(key, JSON.stringify([{ k: e.k, m: "learning", t: Date.now() - 3600000 }]));
       __t.practice.apply();
-      const i = __t.practice.KEY(e.k), st = __t.state();
-      return st.learning.indexOf(i) >= 0 && st.known.indexOf(i) < 0 ? "" : "an hour-old Know It overrode a newer Latin Roots mark on " + e.k;
+      let st = __t.state();
+      if (st.known.indexOf(i) < 0) return "an hour-old Still Learning overrode a newer Know It on " + e.k;
+      localStorage.setItem(key, JSON.stringify([{ k: e.k, m: "learning", t: Date.now() + 1000 }]));
+      __t.practice.apply();
+      st = __t.state();
+      return st.learning.indexOf(i) >= 0 && st.known.indexOf(i) < 0 ? "" : "a newer Still Learning from practice did not apply on " + e.k;
     }, [SLUG, list]);
     checked++; if (stale) fails.push(stale);
     // A bad entry in the saved marks never stops the student's records loading.

@@ -1633,7 +1633,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "5ecd64064e82";
+  const DECK_VERSION = "5b6ef6215c47";
   const DECK_PAGE = "Greek Mythology Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -5196,8 +5196,8 @@
       targets.forEach(function (i) {
         // A mark made in Latin Roots after this one stands (external review, Oct 30, 2026).
         if (markSrc[i] && typeof markSrc[i].t === "number" && typeof e.t === "number" && markSrc[i].t > e.t) return;
-        if (e.m === "known") { known.add(i); learningMarked.delete(i); }
-        else if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
+        // Practice never marks a card known in Latin Roots (D, Oct 30, 2026).
+        if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
         else return;
         markSrc[i] = { s: "learn", d: localDay(), t: typeof e.t === "number" ? e.t : Date.now() };
       });
@@ -5310,7 +5310,8 @@
     const p = practice;
     const c = PRACTICE[p.list[p.pos]];
     p.marks[c.k] = m;
-    addFromPractice([{ k: c.k, m: m }]);
+    // Only Still Learning reaches Latin Roots; a Know It stays in the practice row (D, Oct 30, 2026).
+    if (m === "learning") addFromPractice([{ k: c.k, m: m }]);
     p.pos++;
     p.shown = false;
     if (p.pos >= p.list.length) { practiceRow(false); p.sent = true; }
