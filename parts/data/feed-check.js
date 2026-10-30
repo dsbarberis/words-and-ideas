@@ -4,7 +4,7 @@
 //   const r = SP.feedCheck(rows, FEED, saved, { now: new Date(), term: {first, last}, zone: "America/Chicago" });
 //   rows: the Google Sheet as a list of lists, header row first (SP.parseCsv gives this).
 //   FEED: the agreement's checkable parts, filled at build time from the data feed settings
-//         (header, decks, passModes, testNames, gapDays, sheetTimeZone). No address or ID.
+//         (header, headerAdded, decks, passModes, testNames, gapDays, sheetTimeZone). No address or ID.
 //   saved: what the last call returned as r.state (null the first time).
 // r.faults: plain sentences, empty when all is well. r.kinds: one code per fault, in the same order: header,
 // empty, unread, stale (the check had not run), deck, mode, test, norows, gap. r.state: counts and times only.
@@ -62,7 +62,11 @@
     const add = (k, t) => { kinds.push(k); faults.push(t); };
     if (!rows || !rows.length) return { faults: ["The Google Sheet came back empty: no header row and no rows."], kinds: ["empty"], state: prev };
     const want = feed.header, header = rows[0].map(h => String(h).trim()), body = rows.slice(1);
-    const headerOk = want.every((h, i) => header[i] === h) && header.slice(want.length).every(h => !h);
+    // Columns the agreement allows to be added after the nine, in order (feed.headerAdded, such as "Current Lesson"),
+    // so the Google Form can gain a question before or after the page is rebuilt without a false fault.
+    const added = feed.headerAdded || [], extra = header.slice(want.length);
+    const n = extra.findIndex(h => !h), named = n < 0 ? extra : extra.slice(0, n);
+    const headerOk = want.every((h, i) => header[i] === h) && named.every((h, i) => added[i] === h) && extra.slice(named.length).every(h => !h);
     if (!headerOk) add("header", "The Google Sheet's header row has changed: expected " + want.join(" | ") + "; found " + header.join(" | ") + ".");
 
     const stamps = body.map(r => parseStamp(r[0], zone));
