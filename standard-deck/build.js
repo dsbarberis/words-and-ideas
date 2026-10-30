@@ -29,21 +29,21 @@ const vocabulary = require(path.join(here, "vocabulary.js"));
 // Each base's everyday synonyms from its Latin Roots card ("keys"), by glossary key.
 // The Bases box counts them, not shown (instructor's card "Bases, as described", Oct 29, 2026).
 const latinRootsKeys = {};
+// The Exercise decks accept Latin Roots' key words as synonyms. Until the
+// instructor has reviewed the per-form cards' key words, they take them from
+// the cards as they were before the split (tools/latin-roots-old-cards.json),
+// so their marking does not change with this release.
+(require(path.join(here, "tools", "latin-roots-old-cards.json")).cards || []).forEach(function (c) {
+  if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
+});
 // Latin Roots cards by glossary key, for the element cards an Exercise deck's
 // Practice mode and practice break show (Practice Cards plan, confirmed Oct 30, 2026).
+// One card per Latin form, shared spellings joined (Lesson Filter, Oct 30):
+// a glossary entry can feed several cards (CAD, CID, CAS) and a card several entries (IN).
 const latinRootsCards = {};  // glossary key -> every Latin Roots card it feeds
 (require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
-  if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
-  // One card per Latin form, shared spellings joined (Lesson Filter, Oct 30):
-  // a glossary entry can feed several cards (CAD, CID, CAS) and a card several entries (IN).
   (Array.isArray(c.glosses) ? c.glosses : c.gloss ? [c.gloss] : []).forEach(function (g) {
     (latinRootsCards[g] = latinRootsCards[g] || []).push(c);
-  });
-  // One card per form (Oct 30, 2026): the key words come with each meaning,
-  // under the glossary entry it belongs to (a joined card holds two entries).
-  (c.groups || []).forEach(function (g) {
-    const list = latinRootsKeys[g.gloss] = latinRootsKeys[g.gloss] || [];
-    (g.keys || []).forEach(function (w) { if (list.indexOf(w) < 0) list.push(w); });
   });
 });
 // The Latin Roots card for an element as printed on an Exercise card: the
@@ -109,7 +109,7 @@ function groupsOf(entry, key) {
 // A Flashcard Deck card's word is its key; an Exercise Deck card gives it as
 // "vocab". Anything the card sets itself is kept (an override). A card may
 // name one sense ("sense": 2); otherwise every sense counts.
-function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" ? null : card.word); }
+function vocabKey(card, deck) { return card.vocab || (deck.type === "exercise" || deck.answer === "forms" ? null : card.word); }
 function resolveVocab(card, file, deck) {
   const key = vocabKey(card, deck);
   const out = Object.assign({}, card);

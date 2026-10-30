@@ -1,0 +1,6087 @@
+[
+ {
+  "key": "art-skill",
+  "label": "art; skill",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ART-",
+    "spellings": [
+     "ART"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "ART",
+    "word": "ars",
+    "examples": "artisan, artificial, artifact"
+   }
+  ]
+ },
+ {
+  "key": "end-limit",
+  "label": "end; limit",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FIN-",
+    "spellings": [
+     "FIN"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "FIN",
+    "word": "finis",
+    "examples": "finish, final, infinite"
+   }
+  ]
+ },
+ {
+  "key": "firm-strong",
+  "label": "strong; firm",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FIRM-",
+    "spellings": [
+     "FIRM"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "FIRM",
+    "word": "firmus",
+    "examples": "confirm, affirm, infirmary"
+   }
+  ]
+ },
+ {
+  "key": "garment",
+  "label": "garment",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VEST-",
+    "spellings": [
+     "VEST"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "VEST",
+    "word": "vestis",
+    "examples": "invest, divest, vestment"
+   }
+  ]
+ },
+ {
+  "key": "great",
+  "label": "great",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GRAND-",
+    "spellings": [
+     "GRAND"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "GRAND",
+    "word": "grandis",
+    "examples": "grandeur, aggrandize, grandiose"
+   },
+   {
+    "form": "MAGN-",
+    "spellings": [
+     "MAGN"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "MAGN",
+    "word": "magnus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "heavy",
+  "label": "heavy",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GRAV-",
+    "spellings": [
+     "GRAV"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "GRAV",
+    "word": "gravis",
+    "examples": "gravity, aggravate, grieve"
+   }
+  ]
+ },
+ {
+  "key": "line",
+  "label": "line",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LINE-",
+    "spellings": [
+     "LINE"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "LINE",
+    "word": "linea",
+    "examples": "linear, delineate, align"
+   }
+  ]
+ },
+ {
+  "key": "nothing",
+  "label": "nothing",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NIHIL-",
+    "spellings": [
+     "NIHIL"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "NIHIL",
+    "word": "nihil",
+    "examples": "nihilism, annihilate"
+   },
+   {
+    "form": "NUL(L)-",
+    "spellings": [
+     "NUL",
+     "NULL"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "NUL",
+    "word": "nullus",
+    "examples": "null, nullify, annul"
+   }
+  ]
+ },
+ {
+  "key": "of-another",
+  "label": "of another",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ALIEN-",
+    "spellings": [
+     "ALIEN"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "ALIEN",
+    "word": "alienus",
+    "examples": "alienate, alien, inalienable"
+   }
+  ]
+ },
+ {
+  "key": "part",
+  "label": "part",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PART-",
+    "spellings": [
+     "PART"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "PART",
+    "word": "pars",
+    "examples": "partial, participate, partition"
+   }
+  ]
+ },
+ {
+  "key": "strong",
+  "label": "strong",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FORT-",
+    "spellings": [
+     "FORT"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "FORT",
+    "word": "fortis",
+    "examples": "fortify, fortress, effort"
+   }
+  ]
+ },
+ {
+  "key": "verb",
+  "label": "verb",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VERB-",
+    "spellings": [
+     "VERB"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "VERB",
+    "word": "verbum",
+    "examples": "verbal, verbose, proverb"
+   }
+  ]
+ },
+ {
+  "key": "word",
+  "label": "word",
+  "lesson": 2,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VERB-",
+    "spellings": [
+     "VERB"
+    ],
+    "lesson": 2,
+    "kind": "base",
+    "gloss": "VERB",
+    "word": "verbum",
+    "examples": "verbal, verbose, proverb"
+   }
+  ]
+ },
+ {
+  "key": "against",
+  "label": "against",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "CONTRA-",
+    "spellings": [
+     "CONTRA"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CONTRA",
+    "word": "CONTRA",
+    "examples": "contradict, controversy, counteract"
+   },
+   {
+    "form": "CONTRO-",
+    "spellings": [
+     "CONTRO"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CONTRA",
+    "word": "CONTRA",
+    "examples": "contradict, controversy, counteract"
+   },
+   {
+    "form": "COUNTER-",
+    "spellings": [
+     "COUNTER"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CONTRA",
+    "word": "CONTRA",
+    "examples": "contradict, controversy, counteract"
+   },
+   {
+    "form": "IM-",
+    "spellings": [
+     "IM"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   },
+   {
+    "form": "IN-",
+    "spellings": [
+     "IN"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   },
+   {
+    "form": "OB-",
+    "spellings": [
+     "OB"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "OB",
+    "word": "OB",
+    "examples": "object, obstruct, obstacle"
+   }
+  ]
+ },
+ {
+  "key": "apart-in-different-directions",
+  "label": "apart; in different directions",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "DI-",
+    "spellings": [
+     "DI"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   },
+   {
+    "form": "DIF-",
+    "spellings": [
+     "DIF"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   },
+   {
+    "form": "DIS-",
+    "spellings": [
+     "DIS"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   }
+  ]
+ },
+ {
+  "key": "around",
+  "label": "around",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "AMBI-",
+    "spellings": [
+     "AMBI"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AMBI",
+    "word": "AMBI",
+    "examples": "ambidextrous, ambiguous"
+   },
+   {
+    "form": "CIRCUM-",
+    "spellings": [
+     "CIRCUM"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CIRCUM",
+    "word": "CIRCUM",
+    "examples": "circumference, circumvent"
+   }
+  ]
+ },
+ {
+  "key": "away-from",
+  "label": "away; from",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "A-",
+    "spellings": [
+     "A"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AB",
+    "word": "AB",
+    "examples": "absent, avert, abstain"
+   },
+   {
+    "form": "AB-",
+    "spellings": [
+     "AB"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "AB",
+    "word": "AB",
+    "examples": "absent, avert, abstain"
+   },
+   {
+    "form": "ABS-",
+    "spellings": [
+     "ABS"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AB",
+    "word": "AB",
+    "examples": "absent, avert, abstain"
+   }
+  ]
+ },
+ {
+  "key": "before",
+  "label": "before",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "ANTE-",
+    "spellings": [
+     "ANTE"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "ANTE",
+    "word": "ANTE",
+    "examples": "antebellum, anteroom, antecedent"
+   },
+   {
+    "form": "PRE-",
+    "spellings": [
+     "PRE"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "PRE",
+    "word": "PRE",
+    "examples": "predict, prevent, precede"
+   }
+  ]
+ },
+ {
+  "key": "beg-request",
+  "label": "to request; beg",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PREC-",
+    "spellings": [
+     "PREC"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "PREC",
+    "word": "precor",
+    "examples": "deprecate, imprecation, precarious"
+   }
+  ]
+ },
+ {
+  "key": "both",
+  "label": "both",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "AMBI-",
+    "spellings": [
+     "AMBI"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AMBI",
+    "word": "AMBI",
+    "examples": "ambidextrous, ambiguous"
+   }
+  ]
+ },
+ {
+  "key": "come",
+  "label": "to come",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VEN-",
+    "spellings": [
+     "VEN"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "VEN",
+    "word": "venio",
+    "examples": "convene, prevent, venue"
+   },
+   {
+    "form": "VENT-",
+    "spellings": [
+     "VENT"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "VEN",
+    "word": "venio",
+    "examples": "convene, prevent, venue"
+   }
+  ]
+ },
+ {
+  "key": "down",
+  "label": "down",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "DE-",
+    "spellings": [
+     "DE"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DE",
+    "word": "DE",
+    "examples": "descend, depart, devalue"
+   }
+  ]
+ },
+ {
+  "key": "form-an-opinion",
+  "label": "form an opinion",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "JUR-",
+    "spellings": [
+     "JUR"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   },
+   {
+    "form": "JUST-",
+    "spellings": [
+     "JUST"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   }
+  ]
+ },
+ {
+  "key": "go",
+  "label": "to go",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CED-",
+    "spellings": [
+     "CED"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "CED",
+    "word": "cedo",
+    "examples": "proceed, recede, concession, access"
+   },
+   {
+    "form": "CESS-",
+    "spellings": [
+     "CESS"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "CED",
+    "word": "cedo",
+    "examples": "proceed, recede, concession, access"
+   },
+   {
+    "form": "CUR(R)-",
+    "spellings": [
+     "CUR",
+     "CURR"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CUR",
+    "word": "curro",
+    "examples": "current, cursive, excursion, course"
+   },
+   {
+    "form": "CURS-",
+    "spellings": [
+     "CURS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CUR",
+    "word": "curro",
+    "examples": "current, cursive, excursion, course"
+   }
+  ]
+ },
+ {
+  "key": "in-front-of",
+  "label": "in front of",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "ANTE-",
+    "spellings": [
+     "ANTE"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "ANTE",
+    "word": "ANTE",
+    "examples": "antebellum, anteroom, antecedent"
+   },
+   {
+    "form": "PRE-",
+    "spellings": [
+     "PRE"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "PRE",
+    "word": "PRE",
+    "examples": "predict, prevent, precede"
+   },
+   {
+    "form": "PRO-",
+    "spellings": [
+     "PRO"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "PRO",
+    "word": "PRO",
+    "examples": "proceed, promote, propose"
+   }
+  ]
+ },
+ {
+  "key": "judgment",
+  "label": "judgment",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "JUDIC-",
+    "spellings": [
+     "JUDIC"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUDIC",
+    "word": "iudex",
+    "examples": "judicial, prejudice, adjudicate"
+   }
+  ]
+ },
+ {
+  "key": "law-right",
+  "label": "right; law",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "JUR-",
+    "spellings": [
+     "JUR"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   },
+   {
+    "form": "JUST-",
+    "spellings": [
+     "JUST"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   }
+  ]
+ },
+ {
+  "key": "lead",
+  "label": "to lead",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DUC-",
+    "spellings": [
+     "DUC"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "DUC",
+    "word": "duco",
+    "examples": "conduct, induce, deduction"
+   },
+   {
+    "form": "DUCT-",
+    "spellings": [
+     "DUCT"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "DUC",
+    "word": "duco",
+    "examples": "conduct, induce, deduction"
+   }
+  ]
+ },
+ {
+  "key": "lift",
+  "label": "to lift",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LEV-",
+    "spellings": [
+     "LEV"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LEV",
+    "word": "levis",
+    "examples": "elevate, levity, alleviate"
+   }
+  ]
+ },
+ {
+  "key": "light-in-weight",
+  "label": "light (in weight)",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LEV-",
+    "spellings": [
+     "LEV"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LEV",
+    "word": "levis",
+    "examples": "elevate, levity, alleviate"
+   }
+  ]
+ },
+ {
+  "key": "mock",
+  "label": "mock",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LUD-",
+    "spellings": [
+     "LUD"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LUD",
+    "word": "ludo",
+    "examples": "illusion, allude, ludicrous"
+   },
+   {
+    "form": "LUS-",
+    "spellings": [
+     "LUS"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LUD",
+    "word": "ludo",
+    "examples": "illusion, allude, ludicrous"
+   }
+  ]
+ },
+ {
+  "key": "not",
+  "label": "not",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "DI-",
+    "spellings": [
+     "DI"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   },
+   {
+    "form": "DIF-",
+    "spellings": [
+     "DIF"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   },
+   {
+    "form": "DIS-",
+    "spellings": [
+     "DIS"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DIS",
+    "word": "DIS",
+    "examples": "disagree, divert, differ"
+   },
+   {
+    "form": "IM-",
+    "spellings": [
+     "IM"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-not",
+    "word": "IN-not",
+    "examples": "inactive, impossible, ignoble"
+   },
+   {
+    "form": "IN-",
+    "spellings": [
+     "IN"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-not",
+    "word": "IN-not",
+    "examples": "inactive, impossible, ignoble"
+   },
+   {
+    "form": "NON-",
+    "spellings": [
+     "NON"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "NON",
+    "word": "NON",
+    "examples": "nonsense, nonexistent, nonfiction"
+   }
+  ]
+ },
+ {
+  "key": "off",
+  "label": "off",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "DE-",
+    "spellings": [
+     "DE"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DE",
+    "word": "DE",
+    "examples": "descend, depart, devalue"
+   }
+  ]
+ },
+ {
+  "key": "play",
+  "label": "to play",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LUD-",
+    "spellings": [
+     "LUD"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LUD",
+    "word": "ludo",
+    "examples": "illusion, allude, ludicrous"
+   },
+   {
+    "form": "LUS-",
+    "spellings": [
+     "LUS"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LUD",
+    "word": "ludo",
+    "examples": "illusion, allude, ludicrous"
+   }
+  ]
+ },
+ {
+  "key": "prayer",
+  "label": "prayer",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PREC-",
+    "spellings": [
+     "PREC"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "PREC",
+    "word": "precor",
+    "examples": "deprecate, imprecation, precarious"
+   }
+  ]
+ },
+ {
+  "key": "push-thrust",
+  "label": "to push; thrust",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TRUD-",
+    "spellings": [
+     "TRUD"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "TRUD",
+    "word": "trudo",
+    "examples": "intrude, protrude, obtrusive"
+   },
+   {
+    "form": "TRUS-",
+    "spellings": [
+     "TRUS"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "TRUD",
+    "word": "trudo",
+    "examples": "intrude, protrude, obtrusive"
+   }
+  ]
+ },
+ {
+  "key": "speak",
+  "label": "to speak",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LOCUT-",
+    "spellings": [
+     "LOCUT"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LOQU",
+    "word": "loquor",
+    "examples": "eloquent, loquacious, elocution"
+   },
+   {
+    "form": "LOQU-",
+    "spellings": [
+     "LOQU"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "LOQU",
+    "word": "loquor",
+    "examples": "eloquent, loquacious, elocution"
+   },
+   {
+    "form": "FA(B)-",
+    "spellings": [
+     "FA",
+     "FAB"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FAM-",
+    "spellings": [
+     "FAM"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FAT-",
+    "spellings": [
+     "FAT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FESS-",
+    "spellings": [
+     "FESS"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   }
+  ]
+ },
+ {
+  "key": "take-an-oath",
+  "label": "to take an oath",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "JUR-",
+    "spellings": [
+     "JUR"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   },
+   {
+    "form": "JUST-",
+    "spellings": [
+     "JUST"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "JUR",
+    "word": "ius",
+    "examples": "jury, justice, jurisdiction, perjury"
+   }
+  ]
+ },
+ {
+  "key": "thoroughly",
+  "label": "thoroughly",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "DE-",
+    "spellings": [
+     "DE"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "DE",
+    "word": "DE",
+    "examples": "descend, depart, devalue"
+   }
+  ]
+ },
+ {
+  "key": "to-toward",
+  "label": "to; toward",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "AC-",
+    "spellings": [
+     "AC"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AD",
+    "word": "AD",
+    "examples": "adhere, accept, advance"
+   },
+   {
+    "form": "AD-",
+    "spellings": [
+     "AD"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "AD",
+    "word": "AD",
+    "examples": "adhere, accept, advance"
+   }
+  ]
+ },
+ {
+  "key": "together-with",
+  "label": "with; together",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "CO-",
+    "spellings": [
+     "CO"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   },
+   {
+    "form": "COM-",
+    "spellings": [
+     "COM"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   },
+   {
+    "form": "CON-",
+    "spellings": [
+     "CON"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   }
+  ]
+ },
+ {
+  "key": "very",
+  "label": "very",
+  "lesson": 3,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "CO-",
+    "spellings": [
+     "CO"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   },
+   {
+    "form": "COM-",
+    "spellings": [
+     "COM"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   },
+   {
+    "form": "CON-",
+    "spellings": [
+     "CON"
+    ],
+    "lesson": 3,
+    "kind": "prefix",
+    "gloss": "CON",
+    "word": "CON",
+    "examples": "connect, combine, cooperate"
+   }
+  ]
+ },
+ {
+  "key": "yield",
+  "label": "yield",
+  "lesson": 3,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CED-",
+    "spellings": [
+     "CED"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "CED",
+    "word": "cedo",
+    "examples": "proceed, recede, concession, access"
+   },
+   {
+    "form": "CESS-",
+    "spellings": [
+     "CESS"
+    ],
+    "lesson": 3,
+    "kind": "base",
+    "gloss": "CED",
+    "word": "cedo",
+    "examples": "proceed, recede, concession, access"
+   }
+  ]
+ },
+ {
+  "key": "among-between",
+  "label": "between; among",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "INTER-",
+    "spellings": [
+     "INTER"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "INTER",
+    "word": "INTER",
+    "examples": "interact, international, intersect"
+   }
+  ]
+ },
+ {
+  "key": "below-beneath",
+  "label": "below; beneath",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "INFRA-",
+    "spellings": [
+     "INFRA"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "INFRA",
+    "word": "INFRA",
+    "examples": "infrastructure, infrared"
+   }
+  ]
+ },
+ {
+  "key": "beyond-outside",
+  "label": "outside; beyond",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "EXTRA-",
+    "spellings": [
+     "EXTRA"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EXTRA",
+    "word": "EXTRA",
+    "examples": "extraordinary, extrovert, extraterrestrial"
+   },
+   {
+    "form": "EXTRO-",
+    "spellings": [
+     "EXTRO"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EXTRA",
+    "word": "EXTRA",
+    "examples": "extraordinary, extrovert, extraterrestrial"
+   }
+  ]
+ },
+ {
+  "key": "completely",
+  "label": "completely",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "E-",
+    "spellings": [
+     "E"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   },
+   {
+    "form": "EF-",
+    "spellings": [
+     "EF"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   },
+   {
+    "form": "EX-",
+    "spellings": [
+     "EX"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   },
+   {
+    "form": "OB-",
+    "spellings": [
+     "OB"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "OB",
+    "word": "OB",
+    "examples": "object, obstruct, obstacle"
+   },
+   {
+    "form": "PER-",
+    "spellings": [
+     "PER"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "PER",
+    "word": "PER",
+    "examples": "permeate, perceive, persist"
+   }
+  ]
+ },
+ {
+  "key": "cross",
+  "label": "cross",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CRUC-",
+    "spellings": [
+     "CRUC"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "CRUC",
+    "word": "crux",
+    "examples": "crucial, crucifix, excruciating"
+   }
+  ]
+ },
+ {
+  "key": "disturb",
+  "label": "to disturb",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TURB-",
+    "spellings": [
+     "TURB"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "TURB",
+    "word": "turbo",
+    "examples": "turbulent, disturb, perturb"
+   }
+  ]
+ },
+ {
+  "key": "feel",
+  "label": "to feel",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SENS-",
+    "spellings": [
+     "SENS"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SENT",
+    "word": "sentio",
+    "examples": "sentiment, sensation, consent"
+   },
+   {
+    "form": "SENT-",
+    "spellings": [
+     "SENT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SENT",
+    "word": "sentio",
+    "examples": "sentiment, sensation, consent"
+   }
+  ]
+ },
+ {
+  "key": "flock-herd",
+  "label": "flock; herd",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GREG-",
+    "spellings": [
+     "GREG"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "GREG",
+    "word": "grex",
+    "examples": "gregarious, segregate, congregate"
+   }
+  ]
+ },
+ {
+  "key": "foot",
+  "label": "foot",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PED-",
+    "spellings": [
+     "PED"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "PED",
+    "word": "pes",
+    "examples": "pedal, pedestrian, expedition"
+   }
+  ]
+ },
+ {
+  "key": "from-out",
+  "label": "out; from",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "E-",
+    "spellings": [
+     "E"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   },
+   {
+    "form": "EF-",
+    "spellings": [
+     "EF"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   },
+   {
+    "form": "EX-",
+    "spellings": [
+     "EX"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "EX",
+    "word": "EX",
+    "examples": "exit, emit, efface"
+   }
+  ]
+ },
+ {
+  "key": "have",
+  "label": "to have",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "AB-",
+    "spellings": [
+     "AB"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "HAB",
+    "word": "habeo",
+    "examples": "habit, exhibit, inhibit, prohibit"
+   },
+   {
+    "form": "HAB-",
+    "spellings": [
+     "HAB"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "HAB",
+    "word": "habeo",
+    "examples": "habit, exhibit, inhibit, prohibit"
+   }
+  ]
+ },
+ {
+  "key": "hold-as-customary",
+  "label": "hold as customary",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "AB-",
+    "spellings": [
+     "AB"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "HAB",
+    "word": "habeo",
+    "examples": "habit, exhibit, inhibit, prohibit"
+   },
+   {
+    "form": "HAB-",
+    "spellings": [
+     "HAB"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "HAB",
+    "word": "habeo",
+    "examples": "habit, exhibit, inhibit, prohibit"
+   }
+  ]
+ },
+ {
+  "key": "holy",
+  "label": "holy",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SANCT-",
+    "spellings": [
+     "SANCT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SANCT",
+    "word": "sanctus",
+    "examples": "sanctuary, sanction, sanctify"
+   }
+  ]
+ },
+ {
+  "key": "in-into",
+  "label": "in; into",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "IM-",
+    "spellings": [
+     "IM"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   },
+   {
+    "form": "IN-",
+    "spellings": [
+     "IN"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   }
+  ]
+ },
+ {
+  "key": "point",
+  "label": "point",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PUNCT-",
+    "spellings": [
+     "PUNCT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "PUNG",
+    "word": "pungo",
+    "examples": "pungent, punctual, puncture"
+   },
+   {
+    "form": "PUNG-",
+    "spellings": [
+     "PUNG"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "PUNG",
+    "word": "pungo",
+    "examples": "pungent, punctual, puncture"
+   }
+  ]
+ },
+ {
+  "key": "prick",
+  "label": "to prick",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PUNCT-",
+    "spellings": [
+     "PUNCT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "PUNG",
+    "word": "pungo",
+    "examples": "pungent, punctual, puncture"
+   },
+   {
+    "form": "PUNG-",
+    "spellings": [
+     "PUNG"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "PUNG",
+    "word": "pungo",
+    "examples": "pungent, punctual, puncture"
+   }
+  ]
+ },
+ {
+  "key": "road-way",
+  "label": "way; road",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VI(A)-",
+    "spellings": [
+     "VI",
+     "VIA"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "VI",
+    "word": "via",
+    "examples": "via, deviate, viaduct"
+   }
+  ]
+ },
+ {
+  "key": "sacred",
+  "label": "sacred",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SACR-",
+    "spellings": [
+     "SACR"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SACR",
+    "word": "sacer",
+    "examples": "sacred, sacrifice, consecrate, sacrilege"
+   }
+  ]
+ },
+ {
+  "key": "think",
+  "label": "think",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SENS-",
+    "spellings": [
+     "SENS"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SENT",
+    "word": "sentio",
+    "examples": "sentiment, sensation, consent"
+   },
+   {
+    "form": "SENT-",
+    "spellings": [
+     "SENT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "SENT",
+    "word": "sentio",
+    "examples": "sentiment, sensation, consent"
+   }
+  ]
+ },
+ {
+  "key": "through",
+  "label": "through",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "PER-",
+    "spellings": [
+     "PER"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "PER",
+    "word": "PER",
+    "examples": "permeate, perceive, persist"
+   }
+  ]
+ },
+ {
+  "key": "toward",
+  "label": "toward",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "OB-",
+    "spellings": [
+     "OB"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "OB",
+    "word": "OB",
+    "examples": "object, obstruct, obstacle"
+   }
+  ]
+ },
+ {
+  "key": "turn",
+  "label": "to turn",
+  "lesson": 4,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VERS-",
+    "spellings": [
+     "VERS"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "VERT",
+    "word": "verto",
+    "examples": "convert, reverse, invert"
+   },
+   {
+    "form": "VERT-",
+    "spellings": [
+     "VERT"
+    ],
+    "lesson": 4,
+    "kind": "base",
+    "gloss": "VERT",
+    "word": "verto",
+    "examples": "convert, reverse, invert"
+   }
+  ]
+ },
+ {
+  "key": "upon",
+  "label": "upon",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "IM-",
+    "spellings": [
+     "IM"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   },
+   {
+    "form": "IN-",
+    "spellings": [
+     "IN"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "IN-into",
+    "word": "IN-into",
+    "examples": "inject, immerse, enclose, empower"
+   }
+  ]
+ },
+ {
+  "key": "within",
+  "label": "within",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "INTRA-",
+    "spellings": [
+     "INTRA"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "INTRA",
+    "word": "INTRA",
+    "examples": "intramural, introvert, introspect"
+   },
+   {
+    "form": "INTRO-",
+    "spellings": [
+     "INTRO"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "INTRA",
+    "word": "INTRA",
+    "examples": "intramural, introvert, introspect"
+   }
+  ]
+ },
+ {
+  "key": "wrongly",
+  "label": "wrongly",
+  "lesson": 4,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "PER-",
+    "spellings": [
+     "PER"
+    ],
+    "lesson": 4,
+    "kind": "prefix",
+    "gloss": "PER",
+    "word": "PER",
+    "examples": "permeate, perceive, persist"
+   }
+  ]
+ },
+ {
+  "key": "above-over",
+  "label": "above; over",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "SUPER-",
+    "spellings": [
+     "SUPER"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUPER",
+    "word": "SUPER",
+    "examples": "superior, surpass, superimpose"
+   }
+  ]
+ },
+ {
+  "key": "across-through",
+  "label": "across; through",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "TRA-",
+    "spellings": [
+     "TRA"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "TRANS",
+    "word": "TRANS",
+    "examples": "transmit, transcend, traverse"
+   },
+   {
+    "form": "TRAN-",
+    "spellings": [
+     "TRAN"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "TRANS",
+    "word": "TRANS",
+    "examples": "transmit, transcend, traverse"
+   },
+   {
+    "form": "TRANS-",
+    "spellings": [
+     "TRANS"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "TRANS",
+    "word": "TRANS",
+    "examples": "transmit, transcend, traverse"
+   }
+  ]
+ },
+ {
+  "key": "after",
+  "label": "after",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "POST-",
+    "spellings": [
+     "POST"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "POST",
+    "word": "POST",
+    "examples": "postpone, posterity, postwar"
+   }
+  ]
+ },
+ {
+  "key": "again",
+  "label": "again",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "RE-",
+    "spellings": [
+     "RE"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "RE",
+    "word": "RE",
+    "examples": "return, redeem, react"
+   },
+   {
+    "form": "RED-",
+    "spellings": [
+     "RED"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "RE",
+    "word": "RE",
+    "examples": "return, redeem, react"
+   }
+  ]
+ },
+ {
+  "key": "aside-away",
+  "label": "aside; away",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "SE-",
+    "spellings": [
+     "SE"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SE",
+    "word": "SE",
+    "examples": "separate, secede, sedition"
+   },
+   {
+    "form": "SED-",
+    "spellings": [
+     "SED"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "SE",
+    "word": "SE",
+    "examples": "separate, secede, sedition"
+   }
+  ]
+ },
+ {
+  "key": "back",
+  "label": "back",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "RE-",
+    "spellings": [
+     "RE"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "RE",
+    "word": "RE",
+    "examples": "return, redeem, react"
+   },
+   {
+    "form": "RED-",
+    "spellings": [
+     "RED"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "RE",
+    "word": "RE",
+    "examples": "return, redeem, react"
+   }
+  ]
+ },
+ {
+  "key": "backward-behind",
+  "label": "backward; behind",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "RETRO-",
+    "spellings": [
+     "RETRO"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "RETRO",
+    "word": "RETRO",
+    "examples": "retrospect, retroactive, retrograde"
+   }
+  ]
+ },
+ {
+  "key": "behind",
+  "label": "behind",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "POST-",
+    "spellings": [
+     "POST"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "POST",
+    "word": "POST",
+    "examples": "postpone, posterity, postwar"
+   }
+  ]
+ },
+ {
+  "key": "beyond",
+  "label": "beyond",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "ULTRA-",
+    "spellings": [
+     "ULTRA"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "ULTRA",
+    "word": "ULTRA",
+    "examples": "ultraviolet, ultrasound, ultramodern"
+   }
+  ]
+ },
+ {
+  "key": "breathe",
+  "label": "to breathe",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SPIR-",
+    "spellings": [
+     "SPIR"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "SPIR",
+    "word": "spiro",
+    "examples": "inspire, respire, conspire"
+   }
+  ]
+ },
+ {
+  "key": "call",
+  "label": "to call",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VOC-",
+    "spellings": [
+     "VOC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VOC",
+    "word": "vox",
+    "examples": "vocal, vocation, invoke"
+   },
+   {
+    "form": "VOK-",
+    "spellings": [
+     "VOK"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VOC",
+    "word": "vox",
+    "examples": "vocal, vocation, invoke"
+   }
+  ]
+ },
+ {
+  "key": "do-make",
+  "label": "to make; do",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FAC-",
+    "spellings": [
+     "FAC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "FAC",
+    "word": "facio",
+    "examples": "factory, manufacture, fiction, deficient"
+   },
+   {
+    "form": "FACT-",
+    "spellings": [
+     "FACT"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "FAC",
+    "word": "facio",
+    "examples": "factory, manufacture, fiction, deficient"
+   },
+   {
+    "form": "FEAS-",
+    "spellings": [
+     "FEAS"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FEAS",
+    "word": "facio",
+    "examples": "feasible, feature, effect"
+   },
+   {
+    "form": "FEAT-",
+    "spellings": [
+     "FEAT"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FEAS",
+    "word": "facio",
+    "examples": "feasible, feature, effect"
+   },
+   {
+    "form": "FECT-",
+    "spellings": [
+     "FECT"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FEAS",
+    "word": "facio",
+    "examples": "feasible, feature, effect"
+   }
+  ]
+ },
+ {
+  "key": "drive-push",
+  "label": "to drive; push",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PULS-",
+    "spellings": [
+     "PULS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PULS",
+    "word": "pello",
+    "examples": "pulse, repulsive, compulsion"
+   },
+   {
+    "form": "PEL(L)-",
+    "spellings": [
+     "PEL",
+     "PELL"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "PEL",
+    "word": "pello",
+    "examples": "expel, compelling"
+   }
+  ]
+ },
+ {
+  "key": "exceedingly",
+  "label": "exceedingly",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "ULTRA-",
+    "spellings": [
+     "ULTRA"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "ULTRA",
+    "word": "ULTRA",
+    "examples": "ultraviolet, ultrasound, ultramodern"
+   }
+  ]
+ },
+ {
+  "key": "fill",
+  "label": "to fill",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PLE-",
+    "spellings": [
+     "PLE"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   },
+   {
+    "form": "PLEN-",
+    "spellings": [
+     "PLEN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   },
+   {
+    "form": "PLET-",
+    "spellings": [
+     "PLET"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   }
+  ]
+ },
+ {
+  "key": "for",
+  "label": "for",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "PRO-",
+    "spellings": [
+     "PRO"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "PRO",
+    "word": "PRO",
+    "examples": "proceed, promote, propose"
+   }
+  ]
+ },
+ {
+  "key": "forward",
+  "label": "forward",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "PRO-",
+    "spellings": [
+     "PRO"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "PRO",
+    "word": "PRO",
+    "examples": "proceed, promote, propose"
+   }
+  ]
+ },
+ {
+  "key": "full",
+  "label": "full",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PLE-",
+    "spellings": [
+     "PLE"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   },
+   {
+    "form": "PLEN-",
+    "spellings": [
+     "PLEN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   },
+   {
+    "form": "PLET-",
+    "spellings": [
+     "PLET"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PLE",
+    "word": "pleo",
+    "examples": "complete, deplete, plenty"
+   }
+  ]
+ },
+ {
+  "key": "go-step",
+  "label": "to step; go",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GRAD-",
+    "spellings": [
+     "GRAD"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "GRAD",
+    "word": "gradior",
+    "examples": "graduate, progress, regression"
+   },
+   {
+    "form": "GRESS-",
+    "spellings": [
+     "GRESS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "GRAD",
+    "word": "gradior",
+    "examples": "graduate, progress, regression"
+   }
+  ]
+ },
+ {
+  "key": "hang",
+  "label": "to hang",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PEND-",
+    "spellings": [
+     "PEND"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   },
+   {
+    "form": "PENS-",
+    "spellings": [
+     "PENS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   }
+  ]
+ },
+ {
+  "key": "look",
+  "label": "to look",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(SPIC-)",
+    "spellings": [
+     "SPIC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "SPEC",
+    "word": "specio",
+    "examples": "spectacle, inspect, conspicuous"
+   },
+   {
+    "form": "SPEC-",
+    "spellings": [
+     "SPEC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "SPEC",
+    "word": "specio",
+    "examples": "spectacle, inspect, conspicuous"
+   },
+   {
+    "form": "SPECT-",
+    "spellings": [
+     "SPECT"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "SPEC",
+    "word": "specio",
+    "examples": "spectacle, inspect, conspicuous"
+   }
+  ]
+ },
+ {
+  "key": "name",
+  "label": "name",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NOMEN-",
+    "spellings": [
+     "NOMEN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "NOMIN",
+    "word": "nomen",
+    "examples": "nominate, denomination, nominal"
+   },
+   {
+    "form": "NOMIN-",
+    "spellings": [
+     "NOMIN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "NOMIN",
+    "word": "nomen",
+    "examples": "nominate, denomination, nominal"
+   }
+  ]
+ },
+ {
+  "key": "noun",
+  "label": "noun",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NOMEN-",
+    "spellings": [
+     "NOMEN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "NOMIN",
+    "word": "nomen",
+    "examples": "nominate, denomination, nominal"
+   },
+   {
+    "form": "NOMIN-",
+    "spellings": [
+     "NOMIN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "NOMIN",
+    "word": "nomen",
+    "examples": "nominate, denomination, nominal"
+   }
+  ]
+ },
+ {
+  "key": "pay",
+  "label": "pay",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PEND-",
+    "spellings": [
+     "PEND"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   },
+   {
+    "form": "PENS-",
+    "spellings": [
+     "PENS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   }
+  ]
+ },
+ {
+  "key": "place",
+  "label": "place",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LOC-",
+    "spellings": [
+     "LOC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "LOC",
+    "word": "locus",
+    "examples": "locate, dislocate, allocate"
+   }
+  ]
+ },
+ {
+  "key": "run",
+  "label": "to run",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CUR(R)-",
+    "spellings": [
+     "CUR",
+     "CURR"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CUR",
+    "word": "curro",
+    "examples": "current, cursive, excursion, course"
+   },
+   {
+    "form": "CURS-",
+    "spellings": [
+     "CURS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CUR",
+    "word": "curro",
+    "examples": "current, cursive, excursion, course"
+   }
+  ]
+ },
+ {
+  "key": "secretly",
+  "label": "secretly",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "SUB-",
+    "spellings": [
+     "SUB"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUC-",
+    "spellings": [
+     "SUC"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUS-",
+    "spellings": [
+     "SUS"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   }
+  ]
+ },
+ {
+  "key": "see",
+  "label": "to see",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VID-",
+    "spellings": [
+     "VID"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VID",
+    "word": "video",
+    "examples": "video, visible, review"
+   },
+   {
+    "form": "VIS-",
+    "spellings": [
+     "VIS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VID",
+    "word": "video",
+    "examples": "video, visible, review"
+   }
+  ]
+ },
+ {
+  "key": "shut",
+  "label": "to shut",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CLUD-",
+    "spellings": [
+     "CLUD"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CLUD",
+    "word": "claudo",
+    "examples": "include, exclude, conclusion, closure"
+   },
+   {
+    "form": "CLUS-",
+    "spellings": [
+     "CLUS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "CLUD",
+    "word": "claudo",
+    "examples": "include, exclude, conclusion, closure"
+   }
+  ]
+ },
+ {
+  "key": "threshold",
+  "label": "threshold",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LIMIN-",
+    "spellings": [
+     "LIMIN"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "LIMIN",
+    "word": "LIMIN",
+    "examples": "preliminary, subliminal, eliminate"
+   }
+  ]
+ },
+ {
+  "key": "under",
+  "label": "under",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "SUB-",
+    "spellings": [
+     "SUB"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUC-",
+    "spellings": [
+     "SUC"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUS-",
+    "spellings": [
+     "SUS"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   }
+  ]
+ },
+ {
+  "key": "up-from-under",
+  "label": "up from under",
+  "lesson": 5,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "SUB-",
+    "spellings": [
+     "SUB"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUC-",
+    "spellings": [
+     "SUC"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   },
+   {
+    "form": "SUS-",
+    "spellings": [
+     "SUS"
+    ],
+    "lesson": 5,
+    "kind": "prefix",
+    "gloss": "SUB",
+    "word": "SUB",
+    "examples": "submarine, suspend, succeed"
+   }
+  ]
+ },
+ {
+  "key": "voice",
+  "label": "voice",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "VOC-",
+    "spellings": [
+     "VOC"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VOC",
+    "word": "vox",
+    "examples": "vocal, vocation, invoke"
+   },
+   {
+    "form": "VOK-",
+    "spellings": [
+     "VOK"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "VOC",
+    "word": "vox",
+    "examples": "vocal, vocation, invoke"
+   }
+  ]
+ },
+ {
+  "key": "wave",
+  "label": "wave",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "UND-",
+    "spellings": [
+     "UND"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "UND",
+    "word": "unda",
+    "examples": "undulate, abound, redundant"
+   }
+  ]
+ },
+ {
+  "key": "weigh",
+  "label": "weigh",
+  "lesson": 5,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PEND-",
+    "spellings": [
+     "PEND"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   },
+   {
+    "form": "PENS-",
+    "spellings": [
+     "PENS"
+    ],
+    "lesson": 5,
+    "kind": "base",
+    "gloss": "PEND",
+    "word": "pendo",
+    "examples": "suspend, pension, compensate"
+   }
+  ]
+ },
+ {
+  "key": "eight",
+  "label": "eight",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "OCT-",
+    "spellings": [
+     "OCT"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "OCT",
+    "word": "octo",
+    "examples": "octet, octogenarian"
+   }
+  ]
+ },
+ {
+  "key": "eighth",
+  "label": "eighth",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "OCTAV-",
+    "spellings": [
+     "OCTAV"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "OCTAV",
+    "word": "octavus",
+    "examples": "octave"
+   }
+  ]
+ },
+ {
+  "key": "fifth",
+  "label": "fifth",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "QUINT-",
+    "spellings": [
+     "QUINT"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "QUINT",
+    "word": "quintus",
+    "examples": "quintet, quintessence"
+   }
+  ]
+ },
+ {
+  "key": "first",
+  "label": "first",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PRIM-",
+    "spellings": [
+     "PRIM"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "PRIM",
+    "word": "primus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "four",
+  "label": "four",
+  "lesson": 6,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "QUADRI-",
+    "spellings": [
+     "QUADRI"
+    ],
+    "lesson": 6,
+    "kind": "prefix",
+    "gloss": "QUADRI",
+    "word": "quattuor",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "fourth",
+  "label": "fourth",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "QUART-",
+    "spellings": [
+     "QUART"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "QUART",
+    "word": "quartus",
+    "examples": "quarter, quart"
+   }
+  ]
+ },
+ {
+  "key": "half-partly",
+  "label": "half; partly",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SEMI-",
+    "spellings": [
+     "SEMI"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "SEMI",
+    "word": "semi-",
+    "examples": "semicircle, semiannual"
+   }
+  ]
+ },
+ {
+  "key": "hundred",
+  "label": "hundred",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CENT-",
+    "spellings": [
+     "CENT"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "CENT",
+    "word": "centum",
+    "examples": "century, percent"
+   }
+  ]
+ },
+ {
+  "key": "one",
+  "label": "one",
+  "lesson": 6,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "UNI-",
+    "spellings": [
+     "UNI"
+    ],
+    "lesson": 6,
+    "kind": "prefix",
+    "gloss": "UNI",
+    "word": "unus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "seven",
+  "label": "seven",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SEPT(EM)-",
+    "spellings": [
+     "SEPT",
+     "SEPTEM"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "SEPT",
+    "word": "septem",
+    "examples": "septet, September"
+   }
+  ]
+ },
+ {
+  "key": "six-sixth",
+  "label": "six; sixth",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SEXT-",
+    "spellings": [
+     "SEXT"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "SEXT",
+    "word": "sextus",
+    "examples": "sextet, sextant"
+   }
+  ]
+ },
+ {
+  "key": "tenth",
+  "label": "tenth",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DECI(M)-",
+    "spellings": [
+     "DECI",
+     "DECIM"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "DECI",
+    "word": "decem",
+    "examples": "decimal, decimate"
+   }
+  ]
+ },
+ {
+  "key": "thousand",
+  "label": "thousand",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "MILL-",
+    "spellings": [
+     "MILL"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "MILL",
+    "word": "mille",
+    "examples": "million, millennium"
+   }
+  ]
+ },
+ {
+  "key": "three",
+  "label": "three",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TRI-",
+    "spellings": [
+     "TRI"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "TRI",
+    "word": "tres",
+    "examples": "triangle, trivial"
+   }
+  ]
+ },
+ {
+  "key": "twice-two",
+  "label": "two; twice",
+  "lesson": 6,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "BI-",
+    "spellings": [
+     "BI"
+    ],
+    "lesson": 6,
+    "kind": "prefix",
+    "gloss": "BI",
+    "word": "bis",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "two",
+  "label": "two",
+  "lesson": 6,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DU-",
+    "spellings": [
+     "DU"
+    ],
+    "lesson": 6,
+    "kind": "base",
+    "gloss": "DU",
+    "word": "duo",
+    "examples": "dual, duet"
+   }
+  ]
+ },
+ {
+  "key": "bad",
+  "label": "bad",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "MAL(E)-",
+    "spellings": [
+     "MAL",
+     "MALE"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "MAL",
+    "word": "malus",
+    "examples": "malady, malevolent"
+   }
+  ]
+ },
+ {
+  "key": "bear-carry",
+  "label": "to carry; bear",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FER-",
+    "spellings": [
+     "FER"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "FER",
+    "word": "fero",
+    "examples": ""
+   },
+   {
+    "form": "LAT-",
+    "spellings": [
+     "LAT"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "LAT",
+    "word": "fero",
+    "examples": "relate, translate"
+   }
+  ]
+ },
+ {
+  "key": "best",
+  "label": "best",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "OPTIM-",
+    "spellings": [
+     "OPTIM"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "OPTIM",
+    "word": "optimus",
+    "examples": "optimist, optimal"
+   }
+  ]
+ },
+ {
+  "key": "care",
+  "label": "care",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CUR-",
+    "spellings": [
+     "CUR"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "CUR-cure",
+    "word": "cura",
+    "examples": "cure, curator"
+   }
+  ]
+ },
+ {
+  "key": "cure",
+  "label": "cure",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CUR-",
+    "spellings": [
+     "CUR"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "CUR-cure",
+    "word": "cura",
+    "examples": "cure, curator"
+   }
+  ]
+ },
+ {
+  "key": "equal-even",
+  "label": "equal; even",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(IQU-)",
+    "spellings": [
+     "IQU"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "EQU",
+    "word": "aequus",
+    "examples": ""
+   },
+   {
+    "form": "EQU-",
+    "spellings": [
+     "EQU"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "EQU",
+    "word": "aequus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "feeling",
+  "label": "feeling",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ANIM-",
+    "spellings": [
+     "ANIM"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "ANIM",
+    "word": "animus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "fold",
+  "label": "to fold",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PLEX-",
+    "spellings": [
+     "PLEX"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   },
+   {
+    "form": "PLIC-",
+    "spellings": [
+     "PLIC"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   },
+   {
+    "form": "PLY-",
+    "spellings": [
+     "PLY"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   }
+  ]
+ },
+ {
+  "key": "good-well",
+  "label": "good; well",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "BENE-",
+    "spellings": [
+     "BENE"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "BENE",
+    "word": "bene",
+    "examples": ""
+   },
+   {
+    "form": "BON-",
+    "spellings": [
+     "BON"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "BENE",
+    "word": "bene",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "interweave-tangle",
+  "label": "tangle; interweave",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PLEX-",
+    "spellings": [
+     "PLEX"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   },
+   {
+    "form": "PLIC-",
+    "spellings": [
+     "PLIC"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   },
+   {
+    "form": "PLY-",
+    "spellings": [
+     "PLY"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "PLEX",
+    "word": "plico",
+    "examples": "complex, implicate, reply"
+   }
+  ]
+ },
+ {
+  "key": "life",
+  "label": "life",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ANIM-",
+    "spellings": [
+     "ANIM"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "ANIM",
+    "word": "animus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "many",
+  "label": "many",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "MULT-",
+    "spellings": [
+     "MULT"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "MULT",
+    "word": "multus",
+    "examples": "multiply, multitude"
+   }
+  ]
+ },
+ {
+  "key": "mind",
+  "label": "mind",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ANIM-",
+    "spellings": [
+     "ANIM"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "ANIM",
+    "word": "animus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "sing",
+  "label": "to sing",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CENT-",
+    "spellings": [
+     "CENT"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "CENT-sing",
+    "word": "cano",
+    "examples": "accent, incentive"
+   },
+   {
+    "form": "CANT-",
+    "spellings": [
+     "CANT"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "CANT",
+    "word": "cano",
+    "examples": ""
+   },
+   {
+    "form": "CHANT-",
+    "spellings": [
+     "CHANT"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "CANT",
+    "word": "cano",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "year",
+  "label": "year",
+  "lesson": 7,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ANN-",
+    "spellings": [
+     "ANN"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "ANN",
+    "word": "annus",
+    "examples": ""
+   },
+   {
+    "form": "ENNI-",
+    "spellings": [
+     "ENNI"
+    ],
+    "lesson": 7,
+    "kind": "base",
+    "gloss": "ENNI",
+    "word": "annus",
+    "examples": "biennial, perennial"
+   }
+  ]
+ },
+ {
+  "key": "all",
+  "label": "all",
+  "lesson": 8,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "OMNI-",
+    "spellings": [
+     "OMNI"
+    ],
+    "lesson": 8,
+    "kind": "prefix",
+    "gloss": "OMNI",
+    "word": "omnis",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "body",
+  "label": "body",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CORP(US)-",
+    "spellings": [
+     "CORP",
+     "CORPUS"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "CORPOR",
+    "word": "corpus",
+    "examples": ""
+   },
+   {
+    "form": "CORPOR-",
+    "spellings": [
+     "CORPOR"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "CORPOR",
+    "word": "corpus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "due-season",
+  "label": "due season",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TEMPER-",
+    "spellings": [
+     "TEMPER"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   },
+   {
+    "form": "TEMPOR-",
+    "spellings": [
+     "TEMPOR"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "hold",
+  "label": "to hold",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TAIN-",
+    "spellings": [
+     "TAIN"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEN",
+    "word": "teneo",
+    "examples": ""
+   },
+   {
+    "form": "TEN-",
+    "spellings": [
+     "TEN"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEN",
+    "word": "teneo",
+    "examples": ""
+   },
+   {
+    "form": "TENT-",
+    "spellings": [
+     "TENT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TENT",
+    "word": "teneo",
+    "examples": "content, detention"
+   },
+   {
+    "form": "TIN-",
+    "spellings": [
+     "TIN"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TIN",
+    "word": "teneo",
+    "examples": "continent, pertinent"
+   }
+  ]
+ },
+ {
+  "key": "like",
+  "label": "like",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SIMIL-",
+    "spellings": [
+     "SIMIL"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "SIMIL",
+    "word": "similis",
+    "examples": ""
+   },
+   {
+    "form": "-INE",
+    "spellings": [
+     "INE"
+    ],
+    "lesson": 10,
+    "kind": "suffix",
+    "gloss": "-INE",
+    "word": "-INE",
+    "examples": "feminine, canine, feline, asinine, bovine, aquiline"
+   }
+  ]
+ },
+ {
+  "key": "right-straight",
+  "label": "right; straight",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(RIG-)",
+    "spellings": [
+     "RIG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "RECT-",
+    "spellings": [
+     "RECT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "REG-",
+    "spellings": [
+     "REG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "rule",
+  "label": "to rule",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(RIG-)",
+    "spellings": [
+     "RIG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "RECT-",
+    "spellings": [
+     "RECT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "REG-",
+    "spellings": [
+     "REG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "set-bounds",
+  "label": "to set bounds",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TEMPER-",
+    "spellings": [
+     "TEMPER"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   },
+   {
+    "form": "TEMPOR-",
+    "spellings": [
+     "TEMPOR"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "stiffen-straighten",
+  "label": "straighten; stiffen",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(RIG-)",
+    "spellings": [
+     "RIG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "RECT-",
+    "spellings": [
+     "RECT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   },
+   {
+    "form": "REG-",
+    "spellings": [
+     "REG"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "REG",
+    "word": "rego",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "stretch",
+  "label": "to stretch",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TEND-",
+    "spellings": [
+     "TEND"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEND",
+    "word": "tendo",
+    "examples": "extend, tension"
+   },
+   {
+    "form": "TENS-",
+    "spellings": [
+     "TENS"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEND",
+    "word": "tendo",
+    "examples": "extend, tension"
+   },
+   {
+    "form": "TENT-",
+    "spellings": [
+     "TENT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TENT-stretch",
+    "word": "tendo",
+    "examples": "attentive, intent"
+   }
+  ]
+ },
+ {
+  "key": "stretched",
+  "label": "stretched",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TENU-",
+    "spellings": [
+     "TENU"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TENU",
+    "word": "tenuis",
+    "examples": "tenuous, attenuate"
+   }
+  ]
+ },
+ {
+  "key": "strive",
+  "label": "strive",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TEND-",
+    "spellings": [
+     "TEND"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEND",
+    "word": "tendo",
+    "examples": "extend, tension"
+   },
+   {
+    "form": "TENS-",
+    "spellings": [
+     "TENS"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEND",
+    "word": "tendo",
+    "examples": "extend, tension"
+   },
+   {
+    "form": "TENT-",
+    "spellings": [
+     "TENT"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TENT-stretch",
+    "word": "tendo",
+    "examples": "attentive, intent"
+   }
+  ]
+ },
+ {
+  "key": "thin",
+  "label": "thin",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TENU-",
+    "spellings": [
+     "TENU"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TENU",
+    "word": "tenuis",
+    "examples": "tenuous, attenuate"
+   }
+  ]
+ },
+ {
+  "key": "time",
+  "label": "time",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TEMPER-",
+    "spellings": [
+     "TEMPER"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   },
+   {
+    "form": "TEMPOR-",
+    "spellings": [
+     "TEMPOR"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "TEMPOR",
+    "word": "tempus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "water",
+  "label": "water",
+  "lesson": 8,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "AQU(A)-",
+    "spellings": [
+     "AQU",
+     "AQUA"
+    ],
+    "lesson": 8,
+    "kind": "base",
+    "gloss": "AQU",
+    "word": "aqua",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "blow",
+  "label": "to blow",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FLAT-",
+    "spellings": [
+     "FLAT"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "FLAT",
+    "word": "flo",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "bring-forth",
+  "label": "bring forth",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PAR-",
+    "spellings": [
+     "PAR"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "PAR",
+    "word": "paro",
+    "examples": "prepare, parent"
+   }
+  ]
+ },
+ {
+  "key": "burn",
+  "label": "to burn",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FLAG(R)-",
+    "spellings": [
+     "FLAG",
+     "FLAGR"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "FLAM",
+    "word": "flagro",
+    "examples": ""
+   },
+   {
+    "form": "FLAM(M)-",
+    "spellings": [
+     "FLAM",
+     "FLAMM"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "FLAM",
+    "word": "flagro",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "flame",
+  "label": "flame",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FLAG(R)-",
+    "spellings": [
+     "FLAG",
+     "FLAGR"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "FLAM",
+    "word": "flagro",
+    "examples": ""
+   },
+   {
+    "form": "FLAM(M)-",
+    "spellings": [
+     "FLAM",
+     "FLAMM"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "FLAM",
+    "word": "flagro",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "house",
+  "label": "house",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DOM(IN)-",
+    "spellings": [
+     "DOM",
+     "DOMIN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "DOM",
+    "word": "domus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "kind-race",
+  "label": "race; kind",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GENER-",
+    "spellings": [
+     "GENER"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "GENER",
+    "word": "genus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "light",
+  "label": "light",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LUC-",
+    "spellings": [
+     "LUC"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "LUC",
+    "word": "lux",
+    "examples": "lucid, translucent"
+   },
+   {
+    "form": "LUMIN-",
+    "spellings": [
+     "LUMIN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "LUMIN",
+    "word": "lumen",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "master",
+  "label": "master",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DOM(IN)-",
+    "spellings": [
+     "DOM",
+     "DOMIN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "DOM",
+    "word": "domus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "old",
+  "label": "old",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SEN-",
+    "spellings": [
+     "SEN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "SEN",
+    "word": "senex",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "origin",
+  "label": "origin",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GENER-",
+    "spellings": [
+     "GENER"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "GENER",
+    "word": "genus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "produce",
+  "label": "to produce",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "GEN-",
+    "spellings": [
+     "GEN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "GEN",
+    "word": "gigno",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "provide",
+  "label": "provide",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PAR-",
+    "spellings": [
+     "PAR"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "PAR",
+    "word": "paro",
+    "examples": "prepare, parent"
+   }
+  ]
+ },
+ {
+  "key": "ready",
+  "label": "to ready",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PAR-",
+    "spellings": [
+     "PAR"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "PAR",
+    "word": "paro",
+    "examples": "prepare, parent"
+   }
+  ]
+ },
+ {
+  "key": "save",
+  "label": "save",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SERV-",
+    "spellings": [
+     "SERV"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "SERV",
+    "word": "servo",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "serve",
+  "label": "to serve",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SERV-",
+    "spellings": [
+     "SERV"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "SERV",
+    "word": "servo",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "shine",
+  "label": "to shine",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LUC-",
+    "spellings": [
+     "LUC"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "LUC",
+    "word": "lux",
+    "examples": "lucid, translucent"
+   },
+   {
+    "form": "LUMIN-",
+    "spellings": [
+     "LUMIN"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "LUMIN",
+    "word": "lumen",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "side",
+  "label": "side",
+  "lesson": 9,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LATER-",
+    "spellings": [
+     "LATER"
+    ],
+    "lesson": 9,
+    "kind": "base",
+    "gloss": "LATER",
+    "word": "latus",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "arrange-put-in-order",
+  "label": "to put in order; arrange",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "ORD(IN)-",
+    "spellings": [
+     "ORD",
+     "ORDIN"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "ORD",
+    "word": "ordo",
+    "examples": "order, ordinary"
+   }
+  ]
+ },
+ {
+  "key": "be-able-have-power",
+  "label": "to be able; have power",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "POSS-",
+    "spellings": [
+     "POSS"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "POT",
+    "word": "possum",
+    "examples": "potent, possible"
+   },
+   {
+    "form": "POT-",
+    "spellings": [
+     "POT"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "POT",
+    "word": "possum",
+    "examples": "potent, possible"
+   }
+  ]
+ },
+ {
+  "key": "earth-land",
+  "label": "land; earth",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TERR-",
+    "spellings": [
+     "TERR"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "TERR",
+    "word": "terra",
+    "examples": "terrestrial, territory"
+   }
+  ]
+ },
+ {
+  "key": "faith",
+  "label": "faith",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FID-",
+    "spellings": [
+     "FID"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "FID",
+    "word": "fides",
+    "examples": "confident"
+   }
+  ]
+ },
+ {
+  "key": "faithful",
+  "label": "faithful",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FIDEL-",
+    "spellings": [
+     "FIDEL"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "FIDEL",
+    "word": "fidelis",
+    "examples": "infidelity"
+   }
+  ]
+ },
+ {
+  "key": "league-treaty",
+  "label": "league; treaty",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FEDER-",
+    "spellings": [
+     "FEDER"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "FEDER",
+    "word": "foedus",
+    "examples": "confederate"
+   }
+  ]
+ },
+ {
+  "key": "leap",
+  "label": "to leap",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(SIL-)",
+    "spellings": [
+     "SIL"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SAL",
+    "word": "salio",
+    "examples": "salient, resilient, saltatorial, insult"
+   },
+   {
+    "form": "SAL-",
+    "spellings": [
+     "SAL"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SAL",
+    "word": "salio",
+    "examples": "salient, resilient, saltatorial, insult"
+   },
+   {
+    "form": "SALT-",
+    "spellings": [
+     "SALT"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SAL",
+    "word": "salio",
+    "examples": "salient, resilient, saltatorial, insult"
+   },
+   {
+    "form": "SULT-",
+    "spellings": [
+     "SULT"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SAL",
+    "word": "salio",
+    "examples": "salient, resilient, saltatorial, insult"
+   }
+  ]
+ },
+ {
+  "key": "lie-down",
+  "label": "to lie down",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CUB-",
+    "spellings": [
+     "CUB"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "CUMB",
+    "word": "cubo",
+    "examples": "succumb, incubator"
+   },
+   {
+    "form": "CUMB-",
+    "spellings": [
+     "CUMB"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "CUMB",
+    "word": "cubo",
+    "examples": "succumb, incubator"
+   }
+  ]
+ },
+ {
+  "key": "settle",
+  "label": "settle",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SED-",
+    "spellings": [
+     "SED"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   },
+   {
+    "form": "(SID-)",
+    "spellings": [
+     "SID"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   },
+   {
+    "form": "SESS-",
+    "spellings": [
+     "SESS"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   }
+  ]
+ },
+ {
+  "key": "sit",
+  "label": "to sit",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SED-",
+    "spellings": [
+     "SED"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   },
+   {
+    "form": "(SID-)",
+    "spellings": [
+     "SID"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   },
+   {
+    "form": "SESS-",
+    "spellings": [
+     "SESS"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "SED",
+    "word": "sedeo",
+    "examples": "sedentary, sediment, reside"
+   }
+  ]
+ },
+ {
+  "key": "stick",
+  "label": "to stick",
+  "lesson": 10,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "HER-",
+    "spellings": [
+     "HER"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "HER",
+    "word": "haereo",
+    "examples": "adhere, adhesive"
+   },
+   {
+    "form": "HES-",
+    "spellings": [
+     "HES"
+    ],
+    "lesson": 10,
+    "kind": "base",
+    "gloss": "HER",
+    "word": "haereo",
+    "examples": "adhere, adhesive"
+   }
+  ]
+ },
+ {
+  "key": "able-to",
+  "label": "able to",
+  "lesson": 11,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ILE",
+    "spellings": [
+     "ILE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ILE-able",
+    "word": "-ILE-able",
+    "examples": "agile, volatile, reptile"
+   },
+   {
+    "form": "-ABLE",
+    "spellings": [
+     "ABLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   },
+   {
+    "form": "-IBLE",
+    "spellings": [
+     "IBLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   }
+  ]
+ },
+ {
+  "key": "able-to-be",
+  "label": "able to be",
+  "lesson": 11,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ILE",
+    "spellings": [
+     "ILE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ILE-able",
+    "word": "-ILE-able",
+    "examples": "agile, volatile, reptile"
+   },
+   {
+    "form": "-ABLE",
+    "spellings": [
+     "ABLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   },
+   {
+    "form": "-IBLE",
+    "spellings": [
+     "IBLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   }
+  ]
+ },
+ {
+  "key": "believe-trust",
+  "label": "to believe; trust",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CRED-",
+    "spellings": [
+     "CRED"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "CRED",
+    "word": "credo",
+    "examples": "credential, creditor, discredit"
+   }
+  ]
+ },
+ {
+  "key": "change",
+  "label": "to change",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "MUT-",
+    "spellings": [
+     "MUT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "MUT",
+    "word": "muto",
+    "examples": "mutant, mutation"
+   }
+  ]
+ },
+ {
+  "key": "deceive",
+  "label": "to deceive",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FALL-",
+    "spellings": [
+     "FALL"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FALL",
+    "word": "fallo",
+    "examples": "fallacy, false, failure, default"
+   },
+   {
+    "form": "FALS-",
+    "spellings": [
+     "FALS"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FALL",
+    "word": "fallo",
+    "examples": "fallacy, false, failure, default"
+   }
+  ]
+ },
+ {
+  "key": "drag",
+  "label": "to drag",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TRACT-",
+    "spellings": [
+     "TRACT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "TRACT",
+    "word": "traho",
+    "examples": "tractor, traction, detract"
+   }
+  ]
+ },
+ {
+  "key": "inclined-to-tending-to",
+  "label": "tending to; inclined to",
+  "lesson": 11,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ACIOUS",
+    "spellings": [
+     "ACIOUS"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ACIOUS",
+    "word": "-ACIOUS",
+    "examples": "audacious, tenacious"
+   },
+   {
+    "form": "-ID",
+    "spellings": [
+     "ID"
+    ],
+    "lesson": 12,
+    "kind": "suffix",
+    "gloss": "-ID",
+    "word": "-ID",
+    "examples": ""
+   },
+   {
+    "form": "-ULOUS",
+    "spellings": [
+     "ULOUS"
+    ],
+    "lesson": 12,
+    "kind": "suffix",
+    "gloss": "-ULOUS",
+    "word": "-ULOUS",
+    "examples": ""
+   },
+   {
+    "form": "-IVE",
+    "spellings": [
+     "IVE"
+    ],
+    "lesson": 13,
+    "kind": "suffix",
+    "gloss": "-IVE",
+    "word": "-IVE",
+    "examples": ""
+   },
+   {
+    "form": "-UOUS",
+    "spellings": [
+     "UOUS"
+    ],
+    "lesson": 13,
+    "kind": "suffix",
+    "gloss": "-UOUS",
+    "word": "-UOUS",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "measure",
+  "label": "measure",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "MOD-",
+    "spellings": [
+     "MOD"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "MOD",
+    "word": "modus",
+    "examples": "modicum, modest, modern, modify"
+   }
+  ]
+ },
+ {
+  "key": "reveal",
+  "label": "reveal",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FA(B)-",
+    "spellings": [
+     "FA",
+     "FAB"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FAM-",
+    "spellings": [
+     "FAM"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FAT-",
+    "spellings": [
+     "FAT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   },
+   {
+    "form": "FESS-",
+    "spellings": [
+     "FESS"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "FA",
+    "word": "for",
+    "examples": "affable, infant, preface, confess, fame, fabulous"
+   }
+  ]
+ },
+ {
+  "key": "teach",
+  "label": "to teach",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DOC-",
+    "spellings": [
+     "DOC"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "DOC",
+    "word": "doceo",
+    "examples": "document, doctor, indoctrinate"
+   },
+   {
+    "form": "DOCT-",
+    "spellings": [
+     "DOCT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "DOC",
+    "word": "doceo",
+    "examples": "document, doctor, indoctrinate"
+   }
+  ]
+ },
+ {
+  "key": "tending-to",
+  "label": "tending to",
+  "lesson": 11,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ILE",
+    "spellings": [
+     "ILE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ILE-able",
+    "word": "-ILE-able",
+    "examples": "agile, volatile, reptile"
+   },
+   {
+    "form": "-ABLE",
+    "spellings": [
+     "ABLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   },
+   {
+    "form": "-IBLE",
+    "spellings": [
+     "IBLE"
+    ],
+    "lesson": 11,
+    "kind": "suffix",
+    "gloss": "-ABLE",
+    "word": "-ABLE",
+    "examples": "portable, adaptable, flexible"
+   },
+   {
+    "form": "-ITIOUS",
+    "spellings": [
+     "ITIOUS"
+    ],
+    "lesson": 12,
+    "kind": "suffix",
+    "gloss": "-ITIOUS",
+    "word": "-ITIOUS",
+    "examples": ""
+   },
+   {
+    "form": "-ORY",
+    "spellings": [
+     "ORY"
+    ],
+    "lesson": 13,
+    "kind": "suffix",
+    "gloss": "-ORY",
+    "word": "-ORY",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "touch",
+  "label": "to touch",
+  "lesson": 11,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "(TING-)",
+    "spellings": [
+     "TING"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "TANG",
+    "word": "tango",
+    "examples": "tangent, contingent, contact, intact"
+   },
+   {
+    "form": "TACT-",
+    "spellings": [
+     "TACT"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "TANG",
+    "word": "tango",
+    "examples": "tangent, contingent, contact, intact"
+   },
+   {
+    "form": "TANG-",
+    "spellings": [
+     "TANG"
+    ],
+    "lesson": 11,
+    "kind": "base",
+    "gloss": "TANG",
+    "word": "tango",
+    "examples": "tangent, contingent, contact, intact"
+   }
+  ]
+ },
+ {
+  "key": "a-flow-flow",
+  "label": "to flow; a flow",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FLU-",
+    "spellings": [
+     "FLU"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FLU",
+    "word": "fluo",
+    "examples": "fluid, influx, fluvial, fluorescent"
+   },
+   {
+    "form": "FLUOR(O)-",
+    "spellings": [
+     "FLUOR",
+     "FLUORO"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FLU",
+    "word": "fluo",
+    "examples": "fluid, influx, fluvial, fluorescent"
+   },
+   {
+    "form": "FLUV-",
+    "spellings": [
+     "FLUV"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FLU",
+    "word": "fluo",
+    "examples": "fluid, influx, fluvial, fluorescent"
+   },
+   {
+    "form": "FLUX-",
+    "spellings": [
+     "FLUX"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FLU",
+    "word": "fluo",
+    "examples": "fluid, influx, fluvial, fluorescent"
+   }
+  ]
+ },
+ {
+  "key": "befall",
+  "label": "befall",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CAD-",
+    "spellings": [
+     "CAD"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAD",
+    "word": "cado",
+    "examples": "cadence, decadent"
+   },
+   {
+    "form": "CAS-",
+    "spellings": [
+     "CAS"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAS",
+    "word": "cado",
+    "examples": "casual, occasion"
+   },
+   {
+    "form": "CID-",
+    "spellings": [
+     "CID"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CID",
+    "word": "cado",
+    "examples": "accident, incident"
+   }
+  ]
+ },
+ {
+  "key": "bitter",
+  "label": "bitter",
+  "lesson": 12,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "AC(U)-",
+    "spellings": [
+     "AC",
+     "ACU"
+    ],
+    "lesson": 12,
+    "kind": "prefix",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   },
+   {
+    "form": "ACET-",
+    "spellings": [
+     "ACET"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   },
+   {
+    "form": "ACR-",
+    "spellings": [
+     "ACR"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   }
+  ]
+ },
+ {
+  "key": "characterized-by",
+  "label": "characterized by",
+  "lesson": 12,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ITIOUS",
+    "spellings": [
+     "ITIOUS"
+    ],
+    "lesson": 12,
+    "kind": "suffix",
+    "gloss": "-ITIOUS",
+    "word": "-ITIOUS",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "fall",
+  "label": "to fall",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CAD-",
+    "spellings": [
+     "CAD"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAD",
+    "word": "cado",
+    "examples": "cadence, decadent"
+   },
+   {
+    "form": "CAS-",
+    "spellings": [
+     "CAS"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAS",
+    "word": "cado",
+    "examples": "casual, occasion"
+   },
+   {
+    "form": "CID-",
+    "spellings": [
+     "CID"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CID",
+    "word": "cado",
+    "examples": "accident, incident"
+   }
+  ]
+ },
+ {
+  "key": "flower",
+  "label": "flower",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FLOR-",
+    "spellings": [
+     "FLOR"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FLOR",
+    "word": "flos",
+    "examples": "floral, flourish"
+   }
+  ]
+ },
+ {
+  "key": "harm",
+  "label": "to harm",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NEC-",
+    "spellings": [
+     "NEC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NEC",
+    "word": "neco",
+    "examples": "internecine"
+   },
+   {
+    "form": "NIC-",
+    "spellings": [
+     "NIC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NIC",
+    "word": "neco",
+    "examples": "pernicious"
+   },
+   {
+    "form": "NOC-",
+    "spellings": [
+     "NOC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NOC",
+    "word": "noceo",
+    "examples": "innocent, innocuous"
+   },
+   {
+    "form": "NOX-",
+    "spellings": [
+     "NOX"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NOX",
+    "word": "noceo",
+    "examples": "noxious, obnoxious"
+   }
+  ]
+ },
+ {
+  "key": "kill",
+  "label": "kill",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NEC-",
+    "spellings": [
+     "NEC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NEC",
+    "word": "neco",
+    "examples": "internecine"
+   },
+   {
+    "form": "NIC-",
+    "spellings": [
+     "NIC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NIC",
+    "word": "neco",
+    "examples": "pernicious"
+   },
+   {
+    "form": "NOC-",
+    "spellings": [
+     "NOC"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NOC",
+    "word": "noceo",
+    "examples": "innocent, innocuous"
+   },
+   {
+    "form": "NOX-",
+    "spellings": [
+     "NOX"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NOX",
+    "word": "noceo",
+    "examples": "noxious, obnoxious"
+   }
+  ]
+ },
+ {
+  "key": "leaf",
+  "label": "leaf",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FOIL-",
+    "spellings": [
+     "FOIL"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FOLI",
+    "word": "folium",
+    "examples": "foliage, portfolio, foil"
+   },
+   {
+    "form": "FOLI-",
+    "spellings": [
+     "FOLI"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "FOLI",
+    "word": "folium",
+    "examples": "foliage, portfolio, foil"
+   }
+  ]
+ },
+ {
+  "key": "new",
+  "label": "new",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NOV-",
+    "spellings": [
+     "NOV"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "NOV",
+    "word": "novus",
+    "examples": "novel, renovate"
+   }
+  ]
+ },
+ {
+  "key": "seize-take",
+  "label": "to take; seize",
+  "lesson": 12,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CAP-",
+    "spellings": [
+     "CAP"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAP",
+    "word": "capio",
+    "examples": "capable, capture"
+   },
+   {
+    "form": "CAPT-",
+    "spellings": [
+     "CAPT"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CAP",
+    "word": "capio",
+    "examples": "capable, capture"
+   },
+   {
+    "form": "CEIV-",
+    "spellings": [
+     "CEIV"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CEIV",
+    "word": "capio",
+    "examples": "receive, conceive"
+   },
+   {
+    "form": "CEPT-",
+    "spellings": [
+     "CEPT"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CEPT",
+    "word": "capio",
+    "examples": "accept, concept"
+   },
+   {
+    "form": "CIP-",
+    "spellings": [
+     "CIP"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "CIP",
+    "word": "capio",
+    "examples": "recipient, anticipate"
+   }
+  ]
+ },
+ {
+  "key": "sharp",
+  "label": "sharp",
+  "lesson": 12,
+  "kind": "prefix",
+  "forms": [
+   {
+    "form": "AC(U)-",
+    "spellings": [
+     "AC",
+     "ACU"
+    ],
+    "lesson": 12,
+    "kind": "prefix",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   },
+   {
+    "form": "ACET-",
+    "spellings": [
+     "ACET"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   },
+   {
+    "form": "ACR-",
+    "spellings": [
+     "ACR"
+    ],
+    "lesson": 12,
+    "kind": "base",
+    "gloss": "AC",
+    "word": "acer",
+    "examples": "acute, acrid, acetic"
+   }
+  ]
+ },
+ {
+  "key": "be-born",
+  "label": "to be born",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "NASC-",
+    "spellings": [
+     "NASC"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "NASC",
+    "word": "nascor",
+    "examples": "nascent, native"
+   },
+   {
+    "form": "NAT-",
+    "spellings": [
+     "NAT"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "NASC",
+    "word": "nascor",
+    "examples": "nascent, native"
+   }
+  ]
+ },
+ {
+  "key": "distinguish-separate",
+  "label": "to separate; distinguish",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "CERN-",
+    "spellings": [
+     "CERN"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "CERN",
+    "word": "cerno",
+    "examples": "discern, certain"
+   },
+   {
+    "form": "CERT-",
+    "spellings": [
+     "CERT"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "CERN",
+    "word": "cerno",
+    "examples": "discern, certain"
+   },
+   {
+    "form": "CRET-",
+    "spellings": [
+     "CRET"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "CRET",
+    "word": "cerno",
+    "examples": "secret, discrete"
+   }
+  ]
+ },
+ {
+  "key": "hard",
+  "label": "hard",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DUR-",
+    "spellings": [
+     "DUR"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "DUR",
+    "word": "durus",
+    "examples": "durable, endure"
+   }
+  ]
+ },
+ {
+  "key": "know",
+  "label": "to know",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "SCI-",
+    "spellings": [
+     "SCI"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "SCI",
+    "word": "scio",
+    "examples": "science, conscious"
+   }
+  ]
+ },
+ {
+  "key": "last",
+  "label": "to last",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "DUR-",
+    "spellings": [
+     "DUR"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "DUR",
+    "word": "durus",
+    "examples": "durable, endure"
+   }
+  ]
+ },
+ {
+  "key": "lion",
+  "label": "lion",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "LEON-",
+    "spellings": [
+     "LEON"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "LEON",
+    "word": "leo",
+    "examples": "leonine, Leo, Leonard"
+   }
+  ]
+ },
+ {
+  "key": "melt",
+  "label": "melt",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FOUND-",
+    "spellings": [
+     "FOUND"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FOUND",
+    "word": "fundo",
+    "examples": "confound, foundry"
+   },
+   {
+    "form": "FUND-",
+    "spellings": [
+     "FUND"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FUND",
+    "word": "fundo",
+    "examples": "refund, confuse"
+   },
+   {
+    "form": "FUS-",
+    "spellings": [
+     "FUS"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FUND",
+    "word": "fundo",
+    "examples": "refund, confuse"
+   }
+  ]
+ },
+ {
+  "key": "place-put",
+  "label": "to place; put",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "PON-",
+    "spellings": [
+     "PON"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "PON",
+    "word": "pono",
+    "examples": "component, postpone"
+   },
+   {
+    "form": "POSE-",
+    "spellings": [
+     "POSE"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "POSE",
+    "word": "pono",
+    "examples": "compose, position"
+   },
+   {
+    "form": "POSIT-",
+    "spellings": [
+     "POSIT"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "POSE",
+    "word": "pono",
+    "examples": "compose, position"
+   },
+   {
+    "form": "POUND-",
+    "spellings": [
+     "POUND"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "POUND",
+    "word": "pono",
+    "examples": "compound, propound"
+   }
+  ]
+ },
+ {
+  "key": "pour",
+  "label": "to pour",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "FOUND-",
+    "spellings": [
+     "FOUND"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FOUND",
+    "word": "fundo",
+    "examples": "confound, foundry"
+   },
+   {
+    "form": "FUND-",
+    "spellings": [
+     "FUND"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FUND",
+    "word": "fundo",
+    "examples": "refund, confuse"
+   },
+   {
+    "form": "FUS-",
+    "spellings": [
+     "FUS"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "FUND",
+    "word": "fundo",
+    "examples": "refund, confuse"
+   }
+  ]
+ },
+ {
+  "key": "serving-for",
+  "label": "serving for",
+  "lesson": 13,
+  "kind": "suffix",
+  "forms": [
+   {
+    "form": "-ORY",
+    "spellings": [
+     "ORY"
+    ],
+    "lesson": 13,
+    "kind": "suffix",
+    "gloss": "-ORY",
+    "word": "-ORY",
+    "examples": ""
+   }
+  ]
+ },
+ {
+  "key": "twist",
+  "label": "to twist",
+  "lesson": 13,
+  "kind": "base",
+  "forms": [
+   {
+    "form": "TORT-",
+    "spellings": [
+     "TORT"
+    ],
+    "lesson": 13,
+    "kind": "base",
+    "gloss": "TORT",
+    "word": "torqueo",
+    "examples": "distort, tortuous"
+   }
+  ]
+ }
+]
