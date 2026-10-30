@@ -31,6 +31,12 @@ const vocabulary = require(path.join(here, "vocabulary.js"));
 const latinRootsKeys = {};
 (require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
+  // One card per form (Oct 30, 2026): the key words come with each meaning,
+  // under the glossary entry it belongs to (a joined card holds two entries).
+  (c.groups || []).forEach(function (g) {
+    const list = latinRootsKeys[g.gloss] = latinRootsKeys[g.gloss] || [];
+    (g.keys || []).forEach(function (w) { if (list.indexOf(w) < 0) list.push(w); });
+  });
 });
 const UNCHECKED = "Claude, unchecked";
 
