@@ -3142,6 +3142,9 @@
       if (a.mixed) row.mixed = a.mixed;
       if (isReview(k)) row.pad = 1;
       if (a.t === 2) row.t = 2;
+      // The attempt and the quiz's full size, so the dashboard can tell when
+      // every card has been answered right across rounds (Dashboard Desk, Oct 30).
+      if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
       return row;
     }).filter(Boolean);
     const counted = answers.filter(function (x) { return !x.pad; });

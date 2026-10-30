@@ -4213,7 +4213,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "9f1d708f8e34";
+  const DECK_VERSION = "2a796911fbe4";
   const DECK_PAGE = "Lesson XII Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -6315,6 +6315,9 @@
       if (a.mixed) row.mixed = a.mixed;
       if (isReview(k)) row.pad = 1;
       if (a.t === 2) row.t = 2;
+      // The attempt and the quiz's full size, so the dashboard can tell when
+      // every card has been answered right across rounds (Dashboard Desk, Oct 30).
+      if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
       return row;
     }).filter(Boolean);
     const counted = answers.filter(function (x) { return !x.pad; });
