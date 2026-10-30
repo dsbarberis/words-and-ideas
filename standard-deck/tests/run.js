@@ -1069,6 +1069,31 @@ async function practiceTests(decks) {
       return st.learning.indexOf(i) >= 0 && st.known.indexOf(i) < 0 ? "" : "an hour-old Know It overrode a newer Latin Roots mark on " + e.k;
     }, [SLUG, list]);
     checked++; if (stale) fails.push(stale);
+    // A bad entry in the saved marks never stops the student's records loading.
+    const bad = await lr.evaluate(([name]) => {
+      const key = Object.keys(localStorage).find(k => /^latinroots_markSrc_/.test(k));
+      if (!key) return "no saved marks to try";
+      const m = JSON.parse(localStorage.getItem(key));
+      const ks = Object.keys(m);
+      if (ks.length < 2) return "too few saved marks to try";
+      // A real card's entry, emptied and read first, so a fault here would stop every mark after it.
+      const bad = Object.assign({ [ks[0]]: null }, m); bad[ks[0]] = null;
+      const want = ks.length - 1;
+      localStorage.setItem(key, JSON.stringify(bad));
+      try { __t.load(name); } catch (e) { return "loading stopped: " + e.message; }
+      const got = Object.keys(__t.state().marks).length;
+      return want && got === want ? "" : "a bad marks entry lost saved marks (" + got + " of " + want + ")";
+    }, [NAME]);
+    checked++; if (bad) fails.push(bad);
+    // An entry no card takes yet stays in the list; the rest are applied.
+    const kept = await lr.evaluate(([slug, list]) => {
+      const e = list.find(x => __t.practice.KEY(x.k) >= 0);
+      localStorage.setItem("latinroots_fromPractice_v2__" + slug, JSON.stringify([{ k: "NO-SUCH-CARD", m: "learning", t: Date.now() }, { k: e.k, m: "learning", t: Date.now() }]));
+      __t.practice.apply();
+      const left = JSON.parse(localStorage.getItem("latinroots_fromPractice_v2__" + slug) || "[]");
+      return left.length === 1 && left[0].k === "NO-SUCH-CARD" ? "" : "unplaced entries: " + JSON.stringify(left);
+    }, [SLUG, list]);
+    checked++; if (kept) fails.push(kept);
     await lr.close();
   } catch (e) { fails.push("the check stopped: " + String(e.message).split("\n")[0]); }
   await browser.close();

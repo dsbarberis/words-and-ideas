@@ -2610,7 +2610,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "581b33e49d0d";
+  const DECK_VERSION = "b8d499d9455d";
   const DECK_PAGE = "Lesson IX Workbook Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3481,7 +3481,7 @@
       const rawS = rec.marks;
       if (rawS && typeof rawS === "object") Object.keys(rawS).forEach(function (k) {
         const m = rawS[k];
-        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t;
+        if (validIdx(+k) && m && (m.s === "learn" || m.s === "quiz")) { markSrc[+k] = { s: m.s, d: String(m.d || "") }; if (typeof m.t === "number") markSrc[+k].t = m.t; }
       });
       if (QUIZ_BY_SET) {
         quizzes = {};
@@ -5722,9 +5722,10 @@
     let list;
     try { list = JSON.parse(localStorage.getItem(ID + "_fromPractice_v2__" + currentSlug) || "[]"); } catch (e) { return false; }
     if (!Array.isArray(list) || !list.length) return false;
+    const keep = [];  // entries no card takes yet stay for a later release
     list.forEach(function (e) {
       const i = e ? fromKey(e.k) : -1;
-      if (i < 0) return;
+      if (i < 0) { if (e && e.k) keep.push(e); return; }
       // A mark made in Latin Roots after this one stands (external review, Oct 30, 2026).
       if (markSrc[i] && typeof markSrc[i].t === "number" && typeof e.t === "number" && markSrc[i].t > e.t) return;
       if (e.m === "known") { known.add(i); learningMarked.delete(i); }
@@ -5733,8 +5734,11 @@
       markSrc[i] = { s: "learn", d: localDay(), t: typeof e.t === "number" ? e.t : Date.now() };
     });
     saveKnown(); saveLearning(); saveMarkSrc();
-    try { localStorage.removeItem(ID + "_fromPractice_v2__" + currentSlug); } catch (e) { /* ignore */ }
-    return true;
+    try {
+      if (keep.length) localStorage.setItem(ID + "_fromPractice_v2__" + currentSlug, JSON.stringify(keep));
+      else localStorage.removeItem(ID + "_fromPractice_v2__" + currentSlug);
+    } catch (e) { /* ignore */ }
+    return keep.length < list.length;
   }
 
   // The elements of each missed card, in the order missed, without repeats.
