@@ -67,7 +67,7 @@ function testCopy(tmp, f, s) {
     "judge:(...x)=>judge(...x),FORMS:()=>FORMS,judgeForms:(...x)=>judgeForms(...x),formsOn:(c)=>formsOn(c),judgeMeanings:(...x)=>judgeMeanings(...x),MEANINGS:()=>MEANINGS," +
     "quiz:()=>quiz,setQuiz:(q)=>{quiz=q;},known:()=>known,plan:()=>planNextRound(),space:(c)=>spaceOrder(c),setSpacing:(x)=>{spacing=x;},missed:()=>roundMissed(),score:()=>roundScore()," +
     "goTo:(i)=>{let k=quiz.order.indexOf(i);if(k<0){k=0;quiz.order[0]=i;quiz.answers[0]=null;if(quiz.review)quiz.review[0]=false;}quiz.pos=k;if(quiz.tries)quiz.tries[k]=0;if(quiz.first)quiz.first[k]=null;inputFor=null;render();}," +
-    "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click(),upgrade:(q)=>upgradeQuiz(q),setQuizzes:(k,q)=>{quizzes[k]=q;},markFor:(k)=>markFor(k).state,setPass:(p)=>{learnPass=p;},savePass:()=>saveLearnPass(),grow:()=>growForms(),name:()=>currentName}," +
+    "split:{hook:(fn)=>afterSplitCopy(fn),cardFor:(e)=>cardFor(e),entry:(g)=>cardsForEntry(g),table:()=>KEY_TABLE,frozenKeys:()=>FROZEN_KEYS,on:(c,m)=>meaningOn(c,m),save:()=>saveMarks(),note:(i,src)=>noteMark(i,src),learning:()=>learningMarked,reset:()=>resetBtn.click(),upgrade:(q)=>upgradeQuiz(q),setQuizzes:(k,q)=>{quizzes[k]=q;},markFor:(k,r)=>markFor(k,false,r).state,setPass:(p)=>{learnPass=p;},savePass:()=>saveLearnPass(),grow:()=>growForms(),name:()=>currentName}," +
     "load:(n)=>loadStudent(n),FROZEN:()=>FROZEN_N,ID:()=>ID,N:()=>N,BYSET:()=>QUIZ_BY_SET,markItem:(...x)=>markItem(...x)," +
     "LES:()=>LESSONS,lessons:{apply:(x)=>applySettings(x),list:()=>currentList(),set:(k)=>setIndices(k),label:(k)=>setLabel(k),title:(k)=>setTitle(k),pick:(n)=>{lessonPick=n;},cur:()=>currentLesson,tabs:(p,t)=>passTabs(p,t),count:(k)=>tabCount(k),built:()=>BUILT_SETTINGS},rules:{round:(r,p,l)=>rulesRound(r,p,l),allRight:(q)=>quizAllRight(q),SIZE:()=>ROUND_SIZE,TRIES:()=>TRIES,next:()=>quizNext(),start:()=>startQuiz(),nextRound:()=>startNextRound(),save:()=>saveQuiz(),send:()=>{quiz.sent=false;sendQuizRound();return quiz.misses;},dbg:()=>({sliding:sliding,phase:quiz&&quiz.phase,pos:quiz&&quiz.pos,n:quiz&&quiz.order.length})}," +
     "state:()=>JSON.parse(JSON.stringify({known:[...known].sort((a,b)=>a-b),learning:[...learningMarked].sort((a,b)=>a-b),pass:learnPass,marks:markSrc,spacing:spacing,quiz:quiz,quizzes:quizzes}))};");
@@ -973,6 +973,10 @@ function splitRecords() {
   check(T.split.markFor("all") === "to do", "the whole-deck quiz from Lesson XII shows as " + T.split.markFor("all") + " at Lesson XIII");
   T.split.setQuizzes("all", { set: "all", phase: "done", lesson: 13, round: 1, order: [0], answers: [{ ok: true }], list: [0], right: [0], asked: [0] });
   check(T.split.markFor("all") === "done", "the whole-deck quiz finished at this lesson is not done");
+  // A finished quiz on every lesson so far also completes a required quiz it covers, if finished after it was set.
+  T.split.setQuizzes("all", { set: "all", phase: "done", lesson: 13, round: 1, order: [0], answers: [{ ok: true }], list: [0], right: [0], asked: [0], savedAt: Date.now() });
+  check(/^done/.test(T.split.markFor("R2-10", { from: 2, to: 10, set: new Date(Date.now() - 3600000).toISOString() })), "a finished full quiz does not complete the required quiz it covers");
+  check(T.split.markFor("R2-10", { from: 2, to: 10, set: new Date(Date.now() + 3600000).toISOString() }) === "to do", "a full quiz finished before the required quiz was set completes it");
   // 13. A pass on another set, begun in another tab, does not replace this tab's pass.
   localStorage.clear();
   T.load("Pass A");

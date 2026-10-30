@@ -2719,7 +2719,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "b25f653ccf14";
+  const DECK_VERSION = "7fbf96c36d45";
   const DECK_PAGE = "Lesson X Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -5216,6 +5216,9 @@
       // The attempt and the quiz's full size, so the dashboard can tell when
       // every card has been answered right across rounds (Dashboard Desk, Oct 30).
       if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
+      // The round that finishes the attempt marks its entries "fin": 1, so the
+      // dashboard need not rebuild the count from every round's rows.
+      if (rules && quizAllRight(quiz)) row.fin = 1;
       // A card missed in three rounds of one attempt is marked "stuck": 1, so
       // the dashboard alerts the teacher, whose re-mark lets the attempt finish
       // (external review form, Oct 30, 2026).
@@ -5231,7 +5234,7 @@
       passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
       passSize: counted.length,
-      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; if (x.stuck) o.stuck = 1; return o; }),
+      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; if (x.stuck) o.stuck = 1; if (x.fin) o.fin = 1; return o; }),
       attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
       lesson: quiz.lesson,
       answers: answers,
@@ -6502,7 +6505,7 @@
     if (!LESSONS) return [];
     return (settings.required || []).filter(function (r) {
       return r && Number.isInteger(r.from) && Number.isInteger(r.to) && r.from <= r.to && r.from <= currentLesson;
-    }).map(function (r) { return { key: "R" + r.from + "-" + Math.min(r.to, currentLesson), from: r.from, to: Math.min(r.to, currentLesson), due: r.due, dirs: Array.isArray(r.dirs) && r.dirs.length ? r.dirs : ["le"] }; });
+    }).map(function (r) { return { key: "R" + r.from + "-" + Math.min(r.to, currentLesson), from: r.from, to: Math.min(r.to, currentLesson), due: r.due, set: r.set, dirs: Array.isArray(r.dirs) && r.dirs.length ? r.dirs : ["le"] }; });
   }
 
   function dueText(due) {
@@ -6546,11 +6549,23 @@
   // The whole-deck quiz finished at an earlier lesson did not ask the cards
   // added since: it counts as not yet taken.
   function staleAll(key, q) { return LESSONS && key === "all" && !!q && q.phase === "done" && q.lesson !== currentLesson; }
-  function markFor(key, other) {
+  function quizDone(q) { return !!q && (q.phase === "done" || (Array.isArray(q.list) && Array.isArray(q.right) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }))); }
+  // A required quiz also counts as done when the quiz on every lesson so far
+  // was finished at or past its last lesson, after it was set (the dashboard's
+  // rule, Dashboard Desk review, Oct 30).
+  function fullCovers(req, other) {
+    if (!req) return false;
+    const a = other ? pairQuiz("all") : quizzes.all;
+    if (!quizDone(a) || !(a.lesson >= req.to)) return false;
+    const set = req.set ? Date.parse(req.set) : 0;
+    return !set || (a.savedAt || 0) > set;
+  }
+  function markFor(key, other, req) {
     const q = other ? pairQuiz(key) : quizzes[key];
     const m = el("span", "lr-mark");
+    if (fullCovers(req, other) && !quizDone(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done, by the quiz on every lesson" }; }
     if (!q || staleAll(key, q)) return { m: m, state: "to do" };
-    if (q.phase === "done" || (Array.isArray(q.list) && Array.isArray(q.right) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }))) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
+    if (quizDone(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
     const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
     m.classList.add("started");
     m.style.background = "conic-gradient(var(--navy) " + Math.round(share * 360) + "deg, transparent 0)";
@@ -6568,7 +6583,7 @@
     head.appendChild(hd);
     quizPanel.appendChild(head);
     const list = el("div", "quiz-list");
-    function row(key, label, due, only) {
+    function row(key, label, due, only, req) {
       const r = el("div", "lr-qrow" + (due ? " due" : ""));
       const name = el("span", "lr-qname", label);
       if (due) name.appendChild(el("span", "lr-due", due));
@@ -6578,7 +6593,7 @@
         // A required quiz asks only the directions the settings name (Latin to English unless both).
         if (only && only.indexOf(d.key) < 0) { dirs.appendChild(el("span", "lr-dir lr-dir-none")); return; }
         const here = !DECK.pair || d.key === (DECK.direction || "le");
-        const mk = markFor(key, !here);
+        const mk = markFor(key, !here, req);
         const b = el("button", "lr-dir");
         b.type = "button";
         if (here) b.dataset.set = key; else b.dataset.pairSet = key;
@@ -6593,7 +6608,7 @@
     const req = requiredQuizzes();
     if (req.length) {
       list.appendChild(el("div", "quiz-list-head", "Due"));
-      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, ""), r.dirs); });
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, ""), r.dirs, r); });
     }
     const ls = shownLessons();
     if (ls.length) row("all", lessonRange(ls[0], currentLesson));
