@@ -19,6 +19,8 @@ const COURSE_SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8"));
   (s.required || []).forEach(function (r, k) {
     if (!Number.isInteger(r.from) || !Number.isInteger(r.to) || r.from > r.to) throw new Error("course-settings.json: required[" + k + "] needs whole numbers from <= to");
     if (r.due && isNaN(Date.parse(r.due))) throw new Error("course-settings.json: required[" + k + "].due is not a date");
+    // "dirs": which directions the quiz asks, "le" and/or "el"; missing means "le" only (D, Oct 30, 2026).
+    if (r.dirs !== undefined && (!Array.isArray(r.dirs) || !r.dirs.length || r.dirs.some(function (d) { return d !== "le" && d !== "el"; }))) throw new Error("course-settings.json: required[" + k + "].dirs must list \"le\" and/or \"el\"");
   });
   if (s.notice != null && typeof s.notice !== "string") throw new Error("course-settings.json: notice must be text");
 })(COURSE_SETTINGS);
