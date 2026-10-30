@@ -199,6 +199,31 @@
   .lr-who button::after { content: ""; position: absolute; inset: -7px -4px; }
   .lr-start { min-height: 48px; border-radius: 8px; border: 0; background: var(--navy); color: #fff; font: 600 17px Georgia, serif; cursor: pointer; }
   .lr-look .course-notice { display: none; }
+  .lr-instr { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); text-align: left; width: 100%; max-width: 34em; margin: 0 auto; }
+  .phone .lr-instr { grid-template-columns: 32px 1fr; }
+  .lr-instr p { margin: 0; }
+  #card #termFront.lr-instr { font: 400 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .lr-instr .ic { display: flex; align-items: center; justify-content: center; height: 28px; color: var(--navy); }
+  .lr-instr .ic.card { width: 22px; border: 2px solid var(--navy); border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.sw { font: 20px sans-serif; white-space: nowrap; letter-spacing: -2px; }
+  .lr-instr .ic.key { font: 600 15px sans-serif; border: 1.5px solid var(--navy); border-radius: 4px; width: 28px; height: 24px; margin: 0 auto; }
+  .lr-instr .ic.box { width: 28px; height: 18px; border: 1.5px solid #8a7f68; border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.ck { font: 700 18px sans-serif; color: #4f6b4a; }
+  .lr-instr .ic.sort { gap: 3px; } .lr-instr .ic.sort i { width: 14px; height: 14px; border-radius: 4px; border: 2px solid #9a7a45; } .lr-instr .ic.sort i + i { background: #5c6e4f; border-color: #5c6e4f; }
+  .lr-instr .ic.bar { gap: 2px; } .lr-instr .ic.bar i { height: 8px; border-radius: 2px; } .lr-instr .ic.bar i:nth-child(1) { width: 8px; background: #9a7a45; } .lr-instr .ic.bar i:nth-child(2) { width: 9px; background: #5c6e4f; } .lr-instr .ic.bar i:nth-child(3) { width: 12px; background: #e6dcc6; outline: 1px solid #8a7f68; }
+  .lr-look #card.lr-first .face-back { display: none; }
+  .lr-look #card.lr-first #quizForm { display: none; }
+  .lr-look .quiz-input.in-ok, .lr-look .line-input.in-ok { border: 2px solid #4f6b4a; background-color: #eef4ea; }
+  .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { border: 2px solid #b3261e; animation: lrshake .3s; }
+  @media (prefers-reduced-motion: reduce) { .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { animation: none; } }
+  @keyframes lrshake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  .lr-look #card.lr-locked .face-front { background: #ece8df; }
+  .lr-look #card.lr-locked #checkBtn { display: none; }
+  .lr-end { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 340px; padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; }
+  .lr-end-dots { margin: auto 0; display: grid; grid-template-columns: repeat(10, 16px); justify-content: center; gap: 10px; }
+  .lr-end-dots i { width: 16px; height: 16px; border-radius: 50%; } .lr-end-dots i.ok { background: #5c6e4f; } .lr-end-dots i.miss { border: 3px solid #9a7a45; }
+  .lr-end .lr-skip { background: none; border: 0; color: var(--navy); text-decoration: underline; font: 15px Georgia, serif; min-height: 44px; cursor: pointer; }
+
   .lr-back { display: block; width: 100%; min-height: 44px; margin: 0 0 8px; border-radius: 8px; border: 2px solid var(--navy); background: var(--card); color: var(--navy); font: 600 16px Georgia, serif; cursor: pointer; }
   .lr-back[hidden] { display: none; }
   .lr-look #knownBtn:not(:disabled) { background: #56684a; border-color: #56684a; }
@@ -2251,7 +2276,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "9c6b4e435833";
+  const DECK_VERSION = "7b2ea7b09947";
   const DECK_PAGE = "Lesson XI Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3664,7 +3689,7 @@
 
   function resetLines(values) {
     moreLines.innerHTML = "";
-    const v = values && values.length ? values : [""];
+    const v = Array.isArray(values) && values.length ? values : typeof values === "string" && values ? [values] : [""];
     answerInput.value = v[0];
     v.slice(1).forEach(function (x) { addLine(x, false); });
   }
@@ -3928,6 +3953,7 @@
 
     knownBtn.disabled = false;
     learningBtn.disabled = false;
+    clearIntro();
 
     if (pos >= list.length) pos = 0;
     if (pos < 0) pos = list.length - 1;
@@ -3950,11 +3976,19 @@
 
     prevBtn.disabled = list.length <= 1;
     nextBtn.disabled = list.length <= 1;
+    if (LOOK && introPending) {
+      showIntro(learnIntro());
+      knownBtn.disabled = true;
+      learningBtn.disabled = true;
+      cardEl.classList.remove("flipped");
+      return;
+    }
 
     notePassVisit(list);
   }
 
   function flip() {
+    if (dismissIntro()) return;
     if (mode !== "learn" || currentList().length === 0) return;
     flipped = !flipped;
     cardEl.classList.toggle("flipped", flipped);
@@ -4112,6 +4146,7 @@
   }
 
   function goNext(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn") return;
     if (list.length === 0) { maybeSendLearnPass(); return; }  // the last card left Still Learning
@@ -4126,6 +4161,7 @@
   }
 
   function goPrev(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn" || list.length === 0) return;
     slideCard(-1, function () {
@@ -4884,6 +4920,11 @@
     quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
     if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
     setQuizNav(ans);
+    if (LOOK) {
+      cardEl.classList.toggle("lr-locked", !!ans && !ans.ok && !presenterMode);
+      if (quizIntroPending && quiz.round === 1 && quiz.pos === 0 && !ans && !first && !presenterMode) showIntro(quizIntro());
+      else clearIntro();
+    }
   }
 
   // ---------- Teacher mode in a quiz: leaf, flip, jump, try an answer ----------
@@ -5271,6 +5312,7 @@
   }
 
   function quizNext(speed) {
+    if (dismissIntro()) return;
     if (!quiz || quiz.phase !== "card" || sliding) return;
     if (presenterMode) {
       if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
@@ -5338,7 +5380,8 @@
 
   function skipCard() {
     const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
-    quiz.answers[k] = { a: first ? first.a : "", ok: false, mixed: null, skipped: 1 };
+    const blank = MEANINGS || (EXERCISE && hasBoxes(CARDS[idx])) ? [] : "";
+    quiz.answers[k] = { a: first ? first.a : blank, ok: false, mixed: null, skipped: 1 };
     if (!isReview(k)) {
       known.delete(idx); learningMarked.add(idx);
       noteMark(idx, "quiz");
@@ -5491,6 +5534,41 @@
     gateScreen.hidden = true;
     openScreen.hidden = false;
     renderOpen();
+  }
+
+
+  // The instruction card (approved look): the first card after Start in Learn,
+  // and the first card of a quiz, show how the deck works instead of a word.
+  let introPending = false, quizIntroPending = false;
+  function steps(list) {
+    return list.map(function (x) { return '<span class="ic ' + x[0] + '" aria-hidden="true">' + (x[1] || "") + "</span><p>" + x[2] + "</p>"; }).join("");
+  }
+  function learnIntro() {
+    return TOUCH
+      ? steps([["card", "", "Tap a card to turn it over."], ["sw", "⇠", "Swipe left for the next card."], ["sw", "⇢", "Swipe right to go back."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Tap the bar to review Still Learning cards."]])
+      : steps([["key", "␣", "Click a card or press Space to turn it over."], ["sw", "← →", "Use the arrow keys, or Prev and Next, to move."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Click the bar to review Still Learning cards."]]);
+  }
+  function quizIntro() {
+    return steps([["box", "", MEANINGS ? "Type each meaning on its own line." : "Type your answer."],
+      ["ck", "✓", (TOUCH ? "Tap" : "Click") + " Check. You have two tries."],
+      ["sw", TOUCH ? "⇠" : "→", TOUCH ? "Swipe on to skip; the card counts as missed." : "Press → or Skip to skip; the card counts as missed."]])
+      + "<p style=\"grid-column:1/-1;text-align:center;margin-top:8px\">" + (TOUCH ? "Tap" : "Click") + " to begin.</p>";
+  }
+  function showIntro(html) {
+    termFront.className = "lr-instr";
+    termFront.innerHTML = html;
+    cardEl.classList.add("lr-first");
+  }
+  function clearIntro() {
+    cardEl.classList.remove("lr-first");
+    termFront.className = termFront.dataset.cls || "term";
+  }
+  function dismissIntro() {
+    if (mode === "learn" && introPending) { introPending = false; clearIntro(); render(); return true; }
+    if (mode === "quiz" && quizIntroPending && cardEl.classList.contains("lr-first")) { quizIntroPending = false; clearIntro(); render(); if (needsTyping()) answerInput.focus(); return true; }
+    return false;
   }
 
   function learnViewChanged() {
@@ -5705,7 +5783,7 @@
       teacherFlipCard();
       return;
     }
-    if (mode !== "learn") return;
+    if (mode !== "learn") { if (!(e.target.closest && e.target.closest("input, textarea, button"))) dismissIntro(); return; }
     if (Date.now() - swipeHandledAt < 500) return;
     flip();
   });
@@ -5992,6 +6070,7 @@
     // Always open in Learn; an unfinished quiz resumes where it stopped
     // when the Quiz tab is tapped. Exercise Decks open the quiz on All.
     showHint = true;
+    introPending = quizIntroPending = LOOK;
     if (EXERCISE) { quiz = quizzes.all || null; setMode("quiz"); return; }
     setMode("learn");
   }

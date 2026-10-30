@@ -573,11 +573,15 @@ async function lessonChecks(page) {
   // for the round, then back to the same quiz.
   await page.evaluate(() => {
     const q = __t.quiz();
-    q.order.forEach((i, k) => { q.answers[k] = { a: "x", ok: k !== 0 }; if (k !== 0 && !q.review[k] && q.right.indexOf(i) < 0) q.right.push(i); });
+    q.order.forEach((i, k) => { q.answers[k] = { a: ["x"], ok: k !== 0 }; if (k !== 0 && !q.review[k] && q.right.indexOf(i) < 0) q.right.push(i); });
     q.pos = q.order.length - 1;
   });
   await page.waitForTimeout(600);
-  const dbg = await page.evaluate(() => { __t.rules.next(); return __t.rules.dbg(); });
+  // The quiz's first card shows the instructions; moving on first closes them.
+  const intro = await page.evaluate(() => document.getElementById("card").classList.contains("lr-first") && /two tries/.test(document.getElementById("termFront").textContent));
+  r.checked++;
+  if (!intro) r.fails.push("the first quiz card does not show the instructions");
+  const dbg = await page.evaluate(() => { __t.rules.next(); __t.rules.next(); return __t.rules.dbg(); });
   const end = await page.evaluate(d => { const q = __t.quiz(); return { d: d, phase: q.phase, missed: q.missedLast, btns: [...document.querySelectorAll("#quizPanel button")].map(b => b.textContent) }; }, dbg);
   r.checked++;
   if (end.phase !== "between" || !end.missed || end.missed.length !== 1 || end.btns[0] !== "Learn Missed Cards") r.fails.push("round end: " + JSON.stringify(end));
