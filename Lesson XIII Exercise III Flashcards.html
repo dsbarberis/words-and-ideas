@@ -4201,7 +4201,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "5d18072eb983";
+  const DECK_VERSION = "7056f20410ed";
   const DECK_PAGE = "Lesson XIII Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -6930,8 +6930,10 @@
       teacherGoto.value = String(quiz.pos);
       return;
     }
-    quizNextBtn.disabled = !ans;
-    quizNextBtn.innerHTML = last ? "Finish round &rarr;" : "Next &rarr;";
+    // Under the quiz rules a card not yet answered can be skipped (it counts as missed).
+    const skip = !ans && rulesOn() && Array.isArray(quiz.list);
+    quizNextBtn.disabled = !ans && !skip;
+    quizNextBtn.innerHTML = skip ? "Skip &rarr;" : last ? "Finish round &rarr;" : "Next &rarr;";
   }
 
   function teacherCanLeaf() { return presenterMode && mode !== "learn" && quiz && quiz.phase === "card"; }
@@ -7214,7 +7216,12 @@
     if (presenterMode) {
       if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
       if (!allAnswered()) return;
-    } else if (!quiz.answers[quiz.pos]) return;
+    } else if (!quiz.answers[quiz.pos]) {
+      // Moving on from a card not yet answered skips it: it counts as missed
+      // (approved first quiz card, round 9: "Swipe on to skip").
+      if (!rulesOn() || !Array.isArray(quiz.list)) return;
+      skipCard();
+    }
     if (quiz.pos < quiz.order.length - 1) {
       // Read the next card before sliding: with reduced motion the slide's
       // change runs at once and moves quiz.pos on.
@@ -7268,6 +7275,19 @@
     if (!n) return;
     n.textContent = "";
     setTimeout(function () { n.textContent = t; }, 50);
+  }
+
+  function skipCard() {
+    const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
+    quiz.answers[k] = { a: first ? first.a : "", ok: false, mixed: null, skipped: 1 };
+    if (!isReview(k)) {
+      known.delete(idx); learningMarked.add(idx);
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
+    }
+    if (quiz.answers.every(Boolean)) sendQuizRound();
+    saveQuiz();
   }
 
   // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
@@ -7579,7 +7599,7 @@
       return true;
     }
     // In a quiz each card must be checked first, so swipes are not queued.
-    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && quiz.answers[quiz.pos]) { quizNext(speed); return true; }
+    if (dir > 0 && !sliding && quiz && quiz.phase === "card" && (quiz.answers[quiz.pos] || (rulesOn() && Array.isArray(quiz.list)))) { quizNext(speed); return true; }
     return false;
   }
 

@@ -590,6 +590,12 @@ async function lessonChecks(page) {
     const after = await page.evaluate(() => ({ set: __t.quiz() && __t.quiz().set, phase: __t.quiz() && __t.quiz().phase }));
     r.checked++;
     if (after.set !== "L4" || after.phase !== "between") r.fails.push("back from the break: " + JSON.stringify(after));
+    // Round 2 holds the missed card; moving on without answering skips it, as a miss.
+    await page.click("#quizPanel button:has-text('Start Round 2')");
+    await page.waitForTimeout(600);
+    const sk = await page.evaluate(m => { const q = __t.quiz(); const had = q.order.indexOf(m) >= 0; q.pos = 0; const i = q.order[0]; const label = document.getElementById("quizNextBtn").textContent; __t.rules.next(); const a = q.answers[0]; return { had, label, skipped: !!(a && a.skipped && !a.ok), learning: __t.state().learning.indexOf(i) >= 0 || !!q.review[0] }; }, end.missed[0]);
+    r.checked++;
+    if (!sk.had || !sk.skipped || !sk.learning) r.fails.push("round 2 and skipping: " + JSON.stringify(sk));
   }
   // Back to the list; the lesson goes back to the built-in one, then to Learn.
   await page.click("button.tab[data-mode=quiz]");
