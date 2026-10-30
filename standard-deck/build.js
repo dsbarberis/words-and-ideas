@@ -131,6 +131,20 @@ function resolveGlossary(card, file, deck) {
     out.word = card.forms || entry.forms;
     out.origin = card.examples || entry.examples || "";
     delete out.forms; delete out.examples;
+    if (card.groups) {
+      // A card made from the key-word review (Latin Roots, one card per form):
+      // its distinct meanings come with their key words and the lesson that
+      // teaches each, which may differ on a card joining two Latin words.
+      out.meaningGroups = card.groups.map(function (g) { return g.parts; });
+      out.meanings = card.groups.map(function (g) { return g.parts.join(" or "); });
+      out.keys = card.groups.map(function (g) {
+        if (!g.keys || !g.keys.length) throw new Error(file + ": \"" + card.id + "\" has a meaning with no key words");
+        return g.keys.slice();
+      });
+      out.meaningLessons = card.groups.map(function (g) { return g.lesson; });
+      delete out.groups; delete out.glossForms; delete out.glossMeanings; delete out.answerText;
+      return out;
+    }
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }
@@ -246,6 +260,7 @@ function splitExample(card, deck) {
 // end. If a key has to change (a label corrected), give the card "id" with
 // its old key.
 const FROZEN_KEYS = JSON.parse(fs.readFileSync(path.join(here, "card-keys.json"), "utf8"));
+const KEY_TABLE = JSON.parse(fs.readFileSync(path.join(here, "key-table.json"), "utf8"));
 function cardKey(c) { return c.id || c.gloss || c.vocab || c.word || c.label; }
 function checkKeys(deck, file) {
   const keys = deck.cards.map(cardKey);
@@ -254,6 +269,21 @@ function checkKeys(deck, file) {
     if (keys.indexOf(k) !== i) throw new Error(file + ": two cards share the key \"" + k + "\" (give one an \"id\")");
   });
   const frozen = FROZEN_KEYS[deck.id] || [];
+  // A deck with a key table (Latin Roots, one card per form) may split or join
+  // its frozen cards: each frozen key must still be a card, or lead through the
+  // table to cards that exist. Records by position then go through the frozen
+  // keys, so the order no longer matters.
+  const table = KEY_TABLE[deck.id];
+  if (table) {
+    frozen.forEach(function (k) {
+      const to = table.from[k] || [k];
+      to.forEach(function (t) { if (keys.indexOf(t) < 0) throw new Error(file + ": the frozen key \"" + k + "\" leads to \"" + t + "\", which is no card (key-table.json)"); });
+    });
+    Object.keys(table.from).forEach(function (k) {
+      if (keys.indexOf(k) >= 0 && table.from[k].indexOf(k) < 0) throw new Error(file + ": key-table.json moves \"" + k + "\" away, but it is still a card");
+    });
+    return { keys: keys, frozenCount: 0, frozenKeys: frozen, table: table };
+  }
   frozen.forEach(function (k, i) {
     if (keys[i] !== k) throw new Error(file + ": card " + (i + 1) + " must keep the key \"" + k + "\" (card-keys.json); new cards go at the end, and a changed label needs \"id\": \"" + k + "\"");
   });
@@ -280,6 +310,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   const { output, ...data } = deck;
   const cardKeys = checkKeys(deck, file);
   data.frozenCount = cardKeys.frozenCount;
+  if (cardKeys.table) { data.frozenKeys = cardKeys.frozenKeys; data.keyTable = cardKeys.table; }
   deck.cards.forEach(function (c) {
     const key = vocabKey(c, deck);
     if (!key) return;

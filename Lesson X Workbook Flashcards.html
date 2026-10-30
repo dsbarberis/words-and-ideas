@@ -2704,7 +2704,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "73348297133f";
+  const DECK_VERSION = "d92f2e75e0e6";
   const DECK_PAGE = "Lesson X Workbook Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3084,6 +3084,11 @@
     return out;
   }
 
+  // A meaning is asked once its lesson is taught: a card joining two Latin
+  // words asks the later word's meanings from its lesson on (D, Oct 30, 2026).
+  function meaningOn(card, m) {
+    return !LESSONS || !card.meaningLessons || !(card.meaningLessons[m] > currentLesson);
+  }
   function judgeMeanings(cardIdx, lines) {
     const card = CARDS[cardIdx];
     const pieces = meaningPieces(lines);
@@ -3100,7 +3105,7 @@
     }
     function ownHits(toks, loose) {
       const hits = [];
-      card.keyTerms.forEach(function (list, m) { if (listHit(list, toks, loose)) hits.push(m); });
+      card.keyTerms.forEach(function (list, m) { if (meaningOn(card, m) && listHit(list, toks, loose)) hits.push(m); });
       return hits;
     }
     const rows = pieces.map(function (p) {
@@ -3134,7 +3139,7 @@
     const got = owner.map(function (r) { return r >= 0; });
     const mixedRow = rows.find(function (r) { return r.other; });
     const mixed = mixedRow ? mixedRow.other : null;
-    return { ok: got.every(Boolean) && !mixed, mixed: mixed, got: got, rows: rows };
+    return { ok: got.every(function (g, m) { return g || !meaningOn(card, m); }) && !mixed, mixed: mixed, got: got, rows: rows };
   }
 
   // Exercise Decks: a tapped option is right when it is the answer; a typed
@@ -3478,8 +3483,99 @@
   // that v1 record is newer and is moved again. Records moved are written
   // to v2 at once; "from" is written last, so a move that fails partway is
   // simply run again next time.
+  // One card per form (Lesson Filter release, Oct 30, 2026): a deck with a key
+  // table moves each record through card keys. An old position goes to the key
+  // it had (card-keys.json, frozen when records moved to keys); an old key goes
+  // to its new cards (key-table.json), once, filling only cards the student
+  // has no record of. A joined card starts as Know It only when every card it
+  // joins was Know It. A Learn pass or quiz under way keeps its length: each
+  // old card becomes its first new card there.
+  const KEY_TABLE = DECK.keyTable || null, FROZEN_KEYS = DECK.frozenKeys || [];
+  function v1Key(i) { i = +i; return Number.isInteger(i) && i >= 0 && i < FROZEN_KEYS.length ? FROZEN_KEYS[i] : null; }
+  function asKey(k) { return typeof k === "string" && k ? k : null; }
+  function splitCopy(rec) {
+    if (!KEY_TABLE) return false;
+    const from = KEY_TABLE.from, needAll = KEY_TABLE.needAll || {};
+    const has = function (o, k) { return Object.prototype.hasOwnProperty.call(from, k) && o !== false; };
+    let changed = false;
+    const K = new Set(Array.isArray(rec.known) ? rec.known : []), L = new Set(Array.isArray(rec.learning) ? rec.learning : []);
+    const oldK = new Set(), oldL = new Set();
+    K.forEach(function (k) { if (has(true, k)) oldK.add(k); });
+    L.forEach(function (k) { if (has(true, k)) oldL.add(k); });
+    if (oldK.size || oldL.size) {
+      changed = true;
+      const targets = new Set();
+      oldK.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      oldL.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      targets.forEach(function (t) {
+        if (K.has(t) && !oldK.has(t) || L.has(t) && !oldL.has(t)) return; // the student's own mark on the new card stands
+        const srcs = Object.keys(from).filter(function (o) { return from[o].indexOf(t) >= 0 && (oldK.has(o) || oldL.has(o)); });
+        let knowIt;
+        if (needAll[t]) knowIt = needAll[t].every(function (o) { return o && oldK.has(o) && !oldL.has(o); });
+        else knowIt = srcs.every(function (o) { return oldK.has(o); });
+        if (knowIt) { K.add(t); L.delete(t); } else { L.add(t); K.delete(t); }
+      });
+      oldK.forEach(function (k) { if (from[k].indexOf(k) < 0) K.delete(k); });
+      oldL.forEach(function (k) { if (from[k].indexOf(k) < 0) L.delete(k); });
+      // An old key that is also a new card (CAD stays CAD) keeps its own mark.
+      rec.known = Array.from(K); rec.learning = Array.from(L);
+    }
+    function spread(o, copy) {
+      if (!o || typeof o !== "object") return o;
+      Object.keys(o).forEach(function (k) {
+        if (!has(true, k)) return;
+        from[k].forEach(function (t) { if (t !== k && !Object.prototype.hasOwnProperty.call(o, t)) o[t] = copy(o[k]); });
+        if (from[k].indexOf(k) < 0) delete o[k];
+        changed = true;
+      });
+      return o;
+    }
+    const same = function (v) { return v && typeof v === "object" ? Object.assign({}, v) : v; };
+    if (rec.marks) spread(rec.marks, same);
+    if (rec.spacing && rec.spacing.miss) spread(rec.spacing.miss, same);
+    // The card an old one becomes in a pass or quiz: the same key, else the one
+    // its key begins with (IN-not becomes IN), else the first.
+    function first(k) {
+      if (!has(true, k)) return k;
+      changed = true;
+      const to = from[k];
+      if (to.indexOf(k) >= 0) return k;
+      const pre = to.filter(function (t) { return k.indexOf(t + "-") === 0; });
+      return pre.length ? pre[0] : to[0];
+    }
+    function uniq(a) { return Array.isArray(a) ? a.map(first).filter(function (x, i, arr) { return arr.indexOf(x) === i; }) : a; }
+    if (rec.pass) ["list", "seen", "marked"].forEach(function (f) { rec.pass[f] = uniq(rec.pass[f]); });
+    function quizKeys(q) {
+      if (!q || typeof q !== "object") return;
+      if (Array.isArray(q.order)) q.order = q.order.map(first);
+      ["list", "right", "asked", "missedLast"].forEach(function (f) { q[f] = uniq(q[f]); });
+      if (q.next && Array.isArray(q.next.order)) q.next.order = q.next.order.map(first);
+    }
+    quizKeys(rec.quiz);
+    if (rec.quizzes) Object.keys(rec.quizzes).forEach(function (k) { quizKeys(rec.quizzes[k]); });
+    return changed;
+  }
+  // Code added later (the Practice Cards build) registers here to run once per
+  // load, after the split copy: fn({ sl, keyMap, state }).
+  const SPLIT_HOOKS = [];
+  function afterSplitCopy(fn) { if (typeof fn === "function") SPLIT_HOOKS.push(fn); }
+  // An element in an answer box (CID-, "cid") to its card, and every card of a
+  // glossary entry: shared by Latin Roots and, later, the Exercise decks.
+  const CARD_BY_SPELLING = {};
+  CARDS.forEach(function (c, i) { (c.spellings || []).forEach(function (sp) { const k = sp.toUpperCase(); if (!(k in CARD_BY_SPELLING)) CARD_BY_SPELLING[k] = i; }); });
+  function cardFor(element) {
+    const k = String(element || "").toUpperCase().replace(/[^A-Z]/g, "");
+    return Object.prototype.hasOwnProperty.call(CARD_BY_SPELLING, k) ? CARD_BY_SPELLING[k] : -1;
+  }
+  function cardsForEntry(gloss) {
+    const out = [];
+    CARDS.forEach(function (c, i) { if (c.gloss === gloss || (c.glosses || []).indexOf(gloss) >= 0) out.push(i); });
+    return out;
+  }
+
   function readStores(sl) {
     const k1 = storageKeys(sl, "v1"), k2 = storageKeys(sl, "v2");
+    if (KEY_TABLE) return readStoresByKey(sl, k1, k2);
     let from = null;
     try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
     if (!from || typeof from !== "object") from = null;
@@ -3506,6 +3602,44 @@
         localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
       } catch (e) { /* storage full or blocked: carry on with what was read */ }
     }
+    return out;
+  }
+
+  // readStores for a deck with a key table: every record is read as keys, the
+  // split copy runs, and records changed are written back to v2 at once.
+  function readStoresByKey(sl, k1, k2) {
+    let from = null;
+    try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
+    if (!from || typeof from !== "object") from = null;
+    const rec = {}, moved = {};
+    STORES.forEach(function (s) {
+      let raw1 = null;
+      try { raw1 = localStorage.getItem(k1[s]); } catch (e) { raw1 = null; }
+      const h = rawHash(raw1);
+      try {
+        if (from && from[s] === h) rec[s] = convertStore(s, JSON.parse(localStorage.getItem(k2[s]) || "null"), asKey);
+        else { rec[s] = convertStore(s, JSON.parse(raw1 || "null"), v1Key); moved[s] = h; }
+      } catch (e) { rec[s] = null; }
+    });
+    // The split copy runs once per student for each key table, so a mark the
+    // student makes later on a new card is never undone by it.
+    const doneKey = ID + "_splitDone_v2__" + sl, tableHash = rawHash(JSON.stringify(KEY_TABLE));
+    let done = null;
+    try { done = localStorage.getItem(doneKey); } catch (e) { done = null; }
+    const split = done === tableHash ? false : splitCopy(rec);
+    const out = {};
+    STORES.forEach(function (s) { out[s] = convertStore(s, rec[s], fromKey); });
+    if ((split || Object.keys(moved).length) && !presenterMode) {
+      try {
+        STORES.forEach(function (s) {
+          if (!split && !(s in moved)) return;
+          if (out[s] == null) localStorage.removeItem(k2[s]);
+          else localStorage.setItem(k2[s], JSON.stringify(convertStore(s, out[s], toKey)));
+        });
+        localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
+      } catch (e) { /* storage full or blocked: carry on with what was read */ }
+    }
+    if (done !== tableHash && !presenterMode) { try { localStorage.setItem(doneKey, tableHash); } catch (e) { /* blocked */ } }
     return out;
   }
 
@@ -3601,6 +3735,10 @@
       }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
+    SPLIT_HOOKS.forEach(function (fn) {
+      try { fn({ sl: currentSlug, keyMap: KEY_TABLE ? KEY_TABLE.from : {}, state: { known: known, learning: learningMarked, marks: markSrc } }); }
+      catch (e) { /* a hook that fails leaves the records as they are */ }
+    });
     remarkSaved();
     // A pass left unfinished on an earlier visit is reported now.
     if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
@@ -4169,7 +4307,11 @@
   // the answer is checked.
   function fillMeanings(node, item, res) {
     node.innerHTML = "";
-    const groups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    const allGroups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    // Only the meanings taught so far (a joined card's later meanings wait for their lesson).
+    const shown = allGroups.map(function (_, k) { return k; }).filter(function (k) { return meaningOn(item, k); });
+    const groups = shown.map(function (k) { return allGroups[k]; });
+    if (res && res.got) res = Object.assign({}, res, { got: shown.map(function (k) { return res.got[k]; }) });
     const n = groups.length;
     const got = res && res.got ? res.got.filter(Boolean).length : 0;
     node.appendChild(el("div", "sense-count", (res && res.got ? got + " of " + n : n) + " meaning" + (n === 1 ? "" : "s")));

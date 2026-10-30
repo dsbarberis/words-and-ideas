@@ -1,0 +1,302 @@
+{
+ "latinroots": {
+  "from": {
+   "CED": [
+    "CED",
+    "CESS"
+   ],
+   "CLUD": [
+    "CLUD",
+    "CLUS"
+   ],
+   "CUR": [
+    "CUR",
+    "CURS"
+   ],
+   "DUC": [
+    "DUC",
+    "DUCT"
+   ],
+   "FAC": [
+    "FAC",
+    "FACT"
+   ],
+   "GRAD": [
+    "GRAD",
+    "GRESS"
+   ],
+   "HAB": [
+    "AB",
+    "HAB"
+   ],
+   "JUR": [
+    "JUR",
+    "JUST"
+   ],
+   "LOQU": [
+    "LOCUT",
+    "LOQU"
+   ],
+   "LUD": [
+    "LUD",
+    "LUS"
+   ],
+   "NOMIN": [
+    "NOMEN",
+    "NOMIN"
+   ],
+   "PEND": [
+    "PEND",
+    "PENS"
+   ],
+   "PLE": [
+    "PLE",
+    "PLEN",
+    "PLET"
+   ],
+   "PUNG": [
+    "PUNCT",
+    "PUNG"
+   ],
+   "SED": [
+    "SED",
+    "SID",
+    "SESS"
+   ],
+   "SENT": [
+    "SENS",
+    "SENT"
+   ],
+   "SPEC": [
+    "SPIC",
+    "SPEC",
+    "SPECT"
+   ],
+   "TRUD": [
+    "TRUD",
+    "TRUS"
+   ],
+   "VEN": [
+    "VEN",
+    "VENT"
+   ],
+   "VERT": [
+    "VERS",
+    "VERT"
+   ],
+   "VID": [
+    "VID",
+    "VIS"
+   ],
+   "VOC": [
+    "VOC",
+    "VOK"
+   ],
+   "AB": [
+    "A",
+    "AB",
+    "ABS"
+   ],
+   "AD": [
+    "AC",
+    "AD"
+   ],
+   "CON": [
+    "CO",
+    "COM",
+    "CON"
+   ],
+   "CONTRA": [
+    "CONTRA",
+    "CONTRO",
+    "COUNTER"
+   ],
+   "DIS": [
+    "DI",
+    "DIF",
+    "DIS"
+   ],
+   "EX": [
+    "E",
+    "EF",
+    "EX"
+   ],
+   "EXTRA": [
+    "EXTRA",
+    "EXTRO"
+   ],
+   "IN-not": [
+    "IM",
+    "IN"
+   ],
+   "IN-into": [
+    "IM",
+    "IN"
+   ],
+   "INTRA": [
+    "INTRA",
+    "INTRO"
+   ],
+   "RE": [
+    "RE",
+    "RED"
+   ],
+   "SE": [
+    "SE",
+    "SED"
+   ],
+   "SUB": [
+    "SUB",
+    "SUC",
+    "SUS"
+   ],
+   "TRANS": [
+    "TRA",
+    "TRAN",
+    "TRANS"
+   ],
+   "CUMB": [
+    "CUB",
+    "CUMB"
+   ],
+   "HER": [
+    "HER",
+    "HES"
+   ],
+   "POT": [
+    "POSS",
+    "POT"
+   ],
+   "SAL": [
+    "SIL",
+    "SAL",
+    "SALT",
+    "SULT"
+   ],
+   "-ATE-adj": [
+    "-ATE",
+    "-IT"
+   ],
+   "-ANT": [
+    "-ANT",
+    "-ENT"
+   ],
+   "DOC": [
+    "DOC",
+    "DOCT"
+   ],
+   "FA": [
+    "FA",
+    "FAM",
+    "FAT",
+    "FESS"
+   ],
+   "FALL": [
+    "FALL",
+    "FALS"
+   ],
+   "TANG": [
+    "TING",
+    "TACT",
+    "TANG"
+   ],
+   "-ABLE": [
+    "-ABLE",
+    "-IBLE"
+   ],
+   "-ILE-able": [
+    "-ILE"
+   ],
+   "AC": [
+    "AC",
+    "ACET",
+    "ACR"
+   ],
+   "CAD": [
+    "CAD",
+    "CAS",
+    "CID"
+   ],
+   "CAP": [
+    "CAP",
+    "CAPT",
+    "CEPT",
+    "CIP"
+   ],
+   "FLU": [
+    "FLU",
+    "FLUOR",
+    "FLUV",
+    "FLUX"
+   ],
+   "NOC": [
+    "NEC",
+    "NIC",
+    "NOC",
+    "NOX"
+   ],
+   "CERN": [
+    "CERN",
+    "CRET"
+   ],
+   "FUND": [
+    "FUND",
+    "FUS"
+   ],
+   "NASC": [
+    "NASC",
+    "NAT"
+   ],
+   "PON": [
+    "PON",
+    "POSIT"
+   ]
+  },
+  "needAll": {
+   "-ATE": [
+    "",
+    "-ATE-adj"
+   ],
+   "-IT": [
+    "",
+    "-ATE-adj"
+   ],
+   "AB": [
+    "AB",
+    "HAB"
+   ],
+   "AC": [
+    "AD",
+    "AC"
+   ],
+   "IM": [
+    "IN-not",
+    "IN-into"
+   ],
+   "IN": [
+    "IN-not",
+    "IN-into"
+   ],
+   "CUR": [
+    "CUR",
+    ""
+   ],
+   "SED": [
+    "SE",
+    "SED"
+   ],
+   "CENT": [
+    "",
+    ""
+   ],
+   "TENT": [
+    "",
+    ""
+   ],
+   "-ILE": [
+    "",
+    "-ILE-able"
+   ]
+  }
+ }
+}
