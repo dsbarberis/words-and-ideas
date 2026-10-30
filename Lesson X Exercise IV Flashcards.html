@@ -151,6 +151,8 @@
 
   .icon-btn:hover { background: rgba(0,0,0,0.04); }
 
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
   /* Lessons decks: the lesson menu, the course notice and the quiz list */
   .lesson-menu {
     border: 1px solid var(--rule);
@@ -951,6 +953,7 @@
     <span id="statusText"></span>
     <div class="toolbar-right" id="learnTools">
       <select class="lesson-menu" id="lessonMenu" aria-label="Lesson" hidden></select>
+      <button class="icon-btn" id="breakBackBtn" hidden>Back to the Quiz</button>
       <button class="icon-btn" id="shuffleBtn">Shuffle</button>
       <button class="icon-btn" id="resetBtn">Reset progress</button>
     </div>
@@ -959,6 +962,7 @@
   <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
   <div class="course-notice" id="courseNotice" role="status" hidden></div>
+  <div class="sr-only" id="liveNote" aria-live="polite"></div>
 
   <div class="quiz-panel" id="quizPanel" hidden></div>
 
@@ -2598,7 +2602,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "85893b5ac446";
+  const DECK_VERSION = "047e65995185";
   const DECK_PAGE = "Lesson X Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3337,6 +3341,7 @@
       // A quiz keeps its positions in step with its answers: a card that
       // cannot be placed spoils the quiz (it is then dropped as invalid).
       if (Array.isArray(q.order)) r.order = q.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
+      ["list", "right", "asked", "missedLast"].forEach(function (k) { if (Array.isArray(q[k])) r[k] = list(q[k]); });
       if (q.next && typeof q.next === "object") {
         r.next = Object.assign({}, q.next);
         if (Array.isArray(q.next.order)) r.next.order = q.next.order.map(function (x) { const n = f(x); return n == null ? -1 : n; });
@@ -3518,6 +3523,7 @@
         const r = judgeExercise(idx, ans.a);
         if (!r.ok) return;
         ans.ok = true; ans.mixed = null;
+        if (Array.isArray(q.right) && q.right.indexOf(idx) < 0) q.right.push(idx);
         known.add(idx); learningMarked.delete(idx);
         changed = true;
       });
@@ -3570,9 +3576,12 @@
     q.pos = Math.min(Math.max(0, q.pos | 0), q.order.length - 1);
     q.round = Math.max(1, q.round | 0);
     if (q.review && !(Array.isArray(q.review) && q.review.length === q.order.length)) delete q.review;
+    ["list", "right", "asked", "missedLast"].forEach(function (k) { if (q[k] != null) q[k] = Array.isArray(q[k]) ? q[k].filter(validIdx) : null; if (!q[k]) delete q[k]; });
+    if (!Array.isArray(q.tries) || q.tries.length !== q.order.length) q.tries = q.order.map(function () { return 0; });
+    if (!Array.isArray(q.first) || q.first.length !== q.order.length) q.first = q.order.map(function () { return null; });
     const nx = q.next;
     if (nx && !(Array.isArray(nx.order) && nx.order.length && nx.order.every(validIdx) && Array.isArray(nx.review) && nx.review.length === nx.order.length)) delete q.next;
-    return q;
+    return upgradeQuiz(q);
   }
 
   function saveKnown() {
@@ -4113,8 +4122,12 @@
   // ---------- Learn mode (the Latin Roots behavior) ----------
   // A card on Learn's screen: shown by the current lesson, and in the lesson
   // picked on the lesson menu.
+  // The break after a quiz round with misses: a Learn pass of those cards
+  // ({ set, round, cards }), on Learn's "missed" list.
+  let breakFor = null;
   function inLearn(i) { return visible(i) && (!lessonPick || CARDS[i].lesson === lessonPick); }
   function onTab(i, key) {
+    if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
     if (!inLearn(i)) return false;
     if (key === "learning") return learningMarked.has(i);
     return key === "all" || CARDS[i].cat === key;
@@ -4151,7 +4164,8 @@
     if (EXERCISE || list.length === 0 || advancing) return;
     const now = Date.now();
     if (learnPass && (learnPass.tab !== filter || (learnPass.lesson || 0) !== lessonPick)) endPassUnfinished();
-    if (!learnPass) learnPass = { tab: filter, lesson: lessonPick || undefined, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    if (!learnPass) learnPass = { tab: filter, lesson: filter !== "missed" && lessonPick || undefined, start: now, last: now, list: list.slice(), seen: [], marked: [] };
+    if (filter === "missed" && breakFor && !learnPass.brk) learnPass.brk = { round: breakFor.round, set: breakFor.set };
     const idx = list[pos];
     if (learnPass.list.indexOf(idx) >= 0 && learnPass.seen.indexOf(idx) < 0) learnPass.seen.push(idx);
     learnPass.last = now;
@@ -4182,7 +4196,11 @@
   // decks), and "unfinished"; for example "learn (Prefixes, Lesson VI)".
   function passTabs(p, tail) {
     const bits = [];
-    if (p.tab !== "all") bits.push(setLabel(p.tab));
+    if (p.tab === "missed") {
+      // The break: "learn (missed cards, quiz round 3, Lesson VI)".
+      bits.push("missed cards");
+      if (p.brk) { bits.push("quiz round " + p.brk.round); if (p.brk.set && p.brk.set !== "all") bits.push(setLabel(p.brk.set)); }
+    } else if (p.tab !== "all") bits.push(setLabel(p.tab));
     if (p.lesson) bits.push(lessonRange(p.lesson, p.lesson));
     if (tail) bits.push(tail);
     return bits.length ? " (" + bits.join(", ") + ")" : "";
@@ -4513,9 +4531,7 @@
     if (filter === "all" && !LESSONS) {
       order = list;
     } else {
-      const inFilter = LESSONS ? function (i) { return onTab(i, filter); } : filter === "learning"
-        ? function (i) { return learningMarked.has(i); }
-        : function (i) { return CARDS[i].cat === filter; };
+      const inFilter = function (i) { return onTab(i, filter); };
       let cursor = 0;
       order = order.map(function (i) { return inFilter(i) ? list[cursor++] : i; });
     }
@@ -4525,6 +4541,59 @@
   // ---------- Quiz mode ----------
   // Round 1 = every card, shuffled. Each later round = the cards missed in
   // the round before, until every card has been answered correctly.
+  // The quiz rules (instructor, Oct 30, 2026), in every deck outside teacher
+  // mode: rounds of about ROUND_SIZE cards; two tries at a card in a round,
+  // with no answer shown on a miss; a missed card comes back in a later round,
+  // with cards not yet asked; a round short of cards is padded with cards
+  // already answered right, which count toward nothing; the quiz is done when
+  // every card has been answered right. Teacher mode keeps the earlier rounds
+  // (round 1 every card, then the cards missed).
+  const ROUND_SIZE = 20, TRIES = 2;
+  function rulesOn() { return !presenterMode; }
+
+  // The next round of a quiz under the rules: cards missed and not yet right
+  // first, then cards not yet asked, up to ROUND_SIZE, in a new order; then
+  // padding from cards already right, at random places.
+  function planRound(q) {
+    const right = new Set(q.right), asked = new Set(q.asked);
+    const due = shuffleArray(q.list.filter(function (i) { return asked.has(i) && !right.has(i); }));
+    const fresh = q.list.filter(function (i) { return !asked.has(i); });
+    const freshOrder = DECK.round1 === "book" ? fresh : shuffleArray(fresh);
+    const cards = due.slice(0, ROUND_SIZE);
+    freshOrder.forEach(function (i) { if (cards.length < ROUND_SIZE) cards.push(i); });
+    const order = DECK.round1 === "book" && !due.length ? cards : shuffleArray(cards);
+    const review = order.map(function () { return false; });
+    const pads = shuffleArray(q.list.filter(function (i) { return right.has(i) && order.indexOf(i) < 0; }));
+    while (order.length < ROUND_SIZE && pads.length) {
+      const at = Math.floor(Math.random() * (order.length + 1));
+      order.splice(at, 0, pads.shift());
+      review.splice(at, 0, true);
+    }
+    return { order: order, review: review };
+  }
+
+  // A quiz saved under the earlier rules (before the Lesson Filter release):
+  // its round under way finishes as it is; what it needs from now on is
+  // worked out from its cards (round 1 asked every card).
+  function upgradeQuiz(q) {
+    if (!q || Array.isArray(q.list)) return q;
+    const set = q.set || "all";
+    const list = QUIZ_BY_SET ? setIndices(set) : CARDS.map(function (_, i) { return i; });
+    const inRound = {};
+    q.order.forEach(function (i, k) { if (!(q.review && q.review[k])) inRound[i] = k; });
+    q.list = list.slice();
+    q.asked = list.slice();
+    q.right = list.filter(function (i) {
+      if (!(i in inRound)) return q.round > 1;
+      const a = q.answers[inRound[i]];
+      return !!(a && a.ok);
+    });
+    if (q.round === 1 && q.phase === "card") q.asked = list.filter(function (i) { return !(i in inRound) || q.answers[inRound[i]]; });
+    delete q.next;
+    q.attempt = q.attempt || Date.now().toString(36);
+    return q;
+  }
+
   function newRound(round, indices) {
     const inBook = (DECK.round1 === "book" && round === 1) || presenterMode;
     return {
@@ -4536,10 +4605,32 @@
       order: inBook ? indices.slice().sort(function (a, b) { return a - b; }) : shuffleArray(indices.slice()),
       pos: 0,
       answers: indices.map(function () { return null; }),
+      tries: indices.map(function () { return 0; }),
+      first: indices.map(function () { return null; }),
       phase: "card",
       sent: false
     };
   }
+
+  // A round under the rules: the quiz's cards, what was asked and answered
+  // right, and the attempt carry over from the round before.
+  function rulesRound(round, prev, list) {
+    const base = prev ? { list: prev.list, right: prev.right.slice(), asked: prev.asked.slice(), attempt: prev.attempt, size: prev.size, lesson: prev.lesson }
+      : { list: list.slice(), right: [], asked: [], attempt: Date.now().toString(36), size: list.length };
+    const plan = planRound(base);
+    const r = newRound(round, plan.order);
+    r.order = plan.order;
+    r.review = plan.review;
+    r.answers = plan.order.map(function () { return null; });
+    r.tries = plan.order.map(function () { return 0; });
+    r.first = plan.order.map(function () { return null; });
+    Object.keys(base).forEach(function (k) { if (base[k] !== undefined) r[k] = base[k]; });
+    plan.order.forEach(function (i, k) { if (!plan.review[k] && r.asked.indexOf(i) < 0) r.asked.push(i); });
+    return r;
+  }
+
+  // Every card of the quiz answered right: the quiz is done.
+  function quizAllRight(q) { return !!q && Array.isArray(q.list) && q.list.every(function (i) { return q.right.indexOf(i) >= 0; }); }
 
   // Review questions (a review break) never count toward the round.
   function roundScore() {
@@ -4548,6 +4639,11 @@
 
   function roundMissed() {
     return quiz.order.filter(function (_, k) { return !isReview(k) && !(quiz.answers[k] && quiz.answers[k].ok); });
+  }
+  // How a round ends: "done" once every card has been answered right.
+  function roundEnd() {
+    if (rulesOn() && Array.isArray(quiz.list)) return quizAllRight(quiz) ? "done" : "between";
+    return roundMissed().length ? "between" : "done";
   }
 
   // Space the retry (Answer Effort form and the instructor's "review break",
@@ -4596,20 +4692,27 @@
   function sendQuizRound() {
     if (quiz.sent) return;
     quiz.sent = true;
+    // Padding cards are sent marked "pad": 1, and count toward nothing; a
+    // card answered on the second try carries "t": 2 (quiz rules, Oct 30, 2026).
+    const rules = Array.isArray(quiz.list);
     const answers = quiz.order.map(function (i, k) {
-      if (isReview(k)) return null;
+      if (isReview(k) && !rules) return null;
       const a = quiz.answers[k] || {};
       const shown = a.a == null ? "" : (EXERCISE ? answerText(CARDS[i], a.a) : Array.isArray(a.a) ? a.a.join("; ") : a.a);
       const row = { i: i, w: cardLabel(CARDS[i]), a: shown, r: !!a.ok };
       if (SEND_KEYS) row.e = toKey(i);
       if (a.mixed) row.mixed = a.mixed;
+      if (isReview(k)) row.pad = 1;
+      if (a.t === 2) row.t = 2;
       return row;
     }).filter(Boolean);
+    const counted = answers.filter(function (x) { return !x.pad; });
     reportPass({
       passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
-      passSize: answers.length,
-      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; return o; }),
+      passSize: counted.length,
+      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; return o; }),
+      attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
       answers: answers,
       json: answers
     });
@@ -5049,12 +5152,15 @@
     const idx = quiz.order[quiz.pos];
     const item = CARDS[idx];
     const ans = quiz.answers[quiz.pos];
+    // A card tried once and missed: its first answer stays, marked.
+    const first = !ans && quiz.first ? quiz.first[quiz.pos] : null;
+    const shownAns = ans || first;
     const key = quiz.round + ":" + quiz.pos;
     if (inputFor !== key) {
       inputFor = key;
-      if (MEANINGS) resetLines(ans ? ans.a : null);
-      else if (EXERCISE && (hasBoxes(item) || item.kind === "order")) answerInput.value = ans && hasBoxes(item) && Array.isArray(ans.a) ? ans.a[0] : "";
-      else answerInput.value = ans ? ans.a : "";
+      if (MEANINGS) resetLines(shownAns ? shownAns.a : null);
+      else if (EXERCISE && (hasBoxes(item) || item.kind === "order")) answerInput.value = shownAns && hasBoxes(item) && Array.isArray(shownAns.a) ? shownAns.a[0] : "";
+      else answerInput.value = shownAns ? shownAns.a : "";
       orderPick = [];
       quizNote.textContent = "";
     }
@@ -5071,6 +5177,7 @@
       if (presenterMode || backShown(ans)) fillExerciseBack(item, ans);
       else { meaningBack.innerHTML = ""; originBack.innerHTML = ""; originLabel.textContent = ""; feedbackBox.hidden = true; }
       fillMissMarks(item, ans);
+      if (first) fillMissMarks(item, first, true);
       cardEl.classList.toggle("flipped", backShown(ans));
       const counted = countedPositions();
       const done = counted.filter(function (k) { return quiz.answers[k]; }).length;
@@ -5101,6 +5208,7 @@
     if (showBack) originBack.textContent = item.origin;
     feedbackBox.hidden = !ans || !showBack;
     fillMissMarks(item, ans);
+    if (first) fillMissMarks(item, first, true);
     if (ans && showBack) {
       if (res && res.rows) fillYourLines(item, res);
       else yourAnswer.textContent = ans.a;
@@ -5141,7 +5249,7 @@
 
   // The marks on the front of a missed question: a ✓ or ✗ for each box (or
   // the option tapped, or each stage), with no answer, hint or note.
-  function fillMissMarks(item, ans) {
+  function fillMissMarks(item, ans, firstTry) {
     const form = cardEl.querySelector(".quiz-form");
     form.querySelectorAll(".box-mark").forEach(function (n) { n.remove(); });
     form.querySelectorAll(".quiz-input").forEach(function (n) { n.classList.remove("in-ok", "in-no"); });
@@ -5186,7 +5294,10 @@
     }
     const v = el("span", "verdict no", "Not quite");
     missNote.appendChild(v);
-    missNote.appendChild(document.createTextNode(isReview(quiz.pos) ? "This was a review " + (EXERCISE ? "question" : NOUN) + "; it does not count." : "This " + (EXERCISE ? "question" : NOUN) + " comes back later in the quiz."));
+    const noun = EXERCISE ? "question" : NOUN;
+    missNote.appendChild(document.createTextNode(firstTry ? "You have one more try." :
+      isReview(quiz.pos) ? "This was a review " + noun + "; it does not count." :
+      Array.isArray(quiz.list) ? "This " + noun + " comes back in a later round." : "This " + noun + " comes back later in the quiz."));
     if (lineNote) missNote.appendChild(el("span", "miss-lines", lineNote));
     const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     if (why) missNote.appendChild(el("span", "miss-reason", why));
@@ -5259,6 +5370,14 @@
     return b;
   }
 
+  // How a quiz runs, on its opening panel.
+  function roundsCopy(size, noun, how) {
+    const nouns = noun + (size === 1 ? "" : "s");
+    if (presenterMode) return "Round 1 covers all " + size + " " + nouns + how + ". Any you miss come back in the next round, until you have answered every one correctly.";
+    return size + " " + nouns + how + ", in rounds of up to " + ROUND_SIZE + ". You have two tries at each " + noun +
+      ". One you miss comes back in a later round, until you have answered every " + noun + " correctly.";
+  }
+
   function renderQuizPanel() {
     stage.hidden = true;
     quizControls.hidden = true;
@@ -5284,8 +5403,7 @@
         return;
       }
       copy.textContent = ((cat.instruction || DECK.instruction) ? (cat.instruction || DECK.instruction) + " " : "") +
-        "Round 1 covers all " + size + " question" + (size === 1 ? "" : "s") + (DECK.round1 === "book" && DECK.orderNote !== false ? ", in the workbook\u2019s order" : "") +
-        ". Any you miss come back in the next round, until you have answered every one correctly.";
+        roundsCopy(size, "question", DECK.round1 === "book" && DECK.orderNote !== false ? ", in the workbook\u2019s order" : "");
       quizPanel.appendChild(copy);
       if (cat.example) {
         const ex = copy.cloneNode(false);
@@ -5294,7 +5412,6 @@
       }
       const startBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startBtn);
-      if (!presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -5310,12 +5427,10 @@
         quizPanel.appendChild(copy);
         return;
       }
-      copy.textContent = (DECK.quizIntro ? DECK.quizIntro + " " : "") + "Round 1 covers all " + size + " " + NOUN + (size === 1 ? "" : "s") +
-        ". Any you miss come back in the next round, until you have answered every one correctly.";
+      copy.textContent = (DECK.quizIntro ? DECK.quizIntro + " " : "") + roundsCopy(size, NOUN, "");
       quizPanel.appendChild(copy);
       const startSetBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startSetBtn);
-      if (EFFORT && !presenterMode) waitFor(spaceOrder(setIndices(filter)).opensAt, copy, startSetBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -5324,13 +5439,11 @@
       statusText.textContent = knownShown() + " of " + shownTotal() + " known";
       progressFill.style.width = "0%";
       title.textContent = "Quiz";
-      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " Round 1 covers all " + N +
-        " " + NOUN + "s. Any you miss come back in the next round, until you have answered every " + NOUN + " correctly.";
+      copy.textContent = (DECK.quizIntro || "Type the meaning of each word, then press Check.") + " " + roundsCopy(N, NOUN, "");
       quizPanel.appendChild(title);
       quizPanel.appendChild(copy);
       const startAllBtn = panelButton("nav-btn", "Start the quiz &rarr;", startQuiz);
       actions.appendChild(startAllBtn);
-      if (EFFORT && !presenterMode) waitFor(spaceOrder(CARDS.map(function (_, i) { return i; })).opensAt, copy, startAllBtn, "This quiz", function () { render(); });
       quizPanel.appendChild(actions);
       return;
     }
@@ -5347,21 +5460,26 @@
       statusText.textContent = "Round " + quiz.round + " complete";
       title.textContent = "Round " + quiz.round + " complete";
       const noun = EXERCISE ? "question" : NOUN;
-      const plan = quiz.next;
-      const reviews = plan ? plan.review.filter(Boolean).length : 0;
-      copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") +
-        " you missed, in a new order." + (reviews ? " " + reviews + " " + noun + (reviews === 1 ? "" : "s") +
-        " you already got right " + (reviews === 1 ? "is" : "are") + " mixed in for review; " + (reviews === 1 ? "it does" : "they do") + " not count." : "");
+      if (Array.isArray(quiz.list)) {
+        const left = quiz.list.length - quiz.right.length;
+        copy.textContent = quiz.right.length + " of " + quiz.list.length + " " + noun + "s answered correctly so far. " +
+          (missed ? "The " + missed + " you missed come" + (missed === 1 ? "s" : "") + " back in a later round. " : "") +
+          left + " to go.";
+      } else {
+        copy.textContent = "Next is Round " + (quiz.round + 1) + ": the " + missed + " " + noun + (missed === 1 ? "" : "s") + " you missed, in a new order.";
+      }
       quizPanel.appendChild(title);
       quizPanel.appendChild(scoreEl);
       quizPanel.appendChild(copy);
-      const startBtn = panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound);
-      actions.appendChild(startBtn);
-      if (plan) waitFor(plan.opensAt, copy, startBtn, "Round " + (quiz.round + 1), startNextRound);
+      // The break: a Learn pass of the cards just missed (Flashcard Decks).
+      if (missed && !EXERCISE && !presenterMode && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
+        actions.appendChild(panelButton("nav-btn", "Learn Missed Cards", startBreak));
+        actions.appendChild(panelButton("secondary-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
+      } else actions.appendChild(panelButton("nav-btn", "Start Round " + (quiz.round + 1) + " &rarr;", startNextRound));
     } else {
       statusText.textContent = "Quiz complete";
       title.textContent = "Quiz complete";
-      const total = QUIZ_BY_SET ? quiz.size : N;
+      const total = Array.isArray(quiz.list) ? quiz.list.length : QUIZ_BY_SET ? quiz.size : N;
       copy.textContent = "You have answered all " + total + " " + (EXERCISE ? "question" : NOUN) + (total === 1 ? "" : "s") + " correctly" +
         (quiz.round > 1 ? ", in " + quiz.round + " rounds." : " in a single round.");
       quizPanel.appendChild(title);
@@ -5408,16 +5526,7 @@
       return;
     }
     quiz = null;
-    quiz = newRound(1, indices);
-    // A question missed moments ago, on this tab or another, waits its turn here too.
-    if (EFFORT && !presenterMode) {
-      const plan = spaceOrder(quiz.order);
-      if (plan.opensAt > Date.now()) { quiz = null; render(); return; }
-      quiz.order = plan.order;
-      quiz.review = plan.review;
-      quiz.answers = plan.order.map(function () { return null; });
-      quiz.size = indices.length;
-    }
+    quiz = rulesOn() ? rulesRound(1, null, indices) : newRound(1, indices);
     inputFor = null;
     saveQuiz();
     render();
@@ -5427,15 +5536,8 @@
 
   function startNextRound() {
     if (lockedForUpdate()) return;
-    // A quiz saved before the rules reached this deck has no plan yet.
-    const plan = quiz.next || (EFFORT && !presenterMode ? planNextRound() : null);
-    if (plan && plan.opensAt > Date.now()) { quiz.next = plan; saveQuiz(); render(); return; }
-    if (plan) {
-      const r = newRound(quiz.round + 1, plan.order);
-      r.order = plan.order.slice();
-      r.review = plan.review.slice();
-      quiz = r;
-    } else quiz = newRound(quiz.round + 1, roundMissed());
+    if (rulesOn()) quiz = rulesRound(quiz.round + 1, upgradeQuiz(quiz));
+    else quiz = newRound(quiz.round + 1, roundMissed());
     inputFor = null;
     saveQuiz();
     render();
@@ -5469,21 +5571,38 @@
       return;
     }
     quizNote.textContent = "";
-    quiz.answers[quiz.pos] = { a: text, ok: result.ok, mixed: result.mixed || null };
-    if (result.echo) quiz.answers[quiz.pos].echo = result.echo;
-    if (EFFORT && !presenterMode) {
-      spacing.n++;
-      if (result.ok) delete spacing.miss[idx];
-      else if (!isReview(quiz.pos)) spacing.miss[idx] = { n: spacing.n, t: Date.now() };
-      saveSpacing();
+    // A first wrong try: the lines or boxes are marked, with no answer, and
+    // the card stays for one more try (tries are kept by the round, so moving
+    // away and back gives none back).
+    const k = quiz.pos;
+    if (rulesOn() && !result.ok && Array.isArray(quiz.tries) && (quiz.tries[k] || 0) < TRIES - 1) {
+      quiz.tries[k] = (quiz.tries[k] || 0) + 1;
+      quiz.first[k] = { a: text, ok: false, mixed: result.mixed || null };
+      if (result.echo) quiz.first[k].echo = result.echo;
+      saveQuiz();
+      fillMissMarks(CARDS[idx], quiz.first[k], true);
+      announce(missNote.textContent);
+      if (!(EXERCISE && (isChoice || kind === "order"))) answerInput.focus();
+      return;
     }
-    if (!isReview(quiz.pos)) {
+    quiz.answers[k] = { a: text, ok: result.ok, mixed: result.mixed || null };
+    if (result.echo) quiz.answers[k].echo = result.echo;
+    if (rulesOn() && quiz.tries && quiz.tries[k]) quiz.answers[k].t = 2;
+    if (!isReview(k)) {
       if (result.ok) { known.add(idx); learningMarked.delete(idx); }
       else { known.delete(idx); learningMarked.add(idx); }
       noteMark(idx, "quiz");
       saveKnown();
       saveLearning();
+      if (result.ok && Array.isArray(quiz.right) && quiz.right.indexOf(idx) < 0) quiz.right.push(idx);
+    } else if (rulesOn() && !result.ok) {
+      // A padding card answered wrong goes back to Still Learning, and nothing else.
+      known.delete(idx); learningMarked.add(idx);
+      noteMark(idx, "quiz");
+      saveKnown();
+      saveLearning();
     }
+    announce(result.ok ? "Correct." : "Not quite. This card is locked for this round; go to the next card.");
     if (quiz.answers.every(Boolean)) sendQuizRound();
     teacherFlip = null;
     saveQuiz();
@@ -5515,10 +5634,41 @@
       return;
     }
     if (!quiz.sent) sendQuizRound();
-    quiz.phase = roundMissed().length ? "between" : "done";
-    if (quiz.phase === "between" && EFFORT && !presenterMode) quiz.next = planNextRound();
+    quiz.phase = roundEnd();
+    if (quiz.phase === "between" && rulesOn()) quiz.missedLast = roundMissed();
     saveQuiz();
     render();
+  }
+
+  // What a check found, read aloud by screen readers (the card is not flipped on a miss).
+  function startBreak() {
+    if (!quiz || !Array.isArray(quiz.missedLast) || !quiz.missedLast.length) return;
+    breakFor = { set: quiz.set || "all", round: quiz.round, cards: quiz.missedLast.slice() };
+    setMode("learn");
+    if (learnPass) endPassUnfinished();
+    filter = "missed";
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses) reshuffleTab();
+    learnTabs.forEach(function (t) { t.classList.remove("active"); t.setAttribute("aria-selected", "false"); });
+    render();
+  }
+  function endBreak() {
+    const b = breakFor;
+    filter = "all";
+    learnTabs.forEach(function (t) { const on = t.dataset.filter === "all"; t.classList.toggle("active", on); t.setAttribute("aria-selected", on ? "true" : "false"); });
+    setMode("quiz");
+    breakFor = null;
+    if (LESSONS && b) openQuizSet(b.set);
+    else if (QUIZ_BY_SET && b) { filter = b.set; quiz = quizzes[b.set] || null; render(); }
+  }
+  document.getElementById("breakBackBtn").addEventListener("click", endBreak);
+
+  function announce(t) {
+    const n = document.getElementById("liveNote");
+    if (!n) return;
+    n.textContent = "";
+    setTimeout(function () { n.textContent = t; }, 50);
   }
 
   // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
@@ -5666,6 +5816,7 @@
     });
     learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
+    document.getElementById("breakBackBtn").hidden = !(mode === "learn" && filter === "missed");
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
       quizControls.hidden = true;
@@ -5688,7 +5839,7 @@
     cancelSlides();
     if (mode === "learn" && m !== "learn" && learnPass) endPassUnfinished();
     if (LESSONS) {
-      if (mode === "learn" && m !== "learn") learnFilter = filter;
+      if (mode === "learn" && m !== "learn") learnFilter = filter === "missed" ? "all" : filter;
       if (m === "learn" && mode !== "learn") filter = learnFilter;
       quiz = null; // the Quiz tab opens on its list; each quiz stays saved by set
       quizPicked = false;
