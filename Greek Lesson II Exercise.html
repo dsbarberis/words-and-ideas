@@ -1651,7 +1651,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "b6a653ba2604";
+  const DECK_VERSION = "7151cba61ad9";
   const DECK_PAGE = "Greek Lesson II Exercise.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -2780,7 +2780,10 @@
       passSize: row.passSize,
       cumCorrect: known.size,
       cumTotal: N,
-      resultsJson: JSON.stringify(row.json)
+      resultsJson: JSON.stringify(row.json),
+      // The tenth Form question, "Current Lesson" (sent once its entry code is
+      // in GFORM_FIELDS): a quiz round gives the lesson its quiz started at.
+      currentLesson: LESSONS ? roman(row.lesson || currentLesson) : ""
     });
     recordAttempt(row);
   }
@@ -3765,6 +3768,7 @@
       passSize: counted.length,
       results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; return o; }),
       attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
+      lesson: quiz.lesson,
       answers: answers,
       json: answers
     });
