@@ -153,6 +153,93 @@
 
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
+
+  /* ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ---------- */
+  .lr-look #learnTabs, .lr-look #statusText, .lr-look #tagFront, .lr-look #tagBack, .lr-look #hintFront,
+  .lr-look #counter, .lr-look #quizCounter, .lr-look .sense-count, .lr-look #originLabel, .lr-look #footerHelp,
+  .lr-look #learnTools .icon-btn, .lr-look .toolbar { display: none !important; }
+  .lr-look .examples { font-size: 14px; }
+  .lr-row { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; position: relative; }
+  .lr-look .lesson-menu {
+    flex: 1 1 0; min-width: 0; min-height: 44px; font: 16px Georgia, serif; color: var(--ink);
+    border: 1.5px solid #8a7f68; border-radius: 6px; background: var(--card); padding: 0 10px;
+  }
+  .lr-chip {
+    flex: 1 1 0; min-width: 0; min-height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font: 16px Georgia, serif; padding: 0 4px; cursor: pointer;
+  }
+  .lr-chip[aria-pressed=true] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .lr-icon {
+    flex: none; width: 44px; height: 44px; border-radius: 22px; border: 1px solid var(--rule);
+    background: var(--card); color: var(--navy); font-size: 20px; line-height: 1; padding: 0; cursor: pointer;
+  }
+  .lr-icon.armed { background: #b3261e; border-color: #b3261e; color: #fff; }
+  .lr-tip { pointer-events: none; position: absolute; right: 0; top: 100%; margin-top: 4px; z-index: 5; background: #b3261e; color: #fff; font: 600 14px -apple-system, BlinkMacSystemFont, sans-serif; padding: 6px 10px; border-radius: 6px; }
+  .lr-meter { display: flex; width: 100%; min-height: 30px; align-items: center; padding: 0; border: 0; background: transparent; margin: 0 0 8px; position: relative; cursor: pointer; }
+  .lr-meter .lr-track { position: relative; display: flex; gap: 2px; width: 100%; height: 14px; border: 1px solid #8a7f68; border-radius: 7px; overflow: hidden; background: #efe7d8; }
+  .lr-meter .lr-track span { height: 12px; display: block; }
+  .lr-meter .l { background: #9a7a45; } .lr-meter .k { background: #5c6e4f; } .lr-meter .u { background: #e6dcc6; flex: 1; }
+  .lr-meter .lr-tick { position: absolute; top: 5px; width: 3px; height: 20px; margin-left: -1px; background: var(--navy); border-radius: 1px; }
+  .lr-meter[aria-pressed=true] .lr-track { outline: 2px solid #9a7a45; outline-offset: 2px; }
+  .lr-look .progress-track.lr-hide, .lr-hide { display: none !important; }
+  .lr-look .mastery-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lr-look .mastery-btn { width: 100%; max-width: none; margin: 0; min-height: 48px; }
+  .lr-look #learningBtn { border: 2px solid #9a7a45; }
+  .lr-look #deckScreen .name-line { display: none; }
+  .lr-open { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; padding-bottom: 16px; min-height: 100vh; min-height: 100svh; }
+  .lr-open h1 { margin: 0; text-align: center; }
+  .lr-open .lr-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .lr-open .lr-foot { display: flex; flex-direction: column; gap: 12px; }
+  .lr-update { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; background: var(--card); color: var(--navy); border: 2px solid var(--navy); border-radius: 8px; padding: 0 16px; font: 600 16px Georgia, serif; box-shadow: 0 2px 0 rgba(38,50,72,.35); cursor: pointer; }
+  .lr-notice { position: relative; border: 1px solid #8a6a36; background: #f6eedb; border-radius: 8px; padding: 10px 12px 10px 30px; font: 16px/1.45 Georgia, serif; color: var(--ink); }
+  .lr-notice .pin { position: absolute; left: 7px; top: 8px; font-size: 15px; }
+  .lr-info { font: 17px/1.4 Georgia, serif; color: var(--ink); text-align: center; margin: 0; }
+  .lr-who { display: flex; align-items: center; justify-content: center; gap: 10px; font: 16px Georgia, serif; color: var(--ink-soft); }
+  .lr-who button { position: relative; min-height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--rule); background: transparent; color: var(--navy); font: 15px Georgia, serif; cursor: pointer; }
+  .lr-who button::after { content: ""; position: absolute; inset: -7px -4px; }
+  .lr-start { min-height: 48px; border-radius: 8px; border: 0; background: var(--navy); color: #fff; font: 600 17px Georgia, serif; cursor: pointer; }
+  .lr-look .course-notice { display: none; }
+  .lr-qrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; padding: 6px 8px 6px 14px; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); font: 17px Georgia, serif; color: var(--ink); }
+  .lr-qrow.due { border: 2px solid var(--burgundy); padding-top: 10px; padding-bottom: 10px; }
+  .lr-qrow .lr-due { display: block; font-size: 14px; color: var(--burgundy); margin-top: 4px; }
+  .lr-qrow .lr-dirs, .lr-qhead .lr-dirs { display: flex; gap: 28px; }
+  .lr-dir { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; padding: 0; border-radius: 22px; cursor: pointer; }
+  .lr-mark { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #6b6658; display: inline-flex; align-items: center; justify-content: center; }
+  .lr-mark.started { border-color: var(--navy); }
+  .lr-mark.done { background: #4f6b4a; border-color: #4f6b4a; color: #fff; font: 700 13px sans-serif; }
+  .lr-qhead { display: flex; justify-content: flex-end; padding: 0 8px; }
+  .lr-qhead b { width: 44px; text-align: center; font: 400 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink-soft); white-space: nowrap; display: flex; justify-content: center; }
+  .lr-look .quiz-list-head { text-align: center; font-weight: 700; }
+
+  .lr-instr { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 12px; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); text-align: left; width: 100%; max-width: 34em; margin: 0 auto; }
+  .phone .lr-instr { grid-template-columns: 32px 1fr; }
+  .lr-instr p { margin: 0; }
+  #card #termFront.lr-instr { font: 400 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .lr-instr .ic { display: flex; align-items: center; justify-content: center; height: 28px; color: var(--navy); }
+  .lr-instr .ic.card { width: 22px; border: 2px solid var(--navy); border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.sw { font: 20px sans-serif; white-space: nowrap; letter-spacing: -2px; }
+  .lr-instr .ic.key { font: 600 15px sans-serif; border: 1.5px solid var(--navy); border-radius: 4px; width: 28px; height: 24px; margin: 0 auto; }
+  .lr-instr .ic.box { width: 28px; height: 18px; border: 1.5px solid #8a7f68; border-radius: 4px; margin: 0 auto; }
+  .lr-instr .ic.ck { font: 700 18px sans-serif; color: #4f6b4a; }
+  .lr-instr .ic.sort { gap: 3px; } .lr-instr .ic.sort i { width: 14px; height: 14px; border-radius: 4px; border: 2px solid #9a7a45; } .lr-instr .ic.sort i + i { background: #5c6e4f; border-color: #5c6e4f; }
+  .lr-instr .ic.bar { gap: 2px; } .lr-instr .ic.bar i { height: 8px; border-radius: 2px; } .lr-instr .ic.bar i:nth-child(1) { width: 8px; background: #9a7a45; } .lr-instr .ic.bar i:nth-child(2) { width: 9px; background: #5c6e4f; } .lr-instr .ic.bar i:nth-child(3) { width: 12px; background: #e6dcc6; outline: 1px solid #8a7f68; }
+  .lr-look #card.lr-first .face-back { display: none; }
+  .lr-look #card.lr-first #quizForm { display: none; }
+  .lr-look .quiz-input.in-ok, .lr-look .line-input.in-ok { border: 2px solid #4f6b4a; background-color: #eef4ea; }
+  .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { border: 2px solid #b3261e; animation: lrshake .3s; }
+  @media (prefers-reduced-motion: reduce) { .lr-look .quiz-input.in-no, .lr-look .line-input.in-no { animation: none; } }
+  @keyframes lrshake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  .lr-look #card.lr-locked .face-front { background: #ece8df; }
+  .lr-look #card.lr-locked #checkBtn { display: none; }
+  .lr-end { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 340px; padding: 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; }
+  .lr-end-dots { margin: auto 0; display: grid; grid-template-columns: repeat(10, 16px); justify-content: center; gap: 10px; }
+  .lr-end-dots i { width: 16px; height: 16px; border-radius: 50%; } .lr-end-dots i.ok { background: #5c6e4f; } .lr-end-dots i.miss { border: 3px solid #9a7a45; }
+  .lr-end .lr-skip { background: none; border: 0; color: var(--navy); text-decoration: underline; font: 15px Georgia, serif; min-height: 44px; cursor: pointer; }
+
+  .lr-back { display: block; width: 100%; min-height: 44px; margin: 0 0 8px; border-radius: 8px; border: 2px solid var(--navy); background: var(--card); color: var(--navy); font: 600 16px Georgia, serif; cursor: pointer; }
+  .lr-back[hidden] { display: none; }
+  .lr-look #knownBtn:not(:disabled) { background: #56684a; border-color: #56684a; }
+
   /* Lessons decks: the lesson menu, the course notice and the quiz list */
   .lesson-menu {
     border: 1px solid var(--rule);
@@ -774,6 +861,14 @@
   .phone #deckScreen { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
   .phone #deckScreen footer { margin-top: 0; }
   .phone.typing #quizControls { display: none; }
+  /* The approved look: phones move on by swipe, and the Next control stays
+     for screen readers, switches and keyboards only, not drawn on screen
+     (external review form, Oct 30, 2026). */
+  .phone.lr-look #quizControls, .phone.lr-look.typing #quizControls {
+    display: flex; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; box-shadow: none;
+  }
+  .phone.lr-look #quizControls[hidden] { display: none; }
 
   /* Exercise Decks (Quiz only): the exercise's instruction, the question,
      tappable answer options, and the answer on the back. */
@@ -1451,7 +1546,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "5009c3333cb5";
+  const DECK_VERSION = "94a1d98dfd74";
   const DECK_PAGE = "Lesson XIII Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -1831,6 +1926,11 @@
     return out;
   }
 
+  // A meaning is asked once its lesson is taught: a card joining two Latin
+  // words asks the later word's meanings from its lesson on (D, Oct 30, 2026).
+  function meaningOn(card, m) {
+    return !LESSONS || !card.meaningLessons || !(card.meaningLessons[m] > currentLesson);
+  }
   function judgeMeanings(cardIdx, lines) {
     const card = CARDS[cardIdx];
     const pieces = meaningPieces(lines);
@@ -1847,7 +1947,7 @@
     }
     function ownHits(toks, loose) {
       const hits = [];
-      card.keyTerms.forEach(function (list, m) { if (listHit(list, toks, loose)) hits.push(m); });
+      card.keyTerms.forEach(function (list, m) { if (meaningOn(card, m) && listHit(list, toks, loose)) hits.push(m); });
       return hits;
     }
     const rows = pieces.map(function (p) {
@@ -1881,7 +1981,7 @@
     const got = owner.map(function (r) { return r >= 0; });
     const mixedRow = rows.find(function (r) { return r.other; });
     const mixed = mixedRow ? mixedRow.other : null;
-    return { ok: got.every(Boolean) && !mixed, mixed: mixed, got: got, rows: rows };
+    return { ok: got.every(function (g, m) { return g || !meaningOn(card, m); }) && !mixed, mixed: mixed, got: got, rows: rows };
   }
 
   // Exercise Decks: a tapped option is right when it is the answer; a typed
@@ -2225,8 +2325,99 @@
   // that v1 record is newer and is moved again. Records moved are written
   // to v2 at once; "from" is written last, so a move that fails partway is
   // simply run again next time.
+  // One card per form (Lesson Filter release, Oct 30, 2026): a deck with a key
+  // table moves each record through card keys. An old position goes to the key
+  // it had (card-keys.json, frozen when records moved to keys); an old key goes
+  // to its new cards (key-table.json), once, filling only cards the student
+  // has no record of. A joined card starts as Know It only when every card it
+  // joins was Know It. A Learn pass or quiz under way keeps its length: each
+  // old card becomes its first new card there.
+  const KEY_TABLE = DECK.keyTable || null, FROZEN_KEYS = DECK.frozenKeys || [];
+  function v1Key(i) { i = +i; return Number.isInteger(i) && i >= 0 && i < FROZEN_KEYS.length ? FROZEN_KEYS[i] : null; }
+  function asKey(k) { return typeof k === "string" && k ? k : null; }
+  function splitCopy(rec) {
+    if (!KEY_TABLE) return false;
+    const from = KEY_TABLE.from, needAll = KEY_TABLE.needAll || {};
+    const has = function (o, k) { return Object.prototype.hasOwnProperty.call(from, k) && o !== false; };
+    let changed = false;
+    const K = new Set(Array.isArray(rec.known) ? rec.known : []), L = new Set(Array.isArray(rec.learning) ? rec.learning : []);
+    const oldK = new Set(), oldL = new Set();
+    K.forEach(function (k) { if (has(true, k)) oldK.add(k); });
+    L.forEach(function (k) { if (has(true, k)) oldL.add(k); });
+    if (oldK.size || oldL.size) {
+      changed = true;
+      const targets = new Set();
+      oldK.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      oldL.forEach(function (k) { from[k].forEach(function (t) { targets.add(t); }); });
+      targets.forEach(function (t) {
+        if (K.has(t) && !oldK.has(t) || L.has(t) && !oldL.has(t)) return; // the student's own mark on the new card stands
+        const srcs = Object.keys(from).filter(function (o) { return from[o].indexOf(t) >= 0 && (oldK.has(o) || oldL.has(o)); });
+        let knowIt;
+        if (needAll[t]) knowIt = needAll[t].every(function (o) { return o && oldK.has(o) && !oldL.has(o); });
+        else knowIt = srcs.every(function (o) { return oldK.has(o); });
+        if (knowIt) { K.add(t); L.delete(t); } else { L.add(t); K.delete(t); }
+      });
+      oldK.forEach(function (k) { if (from[k].indexOf(k) < 0) K.delete(k); });
+      oldL.forEach(function (k) { if (from[k].indexOf(k) < 0) L.delete(k); });
+      // An old key that is also a new card (CAD stays CAD) keeps its own mark.
+      rec.known = Array.from(K); rec.learning = Array.from(L);
+    }
+    function spread(o, copy) {
+      if (!o || typeof o !== "object") return o;
+      Object.keys(o).forEach(function (k) {
+        if (!has(true, k)) return;
+        from[k].forEach(function (t) { if (t !== k && !Object.prototype.hasOwnProperty.call(o, t)) o[t] = copy(o[k]); });
+        if (from[k].indexOf(k) < 0) delete o[k];
+        changed = true;
+      });
+      return o;
+    }
+    const same = function (v) { return v && typeof v === "object" ? Object.assign({}, v) : v; };
+    if (rec.marks) spread(rec.marks, same);
+    if (rec.spacing && rec.spacing.miss) spread(rec.spacing.miss, same);
+    // The card an old one becomes in a pass or quiz: the same key, else the one
+    // its key begins with (IN-not becomes IN), else the first.
+    function first(k) {
+      if (!has(true, k)) return k;
+      changed = true;
+      const to = from[k];
+      if (to.indexOf(k) >= 0) return k;
+      const pre = to.filter(function (t) { return k.indexOf(t + "-") === 0; });
+      return pre.length ? pre[0] : to[0];
+    }
+    function uniq(a) { return Array.isArray(a) ? a.map(first).filter(function (x, i, arr) { return arr.indexOf(x) === i; }) : a; }
+    if (rec.pass) ["list", "seen", "marked"].forEach(function (f) { rec.pass[f] = uniq(rec.pass[f]); });
+    function quizKeys(q) {
+      if (!q || typeof q !== "object") return;
+      if (Array.isArray(q.order)) q.order = q.order.map(first);
+      ["list", "right", "asked", "missedLast"].forEach(function (f) { q[f] = uniq(q[f]); });
+      if (q.next && Array.isArray(q.next.order)) q.next.order = q.next.order.map(first);
+    }
+    quizKeys(rec.quiz);
+    if (rec.quizzes) Object.keys(rec.quizzes).forEach(function (k) { quizKeys(rec.quizzes[k]); });
+    return changed;
+  }
+  // Code added later (the Practice Cards build) registers here to run once per
+  // load, after the split copy: fn({ sl, keyMap, state }).
+  const SPLIT_HOOKS = [];
+  function afterSplitCopy(fn) { if (typeof fn === "function") SPLIT_HOOKS.push(fn); }
+  // An element in an answer box (CID-, "cid") to its card, and every card of a
+  // glossary entry: shared by Latin Roots and, later, the Exercise decks.
+  const CARD_BY_SPELLING = {};
+  CARDS.forEach(function (c, i) { (c.spellings || []).forEach(function (sp) { const k = sp.toUpperCase(); if (!(k in CARD_BY_SPELLING)) CARD_BY_SPELLING[k] = i; }); });
+  function cardFor(element) {
+    const k = String(element || "").toUpperCase().replace(/[^A-Z]/g, "");
+    return Object.prototype.hasOwnProperty.call(CARD_BY_SPELLING, k) ? CARD_BY_SPELLING[k] : -1;
+  }
+  function cardsForEntry(gloss) {
+    const out = [];
+    CARDS.forEach(function (c, i) { if (c.gloss === gloss || (c.glosses || []).indexOf(gloss) >= 0) out.push(i); });
+    return out;
+  }
+
   function readStores(sl) {
     const k1 = storageKeys(sl, "v1"), k2 = storageKeys(sl, "v2");
+    if (KEY_TABLE) return readStoresByKey(sl, k1, k2);
     let from = null;
     try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
     if (!from || typeof from !== "object") from = null;
@@ -2253,6 +2444,44 @@
         localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
       } catch (e) { /* storage full or blocked: carry on with what was read */ }
     }
+    return out;
+  }
+
+  // readStores for a deck with a key table: every record is read as keys, the
+  // split copy runs, and records changed are written back to v2 at once.
+  function readStoresByKey(sl, k1, k2) {
+    let from = null;
+    try { from = JSON.parse(localStorage.getItem(k2.from) || "null"); } catch (e) { from = null; }
+    if (!from || typeof from !== "object") from = null;
+    const rec = {}, moved = {};
+    STORES.forEach(function (s) {
+      let raw1 = null;
+      try { raw1 = localStorage.getItem(k1[s]); } catch (e) { raw1 = null; }
+      const h = rawHash(raw1);
+      try {
+        if (from && from[s] === h) rec[s] = convertStore(s, JSON.parse(localStorage.getItem(k2[s]) || "null"), asKey);
+        else { rec[s] = convertStore(s, JSON.parse(raw1 || "null"), v1Key); moved[s] = h; }
+      } catch (e) { rec[s] = null; }
+    });
+    // The split copy runs once per student for each key table, so a mark the
+    // student makes later on a new card is never undone by it.
+    const doneKey = ID + "_splitDone_v2__" + sl, tableHash = rawHash(JSON.stringify(KEY_TABLE));
+    let done = null;
+    try { done = localStorage.getItem(doneKey); } catch (e) { done = null; }
+    const split = done === tableHash ? false : splitCopy(rec);
+    const out = {};
+    STORES.forEach(function (s) { out[s] = convertStore(s, rec[s], fromKey); });
+    if ((split || Object.keys(moved).length) && !presenterMode) {
+      try {
+        STORES.forEach(function (s) {
+          if (!split && !(s in moved)) return;
+          if (out[s] == null) localStorage.removeItem(k2[s]);
+          else localStorage.setItem(k2[s], JSON.stringify(convertStore(s, out[s], toKey)));
+        });
+        localStorage.setItem(k2.from, JSON.stringify(Object.assign({}, from || {}, moved)));
+      } catch (e) { /* storage full or blocked: carry on with what was read */ }
+    }
+    if (done !== tableHash && !presenterMode) { try { localStorage.setItem(doneKey, tableHash); } catch (e) { /* blocked */ } }
     return out;
   }
 
@@ -2348,8 +2577,11 @@
       }
     } catch (e) { /* storage unavailable, proceed without persistence */ }
     if (!hadRecord) carryOverLegacy();
+    SPLIT_HOOKS.forEach(function (fn) {
+      try { fn({ sl: currentSlug, keyMap: KEY_TABLE ? KEY_TABLE.from : {}, state: { known: known, learning: learningMarked, marks: markSrc } }); }
+      catch (e) { /* a hook that fails leaves the records as they are */ }
+    });
     remarkSaved();
-    applyFromPractice();
     // A pass left unfinished on an earlier visit is reported now.
     if (learnPass && Date.now() - learnPass.last > PASS_IDLE_MS) endPassUnfinished();
   }
@@ -2865,7 +3097,7 @@
 
   function resetLines(values) {
     moreLines.innerHTML = "";
-    const v = values && values.length ? values : [""];
+    const v = Array.isArray(values) && values.length ? values : typeof values === "string" && values ? [values] : [""];
     answerInput.value = v[0];
     v.slice(1).forEach(function (x) { addLine(x, false); });
   }
@@ -2917,7 +3149,11 @@
   // the answer is checked.
   function fillMeanings(node, item, res) {
     node.innerHTML = "";
-    const groups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    const allGroups = item.meaningGroups || (item.meanings || []).map(function (m) { return [m]; });
+    // Only the meanings taught so far (a joined card's later meanings wait for their lesson).
+    const shown = allGroups.map(function (_, k) { return k; }).filter(function (k) { return meaningOn(item, k); });
+    const groups = shown.map(function (k) { return allGroups[k]; });
+    if (res && res.got) res = Object.assign({}, res, { got: shown.map(function (k) { return res.got[k]; }) });
     const n = groups.length;
     const got = res && res.got ? res.got.filter(Boolean).length : 0;
     node.appendChild(el("div", "sense-count", (res && res.got ? got + " of " + n : n) + " meaning" + (n === 1 ? "" : "s")));
@@ -2982,6 +3218,7 @@
   function onTab(i, key) {
     if (key === "missed") return !!breakFor && breakFor.cards.indexOf(i) >= 0;
     if (!inLearn(i)) return false;
+    if (catsOn && !catsOn.has(CARDS[i].cat)) return false;
     if (key === "learning") return learningMarked.has(i);
     return key === "all" || CARDS[i].cat === key;
   }
@@ -3103,6 +3340,7 @@
 
     statusText.textContent = knownShown() + " of " + shownTotal() + " known";
     progressFill.style.width = (shownTotal() ? knownShown() / shownTotal() * 100 : 0) + "%";
+    drawMeter(list);
 
     if (list.length === 0) {
       // Nothing matches the current filter (e.g. "Still Learning" with
@@ -3127,6 +3365,7 @@
 
     knownBtn.disabled = false;
     learningBtn.disabled = false;
+    clearIntro();
 
     if (pos >= list.length) pos = 0;
     if (pos < 0) pos = list.length - 1;
@@ -3149,11 +3388,19 @@
 
     prevBtn.disabled = list.length <= 1;
     nextBtn.disabled = list.length <= 1;
+    if (LOOK && introPending) {
+      showIntro(learnIntro());
+      knownBtn.disabled = true;
+      learningBtn.disabled = true;
+      cardEl.classList.remove("flipped");
+      return;
+    }
 
     notePassVisit(list);
   }
 
   function flip() {
+    if (dismissIntro()) return;
     if (mode !== "learn" || currentList().length === 0) return;
     flipped = !flipped;
     cardEl.classList.toggle("flipped", flipped);
@@ -3311,6 +3558,7 @@
   }
 
   function goNext(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn") return;
     if (list.length === 0) { maybeSendLearnPass(); return; }  // the last card left Still Learning
@@ -3325,6 +3573,7 @@
   }
 
   function goPrev(speed) {
+    if (LOOK && introPending && mode === "learn") { dismissIntro(); return; }
     const list = currentList();
     if (mode !== "learn" || list.length === 0) return;
     slideCard(-1, function () {
@@ -3560,6 +3809,14 @@
       // The attempt and the quiz's full size, so the dashboard can tell when
       // every card has been answered right across rounds (Dashboard Desk, Oct 30).
       if (rules) { row.at = quiz.attempt; row.of = quiz.list.length; }
+      // A card missed in three rounds of one attempt is marked "stuck": 1, so
+      // the dashboard alerts the teacher, whose re-mark lets the attempt finish
+      // (external review form, Oct 30, 2026).
+      if (rules && !row.pad && !row.r) {
+        quiz.misses = quiz.misses || {};
+        quiz.misses[i] = (quiz.misses[i] || 0) + 1;
+        if (quiz.misses[i] >= 3) row.stuck = 1;
+      }
       return row;
     }).filter(Boolean);
     const counted = answers.filter(function (x) { return !x.pad; });
@@ -3567,7 +3824,7 @@
       passMode: "quiz round " + quiz.round + (QUIZ_BY_SET && quiz.set !== "all" ? " (" + setLabel(quiz.set) + ")" : ""),
       passCorrect: roundScore(),
       passSize: counted.length,
-      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; return o; }),
+      results: answers.map(function (x) { const o = { i: x.i, r: x.r }; if (SEND_KEYS) o.e = x.e; if (x.pad) o.pad = 1; if (x.t) o.t = x.t; if (x.stuck) o.stuck = 1; return o; }),
       attempt: rules ? { id: quiz.attempt, size: quiz.size, right: quiz.right.length } : undefined,
       lesson: quiz.lesson,
       answers: answers,
@@ -4083,6 +4340,11 @@
     quizCounter.textContent = (quiz.pos + 1) + " / " + quiz.order.length;
     if (presenterMode) statusText.innerHTML = '<span class="teacher-pill">Teacher</span>' + esc(statusText.textContent);
     setQuizNav(ans);
+    if (LOOK) {
+      cardEl.classList.toggle("lr-locked", !!ans && !ans.ok && !presenterMode);
+      if (quizIntroPending && quiz.round === 1 && quiz.pos === 0 && !ans && !first && !presenterMode) showIntro(quizIntro());
+      else clearIntro();
+    }
   }
 
   // ---------- Teacher mode in a quiz: leaf, flip, jump, try an answer ----------
@@ -4314,6 +4576,25 @@
     scoreEl.className = "panel-score";
     scoreEl.textContent = score + " / " + size;
 
+    if (quiz.phase === "between" && LOOK && !presenterMode && Array.isArray(quiz.list)) {
+      const missedN = size - score;
+      statusText.textContent = "Round " + quiz.round + " complete";
+      const end = el("div", "lr-end");
+      const dots = el("div", "lr-end-dots");
+      dots.setAttribute("role", "img");
+      dots.setAttribute("aria-label", "Round " + quiz.round + ": " + score + " of " + size + " right");
+      countedPositions().forEach(function (k) { const a = quiz.answers[k]; dots.appendChild(el("i", a && a.ok ? "ok" : "miss")); });
+      end.appendChild(dots);
+      const next = "Start Round " + (quiz.round + 1);
+      if (missedN && !quiz.breakDone && Array.isArray(quiz.missedLast) && quiz.missedLast.length) {
+        end.appendChild(panelButton("lr-start", "Learn Missed Cards", startBreak));
+        end.appendChild(panelButton("lr-skip", next + " without it", startNextRound));
+      } else end.appendChild(panelButton("lr-start", next, startNextRound));
+      quizPanel.appendChild(end);
+      const b = end.querySelector("button");
+      if (b) b.focus();
+      return;
+    }
     if (quiz.phase === "between") {
       const missed = size - score;
       statusText.textContent = "Round " + quiz.round + " complete";
@@ -4349,7 +4630,7 @@
       quizPanel.appendChild(copy);
       actions.appendChild(panelButton("nav-btn", "Take the quiz again", startQuiz));
       if (!EXERCISE) actions.appendChild(panelButton("secondary-btn", "Back to Learn", function () {
-        if (QUIZ_BY_SET) delete quizzes[quiz.set];
+        if (QUIZ_BY_SET && !LESSONS) delete quizzes[quiz.set];
         quiz = null;
         saveQuiz();
         setMode("learn");
@@ -4474,6 +4755,7 @@
   }
 
   function quizNext(speed) {
+    if (dismissIntro()) return;
     if (!quiz || quiz.phase !== "card" || sliding) return;
     if (presenterMode) {
       if (quiz.pos < quiz.order.length - 1) { teacherMoveTo(quiz.pos + 1, 1, speed); return; }
@@ -4557,6 +4839,14 @@
     });
     addFromPractice(out);
   }
+  // An element card's meanings taught by the current lesson, as Latin Roots shows them.
+  function practiceMeanings(c) {
+    const all = c.meanings || [];
+    const shown = all.filter(function (m) { return typeof m === "string" || !(m.l > currentLesson); });
+    return (shown.length ? shown : all.slice(0, 1)).map(function (m) { return typeof m === "string" ? m : m.t; });
+  }
+  // On opening, the list runs in the shared step after the split copy.
+  afterSplitCopy(function () { applyFromPractice(); });
   // Latin Roots: apply the list, then clear it. Returns true if anything changed.
   function applyFromPractice() {
     if (ID !== LATIN_ROOTS_ID || presenterMode) return false;
@@ -4564,15 +4854,25 @@
     try { list = JSON.parse(localStorage.getItem(ID + "_fromPractice_v2__" + currentSlug) || "[]"); } catch (e) { return false; }
     if (!Array.isArray(list) || !list.length) return false;
     const keep = [];  // entries no card takes yet stay for a later release
+    const from = (KEY_TABLE && KEY_TABLE.from) || {};
     list.forEach(function (e) {
-      const i = e ? fromKey(e.k) : -1;
-      if (i < 0) { if (e && e.k) keep.push(e); return; }
-      // A mark made in Latin Roots after this one stands (external review, Oct 30, 2026).
-      if (markSrc[i] && typeof markSrc[i].t === "number" && typeof e.t === "number" && markSrc[i].t > e.t) return;
-      if (e.m === "known") { known.add(i); learningMarked.delete(i); }
-      else if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
-      else return;
-      markSrc[i] = { s: "learn", d: localDay(), t: typeof e.t === "number" ? e.t : Date.now() };
+      if (!e || !e.k) return;
+      // A key from before one card per form goes to its new cards (key table);
+      // a Know It never reaches a joined card from one of its old cards alone.
+      let targets = [fromKey(e.k)].filter(function (i) { return i >= 0; });
+      if (!targets.length && Object.prototype.hasOwnProperty.call(from, e.k)) {
+        targets = from[e.k].map(fromKey).filter(function (i) { return i >= 0; });
+        if (e.m === "known") targets = targets.filter(function (i) { return !(KEY_TABLE.needAll || {})[CARDS[i].k]; });
+      }
+      if (!targets.length) { keep.push(e); return; }
+      targets.forEach(function (i) {
+        // A mark made in Latin Roots after this one stands (external review, Oct 30, 2026).
+        if (markSrc[i] && typeof markSrc[i].t === "number" && typeof e.t === "number" && markSrc[i].t > e.t) return;
+        if (e.m === "known") { known.add(i); learningMarked.delete(i); }
+        else if (e.m === "learning") { known.delete(i); learningMarked.add(i); }
+        else return;
+        markSrc[i] = { s: "learn", d: localDay(), t: typeof e.t === "number" ? e.t : Date.now() };
+      });
     });
     saveKnown(); saveLearning(); saveMarkSrc();
     try {
@@ -4732,7 +5032,7 @@
     } else {
       const back = document.createElement("div");
       back.className = "practice-back";
-      back.innerHTML = '<div class="meaning">' + (c.meanings || []).map(esc).join("<br>") + "</div>" +
+      back.innerHTML = '<div class="meaning">' + practiceMeanings(c).map(esc).join("<br>") + "</div>" +
         (c.origin ? '<div class="examples"><span class="examples-label">Examples </span>' + esc(c.origin) + "</div>" : "");
       practiceView.appendChild(back);
       const row = document.createElement("div");
@@ -4754,6 +5054,8 @@
   function startBreak() {
     if (!quiz || !Array.isArray(quiz.missedLast) || !quiz.missedLast.length) return;
     breakFor = { set: quiz.set || "all", round: quiz.round, cards: quiz.missedLast.slice() };
+    quiz.breakDone = true;
+    saveQuiz();
     setMode("learn");
     if (learnPass) endPassUnfinished();
     filter = "missed";
@@ -4783,7 +5085,8 @@
 
   function skipCard() {
     const k = quiz.pos, idx = quiz.order[k], first = quiz.first && quiz.first[k];
-    quiz.answers[k] = { a: first ? first.a : "", ok: false, mixed: null, skipped: 1 };
+    const blank = MEANINGS || (EXERCISE && hasBoxes(CARDS[idx])) ? [] : "";
+    quiz.answers[k] = { a: first ? first.a : blank, ok: false, mixed: null, skipped: 1 };
     if (!isReview(k)) {
       known.delete(idx); learningMarked.add(idx);
       noteMark(idx, "quiz");
@@ -4792,6 +5095,207 @@
     }
     if (quiz.answers.every(Boolean)) sendQuizRound();
     saveQuiz();
+  }
+
+
+  // ---------- The Latin Roots look (approved Oct 30, 2026, round 9) ----------
+  // One row with the lesson menu; one row of Prefix, Base and Suffix (each on
+  // or off) with Shuffle and Reset as icons; a bar of Still Learning, Know It
+  // and not yet sorted, with a tick at the place in the deck. Tapping the bar
+  // shows the Still Learning cards, and tapping it again goes back.
+  const LOOK = LESSONS;
+  let catsOn = null;        // the card types shown in Learn (all, at first)
+  let resetArmed = 0;
+  let lrMeter = null;
+  function buildLook() {
+    if (!LOOK) return;
+    document.documentElement.classList.add("lr-look");
+    catsOn = new Set(CATEGORIES.map(function (c) { return c.key; }));
+    const toolbar = document.querySelector("#deckScreen .toolbar");
+    const row1 = el("div", "lr-row lr-learn");
+    row1.appendChild(lessonMenu);
+    const row2 = el("div", "lr-row lr-learn");
+    row2.setAttribute("role", "group");
+    row2.setAttribute("aria-label", "Cards shown");
+    const ORDER = ["prefix", "base", "suffix"], NAMES = { prefix: "Prefix", base: "Base", suffix: "Suffix" };
+    CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).forEach(function (c) {
+      const b = el("button", "lr-chip", NAMES[c.key] || c.label);
+      b.type = "button";
+      b.dataset.cat = c.key;
+      b.setAttribute("aria-pressed", "true");
+      b.addEventListener("click", function () {
+        const on = catsOn.has(c.key);
+        if (on && catsOn.size === 1) return; // one type stays on
+        if (on) catsOn.delete(c.key); else catsOn.add(c.key);
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        learnViewChanged();
+      });
+      row2.appendChild(b);
+    });
+    const sh = el("button", "lr-icon", "⤮");
+    sh.type = "button"; sh.title = "Shuffle"; sh.setAttribute("aria-label", "Shuffle");
+    sh.addEventListener("click", shuffle);
+    const rs = el("button", "lr-icon", "↺");
+    rs.type = "button"; rs.title = "Reset progress"; rs.setAttribute("aria-label", "Reset progress");
+    let tip = null;
+    function disarm() { resetArmed = 0; rs.classList.remove("armed"); rs.setAttribute("aria-label", "Reset progress"); if (tip) { tip.remove(); tip = null; } }
+    rs.addEventListener("click", function () {
+      if (!resetArmed) {
+        resetArmed = setTimeout(disarm, 4000);
+        rs.classList.add("armed");
+        rs.setAttribute("aria-label", "Tap again to reset progress");
+        tip = el("div", "lr-tip", "Tap ↺ again to reset");
+        tip.setAttribute("role", "status");
+        row2.appendChild(tip);
+        return;
+      }
+      clearTimeout(resetArmed);
+      disarm();
+      resetBtn.click();
+    });
+    row2.appendChild(sh);
+    row2.appendChild(rs);
+    lrMeter = el("button", "lr-meter lr-learn");
+    lrMeter.type = "button";
+    lrMeter.setAttribute("aria-pressed", "false");
+    lrMeter.addEventListener("click", function () {
+      const going = filter !== "learning";
+      lrMeter.setAttribute("aria-pressed", going ? "true" : "false");
+      filter = going ? "learning" : "all";
+      learnViewChanged();
+    });
+    toolbar.parentNode.insertBefore(row1, toolbar);
+    toolbar.parentNode.insertBefore(row2, toolbar);
+    toolbar.parentNode.insertBefore(lrMeter, toolbar);
+    // The break's way back to the quiz sits above the bar.
+    const back = document.getElementById("breakBackBtn");
+    back.className = "lr-back";
+    toolbar.parentNode.insertBefore(back, row2);
+    learningBtn.textContent = "Still Learning";
+    knownBtn.textContent = "Know It";
+  }
+
+  // The opening page (approved look): the title, an Updated Version button when
+  // there is one, the instructor's notice, what the deck holds, the student's
+  // name with Switch, and Start. A student with no name on this device sees
+  // the name page instead.
+  let openScreen = null;
+  function buildOpen() {
+    if (!LOOK) return;
+    openScreen = el("div", "wrap lr-open");
+    openScreen.id = "openScreen";
+    openScreen.hidden = true;
+    gateScreen.parentNode.insertBefore(openScreen, gateScreen.nextSibling);
+  }
+  function deckInfoLines() {
+    const ls = shownLessons();
+    const ORDER = ["prefix", "base", "suffix"];
+    const kinds = CATEGORIES.slice().sort(function (a, b) { return ORDER.indexOf(a.key) - ORDER.indexOf(b.key); }).map(function (c) { return c.label.toLowerCase(); });
+    const lines = [];
+    if (kinds.length) lines.push(kinds.length > 1 ? kinds.slice(0, -1).join(", ") + " and " + kinds[kinds.length - 1] : kinds[0]);
+    if (lines.length) lines[0] = lines[0].charAt(0).toUpperCase() + lines[0].slice(1);
+    if (ls.length) lines.push(lessonRange(ls[0], ls[ls.length - 1]));
+    return lines;
+  }
+  function renderOpen() {
+    if (!openScreen || openScreen.hidden) return;
+    openScreen.innerHTML = "";
+    openScreen.appendChild(el("h1", "title-tap", DECK.heading || DECK.title));
+    if (newVersion) {
+      const u = el("button", "lr-update", '<span aria-hidden="true">↻</span> Updated Version Available');
+      u.type = "button";
+      u.setAttribute("aria-label", "Updated version available. Tap to load it");
+      u.addEventListener("click", function () { document.getElementById("updateReloadBtn").click(); });
+      openScreen.appendChild(u);
+    }
+    const t = typeof settings.notice === "string" ? settings.notice.trim() : "";
+    if (t) {
+      const n = el("div", "lr-notice");
+      n.appendChild(el("span", "pin", "📌")).setAttribute("aria-hidden", "true");
+      n.appendChild(el("span", "sr-only", "From your instructor: "));
+      n.appendChild(document.createTextNode(t));
+      openScreen.appendChild(n);
+    }
+    const mid = el("div", "lr-mid");
+    deckInfoLines().forEach(function (line) { mid.appendChild(el("p", "lr-info", line)); });
+    openScreen.appendChild(mid);
+    const foot = el("div", "lr-foot");
+    const who = el("div", "lr-who");
+    who.appendChild(el("span", "", nameInput.value.trim()));
+    const sw = el("button", "", "Switch");
+    sw.type = "button";
+    sw.setAttribute("aria-label", "Switch student");
+    sw.addEventListener("click", function () { openScreen.hidden = true; nameInput.value = ""; gateScreen.hidden = false; nameInput.focus(); });
+    who.appendChild(sw);
+    foot.appendChild(who);
+    const go = el("button", "lr-start", "Start");
+    go.type = "button";
+    go.addEventListener("click", function () { openScreen.hidden = true; startDeck(); });
+    foot.appendChild(go);
+    openScreen.appendChild(foot);
+  }
+  function showOpen() {
+    if (!openScreen || !nameInput.value.trim() || location.hash === "#teacher") return;
+    gateScreen.hidden = true;
+    openScreen.hidden = false;
+    renderOpen();
+  }
+
+
+  // The instruction card (approved look): the first card after Start in Learn,
+  // and the first card of a quiz, show how the deck works instead of a word.
+  let introPending = false, quizIntroPending = false;
+  function steps(list) {
+    return list.map(function (x) { return '<span class="ic ' + x[0] + '" aria-hidden="true">' + (x[1] || "") + "</span><p>" + x[2] + "</p>"; }).join("");
+  }
+  function learnIntro() {
+    return TOUCH
+      ? steps([["card", "", "Tap a card to turn it over."], ["sw", "⇠", "Swipe left for the next card."], ["sw", "⇢", "Swipe right to go back."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Tap the bar to review Still Learning cards."]])
+      : steps([["key", "␣", "Click a card or press Space to turn it over."], ["sw", "← →", "Use the arrow keys, or Prev and Next, to move."],
+          ["sort", "<i></i><i></i>", "Sort each card: Still Learning or Know It."], ["bar", "<i></i><i></i><i></i>", "Click the bar to review Still Learning cards."]]);
+  }
+  function quizIntro() {
+    return steps([["box", "", MEANINGS ? "Type each meaning on its own line." : "Type your answer."],
+      ["ck", "✓", (TOUCH ? "Tap" : "Click") + " Check. You have two tries."],
+      ["sw", TOUCH ? "⇠" : "→", TOUCH ? "Swipe on to skip; the card counts as missed." : "Press → or Skip to skip; the card counts as missed."]])
+      + "<p style=\"grid-column:1/-1;text-align:center;margin-top:8px\">" + (TOUCH ? "Tap" : "Click") + " to begin.</p>";
+  }
+  function showIntro(html) {
+    termFront.className = "lr-instr";
+    termFront.innerHTML = html;
+    cardEl.classList.add("lr-first");
+  }
+  function clearIntro() {
+    cardEl.classList.remove("lr-first");
+    termFront.className = termFront.dataset.cls || "term";
+  }
+  function dismissIntro() {
+    if (mode === "learn" && introPending) { introPending = false; clearIntro(); render(); return true; }
+    if (mode === "quiz" && quizIntroPending && cardEl.classList.contains("lr-first")) { quizIntroPending = false; clearIntro(); render(); if (needsTyping()) answerInput.focus(); return true; }
+    return false;
+  }
+
+  function learnViewChanged() {
+    cancelSlides();
+    if (learnPass) endPassUnfinished();
+    pos = 0;
+    flipped = false;
+    if (DECK.shufflePasses && mode === "learn") reshuffleTab();
+    render();
+  }
+  // The bar: shares of the cards in view, and the place in the list.
+  function drawMeter(list) {
+    if (!lrMeter) return;
+    const inView = CARDS.map(function (_, i) { return i; }).filter(function (i) { return onTab(i, "all"); });
+    const n = inView.length || 1;
+    const L = inView.filter(function (i) { return learningMarked.has(i); }).length;
+    const K = inView.filter(function (i) { return known.has(i); }).length;
+    const at = list.length ? (pos + 0.5) / list.length : 0;
+    lrMeter.innerHTML = '<span class="lr-track"><span class="l" style="width:' + (100 * L / n) + '%"></span><span class="k" style="width:' + (100 * K / n) +
+      '%"></span><span class="u"></span></span><span class="lr-tick" style="left:' + (100 * at) + '%"></span>';
+    lrMeter.setAttribute("aria-label", "Card " + (list.length ? pos + 1 : 0) + " of " + list.length + ". " + L + " still learning, " + K + " known, " + (inView.length - L - K) +
+      " not yet sorted. " + (filter === "learning" ? "Showing Still Learning cards; tap to show all." : "Tap to review the Still Learning cards."));
   }
 
   // ---------- Lessons decks: lesson menu, notice, quiz list, settings ----------
@@ -4858,7 +5362,64 @@
 
   // The Quiz tab of a lessons deck: the required quizzes, the quiz on every
   // lesson so far, then each lesson's quiz, newest first.
+  // The Quiz tab in the approved look: a column per direction, headed once;
+  // each circle is its own button (empty, part filled as cards are answered
+  // right, or ticked when done); the due quiz first, with its date.
+  const DIRS = [{ key: "", label: "Latin \u2192<br>English", name: "Latin to English" }];
+  function markFor(key) {
+    const q = quizzes[key];
+    const m = el("span", "lr-mark");
+    if (!q) return { m: m, state: "to do" };
+    if (q.phase === "done" || quizAllRight(q)) { m.classList.add("done"); m.textContent = "\u2713"; return { m: m, state: "done" }; }
+    const share = Array.isArray(q.list) && q.list.length ? q.right.length / q.list.length : 0;
+    m.classList.add("started");
+    m.style.background = "conic-gradient(var(--navy) " + Math.round(share * 360) + "deg, transparent 0)";
+    return { m: m, state: "started, " + Math.round(share * 100) + "% right" };
+  }
+  function renderQuizLook() {
+    stage.hidden = true;
+    quizControls.hidden = true;
+    quizPanel.hidden = false;
+    quizPanel.innerHTML = "";
+    const head = el("div", "lr-qhead");
+    head.setAttribute("aria-hidden", "true");
+    const hd = el("span", "lr-dirs");
+    DIRS.forEach(function (d) { const b = el("b"); b.innerHTML = d.label; hd.appendChild(b); });
+    head.appendChild(hd);
+    quizPanel.appendChild(head);
+    const list = el("div", "quiz-list");
+    function row(key, label, due) {
+      const r = el("div", "lr-qrow" + (due ? " due" : ""));
+      const name = el("span", "lr-qname", label);
+      if (due) name.appendChild(el("span", "lr-due", due));
+      r.appendChild(name);
+      const dirs = el("span", "lr-dirs");
+      DIRS.forEach(function (d) {
+        const mk = markFor(key + d.key);
+        const b = el("button", "lr-dir");
+        b.type = "button";
+        b.dataset.set = key + d.key;
+        b.setAttribute("aria-label", label + ", " + d.name + ", " + mk.state);
+        b.appendChild(mk.m);
+        b.addEventListener("click", function () { openQuizSet(key + d.key); });
+        dirs.appendChild(b);
+      });
+      r.appendChild(dirs);
+      list.appendChild(r);
+    }
+    const req = requiredQuizzes();
+    if (req.length) {
+      list.appendChild(el("div", "quiz-list-head", "Due"));
+      req.forEach(function (r) { row(r.key, lessonRange(r.from, r.to), dueText(r.due).replace(/^due /, "")); });
+    }
+    const ls = shownLessons();
+    if (ls.length) row("all", lessonRange(ls[0], currentLesson));
+    ls.slice().reverse().forEach(function (n) { row("L" + n, lessonRange(n, n)); });
+    quizPanel.appendChild(list);
+  }
+
   function renderQuizList() {
+    if (LOOK) { renderQuizLook(); return; }
     stage.hidden = true;
     quizControls.hidden = true;
     quizPanel.hidden = false;
@@ -4915,6 +5476,7 @@
     currentLesson = s.currentLesson;
     fillLessonMenu();
     showNotice();
+    renderOpen();
     if (!deckScreen.hidden) render();
   }
   function applyPendingSettings() { if (pendingSettings && !settingsBusy()) applySettings(pendingSettings); }
@@ -4938,6 +5500,8 @@
     learnTabsEl.hidden = mode !== "learn" && (!QUIZ_BY_SET || LESSONS);
     learnTools.hidden = mode !== "learn";
     practiceTools.hidden = !(PRACTICE_ON && !presenterMode && mode === "quiz");
+    document.querySelectorAll(".lr-learn").forEach(function (n) { n.hidden = mode !== "learn"; });
+    if (LOOK) document.querySelector(".progress-track").classList.toggle("lr-hide", mode === "learn");
     document.getElementById("breakBackBtn").hidden = !(mode === "learn" && filter === "missed");
     learnControls.hidden = mode !== "learn";
     if (mode === "learn") {
@@ -4982,7 +5546,7 @@
       teacherFlipCard();
       return;
     }
-    if (mode !== "learn") return;
+    if (mode !== "learn") { if (!(e.target.closest && e.target.closest("input, textarea, button"))) dismissIntro(); return; }
     if (Date.now() - swipeHandledAt < 500) return;
     flip();
   });
@@ -5269,6 +5833,7 @@
     // Always open in Learn; an unfinished quiz resumes where it stopped
     // when the Quiz tab is tapped. Exercise Decks open the quiz on All.
     showHint = true;
+    introPending = quizIntroPending = LOOK;
     if (EXERCISE) { quiz = quizzes.all || null; setMode("quiz"); return; }
     setMode("learn");
   }
@@ -5547,6 +6112,7 @@
   }
 
   function showUpdateBar() {
+    if (typeof renderOpen === "function") renderOpen();
     if (!newVersion || !updateBar.hidden) return;
     if (!EXERCISE && roundUnderWay()) return;
     updateBar.hidden = false;
@@ -5591,7 +6157,10 @@
   window.addEventListener("hashchange", showScreen);
   showScreen();
   checkDeckVersion();
+  buildLook();
+  buildOpen();
   fillLessonMenu();
+  showOpen();
   showNotice();
   checkSettings();
 </script>

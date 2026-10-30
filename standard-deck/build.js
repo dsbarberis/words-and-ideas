@@ -19,6 +19,8 @@ const COURSE_SETTINGS = JSON.parse(fs.readFileSync(SETTINGS_FILE, "utf8"));
   (s.required || []).forEach(function (r, k) {
     if (!Number.isInteger(r.from) || !Number.isInteger(r.to) || r.from > r.to) throw new Error("course-settings.json: required[" + k + "] needs whole numbers from <= to");
     if (r.due && isNaN(Date.parse(r.due))) throw new Error("course-settings.json: required[" + k + "].due is not a date");
+    // "dirs": which directions the quiz asks, "le" and/or "el"; missing means "le" only (D, Oct 30, 2026).
+    if (r.dirs !== undefined && (!Array.isArray(r.dirs) || !r.dirs.length || r.dirs.some(function (d) { return d !== "le" && d !== "el"; }))) throw new Error("course-settings.json: required[" + k + "].dirs must list \"le\" and/or \"el\"");
   });
   if (s.notice != null && typeof s.notice !== "string") throw new Error("course-settings.json: notice must be text");
 })(COURSE_SETTINGS);
@@ -29,24 +31,43 @@ const vocabulary = require(path.join(here, "vocabulary.js"));
 const latinRootsKeys = {};
 // Latin Roots cards by glossary key, for the element cards an Exercise deck's
 // Practice mode and practice break show (Practice Cards plan, confirmed Oct 30, 2026).
-const latinRootsCards = {};
+const latinRootsCards = {};  // glossary key -> every Latin Roots card it feeds
 (require(path.join(here, "decks", "latin-roots.js")).cards || []).forEach(function (c) {
   if (c.gloss && Array.isArray(c.keys)) latinRootsKeys[c.gloss] = [].concat.apply([], c.keys);
-  // A card for a spelling shared by two Latin words lists every gloss it covers
-  // (glosses: ["IN-not", "IN-into"]); each of them leads to that one card.
-  (Array.isArray(c.glosses) ? c.glosses : c.gloss ? [c.gloss] : []).forEach(function (g) { latinRootsCards[g] = c; });
+  // One card per Latin form, shared spellings joined (Lesson Filter, Oct 30):
+  // a glossary entry can feed several cards (CAD, CID, CAS) and a card several entries (IN).
+  (Array.isArray(c.glosses) ? c.glosses : c.gloss ? [c.gloss] : []).forEach(function (g) {
+    (latinRootsCards[g] = latinRootsCards[g] || []).push(c);
+  });
 });
-// One element card as the Exercise deck shows it: the Latin Roots card's key
-// (its record name in Latin Roots), forms, meanings, examples, kind and lesson.
-// A joined card shows the meanings of each of its glosses taught by upTo.
-function practiceCard(gloss, upTo) {
-  const c = latinRootsCards[gloss], e = glossary[gloss];
-  if (!c || !e) return null;
-  const gs = Array.isArray(c.glosses) ? c.glosses : [gloss];
-  const taught = gs.filter(function (g) { return glossary[g] && (g === gloss || !upTo || (glossary[g].lessonNo || 0) <= upTo); });
-  const meanings = [].concat.apply([], taught.map(function (g) { return glossary[g].meanings || []; }));
-  return { k: c.id || c.gloss || gloss, word: c.forms || e.forms, meanings: meanings, origin: c.examples || e.examples || "",
-           type: e.kind, lesson: c.lesson || e.lessonNo || 0 };
+// The Latin Roots card for an element as printed on an Exercise card: the
+// entry's card whose spellings hold the printed form, else its first card.
+function spellingOf(label) {
+  return String(label || "").replace(/\([^)]*\)/g, "").toUpperCase().replace(/[^A-Z]/g, "");
+}
+function latinRootsCardFor(gloss, label) {
+  const list = latinRootsCards[gloss];
+  if (!list || !list.length) return null;
+  // Each printed spelling in turn ("TEN-, TAIN-"), then the entry's own head
+  // (IN-into for "en-", AD for "as-"), then the entry's first card.
+  const tries = String(label || "").split(",").map(spellingOf).concat([spellingOf(gloss.split("-").filter(Boolean)[0])]);
+  for (let i = 0; i < tries.length; i++) {
+    const hit = list.find(function (c) { return tries[i] && (c.spellings || []).indexOf(tries[i]) >= 0; });
+    if (hit) return hit;
+  }
+  return list[0];
+}
+function latinRootsKey(c) { return c.k || c.id || c.gloss; }
+// One element card as the Exercise deck shows it: the Latin Roots card's key,
+// forms, examples, kind and lesson, and each meaning with the lesson that
+// teaches it; the deck shows those up to the current lesson, as Latin Roots does.
+function practiceCard(c) {
+  const e = glossary[c.gloss] || {};
+  const groups = Array.isArray(c.groups) ? c.groups : [{ parts: e.meanings || [], lesson: e.lessonNo || 0 }];
+  const meanings = [];
+  groups.forEach(function (g) { (g.parts || []).forEach(function (t) { meanings.push({ t: t, l: g.lesson || 0 }); }); });
+  return { k: latinRootsKey(c), word: c.forms || e.forms, meanings: meanings, origin: c.examples || e.examples || "",
+           type: c.cat || e.kind, lesson: c.lesson || e.lessonNo || 0 };
 }
 const UNCHECKED = "Claude, unchecked";
 
@@ -147,6 +168,20 @@ function resolveGlossary(card, file, deck) {
     out.word = card.forms || entry.forms;
     out.origin = card.examples || entry.examples || "";
     delete out.forms; delete out.examples;
+    if (card.groups) {
+      // A card made from the key-word review (Latin Roots, one card per form):
+      // its distinct meanings come with their key words and the lesson that
+      // teaches each, which may differ on a card joining two Latin words.
+      out.meaningGroups = card.groups.map(function (g) { return g.parts; });
+      out.meanings = card.groups.map(function (g) { return g.parts.join(" or "); });
+      out.keys = card.groups.map(function (g) {
+        if (!g.keys || !g.keys.length) throw new Error(file + ": \"" + card.id + "\" has a meaning with no key words");
+        return g.keys.slice();
+      });
+      out.meaningLessons = card.groups.map(function (g) { return g.lesson; });
+      delete out.groups; delete out.glossForms; delete out.glossMeanings; delete out.answerText;
+      return out;
+    }
     if (!card.keys || card.keys.length !== entry.meanings.length) {
       throw new Error(file + ": \"" + card.gloss + "\" needs one key-word list per meaning");
     }
@@ -189,7 +224,8 @@ function resolveParts(card, file, deck) {
       const entry = glossary[pt.gloss];
       if (!entry) throw new Error(file + ": no glossary entry \"" + pt.gloss + "\"");
       const o = { label: pt.label, meanings: entry.meanings, meaningGroups: groupsOf(entry, pt.gloss) };
-      if (deck.elementBoxes && latinRootsCards[pt.gloss]) { o.k = latinRootsCards[pt.gloss].id || latinRootsCards[pt.gloss].gloss || pt.gloss; o.gloss = pt.gloss; }  // its Latin Roots card
+      const lrc = deck.elementBoxes && latinRootsCardFor(pt.gloss, pt.label);
+      if (lrc) { o.k = latinRootsKey(lrc); o.lrc = lrc; }  // its Latin Roots card
       if (pt.note || entry.note) o.note = pt.note || entry.note;
       const printed = formsOf(pt.label.replace(/\(\u2192[^)]*\)/g, "").toUpperCase());
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
@@ -263,6 +299,7 @@ function splitExample(card, deck) {
 // end. If a key has to change (a label corrected), give the card "id" with
 // its old key.
 const FROZEN_KEYS = JSON.parse(fs.readFileSync(path.join(here, "card-keys.json"), "utf8"));
+const KEY_TABLE = JSON.parse(fs.readFileSync(path.join(here, "key-table.json"), "utf8"));
 function cardKey(c) { return c.id || c.gloss || c.vocab || c.word || c.label; }
 function checkKeys(deck, file) {
   const keys = deck.cards.map(cardKey);
@@ -271,6 +308,21 @@ function checkKeys(deck, file) {
     if (keys.indexOf(k) !== i) throw new Error(file + ": two cards share the key \"" + k + "\" (give one an \"id\")");
   });
   const frozen = FROZEN_KEYS[deck.id] || [];
+  // A deck with a key table (Latin Roots, one card per form) may split or join
+  // its frozen cards: each frozen key must still be a card, or lead through the
+  // table to cards that exist. Records by position then go through the frozen
+  // keys, so the order no longer matters.
+  const table = KEY_TABLE[deck.id];
+  if (table) {
+    frozen.forEach(function (k) {
+      const to = table.from[k] || [k];
+      to.forEach(function (t) { if (keys.indexOf(t) < 0) throw new Error(file + ": the frozen key \"" + k + "\" leads to \"" + t + "\", which is no card (key-table.json)"); });
+    });
+    Object.keys(table.from).forEach(function (k) {
+      if (keys.indexOf(k) >= 0 && table.from[k].indexOf(k) < 0) throw new Error(file + ": key-table.json moves \"" + k + "\" away, but it is still a card");
+    });
+    return { keys: keys, frozenCount: 0, frozenKeys: frozen, table: table };
+  }
   frozen.forEach(function (k, i) {
     if (keys[i] !== k) throw new Error(file + ": card " + (i + 1) + " must keep the key \"" + k + "\" (card-keys.json); new cards go at the end, and a changed label needs \"id\": \"" + k + "\"");
   });
@@ -297,6 +349,7 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   const { output, ...data } = deck;
   const cardKeys = checkKeys(deck, file);
   data.frozenCount = cardKeys.frozenCount;
+  if (cardKeys.table) { data.frozenKeys = cardKeys.frozenKeys; data.keyTable = cardKeys.table; }
   deck.cards.forEach(function (c) {
     const key = vocabKey(c, deck);
     if (!key) return;
@@ -321,19 +374,14 @@ for (const file of fs.readdirSync(path.join(here, "decks")).filter(f => f.endsWi
   if (deck.type === "exercise" && deck.elementBoxes) {
     const seen = {};
     data.practice = [];
-    // The deck's lesson: the latest lesson of any element its cards use.
-    let upTo = 0;
-    data.cards.forEach(function (c) { (c.parts || []).forEach(function (pt) {
-      const e = pt.gloss && glossary[pt.gloss]; if (e && e.lessonNo > upTo) upTo = e.lessonNo; }); });
     data.cards.forEach(function (c) {
       (c.parts || []).forEach(function (pt) {
         if (!pt.k || seen[pt.k]) return;
         seen[pt.k] = true;
-        const pc = practiceCard(pt.gloss, upTo);
-        if (pc) data.practice.push(pc);
+        data.practice.push(practiceCard(pt.lrc));
       });
     });
-    data.cards.forEach(function (c) { (c.parts || []).forEach(function (pt) { delete pt.gloss; }); });
+    data.cards.forEach(function (c) { (c.parts || []).forEach(function (pt) { delete pt.lrc; }); });
   }
   const json = JSON.stringify(data, null, 2).replace(/<\//g, "<\\/");
   const version = deckVersion(json);

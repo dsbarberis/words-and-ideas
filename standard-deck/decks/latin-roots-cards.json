@@ -1,0 +1,12119 @@
+[
+ {
+  "key": "-ATE",
+  "forms": "-ATE",
+  "spellings": [
+   "ATE"
+  ],
+  "kind": "suffix",
+  "lesson": 2,
+  "glosses": [
+   "-ATE",
+   "-ATE-adj"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "verbal suffix",
+    "parts": [
+     "verbal suffix"
+    ],
+    "keys": [
+     "makes a verb",
+     "verb",
+     "to make",
+     "to do",
+     "make",
+     "do",
+     "verbal"
+    ],
+    "lesson": 2,
+    "gloss": "-ATE"
+   },
+   {
+    "m": "possessing",
+    "parts": [
+     "possessing"
+    ],
+    "keys": [
+     "possessing",
+     "possess",
+     "having",
+     "has",
+     "have",
+     "with",
+     "full of",
+     "made",
+     "-ed"
+    ],
+    "lesson": 10,
+    "gloss": "-ATE-adj"
+   },
+   {
+    "m": "being",
+    "parts": [
+     "being"
+    ],
+    "keys": [
+     "being",
+     "be",
+     "is",
+     "state",
+     "condition"
+    ],
+    "lesson": 10,
+    "gloss": "-ATE-adj"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-IT",
+  "forms": "-IT-, -IT(E)",
+  "spellings": [
+   "IT",
+   "ITE"
+  ],
+  "kind": "suffix",
+  "lesson": 2,
+  "glosses": [
+   "-IT-verbal",
+   "-ATE-adj"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "verbal suffix",
+    "parts": [
+     "verbal suffix"
+    ],
+    "keys": [
+     "makes a verb",
+     "verb",
+     "to make",
+     "to do",
+     "make",
+     "do",
+     "verbal"
+    ],
+    "lesson": 2,
+    "gloss": "-IT-verbal"
+   },
+   {
+    "m": "possessing",
+    "parts": [
+     "possessing"
+    ],
+    "keys": [
+     "possessing",
+     "possess",
+     "having",
+     "has",
+     "have",
+     "with",
+     "full of",
+     "made",
+     "-ed"
+    ],
+    "lesson": 10,
+    "gloss": "-ATE-adj"
+   },
+   {
+    "m": "being",
+    "parts": [
+     "being"
+    ],
+    "keys": [
+     "being",
+     "be",
+     "is",
+     "state",
+     "condition"
+    ],
+    "lesson": 10,
+    "gloss": "-ATE-adj"
+   }
+  ],
+  "examples": "accurate, adequate, favorite, explicit"
+ },
+ {
+  "key": "ALIEN",
+  "forms": "ALIEN-",
+  "spellings": [
+   "ALIEN"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "ALIEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "of another",
+    "parts": [
+     "of another"
+    ],
+    "keys": [
+     "of another",
+     "belonging to another",
+     "another's",
+     "someone else's",
+     "another",
+     "other",
+     "foreign",
+     "foreigner",
+     "strange",
+     "stranger",
+     "alien"
+    ],
+    "lesson": 2,
+    "gloss": "ALIEN"
+   }
+  ],
+  "examples": "alienate, alien, inalienable"
+ },
+ {
+  "key": "ART",
+  "forms": "ART-",
+  "spellings": [
+   "ART"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "ART"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "art; skill",
+    "parts": [
+     "art",
+     "skill"
+    ],
+    "keys": [
+     "art",
+     "artistry",
+     "craft",
+     "craftsmanship",
+     "handiwork",
+     "skill",
+     "skilled",
+     "skillful",
+     "talent",
+     "technique"
+    ],
+    "lesson": 2,
+    "gloss": "ART"
+   }
+  ],
+  "examples": "artisan, artificial, artifact"
+ },
+ {
+  "key": "FIN",
+  "forms": "FIN-",
+  "spellings": [
+   "FIN"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "FIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "end; limit",
+    "parts": [
+     "end",
+     "limit"
+    ],
+    "keys": [
+     "end",
+     "finish",
+     "final",
+     "ending",
+     "limit",
+     "boundary",
+     "border",
+     "edge",
+     "bound"
+    ],
+    "lesson": 2,
+    "gloss": "FIN"
+   }
+  ],
+  "examples": "finish, final, infinite"
+ },
+ {
+  "key": "FIRM",
+  "forms": "FIRM-",
+  "spellings": [
+   "FIRM"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "FIRM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "strong; firm",
+    "parts": [
+     "strong",
+     "firm"
+    ],
+    "keys": [
+     "strong",
+     "strength",
+     "sturdy",
+     "mighty",
+     "powerful",
+     "firm",
+     "steady",
+     "stable",
+     "solid",
+     "secure",
+     "fixed"
+    ],
+    "lesson": 2,
+    "gloss": "FIRM"
+   }
+  ],
+  "examples": "confirm, affirm, infirmary"
+ },
+ {
+  "key": "FORT",
+  "forms": "FORT-",
+  "spellings": [
+   "FORT"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "FORT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "strong",
+    "parts": [
+     "strong"
+    ],
+    "keys": [
+     "strong",
+     "strength",
+     "sturdy",
+     "mighty",
+     "powerful",
+     "brave",
+     "bravery",
+     "courage",
+     "courageous",
+     "bold",
+     "valiant",
+     "fearless"
+    ],
+    "lesson": 2,
+    "gloss": "FORT"
+   }
+  ],
+  "examples": "fortify, fortress, effort"
+ },
+ {
+  "key": "GRAND",
+  "forms": "GRAND-",
+  "spellings": [
+   "GRAND"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "GRAND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "great",
+    "parts": [
+     "great"
+    ],
+    "keys": [
+     "great",
+     "grand",
+     "magnificent",
+     "large",
+     "big",
+     "huge",
+     "vast"
+    ],
+    "lesson": 2,
+    "gloss": "GRAND"
+   }
+  ],
+  "examples": "grandeur, aggrandize, grandiose"
+ },
+ {
+  "key": "GRAV",
+  "forms": "GRAV-",
+  "spellings": [
+   "GRAV"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "GRAV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "heavy",
+    "parts": [
+     "heavy"
+    ],
+    "keys": [
+     "heavy",
+     "heaviness",
+     "serious",
+     "grave",
+     "burdensome"
+    ],
+    "lesson": 2,
+    "gloss": "GRAV"
+   }
+  ],
+  "examples": "gravity, aggravate, grieve"
+ },
+ {
+  "key": "LINE",
+  "forms": "LINE-",
+  "spellings": [
+   "LINE"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "LINE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "line",
+    "parts": [
+     "line"
+    ],
+    "keys": [
+     "line",
+     "row",
+     "stroke",
+     "thread",
+     "string",
+     "cord",
+     "yarn",
+     "strand"
+    ],
+    "lesson": 2,
+    "gloss": "LINE"
+   }
+  ],
+  "examples": "linear, delineate, align"
+ },
+ {
+  "key": "NIHIL",
+  "forms": "NIHIL-",
+  "spellings": [
+   "NIHIL"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "NIHIL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "nothing",
+    "parts": [
+     "nothing"
+    ],
+    "keys": [
+     "nothing",
+     "nothingness",
+     "void",
+     "zero"
+    ],
+    "lesson": 2,
+    "gloss": "NIHIL"
+   }
+  ],
+  "examples": "nihilism, annihilate"
+ },
+ {
+  "key": "NUL",
+  "forms": "NUL(L)-",
+  "spellings": [
+   "NUL",
+   "NULL"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "NUL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "nothing",
+    "parts": [
+     "nothing"
+    ],
+    "keys": [
+     "nothing",
+     "none",
+     "null",
+     "no one",
+     "not any",
+     "nil",
+     "no"
+    ],
+    "lesson": 2,
+    "gloss": "NUL"
+   }
+  ],
+  "examples": "null, nullify, annul"
+ },
+ {
+  "key": "PART",
+  "forms": "PART-",
+  "spellings": [
+   "PART"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "PART"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "part",
+    "parts": [
+     "part"
+    ],
+    "keys": [
+     "part",
+     "piece",
+     "portion",
+     "section",
+     "fraction",
+     "share",
+     "divide",
+     "division",
+     "participate"
+    ],
+    "lesson": 2,
+    "gloss": "PART"
+   }
+  ],
+  "examples": "partial, participate, partition"
+ },
+ {
+  "key": "VERB",
+  "forms": "VERB-",
+  "spellings": [
+   "VERB"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "VERB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "word",
+    "parts": [
+     "word"
+    ],
+    "keys": [
+     "word",
+     "wording"
+    ],
+    "lesson": 2,
+    "gloss": "VERB"
+   },
+   {
+    "m": "verb",
+    "parts": [
+     "verb"
+    ],
+    "keys": [
+     "verb",
+     "verbs"
+    ],
+    "lesson": 2,
+    "gloss": "VERB"
+   }
+  ],
+  "examples": "verbal, verbose, proverb"
+ },
+ {
+  "key": "VEST",
+  "forms": "VEST-",
+  "spellings": [
+   "VEST"
+  ],
+  "kind": "base",
+  "lesson": 2,
+  "glosses": [
+   "VEST"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "garment",
+    "parts": [
+     "garment"
+    ],
+    "keys": [
+     "clothing",
+     "clothes",
+     "clothe",
+     "garment",
+     "dress",
+     "attire",
+     "robe",
+     "vestment"
+    ],
+    "lesson": 2,
+    "gloss": "VEST"
+   }
+  ],
+  "examples": "invest, divest, vestment"
+ },
+ {
+  "key": "A",
+  "forms": "A-",
+  "spellings": [
+   "A"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "AB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "away; from",
+    "parts": [
+     "away",
+     "from"
+    ],
+    "keys": [
+     "away",
+     "away from",
+     "off",
+     "from"
+    ],
+    "lesson": 3,
+    "gloss": "AB"
+   }
+  ],
+  "examples": "absent, avert, abstain"
+ },
+ {
+  "key": "AB",
+  "forms": "AB-",
+  "spellings": [
+   "AB"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "AB",
+   "HAB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "away; from",
+    "parts": [
+     "away",
+     "from"
+    ],
+    "keys": [
+     "away",
+     "away from",
+     "off",
+     "from"
+    ],
+    "lesson": 3,
+    "gloss": "AB"
+   },
+   {
+    "m": "to have",
+    "parts": [
+     "to have"
+    ],
+    "keys": [
+     "have",
+     "own",
+     "possess",
+     "possession"
+    ],
+    "lesson": 4,
+    "gloss": "HAB"
+   },
+   {
+    "m": "hold as customary",
+    "parts": [
+     "hold as customary"
+    ],
+    "keys": [
+     "hold",
+     "keep",
+     "contain",
+     "grasp",
+     "customary",
+     "custom",
+     "habit",
+     "usual"
+    ],
+    "lesson": 4,
+    "gloss": "HAB"
+   }
+  ],
+  "examples": "habit, exhibit, inhibit, prohibit"
+ },
+ {
+  "key": "ABS",
+  "forms": "ABS-",
+  "spellings": [
+   "ABS"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "AB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "away; from",
+    "parts": [
+     "away",
+     "from"
+    ],
+    "keys": [
+     "away",
+     "away from",
+     "off",
+     "from"
+    ],
+    "lesson": 3,
+    "gloss": "AB"
+   }
+  ],
+  "examples": "absent, avert, abstain"
+ },
+ {
+  "key": "AC",
+  "forms": "AC-, AC(U)-",
+  "spellings": [
+   "AC",
+   "ACU"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "AD",
+   "AC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to; toward",
+    "parts": [
+     "to",
+     "toward"
+    ],
+    "keys": [
+     "to",
+     "at",
+     "toward",
+     "towards",
+     "in the direction of"
+    ],
+    "lesson": 3,
+    "gloss": "AD"
+   },
+   {
+    "m": "sharp",
+    "parts": [
+     "sharp"
+    ],
+    "keys": [
+     "sharp",
+     "sharpness",
+     "keen",
+     "pointed",
+     "acute",
+     "piercing"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   },
+   {
+    "m": "bitter",
+    "parts": [
+     "bitter"
+    ],
+    "keys": [
+     "bitter",
+     "bitterness",
+     "sour",
+     "acid",
+     "acidic",
+     "tart",
+     "biting",
+     "harsh"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   }
+  ],
+  "examples": "adhere, accept, advance"
+ },
+ {
+  "key": "AD",
+  "forms": "AD-",
+  "spellings": [
+   "AD"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "AD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to; toward",
+    "parts": [
+     "to",
+     "toward"
+    ],
+    "keys": [
+     "to",
+     "at",
+     "toward",
+     "towards",
+     "in the direction of"
+    ],
+    "lesson": 3,
+    "gloss": "AD"
+   }
+  ],
+  "examples": "adhere, accept, advance"
+ },
+ {
+  "key": "AMBI",
+  "forms": "AMBI-",
+  "spellings": [
+   "AMBI"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "AMBI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "both",
+    "parts": [
+     "both"
+    ],
+    "keys": [
+     "both",
+     "two",
+     "double",
+     "two sides"
+    ],
+    "lesson": 3,
+    "gloss": "AMBI"
+   },
+   {
+    "m": "around",
+    "parts": [
+     "around"
+    ],
+    "keys": [
+     "around",
+     "round",
+     "about",
+     "surrounding"
+    ],
+    "lesson": 3,
+    "gloss": "AMBI"
+   }
+  ],
+  "examples": "ambidextrous, ambiguous"
+ },
+ {
+  "key": "ANTE",
+  "forms": "ANTE-",
+  "spellings": [
+   "ANTE"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "ANTE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "before",
+    "parts": [
+     "before"
+    ],
+    "keys": [
+     "before",
+     "prior",
+     "earlier",
+     "previous",
+     "preceding"
+    ],
+    "lesson": 3,
+    "gloss": "ANTE"
+   },
+   {
+    "m": "in front of",
+    "parts": [
+     "in front of"
+    ],
+    "keys": [
+     "in front of",
+     "in front",
+     "front",
+     "ahead of",
+     "facing"
+    ],
+    "lesson": 3,
+    "gloss": "ANTE"
+   }
+  ],
+  "examples": "antebellum, anteroom, antecedent"
+ },
+ {
+  "key": "CED",
+  "forms": "CED-",
+  "spellings": [
+   "CED"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "CED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to go",
+    "parts": [
+     "to go"
+    ],
+    "keys": [
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 3,
+    "gloss": "CED"
+   },
+   {
+    "m": "yield",
+    "parts": [
+     "yield"
+    ],
+    "keys": [
+     "yield",
+     "give way",
+     "give in",
+     "surrender",
+     "concede",
+     "submit",
+     "withdraw",
+     "retreat",
+     "pull back",
+     "back away",
+     "recede"
+    ],
+    "lesson": 3,
+    "gloss": "CED"
+   }
+  ],
+  "examples": "proceed, recede, concession, access"
+ },
+ {
+  "key": "CESS",
+  "forms": "CESS-",
+  "spellings": [
+   "CESS"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "CED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to go",
+    "parts": [
+     "to go"
+    ],
+    "keys": [
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 3,
+    "gloss": "CED"
+   },
+   {
+    "m": "yield",
+    "parts": [
+     "yield"
+    ],
+    "keys": [
+     "yield",
+     "give way",
+     "give in",
+     "surrender",
+     "concede",
+     "submit",
+     "withdraw",
+     "retreat",
+     "pull back",
+     "back away",
+     "recede"
+    ],
+    "lesson": 3,
+    "gloss": "CED"
+   }
+  ],
+  "examples": "proceed, recede, concession, access"
+ },
+ {
+  "key": "CIRCUM",
+  "forms": "CIRCUM-",
+  "spellings": [
+   "CIRCUM"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CIRCUM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "around",
+    "parts": [
+     "around"
+    ],
+    "keys": [
+     "around",
+     "round",
+     "about",
+     "surrounding"
+    ],
+    "lesson": 3,
+    "gloss": "CIRCUM"
+   }
+  ],
+  "examples": "circumference, circumvent"
+ },
+ {
+  "key": "CO",
+  "forms": "CO-",
+  "spellings": [
+   "CO"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "with; together",
+    "parts": [
+     "with",
+     "together"
+    ],
+    "keys": [
+     "with",
+     "along with",
+     "together",
+     "joint",
+     "jointly",
+     "united",
+     "union"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   },
+   {
+    "m": "very",
+    "parts": [
+     "very"
+    ],
+    "keys": [
+     "very",
+     "completely",
+     "thoroughly",
+     "intensely",
+     "greatly",
+     "fully"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   }
+  ],
+  "examples": "connect, combine, cooperate"
+ },
+ {
+  "key": "COM",
+  "forms": "COM-",
+  "spellings": [
+   "COM"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "with; together",
+    "parts": [
+     "with",
+     "together"
+    ],
+    "keys": [
+     "with",
+     "along with",
+     "together",
+     "joint",
+     "jointly",
+     "united",
+     "union"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   },
+   {
+    "m": "very",
+    "parts": [
+     "very"
+    ],
+    "keys": [
+     "very",
+     "completely",
+     "thoroughly",
+     "intensely",
+     "greatly",
+     "fully"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   }
+  ],
+  "examples": "connect, combine, cooperate"
+ },
+ {
+  "key": "CON",
+  "forms": "CON-",
+  "spellings": [
+   "CON"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "with; together",
+    "parts": [
+     "with",
+     "together"
+    ],
+    "keys": [
+     "with",
+     "along with",
+     "together",
+     "joint",
+     "jointly",
+     "united",
+     "union"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   },
+   {
+    "m": "very",
+    "parts": [
+     "very"
+    ],
+    "keys": [
+     "very",
+     "completely",
+     "thoroughly",
+     "intensely",
+     "greatly",
+     "fully"
+    ],
+    "lesson": 3,
+    "gloss": "CON"
+   }
+  ],
+  "examples": "connect, combine, cooperate"
+ },
+ {
+  "key": "CONTRA",
+  "forms": "CONTRA-",
+  "spellings": [
+   "CONTRA"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CONTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary"
+    ],
+    "lesson": 3,
+    "gloss": "CONTRA"
+   }
+  ],
+  "examples": "contradict, controversy, counteract"
+ },
+ {
+  "key": "CONTRO",
+  "forms": "CONTRO-",
+  "spellings": [
+   "CONTRO"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CONTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary"
+    ],
+    "lesson": 3,
+    "gloss": "CONTRA"
+   }
+  ],
+  "examples": "contradict, controversy, counteract"
+ },
+ {
+  "key": "COUNTER",
+  "forms": "COUNTER-",
+  "spellings": [
+   "COUNTER"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "CONTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary"
+    ],
+    "lesson": 3,
+    "gloss": "CONTRA"
+   }
+  ],
+  "examples": "contradict, controversy, counteract"
+ },
+ {
+  "key": "DE",
+  "forms": "DE-",
+  "spellings": [
+   "DE"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "DE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "down",
+    "parts": [
+     "down"
+    ],
+    "keys": [
+     "down",
+     "downward",
+     "descend"
+    ],
+    "lesson": 3,
+    "gloss": "DE"
+   },
+   {
+    "m": "off",
+    "parts": [
+     "off"
+    ],
+    "keys": [
+     "off",
+     "away",
+     "reversal",
+     "reverse",
+     "undo",
+     "remove",
+     "removal"
+    ],
+    "lesson": 3,
+    "gloss": "DE"
+   },
+   {
+    "m": "thoroughly",
+    "parts": [
+     "thoroughly"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 3,
+    "gloss": "DE"
+   }
+  ],
+  "examples": "descend, depart, devalue"
+ },
+ {
+  "key": "DI",
+  "forms": "DI-",
+  "spellings": [
+   "DI"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "DIS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "apart; in different directions",
+    "parts": [
+     "apart",
+     "in different directions"
+    ],
+    "keys": [
+     "apart",
+     "separate",
+     "asunder",
+     "away",
+     "off",
+     "in different directions",
+     "different directions",
+     "various directions",
+     "every direction",
+     "scatter",
+     "scattered"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   },
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   }
+  ],
+  "examples": "disagree, divert, differ"
+ },
+ {
+  "key": "DIF",
+  "forms": "DIF-",
+  "spellings": [
+   "DIF"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "DIS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "apart; in different directions",
+    "parts": [
+     "apart",
+     "in different directions"
+    ],
+    "keys": [
+     "apart",
+     "separate",
+     "asunder",
+     "away",
+     "off",
+     "in different directions",
+     "different directions",
+     "various directions",
+     "every direction",
+     "scatter",
+     "scattered"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   },
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   }
+  ],
+  "examples": "disagree, divert, differ"
+ },
+ {
+  "key": "DIS",
+  "forms": "DIS-",
+  "spellings": [
+   "DIS"
+  ],
+  "kind": "prefix",
+  "lesson": 3,
+  "glosses": [
+   "DIS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "apart; in different directions",
+    "parts": [
+     "apart",
+     "in different directions"
+    ],
+    "keys": [
+     "apart",
+     "separate",
+     "asunder",
+     "away",
+     "off",
+     "in different directions",
+     "different directions",
+     "various directions",
+     "every direction",
+     "scatter",
+     "scattered"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   },
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un"
+    ],
+    "lesson": 3,
+    "gloss": "DIS"
+   }
+  ],
+  "examples": "disagree, divert, differ"
+ },
+ {
+  "key": "DUC",
+  "forms": "DUC-",
+  "spellings": [
+   "DUC"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "DUC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to lead",
+    "parts": [
+     "to lead"
+    ],
+    "keys": [
+     "lead",
+     "leader",
+     "guide",
+     "conduct",
+     "bring"
+    ],
+    "lesson": 3,
+    "gloss": "DUC"
+   }
+  ],
+  "examples": "conduct, induce, deduction"
+ },
+ {
+  "key": "DUCT",
+  "forms": "DUCT-",
+  "spellings": [
+   "DUCT"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "DUC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to lead",
+    "parts": [
+     "to lead"
+    ],
+    "keys": [
+     "lead",
+     "leader",
+     "guide",
+     "conduct",
+     "bring"
+    ],
+    "lesson": 3,
+    "gloss": "DUC"
+   }
+  ],
+  "examples": "conduct, induce, deduction"
+ },
+ {
+  "key": "JUDIC",
+  "forms": "JUDIC-",
+  "spellings": [
+   "JUDIC"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "JUDIC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "judgment",
+    "parts": [
+     "judgment"
+    ],
+    "keys": [
+     "judge",
+     "judgment",
+     "judgement",
+     "decide",
+     "assess"
+    ],
+    "lesson": 3,
+    "gloss": "JUDIC"
+   }
+  ],
+  "examples": "judicial, prejudice, adjudicate"
+ },
+ {
+  "key": "JUR",
+  "forms": "JUR-",
+  "spellings": [
+   "JUR"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "JUR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "right; law",
+    "parts": [
+     "right",
+     "law"
+    ],
+    "keys": [
+     "right",
+     "just",
+     "justice",
+     "fair",
+     "rightful",
+     "law",
+     "legal",
+     "lawful"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   },
+   {
+    "m": "to take an oath",
+    "parts": [
+     "to take an oath"
+    ],
+    "keys": [
+     "oath",
+     "take an oath",
+     "swear",
+     "vow",
+     "pledge"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   },
+   {
+    "m": "form an opinion",
+    "parts": [
+     "form an opinion"
+    ],
+    "keys": [
+     "opinion",
+     "form an opinion",
+     "judge",
+     "judgment",
+     "judgement",
+     "think"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   }
+  ],
+  "examples": "jury, justice, jurisdiction, perjury"
+ },
+ {
+  "key": "JUST",
+  "forms": "JUST-",
+  "spellings": [
+   "JUST"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "JUR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "right; law",
+    "parts": [
+     "right",
+     "law"
+    ],
+    "keys": [
+     "right",
+     "just",
+     "justice",
+     "fair",
+     "rightful",
+     "law",
+     "legal",
+     "lawful"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   },
+   {
+    "m": "to take an oath",
+    "parts": [
+     "to take an oath"
+    ],
+    "keys": [
+     "oath",
+     "take an oath",
+     "swear",
+     "vow",
+     "pledge"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   },
+   {
+    "m": "form an opinion",
+    "parts": [
+     "form an opinion"
+    ],
+    "keys": [
+     "opinion",
+     "form an opinion",
+     "judge",
+     "judgment",
+     "judgement",
+     "think"
+    ],
+    "lesson": 3,
+    "gloss": "JUR"
+   }
+  ],
+  "examples": "jury, justice, jurisdiction, perjury"
+ },
+ {
+  "key": "LEV",
+  "forms": "LEV-",
+  "spellings": [
+   "LEV"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "LEV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "light (in weight)",
+    "parts": [
+     "light (in weight)"
+    ],
+    "keys": [
+     "light",
+     "lightness",
+     "light in weight",
+     "weightless"
+    ],
+    "lesson": 3,
+    "gloss": "LEV"
+   },
+   {
+    "m": "to lift",
+    "parts": [
+     "to lift"
+    ],
+    "keys": [
+     "lift",
+     "raise",
+     "rise",
+     "elevate"
+    ],
+    "lesson": 3,
+    "gloss": "LEV"
+   }
+  ],
+  "examples": "elevate, levity, alleviate"
+ },
+ {
+  "key": "LOCUT",
+  "forms": "LOCUT-",
+  "spellings": [
+   "LOCUT"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "LOQU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speech",
+     "say",
+     "utter",
+     "talk",
+     "chat",
+     "converse",
+     "conversation"
+    ],
+    "lesson": 3,
+    "gloss": "LOQU"
+   }
+  ],
+  "examples": "eloquent, loquacious, elocution"
+ },
+ {
+  "key": "LOQU",
+  "forms": "LOQU-",
+  "spellings": [
+   "LOQU"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "LOQU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speech",
+     "say",
+     "utter",
+     "talk",
+     "chat",
+     "converse",
+     "conversation"
+    ],
+    "lesson": 3,
+    "gloss": "LOQU"
+   }
+  ],
+  "examples": "eloquent, loquacious, elocution"
+ },
+ {
+  "key": "LUD",
+  "forms": "LUD-",
+  "spellings": [
+   "LUD"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "LUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to play",
+    "parts": [
+     "to play"
+    ],
+    "keys": [
+     "play",
+     "game",
+     "playful",
+     "sport"
+    ],
+    "lesson": 3,
+    "gloss": "LUD"
+   },
+   {
+    "m": "mock",
+    "parts": [
+     "mock"
+    ],
+    "keys": [
+     "mock",
+     "mocking",
+     "mockery",
+     "ridicule",
+     "make fun of",
+     "tease",
+     "jest",
+     "joke"
+    ],
+    "lesson": 3,
+    "gloss": "LUD"
+   }
+  ],
+  "examples": "illusion, allude, ludicrous"
+ },
+ {
+  "key": "LUS",
+  "forms": "LUS-",
+  "spellings": [
+   "LUS"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "LUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to play",
+    "parts": [
+     "to play"
+    ],
+    "keys": [
+     "play",
+     "game",
+     "playful",
+     "sport"
+    ],
+    "lesson": 3,
+    "gloss": "LUD"
+   },
+   {
+    "m": "mock",
+    "parts": [
+     "mock"
+    ],
+    "keys": [
+     "mock",
+     "mocking",
+     "mockery",
+     "ridicule",
+     "make fun of",
+     "tease",
+     "jest",
+     "joke"
+    ],
+    "lesson": 3,
+    "gloss": "LUD"
+   }
+  ],
+  "examples": "illusion, allude, ludicrous"
+ },
+ {
+  "key": "PREC",
+  "forms": "PREC-",
+  "spellings": [
+   "PREC"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "PREC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to request; beg",
+    "parts": [
+     "to request",
+     "beg"
+    ],
+    "keys": [
+     "request",
+     "ask",
+     "entreat",
+     "beg",
+     "plead",
+     "implore",
+     "beseech"
+    ],
+    "lesson": 3,
+    "gloss": "PREC"
+   },
+   {
+    "m": "prayer",
+    "parts": [
+     "prayer"
+    ],
+    "keys": [
+     "prayer",
+     "pray"
+    ],
+    "lesson": 3,
+    "gloss": "PREC"
+   }
+  ],
+  "examples": "deprecate, imprecation, precarious"
+ },
+ {
+  "key": "TRUD",
+  "forms": "TRUD-",
+  "spellings": [
+   "TRUD"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "TRUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to push; thrust",
+    "parts": [
+     "to push",
+     "thrust"
+    ],
+    "keys": [
+     "push",
+     "shove",
+     "press",
+     "thrust",
+     "plunge"
+    ],
+    "lesson": 3,
+    "gloss": "TRUD"
+   }
+  ],
+  "examples": "intrude, protrude, obtrusive"
+ },
+ {
+  "key": "TRUS",
+  "forms": "TRUS-",
+  "spellings": [
+   "TRUS"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "TRUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to push; thrust",
+    "parts": [
+     "to push",
+     "thrust"
+    ],
+    "keys": [
+     "push",
+     "shove",
+     "press",
+     "thrust",
+     "plunge"
+    ],
+    "lesson": 3,
+    "gloss": "TRUD"
+   }
+  ],
+  "examples": "intrude, protrude, obtrusive"
+ },
+ {
+  "key": "VEN",
+  "forms": "VEN-",
+  "spellings": [
+   "VEN"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "VEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to come",
+    "parts": [
+     "to come"
+    ],
+    "keys": [
+     "come",
+     "coming",
+     "arrive",
+     "approach"
+    ],
+    "lesson": 3,
+    "gloss": "VEN"
+   }
+  ],
+  "examples": "convene, prevent, venue"
+ },
+ {
+  "key": "VENT",
+  "forms": "VENT-",
+  "spellings": [
+   "VENT"
+  ],
+  "kind": "base",
+  "lesson": 3,
+  "glosses": [
+   "VEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to come",
+    "parts": [
+     "to come"
+    ],
+    "keys": [
+     "come",
+     "coming",
+     "arrive",
+     "approach"
+    ],
+    "lesson": 3,
+    "gloss": "VEN"
+   }
+  ],
+  "examples": "convene, prevent, venue"
+ },
+ {
+  "key": "CRUC",
+  "forms": "CRUC-",
+  "spellings": [
+   "CRUC"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "CRUC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "cross",
+    "parts": [
+     "cross"
+    ],
+    "keys": [
+     "cross",
+     "crucifix"
+    ],
+    "lesson": 4,
+    "gloss": "CRUC"
+   }
+  ],
+  "examples": "crucial, crucifix, excruciating"
+ },
+ {
+  "key": "E",
+  "forms": "E-",
+  "spellings": [
+   "E"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "EX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "out; from",
+    "parts": [
+     "out",
+     "from"
+    ],
+    "keys": [
+     "out",
+     "outward",
+     "exit",
+     "from",
+     "out of"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   },
+   {
+    "m": "completely",
+    "parts": [
+     "completely"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   }
+  ],
+  "examples": "exit, emit, efface"
+ },
+ {
+  "key": "EF",
+  "forms": "EF-",
+  "spellings": [
+   "EF"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "EX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "out; from",
+    "parts": [
+     "out",
+     "from"
+    ],
+    "keys": [
+     "out",
+     "outward",
+     "exit",
+     "from",
+     "out of"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   },
+   {
+    "m": "completely",
+    "parts": [
+     "completely"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   }
+  ],
+  "examples": "exit, emit, efface"
+ },
+ {
+  "key": "EX",
+  "forms": "EX-",
+  "spellings": [
+   "EX"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "EX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "out; from",
+    "parts": [
+     "out",
+     "from"
+    ],
+    "keys": [
+     "out",
+     "outward",
+     "exit",
+     "from",
+     "out of"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   },
+   {
+    "m": "completely",
+    "parts": [
+     "completely"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 4,
+    "gloss": "EX"
+   }
+  ],
+  "examples": "exit, emit, efface"
+ },
+ {
+  "key": "EXTRA",
+  "forms": "EXTRA-",
+  "spellings": [
+   "EXTRA"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "EXTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "outside; beyond",
+    "parts": [
+     "outside",
+     "beyond"
+    ],
+    "keys": [
+     "outside",
+     "outer",
+     "external",
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 4,
+    "gloss": "EXTRA"
+   }
+  ],
+  "examples": "extraordinary, extrovert, extraterrestrial"
+ },
+ {
+  "key": "EXTRO",
+  "forms": "EXTRO-",
+  "spellings": [
+   "EXTRO"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "EXTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "outside; beyond",
+    "parts": [
+     "outside",
+     "beyond"
+    ],
+    "keys": [
+     "outside",
+     "outer",
+     "external",
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 4,
+    "gloss": "EXTRA"
+   }
+  ],
+  "examples": "extraordinary, extrovert, extraterrestrial"
+ },
+ {
+  "key": "GREG",
+  "forms": "GREG-",
+  "spellings": [
+   "GREG"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "GREG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "flock; herd",
+    "parts": [
+     "flock",
+     "herd"
+    ],
+    "keys": [
+     "flock",
+     "group",
+     "crowd",
+     "gathering",
+     "gather",
+     "assembly",
+     "band",
+     "herd",
+     "herds",
+     "drove"
+    ],
+    "lesson": 4,
+    "gloss": "GREG"
+   }
+  ],
+  "examples": "gregarious, segregate, congregate"
+ },
+ {
+  "key": "HAB",
+  "forms": "HAB-",
+  "spellings": [
+   "HAB"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "HAB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to have",
+    "parts": [
+     "to have"
+    ],
+    "keys": [
+     "have",
+     "own",
+     "possess",
+     "possession"
+    ],
+    "lesson": 4,
+    "gloss": "HAB"
+   },
+   {
+    "m": "hold as customary",
+    "parts": [
+     "hold as customary"
+    ],
+    "keys": [
+     "hold",
+     "keep",
+     "contain",
+     "grasp",
+     "customary",
+     "custom",
+     "habit",
+     "usual"
+    ],
+    "lesson": 4,
+    "gloss": "HAB"
+   }
+  ],
+  "examples": "habit, exhibit, inhibit, prohibit"
+ },
+ {
+  "key": "IM",
+  "forms": "IM-",
+  "spellings": [
+   "IM"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "IN-not",
+   "IN-into"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un",
+     "without",
+     "lacking",
+     "lack"
+    ],
+    "lesson": 4,
+    "gloss": "IN-not"
+   },
+   {
+    "m": "in; into",
+    "parts": [
+     "in",
+     "into"
+    ],
+    "keys": [
+     "in",
+     "into"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   },
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   },
+   {
+    "m": "upon",
+    "parts": [
+     "upon"
+    ],
+    "keys": [
+     "upon",
+     "on",
+     "onto"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   }
+  ],
+  "examples": "inactive, impossible, ignoble"
+ },
+ {
+  "key": "IN",
+  "forms": "IN-",
+  "spellings": [
+   "IN"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "IN-not",
+   "IN-into"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un",
+     "without",
+     "lacking",
+     "lack"
+    ],
+    "lesson": 4,
+    "gloss": "IN-not"
+   },
+   {
+    "m": "in; into",
+    "parts": [
+     "in",
+     "into"
+    ],
+    "keys": [
+     "in",
+     "into"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   },
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   },
+   {
+    "m": "upon",
+    "parts": [
+     "upon"
+    ],
+    "keys": [
+     "upon",
+     "on",
+     "onto"
+    ],
+    "lesson": 4,
+    "gloss": "IN-into"
+   }
+  ],
+  "examples": "inactive, impossible, ignoble"
+ },
+ {
+  "key": "INFRA",
+  "forms": "INFRA-",
+  "spellings": [
+   "INFRA"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "INFRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "below; beneath",
+    "parts": [
+     "below",
+     "beneath"
+    ],
+    "keys": [
+     "below",
+     "lower",
+     "underneath",
+     "under",
+     "beneath"
+    ],
+    "lesson": 4,
+    "gloss": "INFRA"
+   }
+  ],
+  "examples": "infrastructure, infrared"
+ },
+ {
+  "key": "INTER",
+  "forms": "INTER-",
+  "spellings": [
+   "INTER"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "INTER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "between; among",
+    "parts": [
+     "between",
+     "among"
+    ],
+    "keys": [
+     "between",
+     "in between",
+     "among",
+     "amongst",
+     "amid"
+    ],
+    "lesson": 4,
+    "gloss": "INTER"
+   }
+  ],
+  "examples": "interact, international, intersect"
+ },
+ {
+  "key": "INTRA",
+  "forms": "INTRA-",
+  "spellings": [
+   "INTRA"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "INTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "within",
+    "parts": [
+     "within"
+    ],
+    "keys": [
+     "within",
+     "inside",
+     "internal",
+     "inner",
+     "interior"
+    ],
+    "lesson": 4,
+    "gloss": "INTRA"
+   }
+  ],
+  "examples": "intramural, introvert, introspect"
+ },
+ {
+  "key": "INTRO",
+  "forms": "INTRO-",
+  "spellings": [
+   "INTRO"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "INTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "within",
+    "parts": [
+     "within"
+    ],
+    "keys": [
+     "within",
+     "inside",
+     "internal",
+     "inner",
+     "interior"
+    ],
+    "lesson": 4,
+    "gloss": "INTRA"
+   }
+  ],
+  "examples": "intramural, introvert, introspect"
+ },
+ {
+  "key": "NON",
+  "forms": "NON-",
+  "spellings": [
+   "NON"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "NON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "not",
+    "parts": [
+     "not"
+    ],
+    "keys": [
+     "not",
+     "no",
+     "non",
+     "un"
+    ],
+    "lesson": 4,
+    "gloss": "NON"
+   }
+  ],
+  "examples": "nonsense, nonexistent, nonfiction"
+ },
+ {
+  "key": "OB",
+  "forms": "OB-",
+  "spellings": [
+   "OB"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "OB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "toward",
+    "parts": [
+     "toward"
+    ],
+    "keys": [
+     "toward",
+     "towards",
+     "in the direction of"
+    ],
+    "lesson": 4,
+    "gloss": "OB"
+   },
+   {
+    "m": "against",
+    "parts": [
+     "against"
+    ],
+    "keys": [
+     "against",
+     "opposed",
+     "opposing",
+     "opposite",
+     "versus",
+     "contrary",
+     "in the way",
+     "blocking",
+     "block",
+     "obstruct",
+     "hinder"
+    ],
+    "lesson": 4,
+    "gloss": "OB"
+   },
+   {
+    "m": "completely",
+    "parts": [
+     "completely"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 4,
+    "gloss": "OB"
+   }
+  ],
+  "examples": "object, obstruct, obstacle"
+ },
+ {
+  "key": "PED",
+  "forms": "PED-",
+  "spellings": [
+   "PED"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "PED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "foot",
+    "parts": [
+     "foot"
+    ],
+    "keys": [
+     "foot",
+     "feet"
+    ],
+    "lesson": 4,
+    "gloss": "PED"
+   }
+  ],
+  "examples": "pedal, pedestrian, expedition"
+ },
+ {
+  "key": "PER",
+  "forms": "PER-",
+  "spellings": [
+   "PER"
+  ],
+  "kind": "prefix",
+  "lesson": 4,
+  "glosses": [
+   "PER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "through",
+    "parts": [
+     "through"
+    ],
+    "keys": [
+     "through",
+     "throughout"
+    ],
+    "lesson": 4,
+    "gloss": "PER"
+   },
+   {
+    "m": "wrongly",
+    "parts": [
+     "wrongly"
+    ],
+    "keys": [
+     "wrongly",
+     "wrong",
+     "badly",
+     "falsely",
+     "astray",
+     "bad"
+    ],
+    "lesson": 4,
+    "gloss": "PER"
+   },
+   {
+    "m": "completely",
+    "parts": [
+     "completely"
+    ],
+    "keys": [
+     "completely",
+     "complete",
+     "thoroughly",
+     "thorough",
+     "entirely",
+     "fully",
+     "wholly",
+     "totally",
+     "utterly",
+     "very"
+    ],
+    "lesson": 4,
+    "gloss": "PER"
+   }
+  ],
+  "examples": "permeate, perceive, persist"
+ },
+ {
+  "key": "PUNCT",
+  "forms": "PUNCT-",
+  "spellings": [
+   "PUNCT"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "PUNG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to prick",
+    "parts": [
+     "to prick"
+    ],
+    "keys": [
+     "prick",
+     "sting",
+     "jab",
+     "pierce",
+     "puncture",
+     "perforate",
+     "stab"
+    ],
+    "lesson": 4,
+    "gloss": "PUNG"
+   },
+   {
+    "m": "point",
+    "parts": [
+     "point"
+    ],
+    "keys": [
+     "point",
+     "dot",
+     "tip",
+     "sharp"
+    ],
+    "lesson": 4,
+    "gloss": "PUNG"
+   }
+  ],
+  "examples": "pungent, punctual, puncture"
+ },
+ {
+  "key": "PUNG",
+  "forms": "PUNG-",
+  "spellings": [
+   "PUNG"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "PUNG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to prick",
+    "parts": [
+     "to prick"
+    ],
+    "keys": [
+     "prick",
+     "sting",
+     "jab",
+     "pierce",
+     "puncture",
+     "perforate",
+     "stab"
+    ],
+    "lesson": 4,
+    "gloss": "PUNG"
+   },
+   {
+    "m": "point",
+    "parts": [
+     "point"
+    ],
+    "keys": [
+     "point",
+     "dot",
+     "tip",
+     "sharp"
+    ],
+    "lesson": 4,
+    "gloss": "PUNG"
+   }
+  ],
+  "examples": "pungent, punctual, puncture"
+ },
+ {
+  "key": "SACR",
+  "forms": "SACR-",
+  "spellings": [
+   "SACR"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "SACR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "sacred",
+    "parts": [
+     "sacred"
+    ],
+    "keys": [
+     "sacred",
+     "consecrated",
+     "divine",
+     "blessed",
+     "religious",
+     "holy",
+     "holiness",
+     "hallowed"
+    ],
+    "lesson": 4,
+    "gloss": "SACR"
+   }
+  ],
+  "examples": "sacred, sacrifice, consecrate, sacrilege"
+ },
+ {
+  "key": "SANCT",
+  "forms": "SANCT-",
+  "spellings": [
+   "SANCT"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "SANCT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "holy",
+    "parts": [
+     "holy"
+    ],
+    "keys": [
+     "holy",
+     "holiness",
+     "hallowed",
+     "sacred",
+     "inviolable",
+     "untouchable",
+     "sacrosanct",
+     "protected"
+    ],
+    "lesson": 4,
+    "gloss": "SANCT"
+   }
+  ],
+  "examples": "sanctuary, sanction, sanctify"
+ },
+ {
+  "key": "SENS",
+  "forms": "SENS-",
+  "spellings": [
+   "SENS"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "SENT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to feel",
+    "parts": [
+     "to feel"
+    ],
+    "keys": [
+     "feel",
+     "feeling",
+     "emotion",
+     "emotional",
+     "perceive",
+     "perception",
+     "sense",
+     "notice",
+     "detect",
+     "be aware"
+    ],
+    "lesson": 4,
+    "gloss": "SENT"
+   },
+   {
+    "m": "think",
+    "parts": [
+     "think"
+    ],
+    "keys": [
+     "think",
+     "thought",
+     "believe",
+     "opinion"
+    ],
+    "lesson": 4,
+    "gloss": "SENT"
+   }
+  ],
+  "examples": "sentiment, sensation, consent"
+ },
+ {
+  "key": "SENT",
+  "forms": "SENT-",
+  "spellings": [
+   "SENT"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "SENT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to feel",
+    "parts": [
+     "to feel"
+    ],
+    "keys": [
+     "feel",
+     "feeling",
+     "emotion",
+     "emotional",
+     "perceive",
+     "perception",
+     "sense",
+     "notice",
+     "detect",
+     "be aware"
+    ],
+    "lesson": 4,
+    "gloss": "SENT"
+   },
+   {
+    "m": "think",
+    "parts": [
+     "think"
+    ],
+    "keys": [
+     "think",
+     "thought",
+     "believe",
+     "opinion"
+    ],
+    "lesson": 4,
+    "gloss": "SENT"
+   }
+  ],
+  "examples": "sentiment, sensation, consent"
+ },
+ {
+  "key": "TURB",
+  "forms": "TURB-",
+  "spellings": [
+   "TURB"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "TURB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to disturb",
+    "parts": [
+     "to disturb"
+    ],
+    "keys": [
+     "disturb",
+     "disturbance",
+     "upset",
+     "agitate",
+     "stir",
+     "unsettle",
+     "confuse",
+     "confusion",
+     "bewilder",
+     "mix up",
+     "disorder",
+     "crowd",
+     "throng",
+     "mob",
+     "multitude"
+    ],
+    "lesson": 4,
+    "gloss": "TURB"
+   }
+  ],
+  "examples": "turbulent, disturb, perturb"
+ },
+ {
+  "key": "VERS",
+  "forms": "VERS-",
+  "spellings": [
+   "VERS"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "VERT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to turn",
+    "parts": [
+     "to turn"
+    ],
+    "keys": [
+     "turn",
+     "rotate",
+     "spin",
+     "revolve"
+    ],
+    "lesson": 4,
+    "gloss": "VERT"
+   }
+  ],
+  "examples": "convert, reverse, invert"
+ },
+ {
+  "key": "VERT",
+  "forms": "VERT-",
+  "spellings": [
+   "VERT"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "VERT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to turn",
+    "parts": [
+     "to turn"
+    ],
+    "keys": [
+     "turn",
+     "rotate",
+     "spin",
+     "revolve"
+    ],
+    "lesson": 4,
+    "gloss": "VERT"
+   }
+  ],
+  "examples": "convert, reverse, invert"
+ },
+ {
+  "key": "VI",
+  "forms": "VI(A)-",
+  "spellings": [
+   "VI",
+   "VIA"
+  ],
+  "kind": "base",
+  "lesson": 4,
+  "glosses": [
+   "VI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "way; road",
+    "parts": [
+     "way",
+     "road"
+    ],
+    "keys": [
+     "way",
+     "path",
+     "route",
+     "road",
+     "street",
+     "highway"
+    ],
+    "lesson": 4,
+    "gloss": "VI"
+   }
+  ],
+  "examples": "via, deviate, viaduct"
+ },
+ {
+  "key": "SPIC",
+  "forms": "(SPIC-)",
+  "spellings": [
+   "SPIC"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "SPEC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to look",
+    "parts": [
+     "to look"
+    ],
+    "keys": [
+     "look",
+     "look at",
+     "watch",
+     "observe",
+     "view",
+     "see",
+     "sight",
+     "vision"
+    ],
+    "lesson": 5,
+    "gloss": "SPEC"
+   }
+  ],
+  "examples": "spectacle, inspect, conspicuous"
+ },
+ {
+  "key": "CLUD",
+  "forms": "CLUD-",
+  "spellings": [
+   "CLUD"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "CLUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to shut",
+    "parts": [
+     "to shut"
+    ],
+    "keys": [
+     "shut",
+     "shut in",
+     "shut out",
+     "lock",
+     "seal",
+     "close",
+     "closed",
+     "enclose"
+    ],
+    "lesson": 5,
+    "gloss": "CLUD"
+   }
+  ],
+  "examples": "include, exclude, conclusion, closure"
+ },
+ {
+  "key": "CLUS",
+  "forms": "CLUS-",
+  "spellings": [
+   "CLUS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "CLUD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to shut",
+    "parts": [
+     "to shut"
+    ],
+    "keys": [
+     "shut",
+     "shut in",
+     "shut out",
+     "lock",
+     "seal",
+     "close",
+     "closed",
+     "enclose"
+    ],
+    "lesson": 5,
+    "gloss": "CLUD"
+   }
+  ],
+  "examples": "include, exclude, conclusion, closure"
+ },
+ {
+  "key": "CUR",
+  "forms": "CUR(R)-, CUR-",
+  "spellings": [
+   "CUR",
+   "CURR"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "CUR",
+   "CUR-cure"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to run",
+    "parts": [
+     "to run"
+    ],
+    "keys": [
+     "run",
+     "running",
+     "race",
+     "rush",
+     "dash",
+     "sprint"
+    ],
+    "lesson": 5,
+    "gloss": "CUR"
+   },
+   {
+    "m": "go",
+    "parts": [
+     "go"
+    ],
+    "keys": [
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 5,
+    "gloss": "CUR"
+   },
+   {
+    "m": "cure",
+    "parts": [
+     "cure"
+    ],
+    "keys": [
+     "cure",
+     "heal",
+     "healing",
+     "remedy",
+     "treat"
+    ],
+    "lesson": 7,
+    "gloss": "CUR-cure"
+   },
+   {
+    "m": "care",
+    "parts": [
+     "care"
+    ],
+    "keys": [
+     "care",
+     "caring",
+     "concern",
+     "attention",
+     "heed",
+     "look after"
+    ],
+    "lesson": 7,
+    "gloss": "CUR-cure"
+   }
+  ],
+  "examples": "current, cursive, excursion, course"
+ },
+ {
+  "key": "CURS",
+  "forms": "CURS-",
+  "spellings": [
+   "CURS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "CUR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to run",
+    "parts": [
+     "to run"
+    ],
+    "keys": [
+     "run",
+     "running",
+     "race",
+     "rush",
+     "dash",
+     "sprint"
+    ],
+    "lesson": 5,
+    "gloss": "CUR"
+   },
+   {
+    "m": "go",
+    "parts": [
+     "go"
+    ],
+    "keys": [
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 5,
+    "gloss": "CUR"
+   }
+  ],
+  "examples": "current, cursive, excursion, course"
+ },
+ {
+  "key": "FAC",
+  "forms": "FAC-",
+  "spellings": [
+   "FAC"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "FAC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to make; do",
+    "parts": [
+     "to make",
+     "do"
+    ],
+    "keys": [
+     "make",
+     "create",
+     "build",
+     "form",
+     "produce",
+     "do",
+     "act",
+     "perform",
+     "carry out"
+    ],
+    "lesson": 5,
+    "gloss": "FAC"
+   }
+  ],
+  "examples": "factory, manufacture, fiction, deficient"
+ },
+ {
+  "key": "FACT",
+  "forms": "FACT-",
+  "spellings": [
+   "FACT"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "FAC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to make; do",
+    "parts": [
+     "to make",
+     "do"
+    ],
+    "keys": [
+     "make",
+     "create",
+     "build",
+     "form",
+     "produce",
+     "do",
+     "act",
+     "perform",
+     "carry out"
+    ],
+    "lesson": 5,
+    "gloss": "FAC"
+   }
+  ],
+  "examples": "factory, manufacture, fiction, deficient"
+ },
+ {
+  "key": "GRAD",
+  "forms": "GRAD-",
+  "spellings": [
+   "GRAD"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "GRAD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to step; go",
+    "parts": [
+     "to step",
+     "go"
+    ],
+    "keys": [
+     "step",
+     "stage",
+     "degree",
+     "grade",
+     "walk",
+     "march",
+     "stride",
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 5,
+    "gloss": "GRAD"
+   }
+  ],
+  "examples": "graduate, progress, regression"
+ },
+ {
+  "key": "GRESS",
+  "forms": "GRESS-",
+  "spellings": [
+   "GRESS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "GRAD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to step; go",
+    "parts": [
+     "to step",
+     "go"
+    ],
+    "keys": [
+     "step",
+     "stage",
+     "degree",
+     "grade",
+     "walk",
+     "march",
+     "stride",
+     "go",
+     "move",
+     "proceed"
+    ],
+    "lesson": 5,
+    "gloss": "GRAD"
+   }
+  ],
+  "examples": "graduate, progress, regression"
+ },
+ {
+  "key": "LIMIN",
+  "forms": "LIMIN-",
+  "spellings": [
+   "LIMIN"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "LIMIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "threshold",
+    "parts": [
+     "threshold"
+    ],
+    "keys": [
+     "threshold",
+     "doorway",
+     "entrance",
+     "doorstep",
+     "sill"
+    ],
+    "lesson": 5,
+    "gloss": "LIMIN"
+   }
+  ],
+  "examples": "preliminary, subliminal, eliminate"
+ },
+ {
+  "key": "LOC",
+  "forms": "LOC-",
+  "spellings": [
+   "LOC"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "LOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "place",
+    "parts": [
+     "place"
+    ],
+    "keys": [
+     "place",
+     "location",
+     "spot",
+     "site",
+     "position"
+    ],
+    "lesson": 5,
+    "gloss": "LOC"
+   }
+  ],
+  "examples": "locate, dislocate, allocate"
+ },
+ {
+  "key": "NOMEN",
+  "forms": "NOMEN-",
+  "spellings": [
+   "NOMEN"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "NOMIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "name",
+    "parts": [
+     "name"
+    ],
+    "keys": [
+     "name",
+     "naming",
+     "title"
+    ],
+    "lesson": 5,
+    "gloss": "NOMIN"
+   },
+   {
+    "m": "noun",
+    "parts": [
+     "noun"
+    ],
+    "keys": [
+     "noun",
+     "nouns"
+    ],
+    "lesson": 5,
+    "gloss": "NOMIN"
+   }
+  ],
+  "examples": "nominate, denomination, nominal"
+ },
+ {
+  "key": "NOMIN",
+  "forms": "NOMIN-",
+  "spellings": [
+   "NOMIN"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "NOMIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "name",
+    "parts": [
+     "name"
+    ],
+    "keys": [
+     "name",
+     "naming",
+     "title"
+    ],
+    "lesson": 5,
+    "gloss": "NOMIN"
+   },
+   {
+    "m": "noun",
+    "parts": [
+     "noun"
+    ],
+    "keys": [
+     "noun",
+     "nouns"
+    ],
+    "lesson": 5,
+    "gloss": "NOMIN"
+   }
+  ],
+  "examples": "nominate, denomination, nominal"
+ },
+ {
+  "key": "PEND",
+  "forms": "PEND-",
+  "spellings": [
+   "PEND"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PEND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hang",
+    "parts": [
+     "to hang"
+    ],
+    "keys": [
+     "hang",
+     "hanging",
+     "suspend",
+     "dangle"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   },
+   {
+    "m": "weigh",
+    "parts": [
+     "weigh"
+    ],
+    "keys": [
+     "weigh",
+     "weighing",
+     "balance"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   },
+   {
+    "m": "pay",
+    "parts": [
+     "pay"
+    ],
+    "keys": [
+     "pay",
+     "payment",
+     "spend",
+     "expend",
+     "compensate"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   }
+  ],
+  "examples": "suspend, pension, compensate"
+ },
+ {
+  "key": "PENS",
+  "forms": "PENS-",
+  "spellings": [
+   "PENS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PEND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hang",
+    "parts": [
+     "to hang"
+    ],
+    "keys": [
+     "hang",
+     "hanging",
+     "suspend",
+     "dangle"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   },
+   {
+    "m": "weigh",
+    "parts": [
+     "weigh"
+    ],
+    "keys": [
+     "weigh",
+     "weighing",
+     "balance"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   },
+   {
+    "m": "pay",
+    "parts": [
+     "pay"
+    ],
+    "keys": [
+     "pay",
+     "payment",
+     "spend",
+     "expend",
+     "compensate"
+    ],
+    "lesson": 5,
+    "gloss": "PEND"
+   }
+  ],
+  "examples": "suspend, pension, compensate"
+ },
+ {
+  "key": "PLE",
+  "forms": "PLE-",
+  "spellings": [
+   "PLE"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PLE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fill",
+    "parts": [
+     "to fill"
+    ],
+    "keys": [
+     "fill",
+     "filling",
+     "fill up",
+     "supply"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   },
+   {
+    "m": "full",
+    "parts": [
+     "full"
+    ],
+    "keys": [
+     "full",
+     "fullness",
+     "complete",
+     "plenty",
+     "plentiful"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   }
+  ],
+  "examples": "complete, deplete, plenty"
+ },
+ {
+  "key": "PLEN",
+  "forms": "PLEN-",
+  "spellings": [
+   "PLEN"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PLE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fill",
+    "parts": [
+     "to fill"
+    ],
+    "keys": [
+     "fill",
+     "filling",
+     "fill up",
+     "supply"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   },
+   {
+    "m": "full",
+    "parts": [
+     "full"
+    ],
+    "keys": [
+     "full",
+     "fullness",
+     "complete",
+     "plenty",
+     "plentiful"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   }
+  ],
+  "examples": "complete, deplete, plenty"
+ },
+ {
+  "key": "PLET",
+  "forms": "PLET-",
+  "spellings": [
+   "PLET"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PLE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fill",
+    "parts": [
+     "to fill"
+    ],
+    "keys": [
+     "fill",
+     "filling",
+     "fill up",
+     "supply"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   },
+   {
+    "m": "full",
+    "parts": [
+     "full"
+    ],
+    "keys": [
+     "full",
+     "fullness",
+     "complete",
+     "plenty",
+     "plentiful"
+    ],
+    "lesson": 5,
+    "gloss": "PLE"
+   }
+  ],
+  "examples": "complete, deplete, plenty"
+ },
+ {
+  "key": "POST",
+  "forms": "POST-",
+  "spellings": [
+   "POST"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "POST"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "after",
+    "parts": [
+     "after"
+    ],
+    "keys": [
+     "after",
+     "later",
+     "afterward",
+     "following"
+    ],
+    "lesson": 5,
+    "gloss": "POST"
+   },
+   {
+    "m": "behind",
+    "parts": [
+     "behind"
+    ],
+    "keys": [
+     "behind",
+     "in back of",
+     "at the back",
+     "rear"
+    ],
+    "lesson": 5,
+    "gloss": "POST"
+   }
+  ],
+  "examples": "postpone, posterity, postwar"
+ },
+ {
+  "key": "PRE",
+  "forms": "PRE-",
+  "spellings": [
+   "PRE"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "PRE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "before",
+    "parts": [
+     "before"
+    ],
+    "keys": [
+     "before",
+     "prior",
+     "earlier",
+     "previous",
+     "preceding"
+    ],
+    "lesson": 5,
+    "gloss": "PRE"
+   },
+   {
+    "m": "in front of",
+    "parts": [
+     "in front of"
+    ],
+    "keys": [
+     "in front of",
+     "in front",
+     "front",
+     "ahead of",
+     "facing"
+    ],
+    "lesson": 5,
+    "gloss": "PRE"
+   }
+  ],
+  "examples": "predict, prevent, precede"
+ },
+ {
+  "key": "PRO",
+  "forms": "PRO-",
+  "spellings": [
+   "PRO"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "PRO"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "forward",
+    "parts": [
+     "forward"
+    ],
+    "keys": [
+     "forward",
+     "forth",
+     "ahead",
+     "onward"
+    ],
+    "lesson": 5,
+    "gloss": "PRO"
+   },
+   {
+    "m": "in front of",
+    "parts": [
+     "in front of"
+    ],
+    "keys": [
+     "in front of",
+     "in front",
+     "front",
+     "ahead of",
+     "facing"
+    ],
+    "lesson": 5,
+    "gloss": "PRO"
+   },
+   {
+    "m": "for",
+    "parts": [
+     "for"
+    ],
+    "keys": [
+     "for",
+     "in favor of",
+     "in favour of",
+     "favor",
+     "favoring",
+     "support",
+     "supporting"
+    ],
+    "lesson": 5,
+    "gloss": "PRO"
+   }
+  ],
+  "examples": "proceed, promote, propose"
+ },
+ {
+  "key": "PULS",
+  "forms": "PULS-",
+  "spellings": [
+   "PULS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "PULS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to drive; push",
+    "parts": [
+     "to drive",
+     "push"
+    ],
+    "keys": [
+     "drive",
+     "drive out",
+     "propel",
+     "force",
+     "push",
+     "shove",
+     "press",
+     "beat",
+     "beating",
+     "strike",
+     "hit",
+     "throb",
+     "pulse"
+    ],
+    "lesson": 5,
+    "gloss": "PULS"
+   }
+  ],
+  "examples": "pulse, repulsive, compulsion"
+ },
+ {
+  "key": "RE",
+  "forms": "RE-",
+  "spellings": [
+   "RE"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "RE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "back",
+    "parts": [
+     "back"
+    ],
+    "keys": [
+     "back",
+     "return"
+    ],
+    "lesson": 5,
+    "gloss": "RE"
+   },
+   {
+    "m": "again",
+    "parts": [
+     "again"
+    ],
+    "keys": [
+     "again",
+     "anew",
+     "repeat",
+     "once more"
+    ],
+    "lesson": 5,
+    "gloss": "RE"
+   }
+  ],
+  "examples": "return, redeem, react"
+ },
+ {
+  "key": "RED",
+  "forms": "RED-",
+  "spellings": [
+   "RED"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "RE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "back",
+    "parts": [
+     "back"
+    ],
+    "keys": [
+     "back",
+     "return"
+    ],
+    "lesson": 5,
+    "gloss": "RE"
+   },
+   {
+    "m": "again",
+    "parts": [
+     "again"
+    ],
+    "keys": [
+     "again",
+     "anew",
+     "repeat",
+     "once more"
+    ],
+    "lesson": 5,
+    "gloss": "RE"
+   }
+  ],
+  "examples": "return, redeem, react"
+ },
+ {
+  "key": "RETRO",
+  "forms": "RETRO-",
+  "spellings": [
+   "RETRO"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "RETRO"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "backward; behind",
+    "parts": [
+     "backward",
+     "behind"
+    ],
+    "keys": [
+     "backward",
+     "backwards",
+     "back",
+     "behind",
+     "in back of",
+     "at the back",
+     "rear"
+    ],
+    "lesson": 5,
+    "gloss": "RETRO"
+   }
+  ],
+  "examples": "retrospect, retroactive, retrograde"
+ },
+ {
+  "key": "SE",
+  "forms": "SE-",
+  "spellings": [
+   "SE"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "SE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "aside; away",
+    "parts": [
+     "aside",
+     "away"
+    ],
+    "keys": [
+     "aside",
+     "to one side",
+     "apart",
+     "separate",
+     "asunder",
+     "away",
+     "off",
+     "without",
+     "lacking",
+     "lack"
+    ],
+    "lesson": 5,
+    "gloss": "SE"
+   }
+  ],
+  "examples": "separate, secede, sedition"
+ },
+ {
+  "key": "SED",
+  "forms": "SED-",
+  "spellings": [
+   "SED"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "SE",
+   "SED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "aside; away",
+    "parts": [
+     "aside",
+     "away"
+    ],
+    "keys": [
+     "aside",
+     "to one side",
+     "apart",
+     "separate",
+     "asunder",
+     "away",
+     "off",
+     "without",
+     "lacking",
+     "lack"
+    ],
+    "lesson": 5,
+    "gloss": "SE"
+   },
+   {
+    "m": "to sit",
+    "parts": [
+     "to sit"
+    ],
+    "keys": [
+     "sit",
+     "seat",
+     "seated"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   },
+   {
+    "m": "settle",
+    "parts": [
+     "settle"
+    ],
+    "keys": [
+     "settle",
+     "settle down",
+     "sink",
+     "rest",
+     "remain"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   }
+  ],
+  "examples": "sedentary, sediment, reside"
+ },
+ {
+  "key": "SPEC",
+  "forms": "SPEC-",
+  "spellings": [
+   "SPEC"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "SPEC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to look",
+    "parts": [
+     "to look"
+    ],
+    "keys": [
+     "look",
+     "look at",
+     "watch",
+     "observe",
+     "view",
+     "see",
+     "sight",
+     "vision"
+    ],
+    "lesson": 5,
+    "gloss": "SPEC"
+   }
+  ],
+  "examples": "spectacle, inspect, conspicuous"
+ },
+ {
+  "key": "SPECT",
+  "forms": "SPECT-",
+  "spellings": [
+   "SPECT"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "SPEC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to look",
+    "parts": [
+     "to look"
+    ],
+    "keys": [
+     "look",
+     "look at",
+     "watch",
+     "observe",
+     "view",
+     "see",
+     "sight",
+     "vision"
+    ],
+    "lesson": 5,
+    "gloss": "SPEC"
+   }
+  ],
+  "examples": "spectacle, inspect, conspicuous"
+ },
+ {
+  "key": "SPIR",
+  "forms": "SPIR-",
+  "spellings": [
+   "SPIR"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "SPIR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to breathe",
+    "parts": [
+     "to breathe"
+    ],
+    "keys": [
+     "breathe",
+     "breath",
+     "respire",
+     "inhale",
+     "exhale"
+    ],
+    "lesson": 5,
+    "gloss": "SPIR"
+   }
+  ],
+  "examples": "inspire, respire, conspire"
+ },
+ {
+  "key": "SUB",
+  "forms": "SUB-",
+  "spellings": [
+   "SUB"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "SUB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "under",
+    "parts": [
+     "under"
+    ],
+    "keys": [
+     "under",
+     "below",
+     "lower",
+     "underneath"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "up from under",
+    "parts": [
+     "up from under"
+    ],
+    "keys": [
+     "up from under",
+     "from under",
+     "from below",
+     "from beneath",
+     "upward from below",
+     "up from below"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "secretly",
+    "parts": [
+     "secretly"
+    ],
+    "keys": [
+     "secretly",
+     "secret",
+     "secretive",
+     "hidden",
+     "covertly",
+     "stealthily"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   }
+  ],
+  "examples": "submarine, suspend, succeed"
+ },
+ {
+  "key": "SUC",
+  "forms": "SUC-",
+  "spellings": [
+   "SUC"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "SUB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "under",
+    "parts": [
+     "under"
+    ],
+    "keys": [
+     "under",
+     "below",
+     "lower",
+     "underneath"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "up from under",
+    "parts": [
+     "up from under"
+    ],
+    "keys": [
+     "up from under",
+     "from under",
+     "from below",
+     "from beneath",
+     "upward from below",
+     "up from below"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "secretly",
+    "parts": [
+     "secretly"
+    ],
+    "keys": [
+     "secretly",
+     "secret",
+     "secretive",
+     "hidden",
+     "covertly",
+     "stealthily"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   }
+  ],
+  "examples": "submarine, suspend, succeed"
+ },
+ {
+  "key": "SUPER",
+  "forms": "SUPER-",
+  "spellings": [
+   "SUPER"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "SUPER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "above; over",
+    "parts": [
+     "above",
+     "over"
+    ],
+    "keys": [
+     "above",
+     "higher",
+     "superior",
+     "on top",
+     "over"
+    ],
+    "lesson": 5,
+    "gloss": "SUPER"
+   }
+  ],
+  "examples": "superior, surpass, superimpose"
+ },
+ {
+  "key": "SUS",
+  "forms": "SUS-",
+  "spellings": [
+   "SUS"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "SUB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "under",
+    "parts": [
+     "under"
+    ],
+    "keys": [
+     "under",
+     "below",
+     "lower",
+     "underneath"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "up from under",
+    "parts": [
+     "up from under"
+    ],
+    "keys": [
+     "up from under",
+     "from under",
+     "from below",
+     "from beneath",
+     "upward from below",
+     "up from below"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   },
+   {
+    "m": "secretly",
+    "parts": [
+     "secretly"
+    ],
+    "keys": [
+     "secretly",
+     "secret",
+     "secretive",
+     "hidden",
+     "covertly",
+     "stealthily"
+    ],
+    "lesson": 5,
+    "gloss": "SUB"
+   }
+  ],
+  "examples": "submarine, suspend, succeed"
+ },
+ {
+  "key": "TRA",
+  "forms": "TRA-",
+  "spellings": [
+   "TRA"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "TRANS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "across; through",
+    "parts": [
+     "across",
+     "through"
+    ],
+    "keys": [
+     "across",
+     "cross",
+     "crossing",
+     "to the other side",
+     "through",
+     "throughout",
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 5,
+    "gloss": "TRANS"
+   }
+  ],
+  "examples": "transmit, transcend, traverse"
+ },
+ {
+  "key": "TRAN",
+  "forms": "TRAN-",
+  "spellings": [
+   "TRAN"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "TRANS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "across; through",
+    "parts": [
+     "across",
+     "through"
+    ],
+    "keys": [
+     "across",
+     "cross",
+     "crossing",
+     "to the other side",
+     "through",
+     "throughout",
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 5,
+    "gloss": "TRANS"
+   }
+  ],
+  "examples": "transmit, transcend, traverse"
+ },
+ {
+  "key": "TRANS",
+  "forms": "TRANS-",
+  "spellings": [
+   "TRANS"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "TRANS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "across; through",
+    "parts": [
+     "across",
+     "through"
+    ],
+    "keys": [
+     "across",
+     "cross",
+     "crossing",
+     "to the other side",
+     "through",
+     "throughout",
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 5,
+    "gloss": "TRANS"
+   }
+  ],
+  "examples": "transmit, transcend, traverse"
+ },
+ {
+  "key": "ULTRA",
+  "forms": "ULTRA-",
+  "spellings": [
+   "ULTRA"
+  ],
+  "kind": "prefix",
+  "lesson": 5,
+  "glosses": [
+   "ULTRA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "beyond",
+    "parts": [
+     "beyond"
+    ],
+    "keys": [
+     "beyond",
+     "more than",
+     "further",
+     "past"
+    ],
+    "lesson": 5,
+    "gloss": "ULTRA"
+   },
+   {
+    "m": "exceedingly",
+    "parts": [
+     "exceedingly"
+    ],
+    "keys": [
+     "exceedingly",
+     "exceeding",
+     "excessively",
+     "excessive",
+     "too",
+     "too much",
+     "extreme",
+     "extremely",
+     "very"
+    ],
+    "lesson": 5,
+    "gloss": "ULTRA"
+   }
+  ],
+  "examples": "ultraviolet, ultrasound, ultramodern"
+ },
+ {
+  "key": "UND",
+  "forms": "UND-",
+  "spellings": [
+   "UND"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "UND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "wave",
+    "parts": [
+     "wave"
+    ],
+    "keys": [
+     "wave",
+     "surge",
+     "billow",
+     "ripple"
+    ],
+    "lesson": 5,
+    "gloss": "UND"
+   }
+  ],
+  "examples": "undulate, abound, redundant"
+ },
+ {
+  "key": "VID",
+  "forms": "VID-",
+  "spellings": [
+   "VID"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "VID"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to see",
+    "parts": [
+     "to see"
+    ],
+    "keys": [
+     "see",
+     "sight",
+     "vision",
+     "view",
+     "observe"
+    ],
+    "lesson": 5,
+    "gloss": "VID"
+   }
+  ],
+  "examples": "video, visible, review"
+ },
+ {
+  "key": "VIS",
+  "forms": "VIS-",
+  "spellings": [
+   "VIS"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "VID"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to see",
+    "parts": [
+     "to see"
+    ],
+    "keys": [
+     "see",
+     "sight",
+     "vision",
+     "view",
+     "observe"
+    ],
+    "lesson": 5,
+    "gloss": "VID"
+   }
+  ],
+  "examples": "video, visible, review"
+ },
+ {
+  "key": "VOC",
+  "forms": "VOC-",
+  "spellings": [
+   "VOC"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "VOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to call",
+    "parts": [
+     "to call"
+    ],
+    "keys": [
+     "call",
+     "calling",
+     "summon",
+     "cry out"
+    ],
+    "lesson": 5,
+    "gloss": "VOC"
+   },
+   {
+    "m": "voice",
+    "parts": [
+     "voice"
+    ],
+    "keys": [
+     "voice",
+     "vocal",
+     "sound"
+    ],
+    "lesson": 5,
+    "gloss": "VOC"
+   }
+  ],
+  "examples": "vocal, vocation, invoke"
+ },
+ {
+  "key": "VOK",
+  "forms": "VOK-",
+  "spellings": [
+   "VOK"
+  ],
+  "kind": "base",
+  "lesson": 5,
+  "glosses": [
+   "VOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to call",
+    "parts": [
+     "to call"
+    ],
+    "keys": [
+     "call",
+     "calling",
+     "summon",
+     "cry out"
+    ],
+    "lesson": 5,
+    "gloss": "VOC"
+   },
+   {
+    "m": "voice",
+    "parts": [
+     "voice"
+    ],
+    "keys": [
+     "voice",
+     "vocal",
+     "sound"
+    ],
+    "lesson": 5,
+    "gloss": "VOC"
+   }
+  ],
+  "examples": "vocal, vocation, invoke"
+ },
+ {
+  "key": "BI",
+  "forms": "BI-",
+  "spellings": [
+   "BI"
+  ],
+  "kind": "prefix",
+  "lesson": 6,
+  "glosses": [
+   "BI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "two; twice",
+    "parts": [
+     "two",
+     "twice"
+    ],
+    "keys": [
+     "two",
+     "2",
+     "double",
+     "pair",
+     "dual",
+     "twice",
+     "two times"
+    ],
+    "lesson": 6,
+    "gloss": "BI"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CENT",
+  "forms": "CENT-",
+  "spellings": [
+   "CENT"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "CENT",
+   "CENT-sing"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "hundred",
+    "parts": [
+     "hundred"
+    ],
+    "keys": [
+     "hundred",
+     "100",
+     "hundredth"
+    ],
+    "lesson": 6,
+    "gloss": "CENT"
+   },
+   {
+    "m": "to sing",
+    "parts": [
+     "to sing"
+    ],
+    "keys": [
+     "sing",
+     "singing",
+     "song",
+     "chant"
+    ],
+    "lesson": 7,
+    "gloss": "CENT-sing"
+   }
+  ],
+  "examples": "century, percent"
+ },
+ {
+  "key": "DECI",
+  "forms": "DECI(M)-",
+  "spellings": [
+   "DECI",
+   "DECIM"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "DECI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tenth",
+    "parts": [
+     "tenth"
+    ],
+    "keys": [
+     "tenth",
+     "ten",
+     "10",
+     "tithe"
+    ],
+    "lesson": 6,
+    "gloss": "DECI"
+   }
+  ],
+  "examples": "decimal, decimate"
+ },
+ {
+  "key": "DU",
+  "forms": "DU-",
+  "spellings": [
+   "DU"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "DU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "two",
+    "parts": [
+     "two"
+    ],
+    "keys": [
+     "two",
+     "2",
+     "double",
+     "pair",
+     "dual"
+    ],
+    "lesson": 6,
+    "gloss": "DU"
+   }
+  ],
+  "examples": "dual, duet"
+ },
+ {
+  "key": "MILL",
+  "forms": "MILL-",
+  "spellings": [
+   "MILL"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "MILL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "thousand",
+    "parts": [
+     "thousand"
+    ],
+    "keys": [
+     "thousand",
+     "1000",
+     "1,000"
+    ],
+    "lesson": 6,
+    "gloss": "MILL"
+   }
+  ],
+  "examples": "million, millennium"
+ },
+ {
+  "key": "OCT",
+  "forms": "OCT-",
+  "spellings": [
+   "OCT"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "OCT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "eight",
+    "parts": [
+     "eight"
+    ],
+    "keys": [
+     "eight",
+     "8"
+    ],
+    "lesson": 6,
+    "gloss": "OCT"
+   }
+  ],
+  "examples": "octet, octogenarian"
+ },
+ {
+  "key": "OCTAV",
+  "forms": "OCTAV-",
+  "spellings": [
+   "OCTAV"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "OCTAV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "eighth",
+    "parts": [
+     "eighth"
+    ],
+    "keys": [
+     "eighth",
+     "8th"
+    ],
+    "lesson": 6,
+    "gloss": "OCTAV"
+   }
+  ],
+  "examples": "octave"
+ },
+ {
+  "key": "PRIM",
+  "forms": "PRIM-",
+  "spellings": [
+   "PRIM"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "PRIM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "first",
+    "parts": [
+     "first"
+    ],
+    "keys": [
+     "first",
+     "primary",
+     "chief",
+     "earliest",
+     "prime"
+    ],
+    "lesson": 6,
+    "gloss": "PRIM"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "QUADRI",
+  "forms": "QUADRI-",
+  "spellings": [
+   "QUADRI"
+  ],
+  "kind": "prefix",
+  "lesson": 6,
+  "glosses": [
+   "QUADRI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "four",
+    "parts": [
+     "four"
+    ],
+    "keys": [
+     "four",
+     "4",
+     "fourfold"
+    ],
+    "lesson": 6,
+    "gloss": "QUADRI"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "QUART",
+  "forms": "QUART-",
+  "spellings": [
+   "QUART"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "QUART"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "fourth",
+    "parts": [
+     "fourth"
+    ],
+    "keys": [
+     "fourth",
+     "4th",
+     "quarter"
+    ],
+    "lesson": 6,
+    "gloss": "QUART"
+   }
+  ],
+  "examples": "quarter, quart"
+ },
+ {
+  "key": "QUINT",
+  "forms": "QUINT-",
+  "spellings": [
+   "QUINT"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "QUINT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "fifth",
+    "parts": [
+     "fifth"
+    ],
+    "keys": [
+     "fifth",
+     "5th"
+    ],
+    "lesson": 6,
+    "gloss": "QUINT"
+   }
+  ],
+  "examples": "quintet, quintessence"
+ },
+ {
+  "key": "SEMI",
+  "forms": "SEMI-",
+  "spellings": [
+   "SEMI"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "SEMI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "half; partly",
+    "parts": [
+     "half",
+     "partly"
+    ],
+    "keys": [
+     "half",
+     "halves",
+     "halfway",
+     "partly",
+     "partial",
+     "partially",
+     "somewhat",
+     "in part"
+    ],
+    "lesson": 6,
+    "gloss": "SEMI"
+   }
+  ],
+  "examples": "semicircle, semiannual"
+ },
+ {
+  "key": "SEPT",
+  "forms": "SEPT(EM)-",
+  "spellings": [
+   "SEPT",
+   "SEPTEM"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "SEPT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "seven",
+    "parts": [
+     "seven"
+    ],
+    "keys": [
+     "seven",
+     "7"
+    ],
+    "lesson": 6,
+    "gloss": "SEPT"
+   }
+  ],
+  "examples": "septet, September"
+ },
+ {
+  "key": "SEXT",
+  "forms": "SEXT-",
+  "spellings": [
+   "SEXT"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "SEXT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "six; sixth",
+    "parts": [
+     "six",
+     "sixth"
+    ],
+    "keys": [
+     "six",
+     "6",
+     "sixth",
+     "6th"
+    ],
+    "lesson": 6,
+    "gloss": "SEXT"
+   }
+  ],
+  "examples": "sextet, sextant"
+ },
+ {
+  "key": "TRI",
+  "forms": "TRI-",
+  "spellings": [
+   "TRI"
+  ],
+  "kind": "base",
+  "lesson": 6,
+  "glosses": [
+   "TRI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "three",
+    "parts": [
+     "three"
+    ],
+    "keys": [
+     "three",
+     "3",
+     "triple",
+     "threefold"
+    ],
+    "lesson": 6,
+    "gloss": "TRI"
+   }
+  ],
+  "examples": "triangle, trivial"
+ },
+ {
+  "key": "UNI",
+  "forms": "UNI-",
+  "spellings": [
+   "UNI"
+  ],
+  "kind": "prefix",
+  "lesson": 6,
+  "glosses": [
+   "UNI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "one",
+    "parts": [
+     "one"
+    ],
+    "keys": [
+     "one",
+     "single",
+     "only",
+     "alone"
+    ],
+    "lesson": 6,
+    "gloss": "UNI"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "IQU",
+  "forms": "(IQU-)",
+  "spellings": [
+   "IQU"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "EQU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "equal; even",
+    "parts": [
+     "equal",
+     "even"
+    ],
+    "keys": [
+     "equal",
+     "equality",
+     "same",
+     "identical",
+     "alike",
+     "even",
+     "level",
+     "flat",
+     "balanced",
+     "fair"
+    ],
+    "lesson": 7,
+    "gloss": "EQU"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "ANIM",
+  "forms": "ANIM-",
+  "spellings": [
+   "ANIM"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "ANIM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "mind",
+    "parts": [
+     "mind"
+    ],
+    "keys": [
+     "mind",
+     "spirit",
+     "soul",
+     "mental"
+    ],
+    "lesson": 7,
+    "gloss": "ANIM"
+   },
+   {
+    "m": "feeling",
+    "parts": [
+     "feeling"
+    ],
+    "keys": [
+     "feeling",
+     "feelings",
+     "emotion",
+     "passion",
+     "spirit"
+    ],
+    "lesson": 7,
+    "gloss": "ANIM"
+   },
+   {
+    "m": "life",
+    "parts": [
+     "life"
+    ],
+    "keys": [
+     "life",
+     "alive",
+     "living",
+     "breath",
+     "animate"
+    ],
+    "lesson": 7,
+    "gloss": "ANIM"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "ANN",
+  "forms": "ANN-",
+  "spellings": [
+   "ANN"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "ANN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "year",
+    "parts": [
+     "year"
+    ],
+    "keys": [
+     "year",
+     "years",
+     "annual",
+     "yearly"
+    ],
+    "lesson": 7,
+    "gloss": "ANN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "BENE",
+  "forms": "BENE-",
+  "spellings": [
+   "BENE"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "BENE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "good; well",
+    "parts": [
+     "good",
+     "well"
+    ],
+    "keys": [
+     "good",
+     "goodness",
+     "kind",
+     "beneficial",
+     "well",
+     "properly",
+     "rightly"
+    ],
+    "lesson": 7,
+    "gloss": "BENE"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "BON",
+  "forms": "BON-",
+  "spellings": [
+   "BON"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "BENE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "good; well",
+    "parts": [
+     "good",
+     "well"
+    ],
+    "keys": [
+     "good",
+     "goodness",
+     "kind",
+     "beneficial",
+     "well",
+     "properly",
+     "rightly"
+    ],
+    "lesson": 7,
+    "gloss": "BENE"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CANT",
+  "forms": "CANT-",
+  "spellings": [
+   "CANT"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "CANT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to sing",
+    "parts": [
+     "to sing"
+    ],
+    "keys": [
+     "sing",
+     "singing",
+     "song",
+     "chant"
+    ],
+    "lesson": 7,
+    "gloss": "CANT"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CHANT",
+  "forms": "CHANT-",
+  "spellings": [
+   "CHANT"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "CANT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to sing",
+    "parts": [
+     "to sing"
+    ],
+    "keys": [
+     "sing",
+     "singing",
+     "song",
+     "chant"
+    ],
+    "lesson": 7,
+    "gloss": "CANT"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "ENNI",
+  "forms": "ENNI-",
+  "spellings": [
+   "ENNI"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "ENNI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "year",
+    "parts": [
+     "year"
+    ],
+    "keys": [
+     "year",
+     "years",
+     "annual",
+     "yearly"
+    ],
+    "lesson": 7,
+    "gloss": "ENNI"
+   }
+  ],
+  "examples": "biennial, perennial"
+ },
+ {
+  "key": "EQU",
+  "forms": "EQU-",
+  "spellings": [
+   "EQU"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "EQU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "equal; even",
+    "parts": [
+     "equal",
+     "even"
+    ],
+    "keys": [
+     "equal",
+     "equality",
+     "same",
+     "identical",
+     "alike",
+     "even",
+     "level",
+     "flat",
+     "balanced",
+     "fair"
+    ],
+    "lesson": 7,
+    "gloss": "EQU"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "FER",
+  "forms": "FER-",
+  "spellings": [
+   "FER"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "FER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to carry; bear",
+    "parts": [
+     "to carry",
+     "bear"
+    ],
+    "keys": [
+     "carry",
+     "carrying",
+     "convey",
+     "transport",
+     "bring",
+     "bear",
+     "bearing",
+     "endure",
+     "bring forth"
+    ],
+    "lesson": 7,
+    "gloss": "FER"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "LAT",
+  "forms": "LAT-",
+  "spellings": [
+   "LAT"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "LAT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to bear; carry",
+    "parts": [
+     "to bear",
+     "carry"
+    ],
+    "keys": [
+     "bear",
+     "bearing",
+     "carry",
+     "bring",
+     "endure",
+     "bring forth",
+     "carrying",
+     "convey",
+     "transport"
+    ],
+    "lesson": 7,
+    "gloss": "LAT"
+   }
+  ],
+  "examples": "relate, translate"
+ },
+ {
+  "key": "MAGN",
+  "forms": "MAGN-",
+  "spellings": [
+   "MAGN"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "MAGN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "great",
+    "parts": [
+     "great"
+    ],
+    "keys": [
+     "great",
+     "grand",
+     "magnificent",
+     "large",
+     "big",
+     "huge",
+     "vast"
+    ],
+    "lesson": 7,
+    "gloss": "MAGN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "MAL",
+  "forms": "MAL(E)-",
+  "spellings": [
+   "MAL",
+   "MALE"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "MAL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "bad",
+    "parts": [
+     "bad"
+    ],
+    "keys": [
+     "bad",
+     "badly",
+     "evil",
+     "ill",
+     "wrong",
+     "wicked",
+     "poor"
+    ],
+    "lesson": 7,
+    "gloss": "MAL"
+   }
+  ],
+  "examples": "malady, malevolent"
+ },
+ {
+  "key": "MULT",
+  "forms": "MULT-",
+  "spellings": [
+   "MULT"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "MULT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "many",
+    "parts": [
+     "many"
+    ],
+    "keys": [
+     "many",
+     "much",
+     "multiple",
+     "numerous",
+     "a lot",
+     "lots"
+    ],
+    "lesson": 7,
+    "gloss": "MULT"
+   }
+  ],
+  "examples": "multiply, multitude"
+ },
+ {
+  "key": "OPTIM",
+  "forms": "OPTIM-",
+  "spellings": [
+   "OPTIM"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "OPTIM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "best",
+    "parts": [
+     "best"
+    ],
+    "keys": [
+     "best",
+     "finest",
+     "greatest",
+     "most good",
+     "optimal"
+    ],
+    "lesson": 7,
+    "gloss": "OPTIM"
+   }
+  ],
+  "examples": "optimist, optimal"
+ },
+ {
+  "key": "PLEX",
+  "forms": "PLEX-",
+  "spellings": [
+   "PLEX"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "PLEX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fold",
+    "parts": [
+     "to fold"
+    ],
+    "keys": [
+     "fold",
+     "folds",
+     "folding",
+     "bend",
+     "layer",
+     "ply",
+     "double"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   },
+   {
+    "m": "tangle; interweave",
+    "parts": [
+     "tangle",
+     "interweave"
+    ],
+    "keys": [
+     "tangle",
+     "entangle",
+     "knot",
+     "intertwine",
+     "complicate",
+     "interweave",
+     "weave",
+     "braid",
+     "plait"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   }
+  ],
+  "examples": "complex, implicate, reply"
+ },
+ {
+  "key": "PLIC",
+  "forms": "PLIC-",
+  "spellings": [
+   "PLIC"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "PLEX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fold",
+    "parts": [
+     "to fold"
+    ],
+    "keys": [
+     "fold",
+     "folds",
+     "folding",
+     "bend",
+     "layer",
+     "ply",
+     "double"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   },
+   {
+    "m": "tangle; interweave",
+    "parts": [
+     "tangle",
+     "interweave"
+    ],
+    "keys": [
+     "tangle",
+     "entangle",
+     "knot",
+     "intertwine",
+     "complicate",
+     "interweave",
+     "weave",
+     "braid",
+     "plait"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   }
+  ],
+  "examples": "complex, implicate, reply"
+ },
+ {
+  "key": "PLY",
+  "forms": "PLY-",
+  "spellings": [
+   "PLY"
+  ],
+  "kind": "base",
+  "lesson": 7,
+  "glosses": [
+   "PLEX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fold",
+    "parts": [
+     "to fold"
+    ],
+    "keys": [
+     "fold",
+     "folds",
+     "folding",
+     "bend",
+     "layer",
+     "ply",
+     "double"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   },
+   {
+    "m": "tangle; interweave",
+    "parts": [
+     "tangle",
+     "interweave"
+    ],
+    "keys": [
+     "tangle",
+     "entangle",
+     "knot",
+     "intertwine",
+     "complicate",
+     "interweave",
+     "weave",
+     "braid",
+     "plait"
+    ],
+    "lesson": 7,
+    "gloss": "PLEX"
+   }
+  ],
+  "examples": "complex, implicate, reply"
+ },
+ {
+  "key": "-AIN",
+  "forms": "-AIN",
+  "spellings": [
+   "AIN"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-AIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 8,
+    "gloss": "-AIN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-AL",
+  "forms": "-AL",
+  "spellings": [
+   "AL"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-AL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 8,
+    "gloss": "-AL"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-AN",
+  "forms": "-AN",
+  "spellings": [
+   "AN"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-AN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 8,
+    "gloss": "-AN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ANE",
+  "forms": "-ANE",
+  "spellings": [
+   "ANE"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-ANE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 8,
+    "gloss": "-ANE"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-AR",
+  "forms": "-AR",
+  "spellings": [
+   "AR"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-AR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 8,
+    "gloss": "-AR"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-OSE",
+  "forms": "-OSE",
+  "spellings": [
+   "OSE"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-OSE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "full of",
+    "parts": [
+     "full of"
+    ],
+    "keys": [
+     "full of",
+     "full",
+     "filled with",
+     "abounding in",
+     "having much",
+     "lots of",
+     "rich in"
+    ],
+    "lesson": 8,
+    "gloss": "-OSE"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-OUS",
+  "forms": "-OUS",
+  "spellings": [
+   "OUS"
+  ],
+  "kind": "suffix",
+  "lesson": 8,
+  "glosses": [
+   "-OUS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "full of",
+    "parts": [
+     "full of"
+    ],
+    "keys": [
+     "full of",
+     "full",
+     "filled with",
+     "abounding in",
+     "having much",
+     "lots of",
+     "rich in"
+    ],
+    "lesson": 8,
+    "gloss": "-OUS"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "RIG",
+  "forms": "(RIG-)",
+  "spellings": [
+   "RIG"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "REG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "right; straight",
+    "parts": [
+     "right",
+     "straight"
+    ],
+    "keys": [
+     "right",
+     "just",
+     "justice",
+     "fair",
+     "rightful",
+     "straight",
+     "direct",
+     "upright",
+     "erect"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "to rule",
+    "parts": [
+     "to rule"
+    ],
+    "keys": [
+     "rule",
+     "ruler",
+     "reign",
+     "govern",
+     "king",
+     "regal",
+     "royal"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "straighten; stiffen",
+    "parts": [
+     "straighten",
+     "stiffen"
+    ],
+    "keys": [
+     "straighten",
+     "make straight",
+     "correct",
+     "set right",
+     "stiffen",
+     "stiff",
+     "rigid",
+     "harden",
+     "make rigid"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "AQU",
+  "forms": "AQU(A)-",
+  "spellings": [
+   "AQU",
+   "AQUA"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "AQU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "water",
+    "parts": [
+     "water"
+    ],
+    "keys": [
+     "water",
+     "aquatic",
+     "liquid"
+    ],
+    "lesson": 8,
+    "gloss": "AQU"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CORP",
+  "forms": "CORP(US)-",
+  "spellings": [
+   "CORP",
+   "CORPUS"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "CORPOR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "body",
+    "parts": [
+     "body"
+    ],
+    "keys": [
+     "body",
+     "bodily",
+     "flesh",
+     "corpse"
+    ],
+    "lesson": 8,
+    "gloss": "CORPOR"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CORPOR",
+  "forms": "CORPOR-",
+  "spellings": [
+   "CORPOR"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "CORPOR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "body",
+    "parts": [
+     "body"
+    ],
+    "keys": [
+     "body",
+     "bodily",
+     "flesh",
+     "corpse"
+    ],
+    "lesson": 8,
+    "gloss": "CORPOR"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "OMNI",
+  "forms": "OMNI-",
+  "spellings": [
+   "OMNI"
+  ],
+  "kind": "prefix",
+  "lesson": 8,
+  "glosses": [
+   "OMNI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "all",
+    "parts": [
+     "all"
+    ],
+    "keys": [
+     "all",
+     "every",
+     "everything",
+     "whole",
+     "entire",
+     "total"
+    ],
+    "lesson": 8,
+    "gloss": "OMNI"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "RECT",
+  "forms": "RECT-",
+  "spellings": [
+   "RECT"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "REG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "right; straight",
+    "parts": [
+     "right",
+     "straight"
+    ],
+    "keys": [
+     "right",
+     "just",
+     "justice",
+     "fair",
+     "rightful",
+     "straight",
+     "direct",
+     "upright",
+     "erect"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "to rule",
+    "parts": [
+     "to rule"
+    ],
+    "keys": [
+     "rule",
+     "ruler",
+     "reign",
+     "govern",
+     "king",
+     "regal",
+     "royal"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "straighten; stiffen",
+    "parts": [
+     "straighten",
+     "stiffen"
+    ],
+    "keys": [
+     "straighten",
+     "make straight",
+     "correct",
+     "set right",
+     "stiffen",
+     "stiff",
+     "rigid",
+     "harden",
+     "make rigid"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "REG",
+  "forms": "REG-",
+  "spellings": [
+   "REG"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "REG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "right; straight",
+    "parts": [
+     "right",
+     "straight"
+    ],
+    "keys": [
+     "right",
+     "just",
+     "justice",
+     "fair",
+     "rightful",
+     "straight",
+     "direct",
+     "upright",
+     "erect"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "to rule",
+    "parts": [
+     "to rule"
+    ],
+    "keys": [
+     "rule",
+     "ruler",
+     "reign",
+     "govern",
+     "king",
+     "regal",
+     "royal"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   },
+   {
+    "m": "straighten; stiffen",
+    "parts": [
+     "straighten",
+     "stiffen"
+    ],
+    "keys": [
+     "straighten",
+     "make straight",
+     "correct",
+     "set right",
+     "stiffen",
+     "stiff",
+     "rigid",
+     "harden",
+     "make rigid"
+    ],
+    "lesson": 8,
+    "gloss": "REG"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "SIMIL",
+  "forms": "SIMIL-",
+  "spellings": [
+   "SIMIL"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "SIMIL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "like",
+    "parts": [
+     "like"
+    ],
+    "keys": [
+     "like",
+     "similar to",
+     "resembling",
+     "-like",
+     "characteristic of"
+    ],
+    "lesson": 8,
+    "gloss": "SIMIL"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TAIN",
+  "forms": "TAIN-",
+  "spellings": [
+   "TAIN"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hold",
+    "parts": [
+     "to hold"
+    ],
+    "keys": [
+     "hold",
+     "holding",
+     "keep",
+     "grasp",
+     "grip",
+     "contain",
+     "retain"
+    ],
+    "lesson": 8,
+    "gloss": "TEN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TEMPER",
+  "forms": "TEMPER-",
+  "spellings": [
+   "TEMPER"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEMPOR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "time",
+    "parts": [
+     "time"
+    ],
+    "keys": [
+     "time",
+     "period",
+     "era",
+     "season",
+     "timing"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   },
+   {
+    "m": "due season",
+    "parts": [
+     "due season"
+    ],
+    "keys": [
+     "due season",
+     "right time",
+     "proper time",
+     "season",
+     "timely"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   },
+   {
+    "m": "to set bounds",
+    "parts": [
+     "to set bounds"
+    ],
+    "keys": [
+     "set bounds",
+     "set limits",
+     "limit",
+     "moderate",
+     "restrain",
+     "temper",
+     "regulate"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TEMPOR",
+  "forms": "TEMPOR-",
+  "spellings": [
+   "TEMPOR"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEMPOR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "time",
+    "parts": [
+     "time"
+    ],
+    "keys": [
+     "time",
+     "period",
+     "era",
+     "season",
+     "timing"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   },
+   {
+    "m": "due season",
+    "parts": [
+     "due season"
+    ],
+    "keys": [
+     "due season",
+     "right time",
+     "proper time",
+     "season",
+     "timely"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   },
+   {
+    "m": "to set bounds",
+    "parts": [
+     "to set bounds"
+    ],
+    "keys": [
+     "set bounds",
+     "set limits",
+     "limit",
+     "moderate",
+     "restrain",
+     "temper",
+     "regulate"
+    ],
+    "lesson": 8,
+    "gloss": "TEMPOR"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TEN",
+  "forms": "TEN-",
+  "spellings": [
+   "TEN"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hold",
+    "parts": [
+     "to hold"
+    ],
+    "keys": [
+     "hold",
+     "holding",
+     "keep",
+     "grasp",
+     "grip",
+     "contain",
+     "retain"
+    ],
+    "lesson": 8,
+    "gloss": "TEN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TEND",
+  "forms": "TEND-",
+  "spellings": [
+   "TEND"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to stretch",
+    "parts": [
+     "to stretch"
+    ],
+    "keys": [
+     "stretch",
+     "stretching",
+     "extend",
+     "strain",
+     "tense",
+     "tighten"
+    ],
+    "lesson": 8,
+    "gloss": "TEND"
+   },
+   {
+    "m": "strive",
+    "parts": [
+     "strive"
+    ],
+    "keys": [
+     "strive",
+     "strain",
+     "try",
+     "struggle",
+     "endeavour",
+     "endeavor",
+     "aim"
+    ],
+    "lesson": 8,
+    "gloss": "TEND"
+   }
+  ],
+  "examples": "extend, tension"
+ },
+ {
+  "key": "TENS",
+  "forms": "TENS-",
+  "spellings": [
+   "TENS"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TEND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to stretch",
+    "parts": [
+     "to stretch"
+    ],
+    "keys": [
+     "stretch",
+     "stretching",
+     "extend",
+     "strain",
+     "tense",
+     "tighten"
+    ],
+    "lesson": 8,
+    "gloss": "TEND"
+   },
+   {
+    "m": "strive",
+    "parts": [
+     "strive"
+    ],
+    "keys": [
+     "strive",
+     "strain",
+     "try",
+     "struggle",
+     "endeavour",
+     "endeavor",
+     "aim"
+    ],
+    "lesson": 8,
+    "gloss": "TEND"
+   }
+  ],
+  "examples": "extend, tension"
+ },
+ {
+  "key": "TENT",
+  "forms": "TENT-",
+  "spellings": [
+   "TENT"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TENT",
+   "TENT-stretch"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hold",
+    "parts": [
+     "to hold"
+    ],
+    "keys": [
+     "hold",
+     "holding",
+     "keep",
+     "grasp",
+     "grip",
+     "contain",
+     "retain"
+    ],
+    "lesson": 8,
+    "gloss": "TENT"
+   },
+   {
+    "m": "to stretch",
+    "parts": [
+     "to stretch"
+    ],
+    "keys": [
+     "stretch",
+     "stretching",
+     "extend",
+     "strain",
+     "tense",
+     "tighten"
+    ],
+    "lesson": 8,
+    "gloss": "TENT-stretch"
+   },
+   {
+    "m": "strive",
+    "parts": [
+     "strive"
+    ],
+    "keys": [
+     "strive",
+     "strain",
+     "try",
+     "struggle",
+     "endeavour",
+     "endeavor",
+     "aim"
+    ],
+    "lesson": 8,
+    "gloss": "TENT-stretch"
+   }
+  ],
+  "examples": "content, detention"
+ },
+ {
+  "key": "TENU",
+  "forms": "TENU-",
+  "spellings": [
+   "TENU"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TENU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "stretched",
+    "parts": [
+     "stretched"
+    ],
+    "keys": [
+     "stretched",
+     "stretch",
+     "drawn out",
+     "extended",
+     "taut"
+    ],
+    "lesson": 8,
+    "gloss": "TENU"
+   },
+   {
+    "m": "thin",
+    "parts": [
+     "thin"
+    ],
+    "keys": [
+     "thin",
+     "slender",
+     "slight",
+     "fine",
+     "narrow"
+    ],
+    "lesson": 8,
+    "gloss": "TENU"
+   }
+  ],
+  "examples": "tenuous, attenuate"
+ },
+ {
+  "key": "TIN",
+  "forms": "TIN-",
+  "spellings": [
+   "TIN"
+  ],
+  "kind": "base",
+  "lesson": 8,
+  "glosses": [
+   "TIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to hold",
+    "parts": [
+     "to hold"
+    ],
+    "keys": [
+     "hold",
+     "holding",
+     "keep",
+     "grasp",
+     "grip",
+     "contain",
+     "retain"
+    ],
+    "lesson": 8,
+    "gloss": "TIN"
+   }
+  ],
+  "examples": "continent, pertinent"
+ },
+ {
+  "key": "-ARY",
+  "forms": "-ARY",
+  "spellings": [
+   "ARY"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-ARY"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 9,
+    "gloss": "-ARY"
+   },
+   {
+    "m": "one connected with",
+    "parts": [
+     "one connected with"
+    ],
+    "keys": [
+     "one connected with",
+     "connected with",
+     "one who",
+     "person",
+     "someone",
+     "one",
+     "place for",
+     "thing"
+    ],
+    "lesson": 9,
+    "gloss": "-ARY"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-IC",
+  "forms": "-IC",
+  "spellings": [
+   "IC"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-IC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 9,
+    "gloss": "-IC"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-IL",
+  "forms": "-IL",
+  "spellings": [
+   "IL"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-IL-pertaining"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 9,
+    "gloss": "-IL-pertaining"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ILE",
+  "forms": "-ILE",
+  "spellings": [
+   "ILE"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-ILE",
+   "-ILE-able"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 9,
+    "gloss": "-ILE"
+   },
+   {
+    "m": "able to be",
+    "parts": [
+     "able to be"
+    ],
+    "keys": [
+     "able to be",
+     "capable of being",
+     "can be",
+     "may be"
+    ],
+    "lesson": 11,
+    "gloss": "-ILE-able"
+   },
+   {
+    "m": "able to",
+    "parts": [
+     "able to"
+    ],
+    "keys": [
+     "able to",
+     "capable of",
+     "can",
+     "capable",
+     "ability"
+    ],
+    "lesson": 11,
+    "gloss": "-ILE-able"
+   },
+   {
+    "m": "tending to",
+    "parts": [
+     "tending to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "inclined to",
+     "given to",
+     "liable to",
+     "prone to",
+     "apt to"
+    ],
+    "lesson": 11,
+    "gloss": "-ILE-able"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-TIC",
+  "forms": "-TIC",
+  "spellings": [
+   "TIC"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-TIC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to",
+    "parts": [
+     "pertaining to"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with"
+    ],
+    "lesson": 9,
+    "gloss": "-TIC"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ULENT",
+  "forms": "-ULENT",
+  "spellings": [
+   "ULENT"
+  ],
+  "kind": "suffix",
+  "lesson": 9,
+  "glosses": [
+   "-ULENT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "full of",
+    "parts": [
+     "full of"
+    ],
+    "keys": [
+     "full of",
+     "full",
+     "filled with",
+     "abounding in",
+     "having much",
+     "lots of",
+     "rich in"
+    ],
+    "lesson": 9,
+    "gloss": "-ULENT"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "DOM",
+  "forms": "DOM(IN)-",
+  "spellings": [
+   "DOM",
+   "DOMIN"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "DOM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "house",
+    "parts": [
+     "house"
+    ],
+    "keys": [
+     "house",
+     "home",
+     "household",
+     "dwelling"
+    ],
+    "lesson": 9,
+    "gloss": "DOM"
+   },
+   {
+    "m": "master",
+    "parts": [
+     "master"
+    ],
+    "keys": [
+     "master",
+     "lord",
+     "owner",
+     "rule",
+     "dominate"
+    ],
+    "lesson": 9,
+    "gloss": "DOM"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "FLAG",
+  "forms": "FLAG(R)-",
+  "spellings": [
+   "FLAG",
+   "FLAGR"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "FLAM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to burn",
+    "parts": [
+     "to burn"
+    ],
+    "keys": [
+     "burn",
+     "burning",
+     "blaze",
+     "fire",
+     "ablaze",
+     "on fire"
+    ],
+    "lesson": 9,
+    "gloss": "FLAM"
+   },
+   {
+    "m": "flame",
+    "parts": [
+     "flame"
+    ],
+    "keys": [
+     "flame",
+     "flames",
+     "fire",
+     "blaze"
+    ],
+    "lesson": 9,
+    "gloss": "FLAM"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "FLAM",
+  "forms": "FLAM(M)-",
+  "spellings": [
+   "FLAM",
+   "FLAMM"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "FLAM"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to burn",
+    "parts": [
+     "to burn"
+    ],
+    "keys": [
+     "burn",
+     "burning",
+     "blaze",
+     "fire",
+     "ablaze",
+     "on fire"
+    ],
+    "lesson": 9,
+    "gloss": "FLAM"
+   },
+   {
+    "m": "flame",
+    "parts": [
+     "flame"
+    ],
+    "keys": [
+     "flame",
+     "flames",
+     "fire",
+     "blaze"
+    ],
+    "lesson": 9,
+    "gloss": "FLAM"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "FLAT",
+  "forms": "FLAT-",
+  "spellings": [
+   "FLAT"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "FLAT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to blow",
+    "parts": [
+     "to blow"
+    ],
+    "keys": [
+     "blow",
+     "blowing",
+     "breathe",
+     "puff",
+     "wind",
+     "inflate"
+    ],
+    "lesson": 9,
+    "gloss": "FLAT"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "GEN",
+  "forms": "GEN-",
+  "spellings": [
+   "GEN"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "GEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to produce",
+    "parts": [
+     "to produce"
+    ],
+    "keys": [
+     "produce",
+     "create",
+     "make",
+     "beget",
+     "give birth",
+     "generate",
+     "bring forth",
+     "bear"
+    ],
+    "lesson": 9,
+    "gloss": "GEN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "GENER",
+  "forms": "GENER-",
+  "spellings": [
+   "GENER"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "GENER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "race; kind",
+    "parts": [
+     "race",
+     "kind"
+    ],
+    "keys": [
+     "race",
+     "people",
+     "tribe",
+     "family",
+     "lineage",
+     "kind",
+     "type",
+     "sort",
+     "class",
+     "category",
+     "genus"
+    ],
+    "lesson": 9,
+    "gloss": "GENER"
+   },
+   {
+    "m": "origin",
+    "parts": [
+     "origin"
+    ],
+    "keys": [
+     "origin",
+     "birth",
+     "beginning",
+     "source",
+     "descent",
+     "ancestry"
+    ],
+    "lesson": 9,
+    "gloss": "GENER"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "LATER",
+  "forms": "LATER-",
+  "spellings": [
+   "LATER"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "LATER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "side",
+    "parts": [
+     "side"
+    ],
+    "keys": [
+     "side",
+     "flank",
+     "lateral"
+    ],
+    "lesson": 9,
+    "gloss": "LATER"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "LUC",
+  "forms": "LUC-",
+  "spellings": [
+   "LUC"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "LUC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to shine",
+    "parts": [
+     "to shine"
+    ],
+    "keys": [
+     "shine",
+     "shining",
+     "gleam",
+     "glow",
+     "bright",
+     "radiant"
+    ],
+    "lesson": 9,
+    "gloss": "LUC"
+   },
+   {
+    "m": "light",
+    "parts": [
+     "light"
+    ],
+    "keys": [
+     "light",
+     "illuminate",
+     "illumination",
+     "brightness"
+    ],
+    "lesson": 9,
+    "gloss": "LUC"
+   }
+  ],
+  "examples": "lucid, translucent"
+ },
+ {
+  "key": "LUMIN",
+  "forms": "LUMIN-",
+  "spellings": [
+   "LUMIN"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "LUMIN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to shine",
+    "parts": [
+     "to shine"
+    ],
+    "keys": [
+     "shine",
+     "shining",
+     "gleam",
+     "glow",
+     "bright",
+     "radiant"
+    ],
+    "lesson": 9,
+    "gloss": "LUMIN"
+   },
+   {
+    "m": "light",
+    "parts": [
+     "light"
+    ],
+    "keys": [
+     "light",
+     "illuminate",
+     "illumination",
+     "brightness"
+    ],
+    "lesson": 9,
+    "gloss": "LUMIN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "PAR",
+  "forms": "PAR-",
+  "spellings": [
+   "PAR"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "PAR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to ready",
+    "parts": [
+     "to ready"
+    ],
+    "keys": [
+     "ready",
+     "prepare",
+     "get ready",
+     "make ready",
+     "prepared"
+    ],
+    "lesson": 9,
+    "gloss": "PAR"
+   },
+   {
+    "m": "bring forth",
+    "parts": [
+     "bring forth"
+    ],
+    "keys": [
+     "bring forth",
+     "give birth",
+     "bear",
+     "produce",
+     "beget"
+    ],
+    "lesson": 9,
+    "gloss": "PAR"
+   },
+   {
+    "m": "provide",
+    "parts": [
+     "provide"
+    ],
+    "keys": [
+     "provide",
+     "supply",
+     "furnish",
+     "give",
+     "equip"
+    ],
+    "lesson": 9,
+    "gloss": "PAR"
+   }
+  ],
+  "examples": "prepare, parent"
+ },
+ {
+  "key": "SEN",
+  "forms": "SEN-",
+  "spellings": [
+   "SEN"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "SEN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "old",
+    "parts": [
+     "old"
+    ],
+    "keys": [
+     "old",
+     "aged",
+     "elderly",
+     "age",
+     "ancient"
+    ],
+    "lesson": 9,
+    "gloss": "SEN"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "SERV",
+  "forms": "SERV-",
+  "spellings": [
+   "SERV"
+  ],
+  "kind": "base",
+  "lesson": 9,
+  "glosses": [
+   "SERV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to serve",
+    "parts": [
+     "to serve"
+    ],
+    "keys": [
+     "serve",
+     "service",
+     "servant",
+     "slave",
+     "work for"
+    ],
+    "lesson": 9,
+    "gloss": "SERV"
+   },
+   {
+    "m": "save",
+    "parts": [
+     "save"
+    ],
+    "keys": [
+     "save",
+     "keep",
+     "preserve",
+     "protect",
+     "guard",
+     "conserve"
+    ],
+    "lesson": 9,
+    "gloss": "SERV"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ANT",
+  "forms": "-ANT",
+  "spellings": [
+   "ANT"
+  ],
+  "kind": "suffix",
+  "lesson": 10,
+  "glosses": [
+   "-ANT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "-ing",
+    "parts": [
+     "-ing"
+    ],
+    "keys": [
+     "-ing",
+     "ing",
+     "doing",
+     "present participle",
+     "in the act of"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   },
+   {
+    "m": "person who",
+    "parts": [
+     "person who"
+    ],
+    "keys": [
+     "person who",
+     "person",
+     "one who",
+     "someone who",
+     "agent",
+     "doer"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   },
+   {
+    "m": "that which",
+    "parts": [
+     "that which"
+    ],
+    "keys": [
+     "that which",
+     "thing that",
+     "thing which",
+     "something that",
+     "which",
+     "what"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   }
+  ],
+  "examples": "urgent, apparent, vigilant, agent, inhabitant, adherent, servant"
+ },
+ {
+  "key": "-ENT",
+  "forms": "-ENT",
+  "spellings": [
+   "ENT"
+  ],
+  "kind": "suffix",
+  "lesson": 10,
+  "glosses": [
+   "-ANT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "-ing",
+    "parts": [
+     "-ing"
+    ],
+    "keys": [
+     "-ing",
+     "ing",
+     "doing",
+     "present participle",
+     "in the act of"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   },
+   {
+    "m": "person who",
+    "parts": [
+     "person who"
+    ],
+    "keys": [
+     "person who",
+     "person",
+     "one who",
+     "someone who",
+     "agent",
+     "doer"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   },
+   {
+    "m": "that which",
+    "parts": [
+     "that which"
+    ],
+    "keys": [
+     "that which",
+     "thing that",
+     "thing which",
+     "something that",
+     "which",
+     "what"
+    ],
+    "lesson": 10,
+    "gloss": "-ANT"
+   }
+  ],
+  "examples": "urgent, apparent, vigilant, agent, inhabitant, adherent, servant"
+ },
+ {
+  "key": "-INE",
+  "forms": "-INE",
+  "spellings": [
+   "INE"
+  ],
+  "kind": "suffix",
+  "lesson": 10,
+  "glosses": [
+   "-INE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "pertaining to; of",
+    "parts": [
+     "pertaining to",
+     "of"
+    ],
+    "keys": [
+     "pertaining to",
+     "pertaining",
+     "relating to",
+     "related to",
+     "concerning",
+     "about",
+     "having to do with",
+     "of",
+     "belonging to"
+    ],
+    "lesson": 10,
+    "gloss": "-INE"
+   },
+   {
+    "m": "like",
+    "parts": [
+     "like"
+    ],
+    "keys": [
+     "like",
+     "similar to",
+     "resembling",
+     "-like",
+     "characteristic of"
+    ],
+    "lesson": 10,
+    "gloss": "-INE"
+   }
+  ],
+  "examples": "feminine, canine, feline, asinine, bovine, aquiline"
+ },
+ {
+  "key": "SID",
+  "forms": "(SID-)",
+  "spellings": [
+   "SID"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to sit",
+    "parts": [
+     "to sit"
+    ],
+    "keys": [
+     "sit",
+     "seat",
+     "seated"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   },
+   {
+    "m": "settle",
+    "parts": [
+     "settle"
+    ],
+    "keys": [
+     "settle",
+     "settle down",
+     "sink",
+     "rest",
+     "remain"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   }
+  ],
+  "examples": "sedentary, sediment, reside"
+ },
+ {
+  "key": "SIL",
+  "forms": "(SIL-)",
+  "spellings": [
+   "SIL"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SAL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to leap",
+    "parts": [
+     "to leap"
+    ],
+    "keys": [
+     "leap",
+     "leaping",
+     "jump",
+     "jumping",
+     "spring",
+     "springing",
+     "bound",
+     "hop",
+     "vault"
+    ],
+    "lesson": 10,
+    "gloss": "SAL"
+   }
+  ],
+  "examples": "salient, resilient, saltatorial, insult"
+ },
+ {
+  "key": "CUB",
+  "forms": "CUB-",
+  "spellings": [
+   "CUB"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "CUMB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to lie down",
+    "parts": [
+     "to lie down"
+    ],
+    "keys": [
+     "lie down",
+     "lie",
+     "lying",
+     "lying down",
+     "recline",
+     "reclining",
+     "lay down",
+     "rest",
+     "be prone"
+    ],
+    "lesson": 10,
+    "gloss": "CUMB"
+   }
+  ],
+  "examples": "succumb, incubator"
+ },
+ {
+  "key": "CUMB",
+  "forms": "CUMB-",
+  "spellings": [
+   "CUMB"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "CUMB"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to lie down",
+    "parts": [
+     "to lie down"
+    ],
+    "keys": [
+     "lie down",
+     "lie",
+     "lying",
+     "lying down",
+     "recline",
+     "reclining",
+     "lay down",
+     "rest",
+     "be prone"
+    ],
+    "lesson": 10,
+    "gloss": "CUMB"
+   }
+  ],
+  "examples": "succumb, incubator"
+ },
+ {
+  "key": "FEDER",
+  "forms": "FEDER-",
+  "spellings": [
+   "FEDER"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "FEDER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "league; treaty",
+    "parts": [
+     "league",
+     "treaty"
+    ],
+    "keys": [
+     "league",
+     "alliance",
+     "union",
+     "federation",
+     "confederation",
+     "confederacy",
+     "coalition",
+     "association",
+     "treaty",
+     "pact",
+     "compact",
+     "agreement",
+     "covenant",
+     "accord"
+    ],
+    "lesson": 10,
+    "gloss": "FEDER"
+   }
+  ],
+  "examples": "confederate"
+ },
+ {
+  "key": "FID",
+  "forms": "FID-",
+  "spellings": [
+   "FID"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "FID"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "faith",
+    "parts": [
+     "faith"
+    ],
+    "keys": [
+     "faith",
+     "trust",
+     "belief",
+     "believe",
+     "confidence",
+     "faithful",
+     "faithfulness",
+     "loyalty",
+     "fidelity"
+    ],
+    "lesson": 10,
+    "gloss": "FID"
+   }
+  ],
+  "examples": "confident"
+ },
+ {
+  "key": "FIDEL",
+  "forms": "FIDEL-",
+  "spellings": [
+   "FIDEL"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "FIDEL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "faithful",
+    "parts": [
+     "faithful"
+    ],
+    "keys": [
+     "faithful",
+     "faithfulness",
+     "loyal",
+     "loyalty",
+     "true",
+     "devoted",
+     "fidelity",
+     "faith",
+     "trustworthy",
+     "trusty"
+    ],
+    "lesson": 10,
+    "gloss": "FIDEL"
+   }
+  ],
+  "examples": "infidelity"
+ },
+ {
+  "key": "HER",
+  "forms": "HER-",
+  "spellings": [
+   "HER"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "HER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to stick",
+    "parts": [
+     "to stick"
+    ],
+    "keys": [
+     "stick",
+     "sticking",
+     "stuck",
+     "cling",
+     "clinging",
+     "adhere",
+     "attach",
+     "cleave",
+     "glue",
+     "hold fast"
+    ],
+    "lesson": 10,
+    "gloss": "HER"
+   }
+  ],
+  "examples": "adhere, adhesive"
+ },
+ {
+  "key": "HES",
+  "forms": "HES-",
+  "spellings": [
+   "HES"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "HER"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to stick",
+    "parts": [
+     "to stick"
+    ],
+    "keys": [
+     "stick",
+     "sticking",
+     "stuck",
+     "cling",
+     "clinging",
+     "adhere",
+     "attach",
+     "cleave",
+     "glue",
+     "hold fast"
+    ],
+    "lesson": 10,
+    "gloss": "HER"
+   }
+  ],
+  "examples": "adhere, adhesive"
+ },
+ {
+  "key": "ORD",
+  "forms": "ORD(IN)-",
+  "spellings": [
+   "ORD",
+   "ORDIN"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "ORD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to put in order; arrange",
+    "parts": [
+     "to put in order",
+     "arrange"
+    ],
+    "keys": [
+     "put in order",
+     "order",
+     "orderly",
+     "in order",
+     "sequence",
+     "ordain",
+     "arrange",
+     "arrangement",
+     "organize",
+     "organise",
+     "sort",
+     "set up",
+     "align"
+    ],
+    "lesson": 10,
+    "gloss": "ORD"
+   }
+  ],
+  "examples": "order, ordinary"
+ },
+ {
+  "key": "POSS",
+  "forms": "POSS-",
+  "spellings": [
+   "POSS"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "POT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to be able; have power",
+    "parts": [
+     "to be able",
+     "have power"
+    ],
+    "keys": [
+     "be able",
+     "able",
+     "can",
+     "capable",
+     "ability",
+     "possible",
+     "have power",
+     "power",
+     "powerful",
+     "potent",
+     "strength",
+     "might",
+     "mighty"
+    ],
+    "lesson": 10,
+    "gloss": "POT"
+   }
+  ],
+  "examples": "potent, possible"
+ },
+ {
+  "key": "POT",
+  "forms": "POT-",
+  "spellings": [
+   "POT"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "POT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to be able; have power",
+    "parts": [
+     "to be able",
+     "have power"
+    ],
+    "keys": [
+     "be able",
+     "able",
+     "can",
+     "capable",
+     "ability",
+     "possible",
+     "have power",
+     "power",
+     "powerful",
+     "potent",
+     "strength",
+     "might",
+     "mighty"
+    ],
+    "lesson": 10,
+    "gloss": "POT"
+   }
+  ],
+  "examples": "potent, possible"
+ },
+ {
+  "key": "SAL",
+  "forms": "SAL-",
+  "spellings": [
+   "SAL"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SAL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to leap",
+    "parts": [
+     "to leap"
+    ],
+    "keys": [
+     "leap",
+     "leaping",
+     "jump",
+     "jumping",
+     "spring",
+     "springing",
+     "bound",
+     "hop",
+     "vault"
+    ],
+    "lesson": 10,
+    "gloss": "SAL"
+   }
+  ],
+  "examples": "salient, resilient, saltatorial, insult"
+ },
+ {
+  "key": "SALT",
+  "forms": "SALT-",
+  "spellings": [
+   "SALT"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SAL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to leap",
+    "parts": [
+     "to leap"
+    ],
+    "keys": [
+     "leap",
+     "leaping",
+     "jump",
+     "jumping",
+     "spring",
+     "springing",
+     "bound",
+     "hop",
+     "vault"
+    ],
+    "lesson": 10,
+    "gloss": "SAL"
+   }
+  ],
+  "examples": "salient, resilient, saltatorial, insult"
+ },
+ {
+  "key": "SESS",
+  "forms": "SESS-",
+  "spellings": [
+   "SESS"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to sit",
+    "parts": [
+     "to sit"
+    ],
+    "keys": [
+     "sit",
+     "seat",
+     "seated"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   },
+   {
+    "m": "settle",
+    "parts": [
+     "settle"
+    ],
+    "keys": [
+     "settle",
+     "settle down",
+     "sink",
+     "rest",
+     "remain"
+    ],
+    "lesson": 10,
+    "gloss": "SED"
+   }
+  ],
+  "examples": "sedentary, sediment, reside"
+ },
+ {
+  "key": "SULT",
+  "forms": "SULT-",
+  "spellings": [
+   "SULT"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "SAL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to leap",
+    "parts": [
+     "to leap"
+    ],
+    "keys": [
+     "leap",
+     "leaping",
+     "jump",
+     "jumping",
+     "spring",
+     "springing",
+     "bound",
+     "hop",
+     "vault"
+    ],
+    "lesson": 10,
+    "gloss": "SAL"
+   }
+  ],
+  "examples": "salient, resilient, saltatorial, insult"
+ },
+ {
+  "key": "TERR",
+  "forms": "TERR-",
+  "spellings": [
+   "TERR"
+  ],
+  "kind": "base",
+  "lesson": 10,
+  "glosses": [
+   "TERR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "land; earth",
+    "parts": [
+     "land",
+     "earth"
+    ],
+    "keys": [
+     "land",
+     "ground",
+     "soil",
+     "territory",
+     "terrain",
+     "earth",
+     "world",
+     "globe",
+     "dirt",
+     "planet"
+    ],
+    "lesson": 10,
+    "gloss": "TERR"
+   }
+  ],
+  "examples": "terrestrial, territory"
+ },
+ {
+  "key": "-ABLE",
+  "forms": "-ABLE",
+  "spellings": [
+   "ABLE"
+  ],
+  "kind": "suffix",
+  "lesson": 11,
+  "glosses": [
+   "-ABLE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "able to be",
+    "parts": [
+     "able to be"
+    ],
+    "keys": [
+     "able to be",
+     "capable of being",
+     "can be",
+     "may be"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   },
+   {
+    "m": "able to",
+    "parts": [
+     "able to"
+    ],
+    "keys": [
+     "able to",
+     "capable of",
+     "can",
+     "capable",
+     "ability"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   },
+   {
+    "m": "tending to",
+    "parts": [
+     "tending to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "inclined to",
+     "given to",
+     "liable to",
+     "prone to",
+     "apt to"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   }
+  ],
+  "examples": "portable, adaptable, flexible"
+ },
+ {
+  "key": "-ACIOUS",
+  "forms": "-ACIOUS",
+  "spellings": [
+   "ACIOUS"
+  ],
+  "kind": "suffix",
+  "lesson": 11,
+  "glosses": [
+   "-ACIOUS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to; inclined to",
+    "parts": [
+     "tending to",
+     "inclined to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "likely to",
+     "prone to",
+     "inclined to",
+     "inclined",
+     "inclination",
+     "given to",
+     "disposed to",
+     "full of",
+     "abounding in"
+    ],
+    "lesson": 11,
+    "gloss": "-ACIOUS"
+   }
+  ],
+  "examples": "audacious, tenacious"
+ },
+ {
+  "key": "-ED",
+  "forms": "-ED",
+  "spellings": [
+   "ED"
+  ],
+  "kind": "suffix",
+  "lesson": 11,
+  "glosses": [
+   "-ED"
+  ],
+  "english": true,
+  "everyday": "past (an action done)",
+  "meanings": [
+   {
+    "m": "past participial suffix",
+    "parts": [
+     "past participial suffix"
+    ],
+    "keys": [
+     "past",
+     "past tense",
+     "past participle",
+     "done",
+     "having been",
+     "ed"
+    ],
+    "lesson": 11,
+    "gloss": "-ED"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-IBLE",
+  "forms": "-IBLE",
+  "spellings": [
+   "IBLE"
+  ],
+  "kind": "suffix",
+  "lesson": 11,
+  "glosses": [
+   "-ABLE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "able to be",
+    "parts": [
+     "able to be"
+    ],
+    "keys": [
+     "able to be",
+     "capable of being",
+     "can be",
+     "may be"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   },
+   {
+    "m": "able to",
+    "parts": [
+     "able to"
+    ],
+    "keys": [
+     "able to",
+     "capable of",
+     "can",
+     "capable",
+     "ability"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   },
+   {
+    "m": "tending to",
+    "parts": [
+     "tending to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "inclined to",
+     "given to",
+     "liable to",
+     "prone to",
+     "apt to"
+    ],
+    "lesson": 11,
+    "gloss": "-ABLE"
+   }
+  ],
+  "examples": "portable, adaptable, flexible"
+ },
+ {
+  "key": "-LY",
+  "forms": "-LY",
+  "spellings": [
+   "LY"
+  ],
+  "kind": "suffix",
+  "lesson": 11,
+  "glosses": [
+   "-LY"
+  ],
+  "english": true,
+  "everyday": "in a … manner",
+  "meanings": [
+   {
+    "m": "adverb suffix",
+    "parts": [
+     "adverb suffix"
+    ],
+    "keys": [
+     "in a manner",
+     "manner",
+     "in the way",
+     "adverb",
+     "ly"
+    ],
+    "lesson": 11,
+    "gloss": "-LY"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "TING",
+  "forms": "(TING-)",
+  "spellings": [
+   "TING"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "TANG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to touch",
+    "parts": [
+     "to touch"
+    ],
+    "keys": [
+     "touch",
+     "touching",
+     "touched",
+     "contact",
+     "feel",
+     "handle",
+     "tangible",
+     "tactile"
+    ],
+    "lesson": 11,
+    "gloss": "TANG"
+   }
+  ],
+  "examples": "tangent, contingent, contact, intact"
+ },
+ {
+  "key": "CRED",
+  "forms": "CRED-",
+  "spellings": [
+   "CRED"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "CRED"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to believe; trust",
+    "parts": [
+     "to believe",
+     "trust"
+    ],
+    "keys": [
+     "believe",
+     "belief",
+     "believing",
+     "credit",
+     "credence",
+     "trust",
+     "trusting",
+     "faith",
+     "rely",
+     "rely on",
+     "confidence"
+    ],
+    "lesson": 11,
+    "gloss": "CRED"
+   }
+  ],
+  "examples": "credential, creditor, discredit"
+ },
+ {
+  "key": "DOC",
+  "forms": "DOC-",
+  "spellings": [
+   "DOC"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "DOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to teach",
+    "parts": [
+     "to teach"
+    ],
+    "keys": [
+     "teach",
+     "teaching",
+     "taught",
+     "teacher",
+     "instruct",
+     "instruction",
+     "educate",
+     "education",
+     "doctrine",
+     "lesson"
+    ],
+    "lesson": 11,
+    "gloss": "DOC"
+   }
+  ],
+  "examples": "document, doctor, indoctrinate"
+ },
+ {
+  "key": "DOCT",
+  "forms": "DOCT-",
+  "spellings": [
+   "DOCT"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "DOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to teach",
+    "parts": [
+     "to teach"
+    ],
+    "keys": [
+     "teach",
+     "teaching",
+     "taught",
+     "teacher",
+     "instruct",
+     "instruction",
+     "educate",
+     "education",
+     "doctrine",
+     "lesson"
+    ],
+    "lesson": 11,
+    "gloss": "DOC"
+   }
+  ],
+  "examples": "document, doctor, indoctrinate"
+ },
+ {
+  "key": "FA",
+  "forms": "FA(B)-",
+  "spellings": [
+   "FA",
+   "FAB"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speaking",
+     "spoken",
+     "speech",
+     "say",
+     "saying",
+     "said",
+     "talk",
+     "tell",
+     "utter",
+     "utterance"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   },
+   {
+    "m": "reveal",
+    "parts": [
+     "reveal"
+    ],
+    "keys": [
+     "reveal",
+     "revealing",
+     "revealed",
+     "disclose",
+     "make known",
+     "declare",
+     "show"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   }
+  ],
+  "examples": "affable, infant, preface, confess, fame, fabulous"
+ },
+ {
+  "key": "FALL",
+  "forms": "FALL-",
+  "spellings": [
+   "FALL"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FALL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to deceive",
+    "parts": [
+     "to deceive"
+    ],
+    "keys": [
+     "deceive",
+     "deceiving",
+     "deceit",
+     "deception",
+     "deceptive",
+     "trick",
+     "mislead",
+     "misleading",
+     "fool",
+     "false",
+     "falsehood",
+     "lie",
+     "cheat",
+     "fail",
+     "fault"
+    ],
+    "lesson": 11,
+    "gloss": "FALL"
+   }
+  ],
+  "examples": "fallacy, false, failure, default"
+ },
+ {
+  "key": "FALS",
+  "forms": "FALS-",
+  "spellings": [
+   "FALS"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FALL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to deceive",
+    "parts": [
+     "to deceive"
+    ],
+    "keys": [
+     "deceive",
+     "deceiving",
+     "deceit",
+     "deception",
+     "deceptive",
+     "trick",
+     "mislead",
+     "misleading",
+     "fool",
+     "false",
+     "falsehood",
+     "lie",
+     "cheat",
+     "fail",
+     "fault"
+    ],
+    "lesson": 11,
+    "gloss": "FALL"
+   }
+  ],
+  "examples": "fallacy, false, failure, default"
+ },
+ {
+  "key": "FAM",
+  "forms": "FAM-",
+  "spellings": [
+   "FAM"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speaking",
+     "spoken",
+     "speech",
+     "say",
+     "saying",
+     "said",
+     "talk",
+     "tell",
+     "utter",
+     "utterance"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   },
+   {
+    "m": "reveal",
+    "parts": [
+     "reveal"
+    ],
+    "keys": [
+     "reveal",
+     "revealing",
+     "revealed",
+     "disclose",
+     "make known",
+     "declare",
+     "show"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   }
+  ],
+  "examples": "affable, infant, preface, confess, fame, fabulous"
+ },
+ {
+  "key": "FAT",
+  "forms": "FAT-",
+  "spellings": [
+   "FAT"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speaking",
+     "spoken",
+     "speech",
+     "say",
+     "saying",
+     "said",
+     "talk",
+     "tell",
+     "utter",
+     "utterance"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   },
+   {
+    "m": "reveal",
+    "parts": [
+     "reveal"
+    ],
+    "keys": [
+     "reveal",
+     "revealing",
+     "revealed",
+     "disclose",
+     "make known",
+     "declare",
+     "show"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   }
+  ],
+  "examples": "affable, infant, preface, confess, fame, fabulous"
+ },
+ {
+  "key": "FESS",
+  "forms": "FESS-",
+  "spellings": [
+   "FESS"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "FA"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to speak",
+    "parts": [
+     "to speak"
+    ],
+    "keys": [
+     "speak",
+     "speaking",
+     "spoken",
+     "speech",
+     "say",
+     "saying",
+     "said",
+     "talk",
+     "tell",
+     "utter",
+     "utterance"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   },
+   {
+    "m": "reveal",
+    "parts": [
+     "reveal"
+    ],
+    "keys": [
+     "reveal",
+     "revealing",
+     "revealed",
+     "disclose",
+     "make known",
+     "declare",
+     "show"
+    ],
+    "lesson": 11,
+    "gloss": "FA"
+   }
+  ],
+  "examples": "affable, infant, preface, confess, fame, fabulous"
+ },
+ {
+  "key": "MOD",
+  "forms": "MOD-",
+  "spellings": [
+   "MOD"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "MOD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "measure",
+    "parts": [
+     "measure"
+    ],
+    "keys": [
+     "measure",
+     "measurement",
+     "measured",
+     "limit",
+     "boundary",
+     "manner",
+     "mode",
+     "moderate",
+     "moderation",
+     "standard"
+    ],
+    "lesson": 11,
+    "gloss": "MOD"
+   }
+  ],
+  "examples": "modicum, modest, modern, modify"
+ },
+ {
+  "key": "MUT",
+  "forms": "MUT-",
+  "spellings": [
+   "MUT"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "MUT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to change",
+    "parts": [
+     "to change"
+    ],
+    "keys": [
+     "change",
+     "changing",
+     "changed",
+     "alter",
+     "alteration",
+     "shift",
+     "transform",
+     "mutate",
+     "mutation",
+     "exchange",
+     "switch",
+     "vary"
+    ],
+    "lesson": 11,
+    "gloss": "MUT"
+   }
+  ],
+  "examples": "mutant, mutation"
+ },
+ {
+  "key": "TACT",
+  "forms": "TACT-",
+  "spellings": [
+   "TACT"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "TANG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to touch",
+    "parts": [
+     "to touch"
+    ],
+    "keys": [
+     "touch",
+     "touching",
+     "touched",
+     "contact",
+     "feel",
+     "handle",
+     "tangible",
+     "tactile"
+    ],
+    "lesson": 11,
+    "gloss": "TANG"
+   }
+  ],
+  "examples": "tangent, contingent, contact, intact"
+ },
+ {
+  "key": "TANG",
+  "forms": "TANG-",
+  "spellings": [
+   "TANG"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "TANG"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to touch",
+    "parts": [
+     "to touch"
+    ],
+    "keys": [
+     "touch",
+     "touching",
+     "touched",
+     "contact",
+     "feel",
+     "handle",
+     "tangible",
+     "tactile"
+    ],
+    "lesson": 11,
+    "gloss": "TANG"
+   }
+  ],
+  "examples": "tangent, contingent, contact, intact"
+ },
+ {
+  "key": "TRACT",
+  "forms": "TRACT-",
+  "spellings": [
+   "TRACT"
+  ],
+  "kind": "base",
+  "lesson": 11,
+  "glosses": [
+   "TRACT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to drag",
+    "parts": [
+     "to drag"
+    ],
+    "keys": [
+     "drag",
+     "dragging",
+     "dragged",
+     "draw",
+     "drawing",
+     "drawn",
+     "pull",
+     "pulling",
+     "pulled",
+     "haul",
+     "tow",
+     "attract"
+    ],
+    "lesson": 11,
+    "gloss": "TRACT"
+   }
+  ],
+  "examples": "tractor, traction, detract"
+ },
+ {
+  "key": "-ID",
+  "forms": "-ID",
+  "spellings": [
+   "ID"
+  ],
+  "kind": "suffix",
+  "lesson": 12,
+  "glosses": [
+   "-ID"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to; inclined to",
+    "parts": [
+     "tending to",
+     "inclined to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "prone to",
+     "likely to",
+     "inclined to",
+     "inclined",
+     "inclination",
+     "given to",
+     "disposed to"
+    ],
+    "lesson": 12,
+    "gloss": "-ID"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ING",
+  "forms": "-ING",
+  "spellings": [
+   "ING"
+  ],
+  "kind": "suffix",
+  "lesson": 12,
+  "glosses": [
+   "-ING"
+  ],
+  "english": true,
+  "everyday": "doing (an action going on)",
+  "meanings": [
+   {
+    "m": "E participial suffix",
+    "parts": [
+     "E participial suffix"
+    ],
+    "keys": [
+     "doing",
+     "ing",
+     "present participle",
+     "participial",
+     "in the act of",
+     "ongoing"
+    ],
+    "lesson": 12,
+    "gloss": "-ING"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ITIOUS",
+  "forms": "-ITIOUS",
+  "spellings": [
+   "ITIOUS"
+  ],
+  "kind": "suffix",
+  "lesson": 12,
+  "glosses": [
+   "-ITIOUS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to",
+    "parts": [
+     "tending to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "inclined to",
+     "apt to",
+     "prone to",
+     "given to"
+    ],
+    "lesson": 12,
+    "gloss": "-ITIOUS"
+   },
+   {
+    "m": "characterized by",
+    "parts": [
+     "characterized by"
+    ],
+    "keys": [
+     "characterized by",
+     "characteristic of",
+     "marked by",
+     "having",
+     "showing",
+     "full of"
+    ],
+    "lesson": 12,
+    "gloss": "-ITIOUS"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ULOUS",
+  "forms": "-ULOUS",
+  "spellings": [
+   "ULOUS"
+  ],
+  "kind": "suffix",
+  "lesson": 12,
+  "glosses": [
+   "-ULOUS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to; inclined to",
+    "parts": [
+     "tending to",
+     "inclined to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "prone to",
+     "likely to",
+     "inclined to",
+     "inclined",
+     "inclination",
+     "given to",
+     "disposed to",
+     "full of"
+    ],
+    "lesson": 12,
+    "gloss": "-ULOUS"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "ACET",
+  "forms": "ACET-",
+  "spellings": [
+   "ACET"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "AC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "sharp",
+    "parts": [
+     "sharp"
+    ],
+    "keys": [
+     "sharp",
+     "sharpness",
+     "keen",
+     "pointed",
+     "acute",
+     "piercing"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   },
+   {
+    "m": "bitter",
+    "parts": [
+     "bitter"
+    ],
+    "keys": [
+     "bitter",
+     "bitterness",
+     "sour",
+     "acid",
+     "acidic",
+     "tart",
+     "biting",
+     "harsh"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   }
+  ],
+  "examples": "acute, acrid, acetic"
+ },
+ {
+  "key": "ACR",
+  "forms": "ACR-",
+  "spellings": [
+   "ACR"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "AC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "sharp",
+    "parts": [
+     "sharp"
+    ],
+    "keys": [
+     "sharp",
+     "sharpness",
+     "keen",
+     "pointed",
+     "acute",
+     "piercing"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   },
+   {
+    "m": "bitter",
+    "parts": [
+     "bitter"
+    ],
+    "keys": [
+     "bitter",
+     "bitterness",
+     "sour",
+     "acid",
+     "acidic",
+     "tart",
+     "biting",
+     "harsh"
+    ],
+    "lesson": 12,
+    "gloss": "AC"
+   }
+  ],
+  "examples": "acute, acrid, acetic"
+ },
+ {
+  "key": "CAD",
+  "forms": "CAD-",
+  "spellings": [
+   "CAD"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CAD"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fall",
+    "parts": [
+     "to fall"
+    ],
+    "keys": [
+     "fall",
+     "falling",
+     "fell",
+     "fallen",
+     "drop",
+     "dropping",
+     "collapse",
+     "sink"
+    ],
+    "lesson": 12,
+    "gloss": "CAD"
+   },
+   {
+    "m": "befall",
+    "parts": [
+     "befall"
+    ],
+    "keys": [
+     "befall",
+     "befalls",
+     "happen",
+     "happening",
+     "occur",
+     "occurrence",
+     "chance",
+     "come about"
+    ],
+    "lesson": 12,
+    "gloss": "CAD"
+   }
+  ],
+  "examples": "cadence, decadent"
+ },
+ {
+  "key": "CAP",
+  "forms": "CAP-",
+  "spellings": [
+   "CAP"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CAP"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to take; seize",
+    "parts": [
+     "to take",
+     "seize"
+    ],
+    "keys": [
+     "take",
+     "taking",
+     "took",
+     "taken",
+     "grasp",
+     "hold",
+     "receive",
+     "get",
+     "catch",
+     "seize",
+     "seizing",
+     "seized",
+     "capture",
+     "grab",
+     "grip",
+     "snatch"
+    ],
+    "lesson": 12,
+    "gloss": "CAP"
+   }
+  ],
+  "examples": "capable, capture"
+ },
+ {
+  "key": "CAPT",
+  "forms": "CAPT-",
+  "spellings": [
+   "CAPT"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CAP"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to take; seize",
+    "parts": [
+     "to take",
+     "seize"
+    ],
+    "keys": [
+     "take",
+     "taking",
+     "took",
+     "taken",
+     "grasp",
+     "hold",
+     "receive",
+     "get",
+     "catch",
+     "seize",
+     "seizing",
+     "seized",
+     "capture",
+     "grab",
+     "grip",
+     "snatch"
+    ],
+    "lesson": 12,
+    "gloss": "CAP"
+   }
+  ],
+  "examples": "capable, capture"
+ },
+ {
+  "key": "CAS",
+  "forms": "CAS-",
+  "spellings": [
+   "CAS"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CAS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fall",
+    "parts": [
+     "to fall"
+    ],
+    "keys": [
+     "fall",
+     "falling",
+     "fell",
+     "fallen",
+     "drop",
+     "dropping",
+     "collapse",
+     "sink"
+    ],
+    "lesson": 12,
+    "gloss": "CAS"
+   },
+   {
+    "m": "befall",
+    "parts": [
+     "befall"
+    ],
+    "keys": [
+     "befall",
+     "befalls",
+     "happen",
+     "happening",
+     "occur",
+     "occurrence",
+     "chance",
+     "come about"
+    ],
+    "lesson": 12,
+    "gloss": "CAS"
+   }
+  ],
+  "examples": "casual, occasion"
+ },
+ {
+  "key": "CEIV",
+  "forms": "CEIV-",
+  "spellings": [
+   "CEIV"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CEIV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to take; seize",
+    "parts": [
+     "to take",
+     "seize"
+    ],
+    "keys": [
+     "take",
+     "taking",
+     "took",
+     "taken",
+     "grasp",
+     "hold",
+     "receive",
+     "get",
+     "catch",
+     "seize",
+     "seizing",
+     "seized",
+     "capture",
+     "grab",
+     "grip",
+     "snatch"
+    ],
+    "lesson": 12,
+    "gloss": "CEIV"
+   }
+  ],
+  "examples": "receive, conceive"
+ },
+ {
+  "key": "CEPT",
+  "forms": "CEPT-",
+  "spellings": [
+   "CEPT"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CEPT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to take; seize",
+    "parts": [
+     "to take",
+     "seize"
+    ],
+    "keys": [
+     "take",
+     "taking",
+     "took",
+     "taken",
+     "grasp",
+     "hold",
+     "receive",
+     "get",
+     "catch",
+     "seize",
+     "seizing",
+     "seized",
+     "capture",
+     "grab",
+     "grip",
+     "snatch"
+    ],
+    "lesson": 12,
+    "gloss": "CEPT"
+   }
+  ],
+  "examples": "accept, concept"
+ },
+ {
+  "key": "CID",
+  "forms": "CID-",
+  "spellings": [
+   "CID"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CID"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to fall",
+    "parts": [
+     "to fall"
+    ],
+    "keys": [
+     "fall",
+     "falling",
+     "fell",
+     "fallen",
+     "drop",
+     "dropping",
+     "collapse",
+     "sink"
+    ],
+    "lesson": 12,
+    "gloss": "CID"
+   },
+   {
+    "m": "befall",
+    "parts": [
+     "befall"
+    ],
+    "keys": [
+     "befall",
+     "befalls",
+     "happen",
+     "happening",
+     "occur",
+     "occurrence",
+     "chance",
+     "come about"
+    ],
+    "lesson": 12,
+    "gloss": "CID"
+   }
+  ],
+  "examples": "accident, incident"
+ },
+ {
+  "key": "CIP",
+  "forms": "CIP-",
+  "spellings": [
+   "CIP"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "CIP"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to take; seize",
+    "parts": [
+     "to take",
+     "seize"
+    ],
+    "keys": [
+     "take",
+     "taking",
+     "took",
+     "taken",
+     "grasp",
+     "hold",
+     "receive",
+     "get",
+     "catch",
+     "seize",
+     "seizing",
+     "seized",
+     "capture",
+     "grab",
+     "grip",
+     "snatch"
+    ],
+    "lesson": 12,
+    "gloss": "CIP"
+   }
+  ],
+  "examples": "recipient, anticipate"
+ },
+ {
+  "key": "FEAS",
+  "forms": "FEAS-",
+  "spellings": [
+   "FEAS"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FEAS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to do; make",
+    "parts": [
+     "to do",
+     "make"
+    ],
+    "keys": [
+     "do",
+     "act",
+     "perform",
+     "carry out",
+     "make",
+     "create",
+     "build",
+     "form",
+     "produce"
+    ],
+    "lesson": 12,
+    "gloss": "FEAS"
+   }
+  ],
+  "examples": "feasible, feature, effect"
+ },
+ {
+  "key": "FEAT",
+  "forms": "FEAT-",
+  "spellings": [
+   "FEAT"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FEAS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to do; make",
+    "parts": [
+     "to do",
+     "make"
+    ],
+    "keys": [
+     "do",
+     "act",
+     "perform",
+     "carry out",
+     "make",
+     "create",
+     "build",
+     "form",
+     "produce"
+    ],
+    "lesson": 12,
+    "gloss": "FEAS"
+   }
+  ],
+  "examples": "feasible, feature, effect"
+ },
+ {
+  "key": "FECT",
+  "forms": "FECT-",
+  "spellings": [
+   "FECT"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FEAS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to do; make",
+    "parts": [
+     "to do",
+     "make"
+    ],
+    "keys": [
+     "do",
+     "act",
+     "perform",
+     "carry out",
+     "make",
+     "create",
+     "build",
+     "form",
+     "produce"
+    ],
+    "lesson": 12,
+    "gloss": "FEAS"
+   }
+  ],
+  "examples": "feasible, feature, effect"
+ },
+ {
+  "key": "FLOR",
+  "forms": "FLOR-",
+  "spellings": [
+   "FLOR"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FLOR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "flower",
+    "parts": [
+     "flower"
+    ],
+    "keys": [
+     "flower",
+     "flowers",
+     "flowering",
+     "bloom",
+     "blooming",
+     "blossom",
+     "floral"
+    ],
+    "lesson": 12,
+    "gloss": "FLOR"
+   }
+  ],
+  "examples": "floral, flourish"
+ },
+ {
+  "key": "FLU",
+  "forms": "FLU-",
+  "spellings": [
+   "FLU"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FLU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to flow; a flow",
+    "parts": [
+     "to flow",
+     "a flow"
+    ],
+    "keys": [
+     "flow",
+     "flowing",
+     "flowed",
+     "stream",
+     "streaming",
+     "run",
+     "running",
+     "pour",
+     "a flow",
+     "current",
+     "flood",
+     "flux",
+     "tide"
+    ],
+    "lesson": 12,
+    "gloss": "FLU"
+   }
+  ],
+  "examples": "fluid, influx, fluvial, fluorescent"
+ },
+ {
+  "key": "FLUOR",
+  "forms": "FLUOR(O)-",
+  "spellings": [
+   "FLUOR",
+   "FLUORO"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FLU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to flow; a flow",
+    "parts": [
+     "to flow",
+     "a flow"
+    ],
+    "keys": [
+     "flow",
+     "flowing",
+     "flowed",
+     "stream",
+     "streaming",
+     "run",
+     "running",
+     "pour",
+     "a flow",
+     "current",
+     "flood",
+     "flux",
+     "tide"
+    ],
+    "lesson": 12,
+    "gloss": "FLU"
+   }
+  ],
+  "examples": "fluid, influx, fluvial, fluorescent"
+ },
+ {
+  "key": "FLUV",
+  "forms": "FLUV-",
+  "spellings": [
+   "FLUV"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FLU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to flow; a flow",
+    "parts": [
+     "to flow",
+     "a flow"
+    ],
+    "keys": [
+     "flow",
+     "flowing",
+     "flowed",
+     "stream",
+     "streaming",
+     "run",
+     "running",
+     "pour",
+     "a flow",
+     "current",
+     "flood",
+     "flux",
+     "tide"
+    ],
+    "lesson": 12,
+    "gloss": "FLU"
+   }
+  ],
+  "examples": "fluid, influx, fluvial, fluorescent"
+ },
+ {
+  "key": "FLUX",
+  "forms": "FLUX-",
+  "spellings": [
+   "FLUX"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FLU"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to flow; a flow",
+    "parts": [
+     "to flow",
+     "a flow"
+    ],
+    "keys": [
+     "flow",
+     "flowing",
+     "flowed",
+     "stream",
+     "streaming",
+     "run",
+     "running",
+     "pour",
+     "a flow",
+     "current",
+     "flood",
+     "flux",
+     "tide"
+    ],
+    "lesson": 12,
+    "gloss": "FLU"
+   }
+  ],
+  "examples": "fluid, influx, fluvial, fluorescent"
+ },
+ {
+  "key": "FOIL",
+  "forms": "FOIL-",
+  "spellings": [
+   "FOIL"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FOLI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "leaf",
+    "parts": [
+     "leaf"
+    ],
+    "keys": [
+     "leaf",
+     "leaves",
+     "leafy",
+     "foliage",
+     "sheet"
+    ],
+    "lesson": 12,
+    "gloss": "FOLI"
+   }
+  ],
+  "examples": "foliage, portfolio, foil"
+ },
+ {
+  "key": "FOLI",
+  "forms": "FOLI-",
+  "spellings": [
+   "FOLI"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "FOLI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "leaf",
+    "parts": [
+     "leaf"
+    ],
+    "keys": [
+     "leaf",
+     "leaves",
+     "leafy",
+     "foliage",
+     "sheet"
+    ],
+    "lesson": 12,
+    "gloss": "FOLI"
+   }
+  ],
+  "examples": "foliage, portfolio, foil"
+ },
+ {
+  "key": "NEC",
+  "forms": "NEC-",
+  "spellings": [
+   "NEC"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "NEC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to harm",
+    "parts": [
+     "to harm"
+    ],
+    "keys": [
+     "harm",
+     "harming",
+     "harmed",
+     "harmful",
+     "hurt",
+     "injure",
+     "injury",
+     "damage"
+    ],
+    "lesson": 12,
+    "gloss": "NEC"
+   },
+   {
+    "m": "kill",
+    "parts": [
+     "kill"
+    ],
+    "keys": [
+     "kill",
+     "killing",
+     "killed",
+     "slay",
+     "slaughter",
+     "destroy",
+     "murder",
+     "death"
+    ],
+    "lesson": 12,
+    "gloss": "NEC"
+   }
+  ],
+  "examples": "internecine"
+ },
+ {
+  "key": "NIC",
+  "forms": "NIC-",
+  "spellings": [
+   "NIC"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "NIC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to harm",
+    "parts": [
+     "to harm"
+    ],
+    "keys": [
+     "harm",
+     "harming",
+     "harmed",
+     "harmful",
+     "hurt",
+     "injure",
+     "injury",
+     "damage"
+    ],
+    "lesson": 12,
+    "gloss": "NIC"
+   },
+   {
+    "m": "kill",
+    "parts": [
+     "kill"
+    ],
+    "keys": [
+     "kill",
+     "killing",
+     "killed",
+     "slay",
+     "slaughter",
+     "destroy",
+     "murder",
+     "death"
+    ],
+    "lesson": 12,
+    "gloss": "NIC"
+   }
+  ],
+  "examples": "pernicious"
+ },
+ {
+  "key": "NOC",
+  "forms": "NOC-",
+  "spellings": [
+   "NOC"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "NOC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to harm",
+    "parts": [
+     "to harm"
+    ],
+    "keys": [
+     "harm",
+     "harming",
+     "harmed",
+     "harmful",
+     "hurt",
+     "injure",
+     "injury",
+     "damage"
+    ],
+    "lesson": 12,
+    "gloss": "NOC"
+   },
+   {
+    "m": "kill",
+    "parts": [
+     "kill"
+    ],
+    "keys": [
+     "kill",
+     "killing",
+     "killed",
+     "slay",
+     "slaughter",
+     "destroy",
+     "murder",
+     "death"
+    ],
+    "lesson": 12,
+    "gloss": "NOC"
+   }
+  ],
+  "examples": "innocent, innocuous"
+ },
+ {
+  "key": "NOV",
+  "forms": "NOV-",
+  "spellings": [
+   "NOV"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "NOV"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "new",
+    "parts": [
+     "new"
+    ],
+    "keys": [
+     "new",
+     "newness",
+     "novel",
+     "fresh",
+     "recent",
+     "young",
+     "renew"
+    ],
+    "lesson": 12,
+    "gloss": "NOV"
+   }
+  ],
+  "examples": "novel, renovate"
+ },
+ {
+  "key": "NOX",
+  "forms": "NOX-",
+  "spellings": [
+   "NOX"
+  ],
+  "kind": "base",
+  "lesson": 12,
+  "glosses": [
+   "NOX"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to harm",
+    "parts": [
+     "to harm"
+    ],
+    "keys": [
+     "harm",
+     "harming",
+     "harmed",
+     "harmful",
+     "hurt",
+     "injure",
+     "injury",
+     "damage"
+    ],
+    "lesson": 12,
+    "gloss": "NOX"
+   },
+   {
+    "m": "kill",
+    "parts": [
+     "kill"
+    ],
+    "keys": [
+     "kill",
+     "killing",
+     "killed",
+     "slay",
+     "slaughter",
+     "destroy",
+     "murder",
+     "death"
+    ],
+    "lesson": 12,
+    "gloss": "NOX"
+   }
+  ],
+  "examples": "noxious, obnoxious"
+ },
+ {
+  "key": "-IVE",
+  "forms": "-IVE",
+  "spellings": [
+   "IVE"
+  ],
+  "kind": "suffix",
+  "lesson": 13,
+  "glosses": [
+   "-IVE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to; inclined to",
+    "parts": [
+     "tending to",
+     "inclined to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "prone to",
+     "likely to",
+     "inclined to",
+     "inclined",
+     "inclination",
+     "given to",
+     "disposed to"
+    ],
+    "lesson": 13,
+    "gloss": "-IVE"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-ORY",
+  "forms": "-ORY",
+  "spellings": [
+   "ORY"
+  ],
+  "kind": "suffix",
+  "lesson": 13,
+  "glosses": [
+   "-ORY"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to",
+    "parts": [
+     "tending to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "prone to",
+     "likely to"
+    ],
+    "lesson": 13,
+    "gloss": "-ORY"
+   },
+   {
+    "m": "serving for",
+    "parts": [
+     "serving for"
+    ],
+    "keys": [
+     "serving for",
+     "serving as",
+     "serving to",
+     "serves for",
+     "serves as",
+     "used for",
+     "useful for"
+    ],
+    "lesson": 13,
+    "gloss": "-ORY"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "-UOUS",
+  "forms": "-UOUS",
+  "spellings": [
+   "UOUS"
+  ],
+  "kind": "suffix",
+  "lesson": 13,
+  "glosses": [
+   "-UOUS"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "tending to; inclined to",
+    "parts": [
+     "tending to",
+     "inclined to"
+    ],
+    "keys": [
+     "tending to",
+     "tend to",
+     "tendency",
+     "apt to",
+     "prone to",
+     "likely to",
+     "inclined to",
+     "inclined",
+     "inclination",
+     "given to",
+     "disposed to"
+    ],
+    "lesson": 13,
+    "gloss": "-UOUS"
+   }
+  ],
+  "examples": ""
+ },
+ {
+  "key": "CERN",
+  "forms": "CERN-",
+  "spellings": [
+   "CERN"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "CERN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to separate; distinguish",
+    "parts": [
+     "to separate",
+     "distinguish"
+    ],
+    "keys": [
+     "separate",
+     "separating",
+     "set apart",
+     "sift",
+     "sort",
+     "distinguish",
+     "distinguishing",
+     "discern",
+     "discriminate",
+     "tell apart",
+     "decide",
+     "determine"
+    ],
+    "lesson": 13,
+    "gloss": "CERN"
+   }
+  ],
+  "examples": "discern, certain"
+ },
+ {
+  "key": "CERT",
+  "forms": "CERT-",
+  "spellings": [
+   "CERT"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "CERN"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to separate; distinguish",
+    "parts": [
+     "to separate",
+     "distinguish"
+    ],
+    "keys": [
+     "separate",
+     "separating",
+     "set apart",
+     "sift",
+     "sort",
+     "distinguish",
+     "distinguishing",
+     "discern",
+     "discriminate",
+     "tell apart",
+     "decide",
+     "determine"
+    ],
+    "lesson": 13,
+    "gloss": "CERN"
+   }
+  ],
+  "examples": "discern, certain"
+ },
+ {
+  "key": "CRET",
+  "forms": "CRET-",
+  "spellings": [
+   "CRET"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "CRET"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to separate; distinguish",
+    "parts": [
+     "to separate",
+     "distinguish"
+    ],
+    "keys": [
+     "separate",
+     "separating",
+     "set apart",
+     "sift",
+     "sort",
+     "distinguish",
+     "distinguishing",
+     "discern",
+     "discriminate",
+     "tell apart",
+     "decide",
+     "determine"
+    ],
+    "lesson": 13,
+    "gloss": "CRET"
+   }
+  ],
+  "examples": "secret, discrete"
+ },
+ {
+  "key": "DUR",
+  "forms": "DUR-",
+  "spellings": [
+   "DUR"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "DUR"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "hard",
+    "parts": [
+     "hard"
+    ],
+    "keys": [
+     "hard",
+     "harsh",
+     "tough",
+     "stern",
+     "firm"
+    ],
+    "lesson": 13,
+    "gloss": "DUR"
+   },
+   {
+    "m": "to last",
+    "parts": [
+     "to last"
+    ],
+    "keys": [
+     "last",
+     "lasting",
+     "endure",
+     "enduring",
+     "continue",
+     "remain",
+     "persist"
+    ],
+    "lesson": 13,
+    "gloss": "DUR"
+   }
+  ],
+  "examples": "durable, endure"
+ },
+ {
+  "key": "FOUND",
+  "forms": "FOUND-",
+  "spellings": [
+   "FOUND"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "FOUND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to pour",
+    "parts": [
+     "to pour"
+    ],
+    "keys": [
+     "pour",
+     "pouring",
+     "poured",
+     "spill",
+     "flow"
+    ],
+    "lesson": 13,
+    "gloss": "FOUND"
+   },
+   {
+    "m": "melt",
+    "parts": [
+     "melt"
+    ],
+    "keys": [
+     "melt",
+     "melting",
+     "melted",
+     "fuse",
+     "smelt",
+     "cast"
+    ],
+    "lesson": 13,
+    "gloss": "FOUND"
+   }
+  ],
+  "examples": "confound, foundry"
+ },
+ {
+  "key": "FUND",
+  "forms": "FUND-",
+  "spellings": [
+   "FUND"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "FUND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to pour",
+    "parts": [
+     "to pour"
+    ],
+    "keys": [
+     "pour",
+     "pouring",
+     "poured",
+     "spill",
+     "flow"
+    ],
+    "lesson": 13,
+    "gloss": "FUND"
+   },
+   {
+    "m": "melt",
+    "parts": [
+     "melt"
+    ],
+    "keys": [
+     "melt",
+     "melting",
+     "melted",
+     "fuse",
+     "smelt",
+     "cast"
+    ],
+    "lesson": 13,
+    "gloss": "FUND"
+   }
+  ],
+  "examples": "refund, confuse"
+ },
+ {
+  "key": "FUS",
+  "forms": "FUS-",
+  "spellings": [
+   "FUS"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "FUND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to pour",
+    "parts": [
+     "to pour"
+    ],
+    "keys": [
+     "pour",
+     "pouring",
+     "poured",
+     "spill",
+     "flow"
+    ],
+    "lesson": 13,
+    "gloss": "FUND"
+   },
+   {
+    "m": "melt",
+    "parts": [
+     "melt"
+    ],
+    "keys": [
+     "melt",
+     "melting",
+     "melted",
+     "fuse",
+     "smelt",
+     "cast"
+    ],
+    "lesson": 13,
+    "gloss": "FUND"
+   }
+  ],
+  "examples": "refund, confuse"
+ },
+ {
+  "key": "LEON",
+  "forms": "LEON-",
+  "spellings": [
+   "LEON"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "LEON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "lion",
+    "parts": [
+     "lion"
+    ],
+    "keys": [
+     "lion",
+     "lions",
+     "leonine"
+    ],
+    "lesson": 13,
+    "gloss": "LEON"
+   }
+  ],
+  "examples": "leonine, Leo, Leonard"
+ },
+ {
+  "key": "NASC",
+  "forms": "NASC-",
+  "spellings": [
+   "NASC"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "NASC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to be born",
+    "parts": [
+     "to be born"
+    ],
+    "keys": [
+     "be born",
+     "born",
+     "birth",
+     "being born",
+     "arise",
+     "spring up",
+     "come into being"
+    ],
+    "lesson": 13,
+    "gloss": "NASC"
+   }
+  ],
+  "examples": "nascent, native"
+ },
+ {
+  "key": "NAT",
+  "forms": "NAT-",
+  "spellings": [
+   "NAT"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "NASC"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to be born",
+    "parts": [
+     "to be born"
+    ],
+    "keys": [
+     "be born",
+     "born",
+     "birth",
+     "being born",
+     "arise",
+     "spring up",
+     "come into being"
+    ],
+    "lesson": 13,
+    "gloss": "NASC"
+   }
+  ],
+  "examples": "nascent, native"
+ },
+ {
+  "key": "PEL",
+  "forms": "PEL(L)-",
+  "spellings": [
+   "PEL",
+   "PELL"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "PEL"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to drive; push",
+    "parts": [
+     "to drive",
+     "push"
+    ],
+    "keys": [
+     "drive",
+     "drive out",
+     "propel",
+     "force",
+     "push",
+     "shove",
+     "press",
+     "beat",
+     "beating",
+     "strike",
+     "hit",
+     "throb",
+     "pulse"
+    ],
+    "lesson": 13,
+    "gloss": "PEL"
+   }
+  ],
+  "examples": "expel, compelling"
+ },
+ {
+  "key": "PON",
+  "forms": "PON-",
+  "spellings": [
+   "PON"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "PON"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to place; put",
+    "parts": [
+     "to place",
+     "put"
+    ],
+    "keys": [
+     "place",
+     "placed",
+     "placing",
+     "position",
+     "set",
+     "put",
+     "putting",
+     "lay",
+     "set down"
+    ],
+    "lesson": 13,
+    "gloss": "PON"
+   }
+  ],
+  "examples": "component, postpone"
+ },
+ {
+  "key": "POSE",
+  "forms": "POSE-",
+  "spellings": [
+   "POSE"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "POSE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to place; put",
+    "parts": [
+     "to place",
+     "put"
+    ],
+    "keys": [
+     "place",
+     "location",
+     "spot",
+     "site",
+     "position",
+     "put",
+     "putting",
+     "lay",
+     "set down"
+    ],
+    "lesson": 13,
+    "gloss": "POSE"
+   }
+  ],
+  "examples": "compose, position"
+ },
+ {
+  "key": "POSIT",
+  "forms": "POSIT-",
+  "spellings": [
+   "POSIT"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "POSE"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to place; put",
+    "parts": [
+     "to place",
+     "put"
+    ],
+    "keys": [
+     "place",
+     "location",
+     "spot",
+     "site",
+     "position",
+     "put",
+     "putting",
+     "lay",
+     "set down"
+    ],
+    "lesson": 13,
+    "gloss": "POSE"
+   }
+  ],
+  "examples": "compose, position"
+ },
+ {
+  "key": "POUND",
+  "forms": "POUND-",
+  "spellings": [
+   "POUND"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "POUND"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to place; put",
+    "parts": [
+     "to place",
+     "put"
+    ],
+    "keys": [
+     "place",
+     "location",
+     "spot",
+     "site",
+     "position",
+     "put",
+     "putting",
+     "lay",
+     "set down"
+    ],
+    "lesson": 13,
+    "gloss": "POUND"
+   }
+  ],
+  "examples": "compound, propound"
+ },
+ {
+  "key": "SCI",
+  "forms": "SCI-",
+  "spellings": [
+   "SCI"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "SCI"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to know",
+    "parts": [
+     "to know"
+    ],
+    "keys": [
+     "know",
+     "knowing",
+     "knowledge",
+     "learn",
+     "understand"
+    ],
+    "lesson": 13,
+    "gloss": "SCI"
+   }
+  ],
+  "examples": "science, conscious"
+ },
+ {
+  "key": "TORT",
+  "forms": "TORT-",
+  "spellings": [
+   "TORT"
+  ],
+  "kind": "base",
+  "lesson": 13,
+  "glosses": [
+   "TORT"
+  ],
+  "english": false,
+  "everyday": null,
+  "meanings": [
+   {
+    "m": "to twist",
+    "parts": [
+     "to twist"
+    ],
+    "keys": [
+     "twist",
+     "twisting",
+     "twisted",
+     "wind",
+     "wring",
+     "wrench",
+     "bend"
+    ],
+    "lesson": 13,
+    "gloss": "TORT"
+   }
+  ],
+  "examples": "distort, tortuous"
+ }
+]
