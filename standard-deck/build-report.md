@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
+Written by build.js on every rebuild (2026-10-31). Do not edit by hand.
 
 ## 1. Conflicts
 
@@ -8,7 +8,7 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 - **discursive**: Lesson IX Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 1)
 - **desultory**: Lesson X Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 2)
 
-**A deck card that overrides the shared definition:** 100.
+**A deck card that overrides the shared definition:** 120.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -109,6 +109,26 @@ Written by build.js on every rebuild (2026-10-29). Do not edit by hand.
 - **perspicuous** in Lesson XIII Exercise III Flashcards (wording: answer key)
 - **deciduous** in Lesson XIII Exercise III Flashcards (wording: answer key)
 - **repulsive** in Lesson XIII Exercise III Flashcards (wording: answer key)
+- **deity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **rectitude** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **stringent** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **lucidity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **translucent** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **inequity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **verisimilitude** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **inexorably** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **verities** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **fortitude** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **primacy** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **probity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **surreptitious** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **acuity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **efficacy** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **affability** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **animosity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **rapacious** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **infirmity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **amity** in Lesson XIV Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -462,3 +482,23 @@ LIMIN- threshold
 - perspicuous: Lesson XIII Exercise III Flashcards
 - deciduous: Lesson XIII Exercise III Flashcards
 - repulsive: Lesson XIII Exercise III Flashcards
+- deity: Lesson XIV Exercise III Flashcards
+- rectitude: Lesson XIV Exercise III Flashcards
+- stringent: Lesson XIV Exercise III Flashcards
+- lucidity: Lesson XIV Exercise III Flashcards
+- translucent: Lesson XIV Exercise III Flashcards
+- inequity: Lesson XIV Exercise III Flashcards
+- verisimilitude: Lesson XIV Exercise III Flashcards
+- inexorably: Lesson XIV Exercise III Flashcards
+- verities: Lesson XIV Exercise III Flashcards
+- fortitude: Lesson XIV Exercise III Flashcards
+- primacy: Lesson XIV Exercise III Flashcards
+- probity: Lesson XIV Exercise III Flashcards
+- surreptitious: Lesson XIV Exercise III Flashcards
+- acuity: Lesson XIV Exercise III Flashcards
+- efficacy: Lesson XIV Exercise III Flashcards
+- affability: Lesson XIV Exercise III Flashcards
+- animosity: Lesson XIV Exercise III Flashcards
+- rapacious: Lesson XIV Exercise III Flashcards
+- infirmity: Lesson XIV Exercise III Flashcards
+- amity: Lesson XIV Exercise III Flashcards
