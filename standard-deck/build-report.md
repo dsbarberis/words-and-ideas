@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-11-01). Do not edit by hand.
+Written by build.js on every rebuild (2026-11-03). Do not edit by hand.
 
 ## 1. Conflicts
 
@@ -8,7 +8,7 @@ Written by build.js on every rebuild (2026-11-01). Do not edit by hand.
 - **discursive**: Lesson IX Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 1)
 - **desultory**: Lesson X Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 2)
 
-**A deck card that overrides the shared definition:** 120.
+**A deck card that overrides the shared definition:** 140.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -129,6 +129,26 @@ Written by build.js on every rebuild (2026-11-01). Do not edit by hand.
 - **rapacious** in Lesson XIV Exercise III Flashcards (wording: answer key)
 - **infirmity** in Lesson XIV Exercise III Flashcards (wording: answer key)
 - **amity** in Lesson XIV Exercise III Flashcards (wording: answer key)
+- **perfidy** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **tenacity** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **suffused** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **expatriated** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **fidelity** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **obsequious** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **obsequies** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **potentate** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **averred** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **vivacity** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **incisive** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **retort** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **plenary** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **confederacy** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **sanctimonious** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **acrimony** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **matricide** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **patrimony** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **veracity** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **retentive** in Lesson XV Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -502,3 +522,23 @@ LIMIN- threshold
 - rapacious: Lesson XIV Exercise III Flashcards
 - infirmity: Lesson XIV Exercise III Flashcards
 - amity: Lesson XIV Exercise III Flashcards
+- perfidy: Lesson XV Exercise III Flashcards
+- tenacity: Lesson XV Exercise III Flashcards
+- suffused: Lesson XV Exercise III Flashcards
+- expatriated: Lesson XV Exercise III Flashcards
+- fidelity: Lesson XV Exercise III Flashcards
+- obsequious: Lesson XV Exercise III Flashcards
+- obsequies: Lesson XV Exercise III Flashcards
+- potentate: Lesson XV Exercise III Flashcards
+- averred: Lesson XV Exercise III Flashcards
+- vivacity: Lesson XV Exercise III Flashcards
+- incisive: Lesson XV Exercise III Flashcards
+- retort: Lesson XV Exercise III Flashcards
+- plenary: Lesson XV Exercise III Flashcards
+- confederacy: Lesson XV Exercise III Flashcards
+- sanctimonious: Lesson XV Exercise III Flashcards
+- acrimony: Lesson XV Exercise III Flashcards
+- matricide: Lesson XV Exercise III Flashcards
+- patrimony: Lesson XV Exercise III Flashcards
+- veracity: Lesson XV Exercise III Flashcards
+- retentive: Lesson XV Exercise III Flashcards
