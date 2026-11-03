@@ -360,10 +360,12 @@ async function uiChecks(page) {
     else if (!res.flipped) fails.push("card " + c.i + ": right answer did not show the back");
   }
   // A miss: the back stays hidden and empty, and the front shows the marks and the study line.
+  // Each element box gets its forms with a wrong meaning ("-y zebra"), so a one-letter element
+  // such as -y passes the deck's gate and the answer is checked (Lesson XV, Nov 2, 2026).
   const t = cards.find(c => c.kind === "typed" || c.boxes.length);
   if (t) {
     await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); }, t.i);
-    const vals = await page.evaluate(i => { const c = __t.CARDS[i]; return c.boxes ? c.boxes.map(b => b.check === "parts" ? c.parts.map(p => p.accept[0]).join(" ") : /^el:/.test(b.check || "") ? (c.parts.filter(p => p.type === b.check.slice(3)).map(p => p.accept[0]).join(" ") || "none") : b.check === "explain" || (b.senses && b.noPenalty) ? "zebra quartz violin harbor mango" : b.check === "names" ? "Zanzibar" : b.check === "greek" ? "zzzqqq" : b.check === "deriv" ? (/^base$/i.test(b.label) ? c.word.slice(0, 3) : "zebra") : "zebra quartz violin") : ["zzzq"]; }, t.i);
+    const vals = await page.evaluate(i => { const c = __t.CARDS[i]; return c.boxes ? c.boxes.map(b => b.check === "parts" ? c.parts.map(p => p.accept[0]).join(" ") : /^el:/.test(b.check || "") ? (c.parts.filter(p => p.type === b.check.slice(3)).map(p => p.accept[0] + " zebra").join(" ") || "none") : b.check === "explain" || (b.senses && b.noPenalty) ? "zebra quartz violin harbor mango" : b.check === "names" ? "Zanzibar" : b.check === "greek" ? "zzzqqq" : b.check === "deriv" ? (/^base$/i.test(b.label) ? c.word.slice(0, 3) : "zebra") : "zebra quartz violin") : ["zzzq"]; }, t.i);
     await typeInto(vals);
     await page.click("#checkBtn");
     const res = await page.evaluate(i => { const q = __t.quiz(); const a = q.answers[q.order.indexOf(i)]; return { a: a && { ok: a.ok }, note: document.getElementById("quizNote").textContent, flipped: document.getElementById("card").classList.contains("flipped"), back: document.getElementById("meaningBack").textContent.trim(), miss: document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent, marks: document.querySelectorAll(".face-front .box-mark, .face-front .in-no").length }; }, t.i);
