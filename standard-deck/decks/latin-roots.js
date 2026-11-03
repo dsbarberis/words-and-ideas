@@ -195,7 +195,7 @@ module.exports = {
     {"gloss": "PATRI", "cat": "base", "examples": "repatriate", "keys": [["fatherland", "father land", "native land", "homeland", "home land", "motherland"], ["country", "native country", "home country", "one's country", "nation", "land"]]},
     {"gloss": "PATRON", "cat": "base", "examples": "patronize", "keys": [["protector", "protect", "protects", "protection", "defender", "defend", "guardian", "guard", "supporter"]]},
     {"gloss": "SEQU", "cat": "base", "forms": "SEQU-, SECUT-", "examples": "sequence, consequence, prosecute, consecutive", "keys": [["follow", "to follow", "following", "follows", "followed", "come after", "go after", "pursue", "attend", "accompany"]]},
-    {"gloss": "SOL", "cat": "base", "examples": "solitude, desolation", "keys": [["alone", "lone", "lonely", "only", "single", "solitary", "by oneself", "by itself", "on one's own", "one"]]},
+    {"gloss": "SOL", "cat": "base", "examples": "solitude, desolation", "keys": [["alone", "lone", "lonely", "only", "single", "by oneself", "by itself", "on one's own", "one"]]},
     {"gloss": "VIV", "cat": "base", "examples": "vivid, revive", "keys": [["live", "to live", "living", "lives", "life", "alive", "be alive", "lively"]]}
   ]
 };
