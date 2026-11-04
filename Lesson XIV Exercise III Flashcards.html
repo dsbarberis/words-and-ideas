@@ -1061,6 +1061,7 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "condition of",
             "state of"
           ]
         }
@@ -1180,9 +1181,13 @@
           ],
           "note": "the book adds \"etc.\": not a complete list of meanings",
           "accept": [
-            "itude"
+            "itude",
+            "tude"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -1468,7 +1473,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -1761,6 +1769,7 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "condition of",
             "state",
             "instance"
           ]
@@ -1901,9 +1910,13 @@
           ],
           "note": "the book adds \"etc.\": not a complete list of meanings",
           "accept": [
-            "itude"
+            "itude",
+            "tude"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -1911,6 +1924,11 @@
           "groups": [
             {
               "terms": [
+                "similarity to the truth",
+                "similar to the truth",
+                "similarity to truth",
+                "likeness to the truth",
+                "resemblance to the truth",
                 "appearance of truth",
                 "appearance of being true",
                 "appearing true",
@@ -2124,7 +2142,12 @@
           "accept": [
             "ly"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "in a manner",
+            "in a way",
+            "in the manner of"
+          ]
         }
       ],
       "senses": [
@@ -2269,6 +2292,7 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "condition of",
             "an instance of"
           ]
         }
@@ -2399,9 +2423,13 @@
           ],
           "note": "the book adds \"etc.\": not a complete list of meanings",
           "accept": [
-            "itude"
+            "itude",
+            "tude"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -2525,6 +2553,9 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "quality of",
+            "state of",
+            "condition of",
             "condition"
           ]
         }
@@ -2672,7 +2703,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -2997,7 +3031,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -3152,6 +3189,9 @@
           ],
           "type": "suffix",
           "alsoMeans": [
+            "quality of",
+            "state of",
+            "condition of",
             "quality"
           ]
         }
@@ -3361,7 +3401,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -3525,7 +3568,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -3839,7 +3885,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -3975,7 +4024,10 @@
             "ety",
             "ty"
           ],
-          "type": "suffix"
+          "type": "suffix",
+          "alsoMeans": [
+            "condition of"
+          ]
         }
       ],
       "senses": [
@@ -4064,7 +4116,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "f38dcfe0df55";
+  const DECK_VERSION = "c3bb0f0ac824";
   const DECK_PAGE = "Lesson XIV Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4641,10 +4693,31 @@
     if (!v || NONE.test(v)) return need.length === 0;
     const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
     function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
+    function plural(t, a) { return a.length >= 2 && (t === a + "s" || t === a + "es" || (/y$/.test(a) && t === a.slice(0, -1) + "ies")); }
+    // A joined suffix: the first's form (an end e, or the le of -able, may
+    // drop) followed by the second's, adjacent in the word.
+    function joined(t, A, B) {
+      return A.some(function (a) {
+        const heads = [a, a.replace(/e$/, ""), a.replace(/le$/, "")].filter(function (h) { return h.length >= 2; });
+        return B.some(function (b) { return heads.some(function (h) { return t === h + b || plural(t, h + b); }); });
+      });
+    }
     // The place of each element's form: that word is the form, not a
     // meaning ("-able" alone does not give the meaning "able to").
     const split = parts.map(function () { return -1; });
     const formAt = parts.map(function (pt, p) {
+      // Two of the word's suffixes written as one ("-osity" for -os- + -ity,
+      // "-ability" for -able + -ity, "-ably" for -able + -ly): the joined form
+      // counts for both, and each still needs its meaning (Lesson XIV watch
+      // form, Nov 4, 2026). Looked for first, so a meaning word such as
+      // "able" is not taken for the form.
+      if (kind === "suffix") {
+        for (let j = 0; j < toks.length; j++) for (let q = 0; q < parts.length; q++) {
+          if (q === p) continue;
+          const first = q > p ? pt : parts[q], second = q > p ? parts[q] : pt;
+          if (joined(toks[j], first.accept || [], second.accept || [])) return j;
+        }
+      }
       for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return fits(toks[j], a); })) return j;
       // A suffix written in two pieces ("ac + ious" for -acious) counts as its
       // form; its meaning is still needed (instructor, Oct 28, 2026).
@@ -4653,6 +4726,10 @@
           if (toks[j].length < 2 || toks[k].length < 2) continue;
           if ((pt.accept || []).some(function (a) { return fits(toks[j] + toks[k], a); })) { split[p] = k; return j; }
         }
+        // A suffix with the English plural joined to it ("-ities" for -ity):
+        // the plural never fails the box (instructor, Oct 27, 2026; Lesson XIV
+        // watch form, Nov 4, 2026).
+        for (let j = 0; j < toks.length; j++) if ((pt.accept || []).some(function (a) { return plural(toks[j], a); })) return j;
       }
       return -1;
     });
