@@ -1757,7 +1757,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "89ffb7df3535";
+  const DECK_VERSION = "980abeec6eb1";
   const DECK_PAGE = "Greek Lesson III Exercise.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3172,7 +3172,8 @@
     passSize: "entry.367439227",
     cumCorrect: "entry.1206079657",
     cumTotal: "entry.853509881",
-    resultsJson: "entry.211011489"
+    resultsJson: "entry.211011489",
+    currentLesson: "entry.461457357"
   };
 
   function sendToSheet(payload) {
@@ -3232,8 +3233,8 @@
       cumCorrect: known.size,
       cumTotal: N,
       resultsJson: JSON.stringify(row.json),
-      // The tenth Form question, "Current Lesson" (sent once its entry code is
-      // in GFORM_FIELDS): a quiz round gives the lesson its quiz started at.
+      // The tenth Form question, "Current Lesson" (not required; blank for a
+      // deck with no lessons): a quiz round gives the lesson its quiz started at.
       currentLesson: LESSONS ? roman(row.lesson || currentLesson) : ""
     });
     recordAttempt(row);
