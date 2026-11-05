@@ -51,6 +51,16 @@ function suite(F, label) {
 
   r = SP.feedCheck(sheet(good, F.header.slice(0, 8).concat(["Results"])), F, s2, at("2026-10-22T08:00Z"));
   ok(label + "a changed header row is reported", r.faults.some(f => f.includes("header row has changed")) && r.kinds.includes("header"), r);
+  // Columns added after the nine, in the agreed order, are not a fault; anything else still is.
+  const FA = Object.assign({}, F, { headerAdded: ["Current Lesson", "Deck Version"] });
+  r = SP.feedCheck(sheet(good, F.header.concat(["Current Lesson"])), FA, s2, at("2026-10-22T08:00Z"));
+  ok(label + "an agreed added column is accepted", !r.kinds.includes("header"), r.faults);
+  r = SP.feedCheck(sheet(good, F.header.concat(["Current Lesson", "Deck Version"])), FA, s2, at("2026-10-22T08:00Z"));
+  ok(label + "both agreed added columns are accepted", !r.kinds.includes("header"), r.faults);
+  r = SP.feedCheck(sheet(good, F.header.concat(["Deck Version"])), FA, s2, at("2026-10-22T08:00Z"));
+  ok(label + "added columns out of order are reported", r.kinds.includes("header"), r.faults);
+  r = SP.feedCheck(sheet(good, F.header.concat(["Current Lesson"])), F, s2, at("2026-10-22T08:00Z"));
+  ok(label + "an added column the settings do not allow is reported", r.kinds.includes("header"), r.faults);
 
   const ranYesterday = Object.assign({}, s2, { lastRun: "2026-10-24T08:00:00.000Z" });
   r = SP.feedCheck(sheet(good), F, ranYesterday, at("2026-10-25T08:00Z"));
