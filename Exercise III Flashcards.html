@@ -16,9 +16,10 @@
     --navy: #263248;
     --burgundy: #7a2e2e;
     --burgundy-dark: #5f2222;
-    --sage: #5c6e4f;
+    --sage: #4f6343;
     --sage-dark: #445238;
-    --gold: #b08d57;
+    --gold: #796039;
+    --gold-on-navy: #b99a6a;
     --rule: #d8cbae;
   }
 
@@ -277,7 +278,7 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--gold);
+    color: var(--gold-on-navy);
     margin-bottom: 6px;
   }
 
@@ -780,7 +781,7 @@
   .order-quiz .quiz-row { justify-content: center; }
   .route { text-align: left; font-size: 14px; line-height: 1.5; }
   .route .stage { display: block; }
-  .route .stage .lang { color: var(--gold); margin-right: 6px; }
+  .route .stage .lang { color: var(--gold-on-navy); margin-right: 6px; }
   .your-answer .ya-line .mark-ok { color: #cfe3c4; }
   .your-answer .ya-line .mark-no { color: #f1d3d0; }
   /* Meaning-in-context questions (Exercise III): the analysis on the back */
@@ -3518,7 +3519,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "e6d1470b24c4";
+  const DECK_VERSION = "6d3755e8f4d6";
   const DECK_PAGE = "Exercise III Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -5085,6 +5086,7 @@
     quizPanel.hidden = true;
     stage.hidden = false;
     cardEl.classList.remove("no-flip");
+    cardEl.setAttribute("role", "button");
     cardEl.setAttribute("aria-label", "Flashcard, tap or press Enter to flip");
     // The hint shows on the first card after opening the deck, then goes.
     hintFront.hidden = !showHint;
@@ -5908,6 +5910,9 @@
     }
 
     cardEl.classList.toggle("no-flip", !presenterMode);
+    // A quiz card is a button only when tapping flips it (presenter mode); otherwise it is a group holding the
+    // answer boxes, so a screen reader reaches the boxes (accessibility scan, Oct 29, 2026, finding 3).
+    cardEl.setAttribute("role", presenterMode ? "button" : "group");
     cardEl.setAttribute("aria-label", presenterMode ? "Quiz card, press Space to flip" : "Quiz card");
     if (EXERCISE) {
       fillExerciseFront(cardEl, item, ans);
