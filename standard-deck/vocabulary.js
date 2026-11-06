@@ -32,7 +32,7 @@ module.exports = {
   "Procrustean": {
     word: "Procrustean",
     senses: [
-      {"defn":"Effecting conformity by violent or ruthless means.","wording":"instructor","printed":{"text":"effecting conformity by violent means","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["conformity","conform","uniform","standard","fit","same","one-size-fits-all"]},{"terms":["violent","ruthless","force","forced","brutal","harsh","cruel"]}]}],"accepted":["punish","punishment"],"everyday":["same","fit"]}
+      {"defn":"Effecting conformity by violent or ruthless means.","wording":"instructor","printed":{"text":"effecting conformity by violent means","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["conformity","conform","uniform","standard","fit","same","one-size-fits-all","individual differences"]},{"terms":["violent","ruthless","force","forced","brutal","harsh","cruel"]}]}],"accepted":["punish","punishment"],"everyday":["same","fit"]}
     ],
     parts: [],
     origin: {"text":"From Procrustes, a mythical bandit who forced travelers to fit his iron bed exactly, stretching or cutting them to size.","wording":"instructor"},
@@ -77,7 +77,7 @@ module.exports = {
   "mentor": {
     word: "mentor",
     senses: [
-      {"defn":"A wise counselor.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["counselor","adviser","advisor","guide","teacher","tutor","coach"]},{"terms":["wise","wisdom","experienced","trusted","knowledgeable"]}],"star":["guru","sage"]}],"accepted":["support","protect"]}
+      {"defn":"A wise counselor.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["counselor","adviser","advisor","guide","teacher","tutor","coach","advice","advises"]},{"terms":["wise","wisdom","experienced","trusted","knowledgeable"]}],"star":["guru","sage","tutor","coach"]}],"accepted":["support","protect"]}
     ],
     parts: [],
     origin: {"text":"From Mentor, the wise friend entrusted to guide Telemachus in Homer's Odyssey.","wording":"instructor"},
@@ -86,7 +86,7 @@ module.exports = {
   "labyrinth": {
     word: "labyrinth",
     senses: [
-      {"defn":"A maze.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["maze","warren","tangle","intricate network","complicated passages"]}]}],"accepted":["wander","wandering","dark"]}
+      {"defn":"A maze.","wording":"workbook","ref":"Lessons I & II worksheet, p. 167","note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key.","keys":[{"groups":[{"terms":["maze","warren","tangle","intricate network","complicated passages","passageways","dead ends"]}]}],"accepted":["wander","wandering","dark"]}
     ],
     parts: [],
     origin: {"text":"From the maze built by Daedalus on Crete to house the Minotaur.","wording":"instructor"},
@@ -95,7 +95,7 @@ module.exports = {
   "tantalize": {
     word: "tantalize",
     senses: [
-      {"defn":"To tease by offering something desirable while keeping it out of reach.","wording":"instructor","printed":{"text":"to tease","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["tease","tempt","taunt","torment","dangle","offer","show"]},{"terms":["out of reach","unreachable","unattainable","withhold","keep away","deny","can't have"]}]}],"accepted":["cruel","punishment","desire","want","long for"],"everyday":["offer","show"]}
+      {"defn":"To tease by offering something desirable while keeping it out of reach.","wording":"instructor","printed":{"text":"to tease","wording":"workbook","ref":"Lessons I & II worksheet, p. 167"},"note":"The worksheet's option, matched to the word by Claude; the worksheet had no answer key. The definition expands the worksheet's wording.","keys":[{"groups":[{"terms":["tease","tempt","taunt","torment","dangle","offer","show"]},{"terms":["out of reach","unreachable","unattainable","withhold","keep away","deny","can't have"]}]},{"groups":[{"terms":["tease","teasing","torment","tormenting","tempt","tempting"]},{"terms":["desirable","something desirable","desired"]}]}],"accepted":["cruel","punishment","desire","want","long for"],"everyday":["offer","show"]}
     ],
     parts: [],
     origin: {"text":"From Tantalus, condemned in the underworld to suffer thirst while standing in water beneath fruit, neither of which he could ever reach.","wording":"instructor"},
@@ -131,7 +131,7 @@ module.exports = {
   "laconic": {
     word: "laconic",
     senses: [
-      {"defn":"Concise, brief, pithy, using few words.","wording":"instructor","printed":{"text":"brief, pithy, concise","wording":"book","ref":"Greek Lesson II, p. 172"},"note":"Replaces the earlier definition “Concise; using few words.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["concise","terse","brief","succinct","pithy","curt","few words","short"]}]}],"accepted":["speech","spoken","words"],"everyday":["short"],"ref":"instructor's wording, Oct 7, 2026"}
+      {"defn":"Concise, brief, pithy, using few words.","wording":"instructor","printed":{"text":"brief, pithy, concise","wording":"book","ref":"Greek Lesson II, p. 172"},"note":"Replaces the earlier definition “Concise; using few words.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["concise","terse","brief","succinct","pithy","curt","few words","short","minimum of words"]}]}],"accepted":["speech","spoken","words"],"everyday":["short"],"ref":"instructor's wording, Oct 7, 2026"}
     ],
     parts: [],
     origin: {"text":"From Laconia, the region around Sparta, whose people were famous for terse, blunt speech.","wording":"instructor"},
@@ -167,7 +167,7 @@ module.exports = {
   "solecism": {
     word: "solecism",
     senses: [
-      {"defn":"A substandard usage of language; a social blunder.","wording":"book","ref":"Greek Lesson II, p. 174","note":"Replaces the earlier definition “A grammatical or social error.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["error","mistake","blunder","slip","impropriety","substandard","incorrect","nonstandard","improper","wrong"]},{"terms":["grammatical","grammar","language","usage","speech","social","etiquette","manners","words","word"]}],"star":["faux pas","gaffe"]}]}
+      {"defn":"A substandard usage of language; a social blunder.","wording":"book","ref":"Greek Lesson II, p. 174","note":"Replaces the earlier definition “A grammatical or social error.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["error","mistake","blunder","slip","impropriety","substandard","incorrect","nonstandard","improper","wrong","ungrammatical"]},{"terms":["grammatical","grammar","language","usage","speech","social","etiquette","manners","words","word"]}],"star":["faux pas","gaffe"]}]}
     ],
     parts: [],
     origin: {"text":"From Soloi, a Greek colony whose residents were mocked by Athenians for speaking Greek incorrectly.","wording":"instructor"},
@@ -194,7 +194,7 @@ module.exports = {
   "sybarite": {
     word: "sybarite",
     senses: [
-      {"defn":"One devoted to luxury and pleasure.","wording":"book","note":"Replaces the earlier definition “A person devoted to luxury and pleasure.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["devoted","loves","lives for","seeks","pursues","obsessed","indulges"]},{"terms":["luxury","luxurious","pleasure","comfort","decadence"]}],"star":["hedonist","pleasure-seeker","self-indulgent"]}],"accepted":["selfish","self-centered"],"everyday":["loves","seeks","lives for"],"ref":"Greek Lesson II, p. 176"}
+      {"defn":"One devoted to luxury and pleasure.","wording":"book","note":"Replaces the earlier definition “A person devoted to luxury and pleasure.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"terms":["devoted","loves","lives for","seeks","pursues","obsessed","indulges"]},{"terms":["luxury","luxurious","pleasure","comfort","decadence"]}],"star":["hedonist","pleasure-seeker","self-indulgent","voluptuary","sensualist"]}],"accepted":["selfish","self-centered"],"everyday":["loves","seeks","lives for"],"ref":"Greek Lesson II, p. 176"}
     ],
     parts: [],
     origin: {"text":"From Sybaris, an ancient Greek city in Italy proverbial for the soft living of its citizens.","wording":"instructor"},
@@ -212,7 +212,7 @@ module.exports = {
   "Pyrrhic": {
     word: "Pyrrhic victory",
     senses: [
-      {"defn":"A victory won at too great a cost.","wording":"book","note":"Replaces the earlier definition “Pertaining to a victory won at such great cost it is nearly as bad as a defeat.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"generic":true,"terms":["victory","win","won","success","triumph"]},{"terms":["cost","costly","losses","sacrifice","expensive","damage","price","not worth it"]}]}],"accepted":["disaster","ruin","ruinous"],"ref":"Greek Lesson II, p. 174"}
+      {"defn":"A victory won at too great a cost.","wording":"book","note":"Replaces the earlier definition “Pertaining to a victory won at such great cost it is nearly as bad as a defeat.” (instructor's ruling, Oct 7, 2026).","keys":[{"groups":[{"generic":true,"terms":["victory","win","won","success","triumph"]},{"terms":["cost","costly","losses","sacrifice","expensive","damage","price","not worth it","not worth","lost","loss"]}]}],"accepted":["disaster","ruin","ruinous"],"ref":"Greek Lesson II, p. 174"}
     ],
     parts: [],
     origin: {"text":"From King Pyrrhus of Epirus, whose costly victory over Rome prompted the remark that another such victory would ruin him.","wording":"instructor"},
@@ -1150,7 +1150,7 @@ module.exports = {
   "sophistry": {
     word: "sophistry, sophism",
     senses: [
-      {"defn":"Clever but deceptive argumentation meant to mislead.","wording":"book","ref":"Greek Lesson II, p. 174-175","keys":[{"groups":[{"terms":["deceptive","misleading","mislead","deceive","deceit","false","fallacious","specious","dishonest","tricky","trick"]},{"terms":["argument","argumentation","arguing","reasoning","rhetoric","logic","debate"]}],"star":["fallacy","fallacies"]}],"accepted":["clever","plausible","persuasive"]}
+      {"defn":"Clever but deceptive argumentation meant to mislead.","wording":"book","ref":"Greek Lesson II, p. 174-175","keys":[{"groups":[{"terms":["deceptive","misleading","mislead","deceive","deceit","false","fallacious","specious","dishonest","tricky","trick","apparently correct"]},{"terms":["argument","argumentation","arguing","reasoning","rhetoric","logic","debate"]}],"star":["fallacy","fallacies"]}],"accepted":["clever","plausible","persuasive"]}
     ],
     parts: [],
     origin: {"text":"From the sophists, traveling Greek teachers of rhetoric (sophia, “skill”).","wording":"instructor","ref":"Claude's summary of the book, p. 174-175, approved by the instructor (Oct 7, 2026)"},
@@ -1168,7 +1168,7 @@ module.exports = {
   "stoic": {
     word: "stoic",
     senses: [
-      {"defn":"Impassive.","wording":"book","ref":"Greek Lesson II, p. 175","keys":[{"groups":[{"terms":["impassive","unemotional","emotionless","without emotion","no emotion","no emotions","unmoved","calm","composed","unflappable","indifferent","enduring","uncomplaining","patient","unfeeling","detached","stolid","expressionless","accepting"]}]}]}
+      {"defn":"Impassive.","wording":"book","ref":"Greek Lesson II, p. 175","keys":[{"groups":[{"terms":["impassive","unemotional","emotionless","without emotion","no emotion","no emotions","unmoved","calm","composed","unflappable","indifferent","enduring","uncomplaining","patient","unfeeling","detached","stolid","expressionless","accepting","not affected","unaffected"]}]}]}
     ],
     parts: [],
     origin: {"text":"From Stoicism, a Greek school teaching calm acceptance of whatever happens.","wording":"instructor","ref":"Claude's summary of the book, p. 175, approved by the instructor (Oct 7, 2026)"},
