@@ -150,6 +150,17 @@ const ADJECTIVE_SUFFIXES = ["-ILE", "-AL", "-ARY", "-ULENT", "-IC", "-OUS", "-IN
 const ADJECTIVE_WORDINGS = ["having the quality of", "characterized by"];
 const PARTICIPLE_WORDINGS = ["being in a state of", "in a state of"];
 
+// A deck's lesson, from its page name ("Lesson XII Exercise III"); a deck
+// with no lesson in its name takes every entry.
+function deckLessonNo(deck) {
+  const m = /Lesson ([IVXL]+)\b/.exec(deck.output || "");
+  if (!m) return Infinity;
+  const V = { I: 1, V: 5, X: 10, L: 50 };
+  let n = 0;
+  for (let i = 0; i < m[1].length; i++) { const a = V[m[1][i]], b = V[m[1][i + 1]] || 0; n += a < b ? -a : a; }
+  return n;
+}
+
 function resolveParts(card, file, deck) {
   if (!card.parts || card.kind !== "meaning") return card;
   const out = Object.assign({}, card, {
@@ -183,6 +194,21 @@ function resolveParts(card, file, deck) {
           const last = glossary[entry.lastPiece];
           if (!last) throw new Error(file + ": glossary entry \"" + pt.gloss + "\" names lastPiece \"" + entry.lastPiece + "\", which is not in the glossary");
           o.pieceMeans = [].concat(last.meanings || [], last.plainMeanings || []);
+        }
+        // Two suffixes with one spelling (the -ate that makes verbs and the -ate
+        // that makes adjectives; the two -iles): when a student gives the other
+        // one's meaning, the deck says so (Student Difficulties form, answer 4,
+        // Nov 7, 2026). Marking is unchanged.
+        if (entry.sameFormRole) {
+          o.role = entry.sameFormRole;
+          const mine = formsOf(entry.forms);
+          const others = Object.keys(glossary).filter(function (g) {
+            const e = glossary[g];
+            // Only one the course has taught by this deck's lesson (the -ate
+            // of office comes in Lesson XV).
+            return g !== pt.gloss && e.kind === "suffix" && e.sameFormRole && (e.lessonNo || 0) <= deckLessonNo(deck) && formsOf(e.forms).some(function (f) { return mine.indexOf(f) >= 0; });
+          }).map(function (g) { return { role: glossary[g].sameFormRole, means: [].concat(glossary[g].meanings || [], glossary[g].plainMeanings || []) }; });
+          if (others.length) o.sameForm = others;
         }
       }
       return o;

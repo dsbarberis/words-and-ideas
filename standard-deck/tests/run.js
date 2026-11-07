@@ -80,7 +80,8 @@ async function browserTests(decks) {
   catch (e) { report("browser tests", ["Playwright not found; run with NODE_PATH=$(npm root -g)"], "not run"); return; }
   const browser = await chromium.launch();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "deck-test-"));
-  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [], flashFails = [], keyFails = [];
+  const loadFails = [], modelFails = [], notes = [], effortFails = [], uiFails = [], flashFails = [], keyFails = [], sameFails = [];
+  let sameCount = 0;
   let keyCount = 0;
   let flashCount = 0;
   const effort = { checked: 0 };
@@ -137,6 +138,13 @@ async function browserTests(decks) {
         uiCount += ui.checked;
         ui.fails.forEach(x => uiFails.push(f + ": " + x));
       }
+      if (f === "Lesson XII Exercise III Flashcards.html") {
+        let sf;
+        try { sf = await sameFormChecks(page); }
+        catch (e) { sf = { checked: 0, fails: ["the check stopped: " + String(e.message).split("\n")[0]] }; }
+        sameCount += sf.checked;
+        sf.fails.forEach(x => sameFails.push(f + ": " + x));
+      }
     }
     await page.close();
   }
@@ -146,6 +154,7 @@ async function browserTests(decks) {
   report("answer effort", effortFails, effort.checked + " checks of the gate, the copy prompt, lists and spacing");
   report("answer effort in the deck", uiFails, uiCount + " answers typed and checked with the deck's own Check button");
   report("records kept by element", keyFails, keyCount + " checks of moving records from card positions to element keys");
+  report("same-spelling suffixes", sameFails, sameCount + " checks of the note for the other -ate or -ile");
   report("Flashcard quizzes", flashFails, flashCount + " checks of meaning groups, the gate, the hidden back and spacing in the Flashcard Decks");
   notes.forEach(n => console.log("     note: " + n));
 }
@@ -379,6 +388,61 @@ async function uiChecks(page) {
       if (!res.marks) fails.push("miss: no marks on the front");
     }
   }
+  return { checked, fails };
+}
+
+// Same-spelling suffixes (Student Difficulties form, answer 4, Nov 7, 2026), on
+// Lesson XII Exercise III: the meaning of the other -ate or -ile is still wrong,
+// the miss note says whose meaning it is without giving the right one, a right
+// answer has no note, and the back names which -ate or -ile the word has.
+async function sameFormChecks(page) {
+  const fails = []; let checked = 0;
+  const cases = [
+    { word: "VERSATILE", suf: "-at- possessing, -ile able to be", said: "possessing", other: "the -ate that makes adjectives" },
+    { word: "VERSATILE", suf: "-at- verbal suffix, -ile pertaining to", said: "pertaining to", other: "the -ile added to nouns" },
+    { word: "ELEVATE", suf: "-ate being", said: "being", other: "the -ate that makes adjectives" }
+  ];
+  for (const cs of cases) {
+    const r = await page.evaluate(cs => {
+      const i = __t.CARDS.findIndex(c => c.word === cs.word);
+      if (i < 0) return { missing: true };
+      const c = __t.CARDS[i];
+      const vals = window.__model(c).slice();
+      const k = c.boxes.findIndex(b => b.check === "el:suffix");
+      const right = __t.judgeExercise(i, vals);
+      vals[k] = cs.suf;
+      const wrong = __t.judgeExercise(i, vals);
+      return { i, k, vals, right: { ok: right.ok, slips: (right.slips || []).length }, wrong: { ok: wrong.ok, slips: wrong.slips || [] } };
+    }, cs);
+    checked++;
+    if (r.missing) { fails.push(cs.word + ": card not found"); continue; }
+    if (!r.right.ok || r.right.slips) fails.push(cs.word + ": the model answer is not right with no note");
+    if (r.wrong.ok) fails.push(cs.word + " " + JSON.stringify(cs.suf) + ": marked right; your ruling keeps it wrong");
+    if (!r.wrong.slips.some(s => s.said === cs.said && s.otherRole === cs.other)) fails.push(cs.word + " " + JSON.stringify(cs.suf) + ": no note naming " + cs.other + " (" + JSON.stringify(r.wrong.slips) + ")");
+  }
+  // In the deck: the miss note after Check, then the back after a right answer.
+  const v = await page.evaluate(() => {
+    const i = __t.CARDS.findIndex(c => c.word === "VERSATILE");
+    const c = __t.CARDS[i];
+    const vals = window.__model(c).slice();
+    const k = c.boxes.findIndex(b => b.check === "el:suffix");
+    const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i);
+    return { i, vals, k };
+  });
+  const inputs = page.locator(".face-front .quiz-form input.quiz-input:not(.line-input)");
+  const wrongVals = v.vals.slice(); wrongVals[v.k] = "-at- possessing, -ile able to be";
+  for (let k = 0; k < wrongVals.length; k++) await inputs.nth(k).fill(wrongVals[k], { timeout: 5000 });
+  await page.click("#checkBtn");
+  const miss = await page.evaluate(() => document.getElementById("missNote").hidden ? "" : document.getElementById("missNote").textContent);
+  checked++;
+  if (!/possessing\u201d is the meaning of the -ate that makes adjectives/.test(miss)) fails.push("VERSATILE: the miss note does not name the other -ate (" + miss.slice(0, 120) + ")");
+  if (/verbal|makes verbs/.test(miss)) fails.push("VERSATILE: the miss note gives the right meaning");
+  const back = await page.evaluate(i => { const q = __t.quiz(); q.answers[q.order.indexOf(i)] = null; __t.goTo(i); return 1; }, v.i);
+  for (let k = 0; k < v.vals.length; k++) await inputs.nth(k).fill(v.vals[k], { timeout: 5000 });
+  await page.click("#checkBtn");
+  const backText = await page.evaluate(() => document.getElementById("meaningBack").textContent);
+  checked++;
+  if (!/is the -ate that makes verbs; not the -ate that makes adjectives/.test(backText)) fails.push("VERSATILE: the back does not say which -ate this is (" + backText.slice(0, 160) + ")");
   return { checked, fails };
 }
 

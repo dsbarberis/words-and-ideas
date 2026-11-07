@@ -2572,7 +2572,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "911f260bc5b2";
+  const DECK_VERSION = "aacf62b6bf91";
   const DECK_PAGE = "Lesson X Workbook Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3061,9 +3061,10 @@
     vals = vals || [];
     if (!vals.some(function (v) { return String(v || "").trim(); })) return { empty: true };
     let mixed = null, echo = null, tooLong = false;
+    const slips = [];
     const parts = card.boxes.map(function (b, k) {
       const v = String(vals[k] || "").trim();
-      if (/^el:/.test(b.check || "")) return elementsMatch(v, (card.parts || []).filter(function (pt) { return pt.type === b.check.slice(3); }), b.check.slice(3));
+      if (/^el:/.test(b.check || "")) return elementsMatch(v, (card.parts || []).filter(function (pt) { return pt.type === b.check.slice(3); }), b.check.slice(3), slips);
       if (!v) return false;
       if (b.check === "greek") return oneOf(v, card.greekForms, greekKey) || listOf(v, card.greekForms, greekKey);
       if (b.check === "deriv") return derivList(v, card.derivs);
@@ -3083,7 +3084,7 @@
     });
     // The limit named in the message is the longest box's own (a box may allow more words).
     if (tooLong) return { tooLong: true, limit: tooLong, parts: parts };
-    return { ok: parts.every(Boolean), parts: parts, mixed: mixed, echo: echo };
+    return { ok: parts.every(Boolean), parts: parts, mixed: mixed, echo: echo, slips: slips };
   }
 
   // A boxes card, or a meaning card that also asks for the analysis (Exercise III).
@@ -3140,7 +3141,7 @@
     return forms.length > 0 && forms.every(function (f) { return f === "s" || f === "es"; });
   }
 
-  function elementsMatch(v, parts, kind) {
+  function elementsMatch(v, parts, kind, slips) {
     v = String(v || "").trim();
     if (!parts.length) return !v || NONE.test(v) || (kind === "suffix" && onlyPlural(v));
     // English endings Ayers doesn't teach (-ing, -ed) are optional: the box is
@@ -3196,15 +3197,36 @@
       const need = content.length ? content : all; // "to" (AD-) is itself the meaning
       return need.length > 0 && need.every(function (w) { return toks.some(function (t, j) { return j !== own && near(t, w); }); });
     }
-    return parts.every(function (pt, p) {
-      if (formAt[p] < 0 || pt.optional) return true; // an optional ending, left out or named
+    function wordings(list) {
       // A wording such as "to sit, settle" gives each of its meanings.
       const ways = [];
+      (list || []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x.trim()); }); });
+      return ways;
+    }
+    const each = parts.map(function (pt, p) {
+      if (formAt[p] < 0 || pt.optional) return true; // an optional ending, left out or named
       // Written in its pieces ("-ac + -ious"), the last piece's meaning counts too
       // ("-ious full of"); written whole, it needs the suffix's own meaning.
-      (pt.meanings || []).concat(pt.alsoMeans || [], split[p] >= 0 ? pt.pieceMeans || [] : []).forEach(function (m) { String(m).split(/[,;]/).forEach(function (x) { if (x.trim()) ways.push(x); }); });
-      return ways.some(function (m) { return says(m, formAt[p]); });
+      const ok = wordings((pt.meanings || []).concat(pt.alsoMeans || [], split[p] >= 0 ? pt.pieceMeans || [] : [])).some(function (m) { return says(m, formAt[p]); });
+      // The meaning of the other suffix with this spelling (the -ate that makes
+      // adjectives given for the -ate that makes verbs): noted, still wrong
+      // (Student Difficulties form, answer 4, Nov 7, 2026).
+      if (!ok && slips && pt.sameForm) {
+        pt.sameForm.forEach(function (o) {
+          const said = wordings(o.means).filter(function (m) { return says(m, formAt[p]); })[0];
+          if (said) slips.push({ label: pt.label, role: pt.role, otherRole: o.role, said: said });
+        });
+      }
+      return ok;
     });
+    return each.every(Boolean);
+  }
+
+  // What the miss note and the back say about a same-spelling slip.
+  function slipMissText(s) { return "\u201c" + s.said + "\u201d is the meaning of " + s.otherRole + ", not of the " + s.label.split(",")[0].trim() + " in this word."; }
+  function sameFormNote(pt) {
+    if (!pt.role || !pt.sameForm) return "";
+    return "Here " + pt.label.split(",")[0].trim() + " is " + pt.role + "; not " + pt.sameForm.map(function (o) { return o.role + " (\u201c" + o.means.slice(0, 2).join(", ") + "\u201d)"; }).join(" or ");
   }
 
   let ELEMENT_FORMS = null;
@@ -4899,6 +4921,8 @@
       (pt.meaningGroups || pt.meanings.map(function (m) { return [m]; })).forEach(function (g) { chips.appendChild(senseNode("chip", g)); });
       d.appendChild(chips);
       if (pt.note) d.appendChild(el("span", "part-note", " (" + pt.note + ")"));
+      const sf = sameFormNote(pt);
+      if (sf) d.appendChild(el("span", "part-note", " (" + sf + ")"));
       an.appendChild(d);
     });
     meaningBack.appendChild(an);
@@ -5054,9 +5078,11 @@
     missNote.hidden = true;
     missNote.innerHTML = "";
     let lineNote = "";
+    let slipNote = "";
     if (!ans || ans.ok || backShown(ans)) return;
     if (hasBoxes(item) && Array.isArray(ans.a)) {
       const res = judgeBoxes(CARDS.indexOf(item), ans.a);
+      if (res.slips && res.slips.length) slipNote = res.slips.map(slipMissText).join(" ");
       const parts = res.parts || item.boxes.map(function () { return false; });
       const labels = [form.querySelector(".box-label0")].concat(Array.prototype.slice.call(form.querySelectorAll(".more-boxes .box-label")));
       const inputs = [answerInput].concat(Array.prototype.slice.call(form.querySelectorAll(".more-boxes input")));
@@ -5096,6 +5122,7 @@
     if (lineNote) missNote.appendChild(el("span", "miss-lines", lineNote));
     const why = ans.echo ? ECHO_NOTE(ans.echo) : ans.mixed ? "The meaning mixes in the meaning of \u201c" + ans.mixed + "\u201d." : "";
     if (why) missNote.appendChild(el("span", "miss-reason", why));
+    if (slipNote) missNote.appendChild(el("span", "miss-reason", slipNote));
     const st = studyLine(item);
     if (st) missNote.appendChild(el("span", "study-line", st));
     missNote.hidden = false;
