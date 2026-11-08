@@ -124,6 +124,7 @@ async function browserTests(decks) {
         const fc = await page.evaluate(flashcardChecks);
         flashCount += fc.checked;
         fc.fails.forEach(x => flashFails.push(f + ": " + x));
+        if (fc.long.length) notes.push(f + ": printed definition longer than the box allows: " + fc.long.join(", "));
         let ui;
         try { ui = await flashcardUi(page); }
         catch (e) { ui = { checked: 0, fails: ["the in-deck check stopped: " + String(e.message).split("\n")[0]] }; }
@@ -389,7 +390,7 @@ async function uiChecks(page) {
 // meaning. Greek decks: the headword typed back and little words are refused,
 // the printed definition is not. All: a missed card waits for 3 others.
 function flashcardChecks() {
-  const fails = []; let checked = 0;
+  const fails = [], long = []; let checked = 0;
   const C = __t.CARDS;
   if (__t.MEANINGS()) {
     C.forEach((c, i) => {
@@ -428,6 +429,14 @@ function flashcardChecks() {
     C.forEach((c, i) => {
       checked++;
       if (c.defn && __t.goodFaith(c, c.defn)) fails.push(c.word + ": printed definition refused by the gate");
+      // A deck's own printed answer is always right (Design Standard, Nov 7, 2026):
+      // the printed definition, typed back, is marked right. Too long is a note.
+      if (c.defn && !__t.goodFaith(c, c.defn)) {
+        checked++;
+        const r = __t.judge(i, c.defn);
+        if (r.tooLong) long.push(c.word);
+        else if (!r.ok) fails.push(c.word + ": printed definition marked wrong");
+      }
       checked++;
       if (!__t.goodFaith(c, "the of")) fails.push(c.word + ": little words passed the gate");
       checked++;
@@ -467,7 +476,7 @@ function flashcardChecks() {
     kn.clear(); keep.forEach(x => kn.add(x));
     __t.setQuiz(saved);
   }
-  return { checked, fails };
+  return { checked, fails, long };
 }
 
 // Through the deck itself (made-up learner): a miss keeps the back empty and
@@ -631,6 +640,7 @@ function modelAnswers() {
   const fails = [], long = []; let checked = 0;
   if (!__t.EX()) return { checked, fails, long };
   __t.CARDS.forEach((c, i) => {
+    if (!c.boxes && c.kind === "typed") { checked++; let r; try { r = __t.judgeExercise(i, String(c.answerText)); } catch (e) { r = { ok: false, err: e.message }; } if (!r.ok) fails.push({ word: c.label, typed: c.answerText, result: r }); return; }
     if (!c.boxes) return;
     let vals = null;
     if (c.answerLines) {
@@ -650,6 +660,7 @@ function modelAnswers() {
         ? c.parts.map(pt => pt.label.split("(" + ARROW)[0].split(",")[0].trim()).join(" + ")
         : /^el:/.test(bx.check || "") ? elVals(bx.check.slice(3)) : c.defn);
     }
+    else if (c.greek !== undefined) vals = c.boxes.map(bx => bx.check === "greek" ? c.greek : bx.check === "mean" ? c.gmean : bx.check === "deriv" ? c.deriv : "");
     // An accepted derivative must also pass the check made before judging
     // (Greek Introduction's devil, diabolical: refused Oct 14 to 18).
     if (c.derivs && !c.answerLines) c.derivs.forEach(d => {
