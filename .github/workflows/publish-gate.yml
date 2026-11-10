@@ -1,0 +1,80 @@
+# Publish gate: a pull request to main that touches deck or guarded files may merge only
+# after the gate has passed for its newest commit. The thread that runs the gate adds the
+# label "gate passed <first 7 characters of that commit>" as its last step; a new push
+# makes a new commit, so an older label no longer counts.
+#
+# Why a GitHub check: hooks in .claude/settings.json never run in claude.ai Project threads
+# (found Nov 9, 2026), so the merge hook never held. The Architect chose this replacement
+# ("Build the plan", Nov 9, 2026). When "Publish gate" is a required check on main with no
+# bypass, GitHub itself refuses a merge without the label.
+#
+# Safety: pull_request_target runs main's own copy of this file, so a pull request can't
+# change the check that judges it. The job never checks out or runs the pull request's
+# files; it reads only the list of changed file names and the labels. It needs no secret.
+#
+# The path list below copies the gate's gated, guarded and named-reviewer paths from the
+# gate's settings (kept in the project's files, not here). Change both together.
+name: Publish gate
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
+
+permissions:
+  pull-requests: read
+
+concurrency:
+  group: publish-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  publish-gate:
+    name: Publish gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check the gate label against the newest commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CHANGED: ${{ github.event.pull_request.changed_files }}
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: |
+          python3 - <<'PY'
+          import fnmatch, json, os, subprocess, sys
+          GLOBS = ["*.html", ".claude/**", ".github/**", "parts/check/**",
+                   "standard-deck/build.js", "standard-deck/course.json", "standard-deck/decks/**",
+                   "standard-deck/glossary.js", "standard-deck/template.html",
+                   "standard-deck/tests/**", "standard-deck/vocabulary.js"]
+
+          def match(path, glob):
+              # As the gate does: a pattern with no "/" matches files at the top only; case is ignored.
+              path, glob = path.lower(), glob.lower()
+              return fnmatch.fnmatchcase(path, glob) and ("/" in glob or "/" not in path)
+
+          if int(os.environ.get("CHANGED") or 0) > 3000:
+              print("Refused: GitHub lists at most 3000 changed files, so this check can't see them all. Split the pull request.")
+              sys.exit(1)
+          # One JSON string per line, so a file name with a space or a line break stays whole.
+          raw = subprocess.run(["gh", "api", "--paginate", f"repos/{os.environ['REPO']}/pulls/{os.environ['PR']}/files",
+                                "--jq", ".[] | (.filename, (.previous_filename // empty)) | tojson"],
+                               capture_output=True, text=True, check=True).stdout
+          out = [json.loads(l) for l in raw.splitlines() if l.strip()]
+          touched = sorted({p for p in out if not p.startswith("backups/") and any(match(p, g) for g in GLOBS)})
+          if not touched:
+              print("This pull request touches no deck or guarded files, so the publish gate does not apply.")
+              sys.exit(0)
+          want = "gate passed " + os.environ["HEAD_SHA"][:7]
+          labels = json.loads(os.environ["LABELS"] or "[]")
+          print("Gated or guarded files:", ", ".join(touched[:20]) + (" …" if len(touched) > 20 else ""))
+          if want in labels:
+              print(f'The gate passed for the newest commit ("{want}").')
+              sys.exit(0)
+          old = [l for l in labels if l.startswith("gate passed")]
+          print(f'Refused: no label "{want}".' + (f" Older gate labels ({', '.join(old)}) are for earlier commits." if old else "")
+                + " Run the gate for this commit, then add that label.")
+          sys.exit(1)
+          PY
