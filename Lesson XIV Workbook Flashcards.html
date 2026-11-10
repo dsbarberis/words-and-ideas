@@ -3531,7 +3531,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "8d1ce3d1c4d7";
+  const DECK_VERSION = "5afd21c2511d";
   const DECK_PAGE = "Lesson XIV Workbook Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -4108,7 +4108,8 @@
     if (!v || NONE.test(v)) return need.length === 0;
     const toks = toTokens(v.replace(/([a-z])\(([a-z]+)\)/gi, "$1$2"));
     function fits(t, a) { return a === t || (/i$/.test(t) && a === t.slice(0, -1)) || (/i$/.test(a) && a.slice(0, -1) === t); }
-    function plural(t, a) { return a.length >= 2 && (t === a + "s" || t === a + "es" || (/y$/.test(a) && t === a.slice(0, -1) + "ies")); }
+    // "-ies" is the plural of -y too, though -y is one letter (SOLILOQUIES, OBSEQUIES; Lesson XVI watch, Nov 9, 2026).
+    function plural(t, a) { return (a === "y" && t === "ies") || (a.length >= 2 && (t === a + "s" || t === a + "es" || (/y$/.test(a) && t === a.slice(0, -1) + "ies"))); }
     // A joined suffix: the first's form (an end e, or the le of -able, may
     // drop) followed by the second's, adjacent in the word.
     function joined(t, A, B) {
