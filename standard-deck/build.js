@@ -162,6 +162,9 @@ function resolveParts(card, file, deck) {
       // "-ary (\u2192 i)": the y becomes i in the word, so "-ari" counts too.
       const shifted = /\(\u2192 i\)/.test(pt.label) ? printed.map(function (f) { return f.replace(/y$/, "i"); }) : [];
       o.accept = printed.concat(shifted, formsOf(entry.forms), pt.alsoAccept || []).filter(function (f, i, a) { return a.indexOf(f) === i; });
+      // "notAccept": forms of the entry that are wrong on this card (FAB- on
+      // AFFABILITY and INEFFABLE, where the b belongs to -able; D, Nov 9, 2026).
+      if (pt.notAccept) o.accept = o.accept.filter(function (f) { return pt.notAccept.indexOf(f) < 0; });
       if (deck.elementBoxes) {
         // Element boxes: the element's kind picks its box, and "alsoMeans"
         // holds wordings that count but are not shown: the glossary's plain

@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-11-05). Do not edit by hand.
+Written by build.js on every rebuild (2026-11-10). Do not edit by hand.
 
 ## 1. Conflicts
 
@@ -8,7 +8,7 @@ Written by build.js on every rebuild (2026-11-05). Do not edit by hand.
 - **discursive**: Lesson IX Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 1)
 - **desultory**: Lesson X Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 2)
 
-**A deck card that overrides the shared definition:** 140.
+**A deck card that overrides the shared definition:** 180.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -32,6 +32,8 @@ Written by build.js on every rebuild (2026-11-05). Do not edit by hand.
 - **discursive** in Lesson XIII Exercise III Flashcards (wording: answer key)
 - **flagrant** in Lesson X Exercise III Flashcards (wording: instructor)
 - **congenital** in Lesson X Exercise III Flashcards (wording: instructor)
+- **progeny** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **revenue** in Lesson XVII Exercise III Flashcards (wording: answer key)
 - **diffident** in Lesson X Exercise III Flashcards (wording: instructor)
 - **insubordinate** in Lesson X Exercise III Flashcards (wording: instructor)
 - **concubine** in Lesson X Exercise III Flashcards (wording: instructor)
@@ -149,6 +151,44 @@ Written by build.js on every rebuild (2026-11-05). Do not edit by hand.
 - **patrimony** in Lesson XV Exercise III Flashcards (wording: answer key)
 - **veracity** in Lesson XV Exercise III Flashcards (wording: answer key)
 - **retentive** in Lesson XV Exercise III Flashcards (wording: answer key)
+- **predilection** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **acumen** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **conjunction** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **animadversion** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **improbity** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **accretions** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **sedition** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **transient** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **capacity** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **resolute** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **admonition** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **soliloquies** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **profusion** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **increment** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **coherent** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **firmament** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **premonitory** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **adjuncts** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **ambition** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **complement** in Lesson XVI Exercise III Flashcards (wording: answer key)
+- **minuscule** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **exquisite** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **transection** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **incorrigible** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **refraction** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **requisition** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **commodious** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **compassionate** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **acidulous** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **canticle** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **approbation** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **diminution** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **jugular** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **adjourn** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **curette** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **incompatible** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **dissect** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **infrangible** in Lesson XVII Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -277,7 +317,7 @@ LIMIN- threshold
 - disingenuous: Lesson IX Workbook Flashcards
 - gender: Lesson IX Workbook Flashcards
 - gentle: Lesson IX Workbook Flashcards
-- progeny: Lesson IX Workbook Flashcards
+- progeny: Lesson IX Workbook Flashcards, Lesson XVII Exercise III Flashcards
 - generalize: Lesson IX Workbook Flashcards
 - congenial: Lesson IX Workbook Flashcards
 - ingénue: Lesson IX Workbook Flashcards
@@ -298,7 +338,7 @@ LIMIN- threshold
 - grievous: Lesson IX Workbook Flashcards
 - portion: Lesson IX Workbook Flashcards
 - convey: Lesson IX Workbook Flashcards
-- revenue: Lesson IX Workbook Flashcards
+- revenue: Lesson IX Workbook Flashcards, Lesson XVII Exercise III Flashcards
 - pansy: Lesson IX Workbook Flashcards
 - abound: Lesson IX Workbook Flashcards
 - premiere: Lesson IX Workbook Flashcards
@@ -542,3 +582,41 @@ LIMIN- threshold
 - patrimony: Lesson XV Exercise III Flashcards
 - veracity: Lesson XV Exercise III Flashcards
 - retentive: Lesson XV Exercise III Flashcards
+- predilection: Lesson XVI Exercise III Flashcards
+- acumen: Lesson XVI Exercise III Flashcards
+- conjunction: Lesson XVI Exercise III Flashcards
+- animadversion: Lesson XVI Exercise III Flashcards
+- improbity: Lesson XVI Exercise III Flashcards
+- accretions: Lesson XVI Exercise III Flashcards
+- sedition: Lesson XVI Exercise III Flashcards
+- transient: Lesson XVI Exercise III Flashcards
+- capacity: Lesson XVI Exercise III Flashcards
+- resolute: Lesson XVI Exercise III Flashcards
+- admonition: Lesson XVI Exercise III Flashcards
+- soliloquies: Lesson XVI Exercise III Flashcards
+- profusion: Lesson XVI Exercise III Flashcards
+- increment: Lesson XVI Exercise III Flashcards
+- coherent: Lesson XVI Exercise III Flashcards
+- firmament: Lesson XVI Exercise III Flashcards
+- premonitory: Lesson XVI Exercise III Flashcards
+- adjuncts: Lesson XVI Exercise III Flashcards
+- ambition: Lesson XVI Exercise III Flashcards
+- complement: Lesson XVI Exercise III Flashcards
+- minuscule: Lesson XVII Exercise III Flashcards
+- exquisite: Lesson XVII Exercise III Flashcards
+- transection: Lesson XVII Exercise III Flashcards
+- incorrigible: Lesson XVII Exercise III Flashcards
+- refraction: Lesson XVII Exercise III Flashcards
+- requisition: Lesson XVII Exercise III Flashcards
+- commodious: Lesson XVII Exercise III Flashcards
+- compassionate: Lesson XVII Exercise III Flashcards
+- acidulous: Lesson XVII Exercise III Flashcards
+- canticle: Lesson XVII Exercise III Flashcards
+- approbation: Lesson XVII Exercise III Flashcards
+- diminution: Lesson XVII Exercise III Flashcards
+- jugular: Lesson XVII Exercise III Flashcards
+- adjourn: Lesson XVII Exercise III Flashcards
+- curette: Lesson XVII Exercise III Flashcards
+- incompatible: Lesson XVII Exercise III Flashcards
+- dissect: Lesson XVII Exercise III Flashcards
+- infrangible: Lesson XVII Exercise III Flashcards

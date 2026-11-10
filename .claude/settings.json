@@ -20,6 +20,26 @@
             "command": "if grep -qE 'gh +pr +merge|git[^\"]*[ ]push[^\"&;|]*[ :](refs/heads/)?(main|master)([ \"]|$)'; then echo 'Publish gate: merging or pushing to main from the command line skips the gate. Push to a branch and merge the pull request.' >&2; exit 2; fi; exit 0"
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 30,
+            "command": "R=/mnt/project-files; [ -f \"$R/tools/hooks/dispatch.py\" ] || exit 0; python3 \"$R/tools/hooks/dispatch.py\" backup-before-write || exit 0"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 30,
+            "command": "R=/mnt/project-files; I=$(cat); F=$(printf '%s' \"$I\" | python3 -c 'import json,sys; print((json.load(sys.stdin).get(\"tool_input\") or {}).get(\"file_path\") or \"\")' 2>/dev/null) || exit 0; case \"$F\" in */reports/own-list.md|*/reports/waiting.md|*/records/problems.md|reports/own-list.md|reports/waiting.md|records/problems.md) ;; *) exit 0;; esac; [ -f \"$R/tools/hooks/dispatch.py\" ] || exit 0; printf '%s' \"$I\" | python3 \"$R/tools/hooks/dispatch.py\" row-tool-only"
+          }
+        ]
       }
     ],
     "PostToolUse": [
