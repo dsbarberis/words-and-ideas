@@ -1614,7 +1614,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "c25478a927af";
+  const DECK_VERSION = "b75ba66e3f9a";
   const DECK_PAGE = "Greek Lesson II Exercise.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -2242,7 +2242,9 @@
         // A blank with an ending ("quality of ___ing") stands for any verb in
         // -ing: "quality of growing" gives it (instructor, Lesson XVIII decks
         // thread, Nov 10, 2026). A bare "-ing" meaning (-ANT) is not a blank.
-        if (w === "ing" && blank) return toks.some(function (t, j) { return j !== own && (t === "ing" || (t.length >= 5 && /ing$/.test(t))); });
+        // "Being" never fills it ("quality of being" is wrong; instructor, Nov 11,
+        // 2026); ESSENCE, where it is right, gives it as the card's keyMeanings.
+        if (w === "ing" && blank) return toks.some(function (t, j) { return j !== own && t !== "being" && (t === "ing" || (t.length >= 5 && /ing$/.test(t))); });
         return toks.some(function (t, j) { return j !== own && near(t, w); });
       });
     }
