@@ -2570,7 +2570,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "0926bbcd7072";
+  const DECK_VERSION = "f3960fb63344";
   const DECK_PAGE = "Lesson X Exercise IV Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3193,7 +3193,16 @@
     function says(m, own) {
       const all = toTokens(m), content = all.filter(function (w) { return MEAN_FILLER.indexOf(w) < 0; });
       const need = content.length ? content : all; // "to" (AD-) is itself the meaning
-      return need.length > 0 && need.every(function (w) { return toks.some(function (t, j) { return j !== own && near(t, w); }); });
+      const blank = /_{2,}\s*-?\s*ing\b/i.test(m);
+      return need.length > 0 && need.every(function (w) {
+        // A blank with an ending ("quality of ___ing") stands for any verb in
+        // -ing: "quality of growing" gives it (instructor, Lesson XVIII decks
+        // thread, Nov 10, 2026). A bare "-ing" meaning (-ANT) is not a blank.
+        // "Being" never fills it ("quality of being" is wrong; instructor, Nov 11,
+        // 2026); ESSENCE, where it is right, gives it as the card's keyMeanings.
+        if (w === "ing" && blank) return toks.some(function (t, j) { return j !== own && t !== "being" && (t === "ing" || (t.length >= 5 && /ing$/.test(t))); });
+        return toks.some(function (t, j) { return j !== own && near(t, w); });
+      });
     }
     return parts.every(function (pt, p) {
       if (formAt[p] < 0 || pt.optional) return true; // an optional ending, left out or named

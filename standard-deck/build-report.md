@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-11-10). Do not edit by hand.
+Written by build.js on every rebuild (2026-11-11). Do not edit by hand.
 
 ## 1. Conflicts
 
@@ -8,7 +8,7 @@ Written by build.js on every rebuild (2026-11-10). Do not edit by hand.
 - **discursive**: Lesson IX Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 1)
 - **desultory**: Lesson X Workbook Flashcards (every sense); Lesson XIII Exercise III Flashcards (sense 2)
 
-**A deck card that overrides the shared definition:** 180.
+**A deck card that overrides the shared definition:** 200.
 - **senile** in Exercise III Flashcards (wording: instructor)
 - **unilateral** in Exercise III Flashcards (wording: instructor)
 - **generate** in Exercise III Flashcards (wording: instructor)
@@ -189,6 +189,26 @@ Written by build.js on every rebuild (2026-11-10). Do not edit by hand.
 - **incompatible** in Lesson XVII Exercise III Flashcards (wording: answer key)
 - **dissect** in Lesson XVII Exercise III Flashcards (wording: answer key)
 - **infrangible** in Lesson XVII Exercise III Flashcards (wording: answer key)
+- **excrescence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **predigested** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **endurance** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **commodities** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **fervor** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **renascence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **repositories** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **conscience** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **sonorously** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **dispensary** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **confluence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **clamorous** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **interdicted** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **dissonance** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **valorous** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **intransigence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **malediction** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **credence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **assonance** in Lesson XVIII Exercise III Flashcards (wording: answer key)
+- **cadence** in Lesson XVIII Exercise III Flashcards (wording: answer key)
 
 **Possible duplicates or homographs:** none.
 
@@ -620,3 +640,23 @@ LIMIN- threshold
 - incompatible: Lesson XVII Exercise III Flashcards
 - dissect: Lesson XVII Exercise III Flashcards
 - infrangible: Lesson XVII Exercise III Flashcards
+- excrescence: Lesson XVIII Exercise III Flashcards
+- predigested: Lesson XVIII Exercise III Flashcards
+- endurance: Lesson XVIII Exercise III Flashcards
+- commodities: Lesson XVIII Exercise III Flashcards
+- fervor: Lesson XVIII Exercise III Flashcards
+- renascence: Lesson XVIII Exercise III Flashcards
+- repositories: Lesson XVIII Exercise III Flashcards
+- conscience: Lesson XVIII Exercise III Flashcards
+- sonorously: Lesson XVIII Exercise III Flashcards
+- dispensary: Lesson XVIII Exercise III Flashcards
+- confluence: Lesson XVIII Exercise III Flashcards
+- clamorous: Lesson XVIII Exercise III Flashcards
+- interdicted: Lesson XVIII Exercise III Flashcards
+- dissonance: Lesson XVIII Exercise III Flashcards
+- valorous: Lesson XVIII Exercise III Flashcards
+- intransigence: Lesson XVIII Exercise III Flashcards
+- malediction: Lesson XVIII Exercise III Flashcards
+- credence: Lesson XVIII Exercise III Flashcards
+- assonance: Lesson XVIII Exercise III Flashcards
+- cadence: Lesson XVIII Exercise III Flashcards

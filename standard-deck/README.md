@@ -152,7 +152,10 @@ Before changing any file, keep a renamed copy of it in `backups/` (see `backups/
   (`plainMeanings`, for grammatical suffixes such as -ED), or the answer key's wording on that card
   (`keyMeanings: { "FA": "to say, tell" }`, by glossary key). Wordings with commas give each meaning
   separately. A meaning counts when each of its content words is there in any ending; little words and
-  the words "suffix" and "prefix" need not be typed. A box whose kind the word lacks is right when
+  the words "suffix" and "prefix" need not be typed. A meaning with a blank ("quality of ___ing", -ANCE and
+  -ENCE) is met by any word in -ing ("quality of growing"), except "being" (instructor, Nov 10 and 11, 2026);
+  a card where "being" is right (ESSENCE) lists it in `keyMeanings`. A bare "-ing" meaning (-ANT) is not a
+  blank. A box whose kind the word lacks is right when
   empty or "none". The card is right only when every box is, and the back marks each box. Before
   Check, the Bases box must share letters with the word. Plain and key wordings are accepted but not
   shown; the back shows the glossary's pills.
