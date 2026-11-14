@@ -3514,7 +3514,7 @@
 };
   // This page's version: a hash of what judges this deck, written by build.js,
   // and the page's file name in deck-versions.json (reload prompt, Oct 28, 2026).
-  const DECK_VERSION = "730de289c131";
+  const DECK_VERSION = "48044f224d2b";
   const DECK_PAGE = "Lesson XV Workbook Flashcards.html";
   // The reload prompt's state (see "Reload prompt" below).
   const updateBar = document.getElementById("updateBar");
@@ -3728,7 +3728,37 @@
 
   // own: a box with its own senses; it may allow more words (maxWords) and
   // skip the check against other cards' terms (noPenalty).
-  function judge(cardIdx, text, own) {
+  // "Unable to", "not able to", "incapable of" and "not capable of" say what
+  // "cannot" (or "can't") says: an answer refused as typed is tried again with
+  // each of these wordings in turn ("incapable of being corrected" = "cannot be corrected";
+  // Lesson XVII watch, the instructor's "Fix all three, every deck", Nov 14, 2026).
+  function cannotForms(text) {
+    const ing = /\b(?:incapable|not capable) of (\w+?)ing\b/gi; // used with replace only
+    const base = String(text || "").replace(/\b(?:unable|not able) to\b|\bcan(?:'|\u2019)t\b|\bcan not\b/gi, "cannot")
+      .replace(/\b(?:incapable|not capable) of being\b/gi, "cannot be");
+    const stems = /\b(?:incapable|not capable) of \w+?ing\b/i.test(base) ? [
+      base.replace(ing, function (_, st) { return "cannot " + st.replace(/([b-df-hj-np-tv-z])\1$/i, "$1"); }),
+      base.replace(ing, function (_, st) { return "cannot " + st + "e"; })] : [base];
+    const out = [];
+    stems.forEach(function (t) {
+      ["cannot", "can't", "unable to"].forEach(function (w) {
+        const v = t.replace(/\bcannot\b/gi, w);
+        if (v !== text && out.indexOf(v) < 0) out.push(v);
+      });
+    });
+    return stems.some(function (t) { return /\bcannot\b/i.test(t); }) ? out : [];
+  }
+  function judge(cardIdx, text, own, again) {
+    if (!again) {
+      const first = judge(cardIdx, text, own, true);
+      if (first.ok || first.empty || first.tooLong) return first;
+      const alt = cannotForms(text);
+      for (let k = 0; k < alt.length; k++) {
+        const r = judge(cardIdx, alt[k], own, true);
+        if (r.ok) return r;
+      }
+      return first;
+    }
     const ans = toTokens(text);
     if (!ans.length) return { empty: true };
     if (ans.length > ((own && own.maxWords) || MAX_ANSWER_WORDS)) return { tooLong: true };
@@ -3741,7 +3771,7 @@
       const e = echoOf(card, ans);
       if (e) {
         const rest = ans.filter(function (t) { return !echoOf(card, [t]); });
-        const r2 = rest.length ? judge(cardIdx, rest.join(" "), own) : null;
+        const r2 = rest.length ? judge(cardIdx, rest.join(" "), own, true) : null;
         return r2 && r2.ok ? r2 : { ok: false, echo: e };
       }
     }
