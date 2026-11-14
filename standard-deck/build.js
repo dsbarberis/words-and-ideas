@@ -185,7 +185,10 @@ function resolveParts(card, file, deck) {
         const synonyms = entry.kind === "base" ? latinRootsKeys[pt.gloss] || [] : [];
         // A base also takes the book's own wording when the glossary's differs
         // (GEN "to give birth to", book p. 152; Problem Register row 28, Nov 14, 2026).
-        const bookWording = entry.kind === "base" ? (entry.book || []).map(function (b) { return b.meaning || ""; }).filter(function (m) { return m && !/\betc\b/.test(m); }) : [];
+        const have = [].concat(entry.meanings || [], entry.plainMeanings || []).join(",").split(/[,;]/).map(function (x) { return x.trim().toLowerCase(); });
+        const bookWording = entry.kind !== "base" ? [] : (entry.book || []).map(function (b) { return b.meaning || ""; })
+          .join(",").split(/[,;]/).map(function (x) { return x.trim(); })
+          .filter(function (m, i, a) { return m && !/\betc\b/i.test(m) && have.indexOf(m.toLowerCase()) < 0 && a.indexOf(m) === i; });
         const also = [].concat(entry.plainMeanings || [], dictionary, key || [], synonyms, bookWording);
         if (also.length) o.alsoMeans = also;
         // A suffix built from two pieces (-ac + -ous for -acious): written as
