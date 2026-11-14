@@ -149,6 +149,10 @@ const ADJECTIVE_SUFFIXES = ["-ILE", "-AL", "-ARY", "-ULENT", "-IC", "-OUS", "-IN
   "-ORY", "-OSE", "-TIC", "-ULOUS", "-UOUS"];
 const ADJECTIVE_WORDINGS = ["having the quality of", "characterized by"];
 const PARTICIPLE_WORDINGS = ["being in a state of", "in a state of"];
+// A diminutive suffix (glossary meaning "little") also takes "small" and
+// "diminutive" (Lesson XVII watch, the instructor's "Fix all three, every deck",
+// Nov 14, 2026; Problem Register row 28).
+const DIMINUTIVE_WORDINGS = ["small", "diminutive"];
 
 function resolveParts(card, file, deck) {
   if (!card.parts || card.kind !== "meaning") return card;
@@ -174,11 +178,15 @@ function resolveParts(card, file, deck) {
         o.type = entry.kind;
         if (entry.optionalInBoxes) o.optional = true;
         const key = (card.keyMeanings || {})[pt.gloss];
-        const dictionary = ADJECTIVE_SUFFIXES.indexOf(pt.gloss) >= 0 ? ADJECTIVE_WORDINGS : pt.gloss === "-ANT" ? PARTICIPLE_WORDINGS : [];
+        const dictionary = ADJECTIVE_SUFFIXES.indexOf(pt.gloss) >= 0 ? ADJECTIVE_WORDINGS : pt.gloss === "-ANT" ? PARTICIPLE_WORDINGS :
+          entry.kind === "suffix" && (entry.meanings || []).indexOf("little") >= 0 ? DIMINUTIVE_WORDINGS : [];
         // A base also takes its Latin Roots synonyms; suffixes don't, because
         // their Latin Roots lists hold wordings the instructor ruled wrong in the boxes.
         const synonyms = entry.kind === "base" ? latinRootsKeys[pt.gloss] || [] : [];
-        const also = [].concat(entry.plainMeanings || [], dictionary, key || [], synonyms);
+        // A base also takes the book's own wording when the glossary's differs
+        // (GEN "to give birth to", book p. 152; Problem Register row 28, Nov 14, 2026).
+        const bookWording = entry.kind === "base" ? (entry.book || []).map(function (b) { return b.meaning || ""; }).filter(function (m) { return m && !/\betc\b/.test(m); }) : [];
+        const also = [].concat(entry.plainMeanings || [], dictionary, key || [], synonyms, bookWording);
         if (also.length) o.alsoMeans = also;
         // A suffix built from two pieces (-ac + -ous for -acious): written as
         // its pieces, the last piece's book meaning counts (instructor, Oct 28, 2026).
