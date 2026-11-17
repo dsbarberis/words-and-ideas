@@ -34,5 +34,3 @@ deck asks the student to shorten it rather than marking it wrong.
 unnoticed (Deck Creation Practices form, Oct 15, 2026). Still to add: a set of natural
 answers for each typed card, and simulated Learn and Quiz passes with the Sheet rows
 they would send.
-
-<!-- Practice pull request for the Publish gate live test (Nov 16, 2026); never merged. -->
