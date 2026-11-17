@@ -12,6 +12,15 @@
 # change the check that judges it. The job never checks out or runs the pull request's
 # files; it reads only the list of changed file names and the labels. It needs no secret.
 #
+# Waiting, not failed (the Architect's card "Stop the Publish gate's false failure emails how?",
+# Nov 16, 2026: "Gate shows waiting, not failed"). A new commit can't carry its label yet, so a
+# failing check sent a "Run failed" email for every deck commit. Now the job itself always ends
+# well, and the required "Publish gate" result is a commit status this job sets on the newest
+# commit: "pending" (waiting for its label), "success", or "failure" only for a real fault (a
+# pull request too big to check). A pending status blocks a merge just as a failure does, and
+# GitHub sends no email for it. If the job breaks before it sets a status, the commit has no
+# "Publish gate" result at all, which also blocks the merge.
+#
 # The path list below copies the gate's gated, guarded and named-reviewer paths from the
 # gate's settings (kept in the project's files, not here). Change both together.
 name: Publish gate
@@ -23,6 +32,7 @@ on:
 
 permissions:
   pull-requests: read
+  statuses: write
 
 concurrency:
   group: publish-gate-${{ github.event.pull_request.number }}
@@ -30,11 +40,12 @@ concurrency:
 
 jobs:
   publish-gate:
-    name: Publish gate
+    # Not "Publish gate": that name is the commit status below, which main requires.
+    name: Publish gate runner
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check the gate label against the newest commit
+      - name: Set the Publish gate status on the newest commit
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -42,9 +53,18 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           CHANGED: ${{ github.event.pull_request.changed_files }}
           LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           python3 - <<'PY'
           import fnmatch, json, os, subprocess, sys
+
+          def status(state, text):
+              # The required check: a commit status named "Publish gate" on the newest commit.
+              print(f"Publish gate: {state}: {text}")
+              subprocess.run(["gh", "api", "-X", "POST", f"repos/{os.environ['REPO']}/statuses/{os.environ['HEAD_SHA']}",
+                              "-f", f"state={state}", "-f", "context=Publish gate", "-f", f"description={text[:140]}",
+                              "-f", f"target_url={os.environ['RUN_URL']}"], check=True, capture_output=True)
+              sys.exit(0)
           GLOBS = ["*.html", ".claude/**", ".github/**", "parts/check/**",
                    "standard-deck/build.js", "standard-deck/course.json", "standard-deck/decks/**",
                    "standard-deck/glossary.js", "standard-deck/template.html",
@@ -56,8 +76,7 @@ jobs:
               return fnmatch.fnmatchcase(path, glob) and ("/" in glob or "/" not in path)
 
           if int(os.environ.get("CHANGED") or 0) > 3000:
-              print("Refused: GitHub lists at most 3000 changed files, so this check can't see them all. Split the pull request.")
-              sys.exit(1)
+              status("failure", "Refused: more than 3000 changed files, so the check can't see them all. Split the pull request.")
           # One JSON string per line, so a file name with a space or a line break stays whole.
           raw = subprocess.run(["gh", "api", "--paginate", f"repos/{os.environ['REPO']}/pulls/{os.environ['PR']}/files",
                                 "--jq", ".[] | (.filename, (.previous_filename // empty)) | tojson"],
@@ -65,16 +84,13 @@ jobs:
           out = [json.loads(l) for l in raw.splitlines() if l.strip()]
           touched = sorted({p for p in out if not p.startswith("backups/") and any(match(p, g) for g in GLOBS)})
           if not touched:
-              print("This pull request touches no deck or guarded files, so the publish gate does not apply.")
-              sys.exit(0)
+              status("success", "Touches no deck or guarded files, so the publish gate does not apply.")
           want = "gate passed " + os.environ["HEAD_SHA"][:7]
           labels = json.loads(os.environ["LABELS"] or "[]")
           print("Gated or guarded files:", ", ".join(touched[:20]) + (" …" if len(touched) > 20 else ""))
           if want in labels:
-              print(f'The gate passed for the newest commit ("{want}").')
-              sys.exit(0)
+              status("success", f'The gate passed for the newest commit ("{want}").')
           old = [l for l in labels if l.startswith("gate passed")]
-          print(f'Refused: no label "{want}".' + (f" Older gate labels ({', '.join(old)}) are for earlier commits." if old else "")
-                + " Run the gate for this commit, then add that label.")
-          sys.exit(1)
+          status("pending", f'Waiting for the label "{want}": run the gate for this commit, then add it.'
+                 + (" Older gate labels are for earlier commits." if old else ""))
           PY
