@@ -1,6 +1,6 @@
 # Build report
 
-Written by build.js on every rebuild (2026-11-17). Do not edit by hand.
+Written by build.js on every rebuild (2026-11-26). Do not edit by hand.
 
 ## 1. Conflicts
 
